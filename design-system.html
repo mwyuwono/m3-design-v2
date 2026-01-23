@@ -277,93 +277,304 @@
                         <md-filled-button>Request Access</md-filled-button>
                         <md-outlined-button>Documentation</md-outlined-button>
                         <md-text-button>Read More</md-text-button>
+                        <md-icon-button><md-icon>settings</md-icon></md-icon-button>
+                        <md-icon-button toggle><md-icon>favorite_border</md-icon><md-icon
+                                slot="selected">favorite</md-icon></md-icon-button>
                     </div>
                 </div>
 
-                <div>
-                    <h4 class="label-overline" style="margin-bottom: 32px;">Content Modules</h4>
-                    <div class="component-preview" style="background-color: var(--md-sys-color-surface);">
-                        <div class="card-preview">
-                            <md-elevated-card>
-                                <div style="padding: 32px;">
-                                    <span class="label-overline" style="margin-bottom: 12px; display: block;">Real
-                                        Estate</span>
-                                    <h3
-                                        style="font-family: var(--font-serif); font-size: 1.75rem; color: var(--md-sys-color-primary); margin: 0 0 16px 0;">
-                                        The Architectural Fund</h3>
-                                    <p
-                                        style="font-family: var(--font-body); font-size: 0.875rem; color: var(--md-sys-color-on-surface-variant); line-height: 1.6;">
-                                        Focused on sustainable urban development and preserving architectural heritage
-                                        in emerging markets.
-                                    </p>
-                                </div>
-                            </md-elevated-card>
+                <div style="margin-bottom: 80px;">
+                    <h4 class="label-overline" style="margin-bottom: 32px;">Form Foundations</h4>
+                    <div class="component-preview"
+                        style="flex-direction: column; align-items: stretch; max-width: 600px; margin: 0 auto;">
+                        <wy-form-field label="Full Name" id="name-input" description="As it appears on your passport"
+                            required>
+                            <input type="text" id="name-input" placeholder="e.g. Alexander Weaver">
+                        </wy-form-field>
+
+                        <wy-form-field label="Asset Category" id="cat-select">
+                            <select id="cat-select">
+                                <option>Private Equity</option>
+                                <option>Real Estate</option>
+                                <option>Venture Capital</option>
+                            </select>
+                        </wy-form-field>
+
+                        <wy-form-field label="Investment Thesis" id="thesis-error"
+                            error="Thesis must be at least 200 characters.">
+                            <textarea id="thesis-error" rows="4">Initial draft...</textarea>
+                        </wy-form-field>
+
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px;">
+                            <wy-filter-chip label="Ready" active count="12"></wy-filter-chip>
+                            <wy-filter-chip label="Backlog" count="5"></wy-filter-chip>
+                            <wy-filter-chip label="In Review"></wy-filter-chip>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px;">
+                            <wy-tag-chip label="High Yield" variant="user-entered" removable></wy-tag-chip>
+                            <wy-tag-chip label="AI Suggested" variant="ai-generated"></wy-tag-chip>
+                            <wy-tag-chip label="Real Estate" variant="user-entered"></wy-tag-chip>
                         </div>
                     </div>
                 </div>
-                <!-- Dashboard Patterns -->
-                <section id="dashboard" class="ds-section">
-                    <div class="ds-section-header">
-                        <h2>05</h2>
-                        <h3>Dashboard Patterns</h3>
-                    </div>
 
-                    <div style="margin-bottom: 80px;">
-                        <h4 class="label-overline" style="margin-bottom: 32px;">Portfolio Metrics</h4>
-                        <div
-                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
-                            <wy-metric-card title="Total Asset Value" value="$124,500,000" trend="+12.4% YTD"
-                                icon="payments">
-                            </wy-metric-card>
-                            <wy-metric-card title="Top Performer" value="Private Equity IV" trend="+22.1% Return"
-                                icon="trending_up">
-                            </wy-metric-card>
-                            <wy-metric-card title="Active Projects" value="14" icon="account_balance">
-                            </wy-metric-card>
-                        </div>
-                    </div>
+                <div style="margin-bottom: 80px;">
+                    <h4 class="label-overline" style="margin-bottom: 32px;">Complex Inputs</h4>
+                    <div class="component-preview"
+                        style="flex-direction: column; align-items: stretch; max-width: 600px; margin: 0 auto;">
+                        <wy-form-field label="Tags (with Autocomplete)" id="tag-field"
+                            description="Type to see suggestions like 'Portrait' or 'Landscape'">
+                            <wy-tag-input id="tag-specimen" placeholder="Add custom tag..."></wy-tag-input>
+                        </wy-form-field>
 
-                    <div
-                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: stretch;">
-                        <div>
-                            <h4 class="label-overline" style="margin-bottom: 32px;">Asset Allocation</h4>
-                            <wy-allocation-card title="Current Allocation" .items="${[
+                        <wy-form-field label="Advanced Category" id="cat-field" description="Searchable category list">
+                            <wy-category-select id="cat-specimen"
+                                placeholder="Search categories..."></wy-category-select>
+                        </wy-form-field>
+                    </div>
+                </div>
+
+                <script>
+                    // Initialize complex components once they are defined
+                    customElements.whenDefined('wy-tag-input').then(() => {
+                        const tagInput = document.getElementById('tag-specimen');
+                        if (tagInput) {
+                            tagInput.tags = [
+                                { value: 'Modernism', source: 'user-entered' },
+                                { value: 'Heritage', source: 'ai-generated' }
+                            ];
+                            tagInput.suggestions = [
+                                { value: 'Portrait', count: 12 },
+                                { value: 'Landscape', count: 8 },
+                                { value: 'Abstract', count: 5 },
+                                { value: 'Minimalism', count: 15 }
+                            ];
+                        }
+                    });
+
+                    customElements.whenDefined('wy-category-select').then(() => {
+                        const catSelect = document.getElementById('cat-specimen');
+                        if (catSelect) {
+                            catSelect.categories = ['Private Equity', 'Real Estate', 'Venture Capital', 'Crypto Assets', 'Art Collections', 'Public Equities'];
+                            catSelect.value = 'Real Estate';
+                        }
+                    });
+                </script>
+
+                <div style="margin-bottom: 80px;">
+                    <h4 class="label-overline" style="margin-bottom: 32px;">Selection Cards</h4>
+                    <div class="component-preview"
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch;">
+                        <wy-selection-card name="size-group" label="Letter Size"
+                            description="8.5 x 11 inches. Standard office paper for daily reports." icon="description"
+                            value="letter" checked>
+                        </wy-selection-card>
+                        <wy-selection-card name="size-group" label="Tabloid (A3)"
+                            description="11 x 17 inches. Large format for architectural plans." icon="architecture"
+                            value="tabloid">
+                        </wy-selection-card>
+                    </div>
+                </div>
+
+    </div>
+
+    <!-- Layout & Navigation -->
+    <section id="navigation" class="ds-section">
+        <div class="ds-section-header">
+            <h2>05</h2>
+            <h3>Layout & Navigation</h3>
+        </div>
+
+        <div style="margin-bottom: 80px;">
+            <h4 class="label-overline" style="margin-bottom: 32px;">Library Header</h4>
+            <div class="component-preview"
+                style="padding: 0; overflow: hidden; border-radius: 16px; border: 1px solid var(--md-sys-color-outline-variant);">
+                <wy-library-header breadcrumb="Design Preview"></wy-library-header>
+                <div
+                    style="padding: 60px; background-color: var(--md-sys-color-surface-container); display: flex; align-items: center; justify-content: center;">
+                    <span class="label-overline" style="opacity: 0.5;">Library Workspace Content Area</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 80px;">
+            <h4 class="label-overline" style="margin-bottom: 32px;">Modal & Overlays</h4>
+            <div class="component-preview" style="gap: 24px; min-height: 200px;">
+                <div style="text-align: center;">
+                    <md-filled-button id="modal-trigger">Open Configuration Modal</md-filled-button>
+                    <p class="label-overline" style="margin-top: 16px; opacity: 0.7;">Slide-up Transition</p>
+                </div>
+
+                <wy-modal id="specimen-modal" heading="System Configuration">
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <p style="margin: 0;">Adjust the global parameters for the Weaver-Yuwono Plotter suite. These
+                            changes affect real-time rendering and backup frequency.</p>
+
+                        <wy-form-field label="Sync Frequency">
+                            <select style="width: 100%;">
+                                <option>Every 5 minutes</option>
+                                <option>Every hour</option>
+                                <option>Daily at midnight</option>
+                            </select>
+                        </wy-form-field>
+
+                        <wy-form-field label="Preferred Aesthetic">
+                            <div style="display: flex; gap: 8px;">
+                                <wy-filter-chip label="Soft Modernism" active></wy-filter-chip>
+                                <wy-filter-chip label="Minimalist"></wy-filter-chip>
+                                <wy-filter-chip label="Industrial"></wy-filter-chip>
+                            </div>
+                        </wy-form-field>
+                    </div>
+                    <div slot="actions">
+                        <md-text-button
+                            onclick="document.getElementById('specimen-modal').open = false">Dismiss</md-text-button>
+                        <md-filled-button onclick="document.getElementById('specimen-modal').open = false">Save
+                            Changes</md-filled-button>
+                    </div>
+                </wy-modal>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('modal-trigger').addEventListener('click', () => {
+            document.getElementById('specimen-modal').open = true;
+        });
+    </script>
+
+    <!-- Library Features -->
+    <section id="library-features" class="ds-section">
+        <div class="ds-section-header">
+            <h2>06</h2>
+            <h3>Library Features</h3>
+        </div>
+
+        <div style="margin-bottom: 80px;">
+            <h4 class="label-overline" style="margin-bottom: 32px;">Artwork Grid (Density: Spacious)</h4>
+            <div class="component-preview"
+                style="background-color: var(--md-sys-color-surface-container-low); padding: 40px; border-radius: 24px;">
+                <wy-works-grid>
+                    <wy-work-card title="Ethereal Geometry I" artist="Yuwono" date="2024" status="READY"
+                        image="/src/assets/artwork/ethereal_geometry_i.png">
+                    </wy-work-card>
+                    <wy-work-card title="Heritage Landscape" artist="Weaver" date="2023" favorite status="EXPORTED"
+                        image="/src/assets/artwork/heritage_landscape.png">
+                    </wy-work-card>
+                    <wy-work-card title="Abstract Flow" artist="M. Wyuwono" date="2024" status="DRAFT">
+                    </wy-work-card>
+                </wy-works-grid>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 80px;">
+            <h4 class="label-overline" style="margin-bottom: 32px;">Plot Configurations</h4>
+            <div class="component-preview"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: stretch;">
+                <wy-plot-card title="High Res Archival" paper-size="A3 (11x17)" bucket="Landscape"
+                    status="success"></wy-plot-card>
+                <wy-plot-card title="Draft Preview" paper-size="Letter (8.5x11)" bucket="Portrait"
+                    status="pending"></wy-plot-card>
+                <wy-plot-card title="Legacy Plot" status="error"></wy-plot-card>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Operations -->
+    <section id="advanced-ops" class="ds-section">
+        <div class="ds-section-header">
+            <h2>07</h2>
+            <h3>Advanced Operations</h3>
+        </div>
+
+        <div style="margin-bottom: 80px;">
+            <h4 class="label-overline" style="margin-bottom: 32px;">Export Workflow</h4>
+            <div class="component-preview">
+                <div style="text-align: center;">
+                    <md-filled-button id="export-trigger">Open Export Configuration</md-filled-button>
+                    <p class="label-overline" style="margin-top: 16px; opacity: 0.7;">Multi-pane SVG Processing</p>
+                </div>
+                <wy-export-modal id="specimen-export" work-title="Ethereal Geometry I"
+                    preview-image="/src/assets/artwork/ethereal_geometry_i.png"></wy-export-modal>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 80px;">
+            <h4 class="label-overline" style="margin-bottom: 32px;">System Status</h4>
+            <div class="component-preview" style="gap: 24px; flex-wrap: wrap; justify-content: center;">
+                <wy-backup-status status="synced" last-sync="Just now"></wy-backup-status>
+                <wy-backup-status status="syncing" last-sync="Syncing collection..."></wy-backup-status>
+                <wy-backup-status status="error" last-sync="Sync failed (check Git)"></wy-backup-status>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('export-trigger').addEventListener('click', () => {
+            document.getElementById('specimen-export').open = true;
+        });
+    </script>
+
+    <!-- Dashboard Patterns -->
+    <section id="dashboard" class="ds-section">
+        <div class="ds-section-header">
+            <h2>08</h2>
+            <h3>Dashboard Patterns</h3>
+        </div>
+
+        <div style="margin-bottom: 80px;">
+            <h4 class="label-overline" style="margin-bottom: 32px;">Portfolio Metrics</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+                <wy-metric-card title="Total Asset Value" value="$124,500,000" trend="+12.4% YTD" icon="payments">
+                </wy-metric-card>
+                <wy-metric-card title="Top Performer" value="Private Equity IV" trend="+22.1% Return"
+                    icon="trending_up">
+                </wy-metric-card>
+                <wy-metric-card title="Active Projects" value="14" icon="account_balance">
+                </wy-metric-card>
+            </div>
+        </div>
+
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: stretch;">
+            <div>
+                <h4 class="label-overline" style="margin-bottom: 32px;">Asset Allocation</h4>
+                <wy-allocation-card title="Current Allocation" .items="${[
                                 { label: 'Public Equities', value: 45, color: 'var(--md-sys-color-primary)' },
                                 { label: 'Real Estate', value: 25, color: '#8FA397' },
                                 { label: 'Private Credit', value: 20, color: '#BCCBC3' },
                                 { label: 'Cash & Equiv.', value: 10, color: '#E0E5E2' }
                             ]}">
-                                <span slot="analysis"><strong>Analysis:</strong> Portfolio remains within 2% variance of
-                                    target allocation. Recommended rebalancing in Q4.</span>
-                            </wy-allocation-card>
-                        </div>
-                        <div>
-                            <h4 class="label-overline" style="margin-bottom: 32px;">Strategic Insight</h4>
-                            <div style="display: flex; flex-direction: column; gap: 24px;">
-                                <wy-insight-card
-                                    image="https://lh3.googleusercontent.com/aida-public/AB6AXuCxVFuLeei69m37Ajgwa1XSB_xM4v5-Ry9Ji36NRrmenh-kOLd1s4NnbY6mCWGYxXyw03pPeo4pb3ptgvPxDwvr2s_7VcsNet8XxHMQNYA64wjzZtQ1h8ILNfWYplqh2QoFo__65yhEp9FskKP7VWfF3x_NoF3jr6BkkXklymzGFx59SZPc-bF-BFcb7RZmAzT-V5oLhvhXTLUzZpChdfBwMo5WIoOc5v4zD5uoxz5QJO0Fl9F08jXjGhJR7NFeBqxsLCWO4Ffw104"
-                                    category="Stewardship"
-                                    title="London Estate acquisition finalized pending regulatory approval."
-                                    icon="verified_user">
-                                </wy-insight-card>
-                                <div
-                                    style="background-color: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-border-variant); padding: 24px; border-radius: var(--md-sys-shape-corner-medium);">
-                                    <h4
-                                        style="font-family: var(--font-serif); font-size: 1.25rem; margin-top: 0; margin-bottom: 12px;">
-                                        Quarterly Portfolio Overview</h4>
-                                    <p
-                                        style="font-family: var(--font-body); font-size: 0.875rem; color: var(--md-sys-color-text-muted); line-height: 1.6; margin: 0;">
-                                        Our performance continues to outpace benchmarks through a disciplined approach
-                                        to <span class="italic-serif"
-                                            style="color: var(--md-sys-color-primary)">long-term capital
-                                            preservation</span>.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    <span slot="analysis"><strong>Analysis:</strong> Portfolio remains within 2% variance of
+                        target allocation. Recommended rebalancing in Q4.</span>
+                </wy-allocation-card>
+            </div>
+            <div>
+                <h4 class="label-overline" style="margin-bottom: 32px;">Strategic Insight</h4>
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <wy-insight-card
+                        image="https://lh3.googleusercontent.com/aida-public/AB6AXuCxVFuLeei69m37Ajgwa1XSB_xM4v5-Ry9Ji36NRrmenh-kOLd1s4NnbY6mCWGYxXyw03pPeo4pb3ptgvPxDwvr2s_7VcsNet8XxHMQNYA64wjzZtQ1h8ILNfWYplqh2QoFo__65yhEp9FskKP7VWfF3x_NoF3jr6BkkXklymzGFx59SZPc-bF-BFcb7RZmAzT-V5oLhvhXTLUzZpChdfBwMo5WIoOc5v4zD5uoxz5QJO0Fl9F08jXjGhJR7NFeBqxsLCWO4Ffw104"
+                        category="Stewardship" title="London Estate acquisition finalized pending regulatory approval."
+                        icon="verified_user">
+                    </wy-insight-card>
+                    <div
+                        style="background-color: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-border-variant); padding: 24px; border-radius: var(--md-sys-shape-corner-medium);">
+                        <h4
+                            style="font-family: var(--font-serif); font-size: 1.25rem; margin-top: 0; margin-bottom: 12px;">
+                            Quarterly Portfolio Overview</h4>
+                        <p
+                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--md-sys-color-text-muted); line-height: 1.6; margin: 0;">
+                            Our performance continues to outpace benchmarks through a disciplined approach
+                            to <span class="italic-serif" style="color: var(--md-sys-color-primary)">long-term capital
+                                preservation</span>.
+                        </p>
                     </div>
-                </section>
-        </main>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
     </div>
 
 </body>

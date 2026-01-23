@@ -17,6 +17,19 @@ import './components/wy-project-list.js';
 import './components/wy-metric-card.js';
 import './components/wy-allocation-card.js';
 import './components/wy-insight-card.js';
+import './components/wy-form-field.js';
+import './components/wy-tag-chip.js';
+import './components/wy-filter-chip.js';
+import './components/wy-tag-input.js';
+import './components/wy-category-select.js';
+import './components/wy-selection-card.js';
+import './components/wy-modal.js';
+import './components/wy-library-header.js';
+import './components/wy-work-card.js';
+import './components/wy-works-grid.js';
+import './components/wy-plot-card.js';
+import './components/wy-export-modal.js';
+import './components/wy-backup-status.js';
 
 // Data Imports
 import profiles from './data/profiles.json';
