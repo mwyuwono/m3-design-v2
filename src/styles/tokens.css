@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
   /* --- COLOR SYSTEM: Visual Identity v1.0 (Refined) --- */
 
@@ -19,13 +21,32 @@
   --md-sys-color-on-background: #121714;
   /* Deep Green-Black */
 
+  /* Surfaces & Containers */
   --md-sys-color-surface: #F5F2EA;
   /* Warm Clay */
   --md-sys-color-on-surface: #121714;
-  /* Deep Green-Black */
-
   --md-sys-color-surface-variant: #EBE5DE;
   --md-sys-color-on-surface-variant: #49454E;
+
+  /* Missing M3 Containers (Derived from Palette) */
+  --md-sys-color-surface-container-lowest: #FFFFFF;
+  --md-sys-color-surface-container-low: #FDFBF7;
+  /* Alabaster */
+  --md-sys-color-surface-container: #F5F2EA;
+  /* Warm Clay */
+  --md-sys-color-surface-container-high: #EBE5DE;
+  --md-sys-color-surface-container-highest: #D7D3C8;
+
+  --md-sys-color-secondary-container: #EBE5DE;
+  /* Matching Surface Variant */
+  --md-sys-color-on-secondary-container: #2d312f;
+  /* Darker text */
+
+  /* Inverse Tokens (for Toasts/Snackbars) */
+  --md-sys-color-inverse-surface: #121714;
+  /* Dark for light mode */
+  --md-sys-color-inverse-on-surface: #F5F2EA;
+  /* Light text on inverse */
 
   /* Outlines & Borders */
   --md-sys-color-outline: #2d4e3c;
@@ -78,6 +99,13 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --md-sys-color-primary: #8DE0B0;
+    --md-sys-color-on-primary: #002114;
+    /* Dark text for contrast on light primary */
+    --md-sys-color-primary-container: #005338;
+    /* Dark Green container */
+    --md-sys-color-on-primary-container: #8DE0B0;
+    /* Light Green text/icon on Dark Green container */
+
     --md-sys-color-background: #161c19;
     --md-sys-color-on-background: #FDFBF7;
 
@@ -86,6 +114,20 @@
 
     --md-sys-color-surface-variant: #2C3631;
     --md-sys-color-on-surface-variant: #A0B3A9;
+
+    --md-sys-color-surface-container-lowest: #0e1110;
+    --md-sys-color-surface-container-low: #161c19;
+    --md-sys-color-surface-container: #1E2623;
+    --md-sys-color-surface-container-high: #2C3631;
+    --md-sys-color-surface-container-highest: #3E4944;
+
+    --md-sys-color-secondary-container: #2C3631;
+    --md-sys-color-on-secondary-container: #EBE5DE;
+
+    --md-sys-color-inverse-surface: #FDFBF7;
+    /* Light for dark mode */
+    --md-sys-color-inverse-on-surface: #1E2623;
+    /* Dark text on inverse */
 
     --md-sys-color-outline: #8DE0B0;
     --md-sys-color-outline-variant: #2C3631;

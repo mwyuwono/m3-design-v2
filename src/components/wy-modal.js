@@ -17,6 +17,8 @@ export class WyModal extends LitElement {
   }
 
   static styles = css`
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
     :host {
       display: block;
     }
@@ -37,13 +39,15 @@ export class WyModal extends LitElement {
     /* Note: md-dialog uses standard M3 transitions, 
        we'll inject specific timing for 'Soft Modernism' */
     
-    [slot="headline"] {
-      font-family: var(--font-serif);
-      font-size: 1.75rem;
-      color: var(--md-sys-color-primary);
-      margin: 0;
-      padding-top: 24px;
-      padding-bottom: 8px;
+    
+    ::slotted(.headline-text) {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.75rem !important;
+      color: var(--md-sys-color-primary) !important;
+      margin: 0 !important;
+      padding-top: 24px !important;
+      padding-bottom: 8px !important;
+      display: block !important;
     }
 
     .modal-content {
@@ -91,7 +95,7 @@ export class WyModal extends LitElement {
         @cancel="${this._handleCancel}"
         style="--md-dialog-container-max-width: ${this.maxWidth}"
       >
-        <div slot="headline">
+        <div slot="headline" class="headline-text">
           ${this.heading}
         </div>
         <form slot="content" method="dialog" class="modal-content">

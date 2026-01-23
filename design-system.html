@@ -386,30 +386,36 @@
             <h3>Layout & Navigation</h3>
         </div>
 
-        <div style="margin-bottom: 80px;">
-            <h4 class="label-overline" style="margin-bottom: 32px;">Library Header</h4>
+        <div style="margin-bottom: 60px;">
+            <h4 class="label-overline" style="margin-bottom: 24px;">Library Header</h4>
             <div class="component-preview"
-                style="padding: 0; overflow: hidden; border-radius: 16px; border: 1px solid var(--md-sys-color-outline-variant);">
+                style="padding: 0; overflow: hidden; border-radius: 16px; border: 1px solid var(--md-sys-color-outline-variant); display: flex; flex-direction: column; align-items: stretch;">
                 <wy-library-header breadcrumb="Design Preview"></wy-library-header>
                 <div
-                    style="padding: 60px; background-color: var(--md-sys-color-surface-container); display: flex; align-items: center; justify-content: center;">
-                    <span class="label-overline" style="opacity: 0.5;">Library Workspace Content Area</span>
+                    style="padding: 80px 60px; background-color: var(--md-sys-color-surface-container); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span class="label-overline" style="opacity: 0.5; margin-bottom: 8px;">Workspace Preview Area</span>
                 </div>
             </div>
         </div>
 
-        <div style="margin-bottom: 80px;">
-            <h4 class="label-overline" style="margin-bottom: 32px;">Modal & Overlays</h4>
-            <div class="component-preview" style="gap: 24px; min-height: 200px;">
+        <div style="margin-bottom: 60px;">
+            <h4 class="label-overline" style="margin-bottom: 24px;">Modal & Overlays</h4>
+            <div class="component-preview"
+                style="gap: 32px; min-height: 200px; justify-content: center; align-items: center; padding: 40px;">
                 <div style="text-align: center;">
                     <md-filled-button id="modal-trigger">Open Configuration Modal</md-filled-button>
                     <p class="label-overline" style="margin-top: 16px; opacity: 0.7;">Slide-up Transition</p>
                 </div>
 
                 <wy-modal id="specimen-modal" heading="System Configuration">
-                    <div style="display: flex; flex-direction: column; gap: 20px;">
-                        <p style="margin: 0;">Adjust the global parameters for the Weaver-Yuwono Plotter suite. These
-                            changes affect real-time rendering and backup frequency.</p>
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div>
+                            <h5 class="k-title-text mb-2"
+                                style="font-family: var(--font-display); font-weight: 600; color: var(--md-sys-color-primary);">
+                                System Parameters</h5>
+                            <p style="margin: 0; font-size: 0.875rem; color: var(--md-sys-color-on-surface-variant);">
+                                Adjust the global parameters for the plotter suite.</p>
+                        </div>
 
                         <wy-form-field label="Sync Frequency">
                             <select style="width: 100%;">
@@ -451,8 +457,8 @@
             <h3>Library Features</h3>
         </div>
 
-        <div style="margin-bottom: 80px;">
-            <h4 class="label-overline" style="margin-bottom: 32px;">Artwork Grid (Density: Spacious)</h4>
+        <div style="margin-bottom: 60px;">
+            <h4 class="label-overline" style="margin-bottom: 24px;">Artwork Grid (Density: Spacious)</h4>
             <div class="component-preview"
                 style="background-color: var(--md-sys-color-surface-container-low); padding: 40px; border-radius: 24px;">
                 <wy-works-grid>
@@ -468,10 +474,10 @@
             </div>
         </div>
 
-        <div style="margin-bottom: 80px;">
-            <h4 class="label-overline" style="margin-bottom: 32px;">Plot Configurations</h4>
+        <div style="margin-bottom: 60px;">
+            <h4 class="label-overline" style="margin-bottom: 24px;">Plot Configurations</h4>
             <div class="component-preview"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: stretch;">
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; align-items: stretch; padding: 40px;">
                 <wy-plot-card title="High Res Archival" paper-size="A3 (11x17)" bucket="Landscape"
                     status="success"></wy-plot-card>
                 <wy-plot-card title="Draft Preview" paper-size="Letter (8.5x11)" bucket="Portrait"
@@ -488,9 +494,10 @@
             <h3>Advanced Operations</h3>
         </div>
 
-        <div style="margin-bottom: 80px;">
-            <h4 class="label-overline" style="margin-bottom: 32px;">Export Workflow</h4>
-            <div class="component-preview">
+        <div style="margin-bottom: 60px;">
+            <h4 class="label-overline" style="margin-bottom: 24px;">Export Workflow</h4>
+            <div class="component-preview"
+                style="padding: 60px; min-height: 200px; justify-content: center; align-items: center;">
                 <div style="text-align: center;">
                     <md-filled-button id="export-trigger">Open Export Configuration</md-filled-button>
                     <p class="label-overline" style="margin-top: 16px; opacity: 0.7;">Multi-pane SVG Processing</p>
@@ -500,12 +507,21 @@
             </div>
         </div>
 
-        <div style="margin-bottom: 80px;">
-            <h4 class="label-overline" style="margin-bottom: 32px;">System Status</h4>
-            <div class="component-preview" style="gap: 24px; flex-wrap: wrap; justify-content: center;">
-                <wy-backup-status status="synced" last-sync="Just now"></wy-backup-status>
-                <wy-backup-status status="syncing" last-sync="Syncing collection..."></wy-backup-status>
-                <wy-backup-status status="error" last-sync="Sync failed (check Git)"></wy-backup-status>
+        <div style="margin-bottom: 60px;">
+            <h4 class="label-overline" style="margin-bottom: 24px;">System Status</h4>
+            <div class="component-preview" style="gap: 40px; flex-wrap: wrap; justify-content: center; padding: 40px;">
+                <div class="d-flex flex-column align-items-center gap-2">
+                    <span class="label-overline" style="font-size: 0.65rem; opacity: 0.5;">Idle State</span>
+                    <wy-backup-status status="synced" last-sync="Just now"></wy-backup-status>
+                </div>
+                <div class="d-flex flex-column align-items-center gap-2">
+                    <span class="label-overline" style="font-size: 0.65rem; opacity: 0.5;">Active Animation</span>
+                    <wy-backup-status status="syncing" last-sync="2m ago"></wy-backup-status>
+                </div>
+                <div class="d-flex flex-column align-items-center gap-2">
+                    <span class="label-overline" style="font-size: 0.65rem; opacity: 0.5;">Error Alert</span>
+                    <wy-backup-status status="error" last-sync="Failed 1h ago"></wy-backup-status>
+                </div>
             </div>
         </div>
     </section>
@@ -523,10 +539,11 @@
             <h3>Dashboard Patterns</h3>
         </div>
 
-        <div style="margin-bottom: 80px;">
-            <h4 class="label-overline" style="margin-bottom: 32px;">Portfolio Metrics</h4>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
-                <wy-metric-card title="Total Asset Value" value="$124,500,000" trend="+12.4% YTD" icon="payments">
+        <div style="margin-bottom: 60px;">
+            <h4 class="label-overline" style="margin-bottom: 24px;">Portfolio Metrics</h4>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; padding: 0;">
+                <wy-metric-card title="Total Asset Value" value="$2,410,000" trend="+12.4% YTD" icon="payments">
                 </wy-metric-card>
                 <wy-metric-card title="Top Performer" value="Private Equity IV" trend="+22.1% Return"
                     icon="trending_up">
@@ -537,9 +554,9 @@
         </div>
 
         <div
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: stretch;">
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: stretch; margin-top: 40px;">
             <div>
-                <h4 class="label-overline" style="margin-bottom: 32px;">Asset Allocation</h4>
+                <h4 class="label-overline" style="margin-bottom: 24px;">Asset Allocation</h4>
                 <wy-allocation-card title="Current Allocation" .items="${[
                                 { label: 'Public Equities', value: 45, color: 'var(--md-sys-color-primary)' },
                                 { label: 'Real Estate', value: 25, color: '#8FA397' },
@@ -551,20 +568,20 @@
                 </wy-allocation-card>
             </div>
             <div>
-                <h4 class="label-overline" style="margin-bottom: 32px;">Strategic Insight</h4>
+                <h4 class="label-overline" style="margin-bottom: 24px;">Strategic Insight</h4>
                 <div style="display: flex; flex-direction: column; gap: 24px;">
                     <wy-insight-card
-                        image="https://lh3.googleusercontent.com/aida-public/AB6AXuCxVFuLeei69m37Ajgwa1XSB_xM4v5-Ry9Ji36NRrmenh-kOLd1s4NnbY6mCWGYxXyw03pPeo4pb3ptgvPxDwvr2s_7VcsNet8XxHMQNYA64wjzZtQ1h8ILNfWYplqh2QoFo__65yhEp9FskKP7VWfF3x_NoF3jr6BkkXklymzGFx59SZPc-bF-BFcb7RZmAzT-V5oLhvhXTLUzZpChdfBwMo5WIoOc5v4zD5uoxz5QJO0Fl9F08jXjGhJR7NFeBqxsLCWO4Ffw104"
+                        image="https://images.unsplash.com/photo-1541462608141-adb61b1a7bac?q=80&w=2070&auto=format&fit=crop"
                         category="Stewardship" title="London Estate acquisition finalized pending regulatory approval."
                         icon="verified_user">
                     </wy-insight-card>
                     <div
-                        style="background-color: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-border-variant); padding: 24px; border-radius: var(--md-sys-shape-corner-medium);">
+                        style="background-color: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-outline-variant); padding: 24px; border-radius: var(--md-sys-shape-corner-medium);">
                         <h4
                             style="font-family: var(--font-serif); font-size: 1.25rem; margin-top: 0; margin-bottom: 12px;">
                             Quarterly Portfolio Overview</h4>
                         <p
-                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--md-sys-color-text-muted); line-height: 1.6; margin: 0;">
+                            style="font-family: var(--font-body); font-size: 0.875rem; color: var(--md-sys-color-on-surface-variant); line-height: 1.6; margin: 0;">
                             Our performance continues to outpace benchmarks through a disciplined approach
                             to <span class="italic-serif" style="color: var(--md-sys-color-primary)">long-term capital
                                 preservation</span>.
@@ -574,6 +591,122 @@
             </div>
         </div>
     </section>
+
+    <section id="section-09" class="content-section">
+        <h2 class="section-title">09. Prompt Library Patterns</h2>
+        <p class="section-intro">Specialized components for managing high-density prompt collections, featuring
+            complex
+            state transitions and real-time generation previews.</p>
+
+        <h4 class="label-overline" style="margin-bottom: 24px;">Application Shell & Controls</h4>
+        <div class="component-preview" style="padding: 0; background: var(--md-sys-color-surface-container-lowest);">
+            <wy-app-bar title="Prompt Library Showcase">
+                <md-icon slot="logo" style="color: var(--wy-color-productivity)">Architecture</md-icon>
+            </wy-app-bar>
+            <wy-controls-bar id="demo-controls"></wy-controls-bar>
+        </div>
+
+        <div style="margin-top: 60px;">
+            <h4 class="label-overline" style="margin-bottom: 24px;">Library Views (Grid & List)</h4>
+            <div id="library-container">
+                <div id="grid-view"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
+                    <wy-prompt-card data-category="Productivity" category="Productivity"
+                        title="Meeting Minutes Architect" variables="4"
+                        description="Professional summarization with action items and sentiment analysis." show-details
+                        onclick="showPromptDemo('minutes')"></wy-prompt-card>
+                    <wy-prompt-card data-category="Expertise" category="Expertise" title="Legacy Code Explainer"
+                        variables="2" description="Translates complex logic into human-readable business documentation."
+                        show-details onclick="showPromptDemo('legacy')"></wy-prompt-card>
+                    <wy-prompt-card data-category="Travel & Shopping" category="Travel & Shopping"
+                        title="Hyper-Local Itinerary" variables="3"
+                        description="Curates off-the-beaten-path experiences based on seasonal data." show-details
+                        onclick="showPromptDemo('itinerary')"></wy-prompt-card>
+                </div>
+                <div id="list-view" style="display: none; flex-direction: column;">
+                    <wy-prompt-row data-category="Productivity" category="Productivity"
+                        title="Meeting Minutes Architect" variables="4" description="Professional summarization..."
+                        onclick="showPromptDemo('minutes')"></wy-prompt-row>
+                    <wy-prompt-row data-category="Expertise" category="Expertise" title="Legacy Code Explainer"
+                        variables="2" description="Translates complex logic..."
+                        onclick="showPromptDemo('legacy')"></wy-prompt-row>
+                </div>
+            </div>
+        </div>
+
+        <div
+            style="margin-top: 60px; display: flex; gap: 16px; align-items: center; justify-content: center; padding: 40px; background: var(--md-sys-color-surface-container-low); border-radius: 20px;">
+            <button class="btn btn-primary" onclick="showPromptDemo('minutes')">Open Detail Modal</button>
+            <button class="btn btn-secondary" onclick="showToastDemo()">Trigger Toast</button>
+            <button class="btn btn-secondary btn-sm" onclick="location.reload()">Reset App State</button>
+        </div>
+    </section>
+
+    <wy-prompt-modal id="demo-modal"></wy-prompt-modal>
+    <wy-toast id="demo-toast"></wy-toast>
+
+    <script>
+        function showPromptDemo(id) {
+            const modal = document.getElementById('demo-modal');
+            const data = {
+                minutes: {
+                    title: 'Meeting Minutes Architect',
+                    category: 'Productivity',
+                    description: 'Professional summarization with action items and sentiment analysis.',
+                    template: 'Analyze the following transcript: {{transcript}}\n\nGenerate summary for: {{participants}}.\nFocus on: {{focus_areas}}.',
+                    variables: [
+                        { name: 'transcript', label: 'Meeting Transcript', type: 'textarea' },
+                        { name: 'participants', label: 'Key Participants', type: 'text' },
+                        { name: 'focus_areas', label: 'Primary Focus', type: 'text' }
+                    ]
+                },
+                legacy: {
+                    title: 'Legacy Code Explainer',
+                    category: 'Expertise',
+                    description: 'Translates complex logic into human-readable business documentation.',
+                    template: 'Explain the following code snippet:\n\n```\n{{code}}\n```\n\nContext: {{context}}',
+                    variables: [
+                        { name: 'code', label: 'Code Snippet', type: 'textarea' },
+                        { name: 'context', label: 'Business Context', type: 'text' }
+                    ]
+                }
+            };
+
+            const p = data[id];
+            modal.title = p.title;
+            modal.category = p.category;
+            modal.description = p.description;
+            modal.template = p.template;
+            modal.variables = p.variables;
+            modal.open = true;
+        }
+
+        function showToastDemo() {
+            const toast = document.getElementById('demo-toast');
+            toast.message = 'System state synchronized successfully!';
+            toast.show = true;
+        }
+
+        document.getElementById('demo-controls').addEventListener('filter-change', (e) => {
+            const { viewMode, search, category, showDetails } = e.detail;
+
+            // View Toggle
+            const grid = document.getElementById('grid-view');
+            const list = document.getElementById('list-view');
+            if (viewMode === 'grid') {
+                grid.style.display = 'grid';
+                list.style.display = 'none';
+            } else {
+                grid.style.display = 'none';
+                list.style.display = 'flex';
+            }
+
+            // Sync show-details to cards/rows
+            document.querySelectorAll('wy-prompt-card, wy-prompt-row').forEach(el => {
+                el.showDetails = showDetails;
+            });
+        });
+    </script>
     </main>
     </div>
 

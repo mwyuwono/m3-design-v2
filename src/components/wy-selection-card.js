@@ -107,15 +107,19 @@ export class WySelectionCard extends LitElement {
 
   render() {
     return html`
-      <label class="card">
+      <div 
+        class="card" 
+        @click="${this._toggleChecked}"
+        tabindex="${this.disabled ? -1 : 0}"
+      >
         <input 
-          type="radio" 
+          type="checkbox" 
           class="radio-input"
           name="${this.name}"
           .value="${this.value}"
-          ?checked="${this.checked}"
+          .checked="${this.checked}"
           ?disabled="${this.disabled}"
-          @change="${this._handleChange}"
+          tabindex="-1"
         >
         ${this.icon ? html`
           <div class="icon-container">
@@ -126,13 +130,20 @@ export class WySelectionCard extends LitElement {
           <div class="label">${this.label}</div>
           ${this.description ? html`<div class="description">${this.description}</div>` : ''}
         </div>
-      </label>
+      </div>
     `;
   }
 
-  _handleChange(e) {
+  _toggleChecked(e) {
     if (this.disabled) return;
-    this.checked = e.target.checked;
+
+    // Toggle the value
+    const newState = !this.checked;
+
+    // If we are unchecking, we need to ensure other radios in the group 
+    // are handled if they existed, but here we just manage this component's state.
+    this.checked = newState;
+
     this.dispatchEvent(new CustomEvent('change', {
       detail: {
         checked: this.checked,

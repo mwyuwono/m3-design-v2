@@ -64,29 +64,37 @@ export class WyBackupStatus extends LitElement {
     .status-syncing { color: var(--md-sys-color-primary); }
     .status-error { color: #D32F2F; }
 
-    /* Animated sync icon */
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    .syncing-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      animation: spin 2s linear infinite;
     }
 
-    md-icon.syncing-icon {
-      animation: spin 2s linear infinite;
-      display: inline-block;
+    .syncing-icon {
+      font-size: 18px;
     }
   `;
 
   render() {
     const config = {
       'synced': { icon: 'cloud_done', label: 'Synced', class: 'status-synced' },
-      'syncing': { icon: 'sync', label: 'Syncing...', class: 'status-syncing syncing-icon' },
+      'syncing': { icon: 'sync', label: 'Syncing...', class: 'status-syncing' },
       'error': { icon: 'cloud_off', label: 'Offline', class: 'status-error' }
     };
     const c = config[this.status] || config.synced;
 
     return html`
       <div class="pill" title="Last backup: ${this.lastSync}">
-        <md-icon class="status-icon ${c.class}">${c.icon}</md-icon>
+        ${this.status === 'syncing' ? html`
+          <div class="syncing-container">
+            <md-icon class="status-icon ${c.class}">${c.icon}</md-icon>
+          </div>
+        ` : html`
+          <md-icon class="status-icon ${c.class}">${c.icon}</md-icon>
+        `}
         <div class="text-container">
           <span class="status-text ${c.class}">${c.label}</span>
           <span class="hint-text">${this.lastSync}</span>

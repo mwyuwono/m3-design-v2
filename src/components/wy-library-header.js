@@ -1,22 +1,22 @@
 import { LitElement, html, css } from 'lit';
 
 export class WyLibraryHeader extends LitElement {
-    static properties = {
-        userName: { type: String, attribute: 'user-name' },
-        userAvatar: { type: String, attribute: 'user-avatar' },
-        breadcrumb: { type: String },
-        searchValue: { type: String, attribute: 'search-value' }
-    };
+  static properties = {
+    userName: { type: String, attribute: 'user-name' },
+    userAvatar: { type: String, attribute: 'user-avatar' },
+    breadcrumb: { type: String },
+    searchValue: { type: String, attribute: 'search-value' }
+  };
 
-    constructor() {
-        super();
-        this.userName = 'M. Yuwono';
-        this.userAvatar = '';
-        this.breadcrumb = 'Plotter Library';
-        this.searchValue = '';
-    }
+  constructor() {
+    super();
+    this.userName = 'M. Yuwono';
+    this.userAvatar = '';
+    this.breadcrumb = 'Plotter Library';
+    this.searchValue = '';
+  }
 
-    static styles = css`
+  static styles = css`
     :host {
       display: block;
       position: sticky;
@@ -28,10 +28,10 @@ export class WyLibraryHeader extends LitElement {
     }
 
     .header-container {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+      gap: 32px;
       max-width: 1400px;
       margin: 0 auto;
     }
@@ -88,6 +88,7 @@ export class WyLibraryHeader extends LitElement {
     .right-section {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 20px;
     }
 
@@ -150,8 +151,8 @@ export class WyLibraryHeader extends LitElement {
     }
   `;
 
-    render() {
-        return html`
+  render() {
+    return html`
       <div class="header-container">
         <div class="left-section">
           <md-icon-button>
@@ -188,16 +189,16 @@ export class WyLibraryHeader extends LitElement {
         </div>
       </div>
     `;
-    }
+  }
 
-    _handleSearch(e) {
-        this.searchValue = e.target.value;
-        this.dispatchEvent(new CustomEvent('search', {
-            detail: { value: this.searchValue },
-            bubbles: true,
-            composed: true
-        }));
-    }
+  _handleSearch(e) {
+    this.searchValue = e.target.value;
+    this.dispatchEvent(new CustomEvent('search', {
+      detail: { value: this.searchValue },
+      bubbles: true,
+      composed: true
+    }));
+  }
 }
 
 customElements.define('wy-library-header', WyLibraryHeader);

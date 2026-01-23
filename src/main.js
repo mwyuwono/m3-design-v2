@@ -29,7 +29,13 @@ import './components/wy-work-card.js';
 import './components/wy-works-grid.js';
 import './components/wy-plot-card.js';
 import './components/wy-export-modal.js';
-import './components/wy-backup-status.js';
+import './components/wy-app-bar.js';
+import './components/wy-controls-bar.js';
+import './components/wy-prompt-card.js';
+
+import './components/wy-prompt-modal.js';
+import './components/wy-tabs.js';
+import './components/wy-toast.js';
 
 // Data Imports
 import profiles from './data/profiles.json';

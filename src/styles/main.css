@@ -88,8 +88,92 @@ h6 {
     /* ICON BUTTONS */
     --md-icon-button-icon-color: var(--md-sys-color-primary);
     --md-icon-button-state-layer-color: var(--md-sys-color-primary);
+
+    /* Prompt Library Category Tokens (Soft Modernism) */
+    --wy-color-productivity: #546E7A;
+    /* Muted Slate */
+    --wy-color-productivity-container: #ECEFF1;
+    --wy-color-on-productivity-container: #263238;
+
+    --wy-color-expertise: #6D5D6E;
+    /* Muted Mauve (matches secondary warmth) */
+    --wy-color-expertise-container: #F3F1F3;
+    --wy-color-on-expertise-container: #2E252E;
+
+    --wy-color-travel: #556B2F;
+    /* Muted Olive (distinct from primary) */
+    --wy-color-travel-container: #F1F5EB;
+    --wy-color-on-travel-container: #283317;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Dark Mode: Pastel/Lighter base colors for visibility on dark bg */
+        --wy-color-productivity: #B0BEC5;
+        /* Light Blue Grey */
+        --wy-color-productivity-container: #37474F;
+        /* Dark Slate */
+        --wy-color-on-productivity-container: #ECEFF1;
+
+        --wy-color-expertise: #E1BEE7;
+        /* Light Mauve */
+        --wy-color-expertise-container: #4A3B4A;
+        /* Dark Mauve */
+        --wy-color-on-expertise-container: #F3E5F5;
+
+        --wy-color-travel: #DCEDC8;
+        /* Pale Green */
+        --wy-color-travel-container: #334D2B;
+        /* Dark Olive */
+        --wy-color-on-travel-container: #F1F8E9;
+    }
 }
 
 md-icon-button[selected] {
     --md-icon-button-selected-icon-color: var(--md-sys-color-primary);
+}
+
+/* Button Utilities */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    padding: 10px 24px;
+    font-size: 0.8125rem;
+    line-height: normal;
+}
+
+.btn-primary {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border-color: var(--md-sys-color-outline);
+    color: var(--md-sys-color-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--md-sys-color-surface-container-low);
+    border-color: var(--md-sys-color-primary);
+}
+
+.btn-sm {
+    padding: 6px 16px;
+    font-size: 0.75rem;
 }
