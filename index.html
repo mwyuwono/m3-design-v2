@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weaver-Yuwono Family Office</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <script type="module" src="/src/main.js"></script>
+    <style>
+        /* Landing Page Specific Styles */
+        .landing-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 120px 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-header {
+            text-align: center;
+            margin-bottom: 120px;
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 48px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media(max-width: 600px) {
+            .landing-container {
+                padding: 0 24px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="landing-container">
+        <header class="site-header">
+            <div
+                style="background-color: var(--md-sys-color-primary); color: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 32px auto;">
+                <span style="font-family: var(--font-serif); font-size: 1.25rem;">W|Y</span>
+            </div>
+            <h1
+                style="font-family: var(--font-serif); font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 24px;">
+                Weaver-Yuwono<br>Family Office</h1>
+            <div class="label-overline" style="opacity: 1;">Visual Identity v1.0 • Established 1994</div>
+        </header>
+
+        <div id="profiles-grid" class="profiles-grid">
+            <!-- Components injected here -->
+        </div>
+    </div>
+</body>
+
+</html>

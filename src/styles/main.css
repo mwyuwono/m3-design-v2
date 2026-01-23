@@ -1,0 +1,72 @@
+/* Global Reset & Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+    font-family: var(--font-body);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    margin-top: 0;
+    color: var(--md-sys-color-primary);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline-variant);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-secondary);
+}
+
+/* Tracking & Text Utilities */
+.label-overline {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--md-sys-color-primary);
+    opacity: 0.6;
+}
+
+.text-muted {
+    color: var(--md-sys-color-text-muted);
+}
+
+.italic-serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+}
+
+/* Material Web Component Global Adjustments */
+:root {
+    --md-elevated-card-container-color: var(--md-sys-color-surface);
+    --md-sys-elevation-level: 0;
+
+    --md-filled-button-label-text-font: var(--font-display);
+    --md-filled-button-label-text-weight: 600;
+    --md-filled-button-label-text-tracking: 0.05em;
+}

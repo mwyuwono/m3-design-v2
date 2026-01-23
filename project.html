@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project | Weaver-Yuwono</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <script type="module" src="/src/main.js"></script>
+    <style>
+        .project-page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 0 120px 0;
+        }
+
+        .nav-back-proj {
+            position: absolute;
+            top: 32px;
+            left: 32px;
+            z-index: 10;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 99px;
+            text-decoration: none;
+            color: var(--md-sys-color-on-background);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .project-hero {
+            height: 70vh;
+            width: 100%;
+            position: relative;
+            margin-bottom: 80px;
+        }
+
+        .project-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 64px 5%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            color: white;
+        }
+
+        .project-content {
+            padding: 0 5%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="project-page-wrapper">
+        <a href="/" onclick="history.back(); return false;" class="nav-back-proj">← Back</a>
+
+        <div id="project-detail-container">
+            <!-- Injected via JS -->
+        </div>
+    </div>
+</body>
+
+</html>

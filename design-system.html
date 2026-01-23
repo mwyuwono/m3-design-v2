@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weaver-Yuwono | Design System</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <script type="module" src="/src/main.js"></script>
+    <style>
+        /* Design System Documentation Styles (Editorial Layer) */
+
+        .ds-layout {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 80px;
+        }
+
+        .ds-sidebar {
+            position: sticky;
+            top: 40px;
+            height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .ds-sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ds-sidebar a {
+            text-decoration: none;
+            color: var(--md-sys-color-on-background);
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 500;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .ds-sidebar a:hover {
+            opacity: 1;
+        }
+
+        .ds-section {
+            margin-bottom: 160px;
+        }
+
+        .ds-section-header {
+            margin-bottom: 64px;
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+            padding-bottom: 24px;
+        }
+
+        .ds-section-header h2 {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--md-sys-color-secondary);
+            margin: 0 0 16px 0;
+        }
+
+        .ds-section-header h3 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            margin: 0;
+            color: var(--md-sys-color-primary);
+            line-height: 1.1;
+        }
+
+        /* Swatches */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .color-swatch {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .color-preview {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .color-info {
+            text-align: center;
+        }
+
+        .color-info span {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            margin-bottom: 4px;
+        }
+
+        .color-info code {
+            font-size: 0.75rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Typography */
+        .type-specimen {
+            margin-bottom: 64px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .type-info {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--md-sys-color-secondary);
+            margin-bottom: 16px;
+        }
+
+        /* Components */
+        .component-preview {
+            background-color: var(--md-sys-color-surface-variant);
+            padding: 64px;
+            border-radius: 48px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-preview {
+            max-width: 400px;
+        }
+
+        @media (max-width: 1024px) {
+            .ds-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .ds-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ds-layout">
+        <aside class="ds-sidebar">
+            <div style="margin-bottom: 40px;">
+                <p class="label-overline" style="opacity: 1;">Weaver-Yuwono</p>
+                <h1 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--md-sys-color-primary);">
+                    Identity Guide</h1>
+            </div>
+            <nav>
+                <a href="#philosophy">Philosophy</a>
+                <a href="#typography">Typography</a>
+                <a href="#palette">Palette</a>
+                <a href="#components">Components</a>
+                <a href="#dashboard">Dashboard Patterns</a>
+            </nav>
+        </aside>
+
+        <main>
+            <!-- Philosophy -->
+            <section id="philosophy" class="ds-section">
+                <div class="ds-section-header">
+                    <h2>01</h2>
+                    <h3>Philosophy</h3>
+                </div>
+                <p class="lead"
+                    style="font-size: 1.5rem; max-width: 35ch; line-height: 1.4; color: var(--md-sys-color-on-background);">
+                    A design system blending organic shapes with disciplined editorial clarity. Designed to communicate
+                    heritage, stability, and modern vision.
+                </p>
+            </section>
+
+            <!-- Typography -->
+            <section id="typography" class="ds-section">
+                <div class="ds-section-header">
+                    <h2>02</h2>
+                    <h3>Typography</h3>
+                </div>
+
+                <div class="type-specimen">
+                    <div class="type-info">Display Large • Playfair Display • 4.5rem</div>
+                    <h1 style="font-family: var(--font-serif); font-size: 4.5rem; line-height: 1.1; margin: 0;">The
+                        Architectural Legacy</h1>
+                </div>
+
+                <div class="type-specimen">
+                    <div class="type-info">Headline Medium • Playfair Display • 2.5rem</div>
+                    <div class="type-info">Headline Medium • Playfair Display (Serif) • 2.5rem</div>
+                    <h2 style="font-family: var(--font-serif); font-size: 2.5rem; margin: 0;">Asset Management Strategy
+                    </h2>
+                </div>
+
+                <div class="type-specimen">
+                    <div class="type-info">Body Large • Manrope • 1.125rem</div>
+                    <p
+                        style="font-family: var(--font-body); font-size: 1.125rem; line-height: 1.6; max-width: 60ch; margin: 0;">
+                        Our philosophy is rooted in long-term value creation. By balancing traditional assets with
+                        forward-looking investments, we secure a legacy that spans generations.
+                    </p>
+                </div>
+
+                <div class="type-specimen" style="border: none;">
+                    <div class="type-info">Label Overline • Manrope • 0.75rem • 0.15em tracking</div>
+                    <span class="label-overline" style="margin: 0;">Portfolio Allocation Strategy</span>
+                </div>
+            </section>
+
+            <!-- Palette -->
+            <section id="palette" class="ds-section">
+                <div class="ds-section-header">
+                    <h2>03</h2>
+                    <h3>Palette</h3>
+                </div>
+                <div class="color-grid">
+                    <div class="color-swatch">
+                        <div class="color-preview"
+                            style="background-color: var(--md-sys-color-primary); box-shadow: 0 20px 40px rgba(45, 78, 60, 0.2);">
+                        </div>
+                        <div class="color-info">
+                            <span>Hunter Green</span>
+                            <code>#2D4E3C</code>
+                        </div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-preview" style="background-color: var(--md-sys-color-surface);"></div>
+                        <div class="color-info">
+                            <span>Warm Clay</span>
+                            <code>#F5F2EA</code>
+                        </div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-preview" style="background-color: var(--md-sys-color-background);"></div>
+                        <div class="color-info">
+                            <span>Alabaster</span>
+                            <code>#FDFBF7</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Components -->
+            <section id="components" class="ds-section">
+                <div class="ds-section-header">
+                    <h2>04</h2>
+                    <h3>Components</h3>
+                </div>
+
+                <div style="margin-bottom: 80px;">
+                    <h4 class="label-overline" style="margin-bottom: 32px;">Interactive Elements</h4>
+                    <div class="component-preview">
+                        <md-filled-button>Request Access</md-filled-button>
+                        <md-outlined-button>Documentation</md-outlined-button>
+                        <md-text-button>Read More</md-text-button>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="label-overline" style="margin-bottom: 32px;">Content Modules</h4>
+                    <div class="component-preview" style="background-color: var(--md-sys-color-surface);">
+                        <div class="card-preview">
+                            <md-elevated-card>
+                                <div style="padding: 32px;">
+                                    <span class="label-overline" style="margin-bottom: 12px; display: block;">Real
+                                        Estate</span>
+                                    <h3
+                                        style="font-family: var(--font-serif); font-size: 1.75rem; color: var(--md-sys-color-primary); margin: 0 0 16px 0;">
+                                        The Architectural Fund</h3>
+                                    <p
+                                        style="font-family: var(--font-body); font-size: 0.875rem; color: var(--md-sys-color-on-surface-variant); line-height: 1.6;">
+                                        Focused on sustainable urban development and preserving architectural heritage
+                                        in emerging markets.
+                                    </p>
+                                </div>
+                            </md-elevated-card>
+                        </div>
+                    </div>
+                </div>
+                <!-- Dashboard Patterns -->
+                <section id="dashboard" class="ds-section">
+                    <div class="ds-section-header">
+                        <h2>05</h2>
+                        <h3>Dashboard Patterns</h3>
+                    </div>
+
+                    <div style="margin-bottom: 80px;">
+                        <h4 class="label-overline" style="margin-bottom: 32px;">Portfolio Metrics</h4>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+                            <wy-metric-card title="Total Asset Value" value="$124,500,000" trend="+12.4% YTD"
+                                icon="payments">
+                            </wy-metric-card>
+                            <wy-metric-card title="Top Performer" value="Private Equity IV" trend="+22.1% Return"
+                                icon="trending_up">
+                            </wy-metric-card>
+                            <wy-metric-card title="Active Projects" value="14" icon="account_balance">
+                            </wy-metric-card>
+                        </div>
+                    </div>
+
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: stretch;">
+                        <div>
+                            <h4 class="label-overline" style="margin-bottom: 32px;">Asset Allocation</h4>
+                            <wy-allocation-card title="Current Allocation" .items="${[
+                                { label: 'Public Equities', value: 45, color: 'var(--md-sys-color-primary)' },
+                                { label: 'Real Estate', value: 25, color: '#8FA397' },
+                                { label: 'Private Credit', value: 20, color: '#BCCBC3' },
+                                { label: 'Cash & Equiv.', value: 10, color: '#E0E5E2' }
+                            ]}">
+                                <span slot="analysis"><strong>Analysis:</strong> Portfolio remains within 2% variance of
+                                    target allocation. Recommended rebalancing in Q4.</span>
+                            </wy-allocation-card>
+                        </div>
+                        <div>
+                            <h4 class="label-overline" style="margin-bottom: 32px;">Strategic Insight</h4>
+                            <div style="display: flex; flex-direction: column; gap: 24px;">
+                                <wy-insight-card
+                                    image="https://lh3.googleusercontent.com/aida-public/AB6AXuCxVFuLeei69m37Ajgwa1XSB_xM4v5-Ry9Ji36NRrmenh-kOLd1s4NnbY6mCWGYxXyw03pPeo4pb3ptgvPxDwvr2s_7VcsNet8XxHMQNYA64wjzZtQ1h8ILNfWYplqh2QoFo__65yhEp9FskKP7VWfF3x_NoF3jr6BkkXklymzGFx59SZPc-bF-BFcb7RZmAzT-V5oLhvhXTLUzZpChdfBwMo5WIoOc5v4zD5uoxz5QJO0Fl9F08jXjGhJR7NFeBqxsLCWO4Ffw104"
+                                    category="Stewardship"
+                                    title="London Estate acquisition finalized pending regulatory approval."
+                                    icon="verified_user">
+                                </wy-insight-card>
+                                <div
+                                    style="background-color: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-border-variant); padding: 24px; border-radius: var(--md-sys-shape-corner-medium);">
+                                    <h4
+                                        style="font-family: var(--font-serif); font-size: 1.25rem; margin-top: 0; margin-bottom: 12px;">
+                                        Quarterly Portfolio Overview</h4>
+                                    <p
+                                        style="font-family: var(--font-body); font-size: 0.875rem; color: var(--md-sys-color-text-muted); line-height: 1.6; margin: 0;">
+                                        Our performance continues to outpace benchmarks through a disciplined approach
+                                        to <span class="italic-serif"
+                                            style="color: var(--md-sys-color-primary)">long-term capital
+                                            preservation</span>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        </main>
+    </div>
+
+</body>
+
+</html>

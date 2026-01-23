@@ -1,0 +1,42 @@
+{
+    "stanton": {
+        "id": "stanton",
+        "name": "Stanton Yuwono",
+        "role": "Managing Partner",
+        "shortBio": "Architecting multigenerational wealth strategies.",
+        "photo": "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400",
+        "modules": [
+            {
+                "type": "bio-card",
+                "data": {
+                    "bio": "Stanton has spent over two decades in private equity and real estate development. His philosophy centers on 'patient capital'—investments that mature over generations rather than quarters."
+                }
+            },
+            {
+                "type": "project-list",
+                "filter": "real-estate",
+                "title": "Real Estate Portfolio"
+            }
+        ]
+    },
+    "matt": {
+        "id": "matt",
+        "name": "Matt Weaver-Yuwono",
+        "role": "Chief Investment Officer",
+        "shortBio": "Data-driven asset allocation for the modern era.",
+        "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
+        "modules": [
+            {
+                "type": "bio-card",
+                "data": {
+                    "bio": "With a background in quantitative finance, Matt oversees the liquid portfolio and venture capital allocations. He believes in the synthesis of traditional value investing and modern data science."
+                }
+            },
+            {
+                "type": "project-list",
+                "filter": "tech",
+                "title": "Venture Investments"
+            }
+        ]
+    }
+}

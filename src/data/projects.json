@@ -1,0 +1,30 @@
+[
+    {
+        "id": "p1",
+        "title": "Hudson Yards Development",
+        "category": "real-estate",
+        "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800",
+        "summary": "A mixed-use development project redefining the skyline."
+    },
+    {
+        "id": "p2",
+        "title": "Alpha BioTech Fund",
+        "category": "tech",
+        "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=800",
+        "summary": "Early-stage investment in longevity and synthetic biology."
+    },
+    {
+        "id": "p3",
+        "title": "5th Avenue Restoration",
+        "category": "real-estate",
+        "image": "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=800",
+        "summary": "Historical preservation of a landmark commercial property."
+    },
+    {
+        "id": "p4",
+        "title": "Quantum Computing Seed",
+        "category": "tech",
+        "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800",
+        "summary": "Strategic stake in next-gen computing infrastructure."
+    }
+]

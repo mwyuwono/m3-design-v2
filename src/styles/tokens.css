@@ -1,0 +1,97 @@
+:root {
+  /* --- COLOR SYSTEM: Visual Identity v1.0 (Refined) --- */
+
+  /* Primary: Hunter Green (Refined) */
+  --md-sys-color-primary: #2d4e3c;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #E8F5E9;
+  /* Pale wash */
+  --md-sys-color-on-primary-container: #002114;
+
+  /* Secondary / Surface Tones */
+  --md-sys-color-secondary: #8C7E70;
+  /* Muted Gold/Bronze kept as accent */
+  --md-sys-color-on-secondary: #FFFFFF;
+
+  /* Backgrounds & Surfaces (Light) */
+  --md-sys-color-background: #FDFBF7;
+  /* Alabaster */
+  --md-sys-color-on-background: #121714;
+  /* Deep Green-Black */
+
+  --md-sys-color-surface: #F5F2EA;
+  /* Warm Clay */
+  --md-sys-color-on-surface: #121714;
+  /* Deep Green-Black */
+
+  --md-sys-color-surface-variant: #EBE5DE;
+  --md-sys-color-on-surface-variant: #49454E;
+
+  /* Outlines & Borders */
+  --md-sys-color-outline: #2d4e3c;
+  --md-sys-color-outline-variant: #D7D3C8;
+  --md-sys-color-border-variant: #EBE5DA;
+
+  /* Semantic Text */
+  --md-sys-color-text-main: #121714;
+  --md-sys-color-text-muted: #667f71;
+
+  /* --- TYPOGRAPHY FAMILIES --- */
+  --font-display: 'Manrope', sans-serif;
+  /* Primary UI & Accent Sans */
+  --font-serif: 'Playfair Display', serif;
+  /* Editorial Headings (Serif) */
+  --font-body: 'Manrope', sans-serif;
+  /* Standardizing Body to Manrope for modern feel */
+
+  /* M3 Typography Token Overrides */
+  --md-sys-typescale-display-large-font: var(--font-serif);
+  --md-sys-typescale-display-medium-font: var(--font-serif);
+  --md-sys-typescale-display-small-font: var(--font-serif);
+
+  --md-sys-typescale-headline-large-font: var(--font-serif);
+  --md-sys-typescale-headline-medium-font: var(--font-serif);
+  --md-sys-typescale-headline-small-font: var(--font-serif);
+
+  --md-sys-typescale-title-large-font: var(--font-serif);
+  --md-sys-typescale-title-medium-font: var(--font-body);
+  --md-sys-typescale-title-small-font: var(--font-body);
+
+  --md-sys-typescale-body-large-font: var(--font-body);
+  --md-sys-typescale-body-medium-font: var(--font-body);
+  --md-sys-typescale-body-small-font: var(--font-body);
+
+  --md-sys-typescale-label-large-font: var(--font-display);
+  --md-sys-typescale-label-medium-font: var(--font-display);
+  --md-sys-typescale-label-small-font: var(--font-display);
+
+  /* --- SPACING & SHAPE --- */
+  --spacing-layout: 120px;
+  --spacing-gap: 64px;
+
+  --md-sys-shape-corner-full: 9999px;
+  --md-sys-shape-corner-large: 32px;
+  --md-sys-shape-corner-medium: 16px;
+}
+
+/* --- DARK MODE OVERRIDES --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-primary: #8DE0B0;
+    --md-sys-color-background: #161c19;
+    --md-sys-color-on-background: #FDFBF7;
+
+    --md-sys-color-surface: #1E2623;
+    --md-sys-color-on-surface: #FDFBF7;
+
+    --md-sys-color-surface-variant: #2C3631;
+    --md-sys-color-on-surface-variant: #A0B3A9;
+
+    --md-sys-color-outline: #8DE0B0;
+    --md-sys-color-outline-variant: #2C3631;
+    --md-sys-color-border-variant: #2C3631;
+
+    --md-sys-color-text-main: #FDFBF7;
+    --md-sys-color-text-muted: #8FA397;
+  }
+}
