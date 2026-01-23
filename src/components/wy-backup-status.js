@@ -1,18 +1,18 @@
 import { LitElement, html, css } from 'lit';
 
 export class WyBackupStatus extends LitElement {
-    static properties = {
-        status: { type: String }, // 'synced', 'syncing', 'error'
-        lastSync: { type: String, attribute: 'last-sync' }
-    };
+  static properties = {
+    status: { type: String }, // 'synced', 'syncing', 'error'
+    lastSync: { type: String, attribute: 'last-sync' }
+  };
 
-    constructor() {
-        super();
-        this.status = 'synced';
-        this.lastSync = '2 mins ago';
-    }
+  constructor() {
+    super();
+    this.status = 'synced';
+    this.lastSync = '2 mins ago';
+  }
 
-    static styles = css`
+  static styles = css`
     :host {
       display: inline-block;
     }
@@ -70,20 +70,21 @@ export class WyBackupStatus extends LitElement {
       to { transform: rotate(360deg); }
     }
 
-    .syncing-icon {
+    md-icon.syncing-icon {
       animation: spin 2s linear infinite;
+      display: inline-block;
     }
   `;
 
-    render() {
-        const config = {
-            'synced': { icon: 'cloud_done', label: 'Synced', class: 'status-synced' },
-            'syncing': { icon: 'sync', label: 'Syncing...', class: 'status-syncing syncing-icon' },
-            'error': { icon: 'cloud_off', label: 'Offline', class: 'status-error' }
-        };
-        const c = config[this.status] || config.synced;
+  render() {
+    const config = {
+      'synced': { icon: 'cloud_done', label: 'Synced', class: 'status-synced' },
+      'syncing': { icon: 'sync', label: 'Syncing...', class: 'status-syncing syncing-icon' },
+      'error': { icon: 'cloud_off', label: 'Offline', class: 'status-error' }
+    };
+    const c = config[this.status] || config.synced;
 
-        return html`
+    return html`
       <div class="pill" title="Last backup: ${this.lastSync}">
         <md-icon class="status-icon ${c.class}">${c.icon}</md-icon>
         <div class="text-container">
@@ -92,7 +93,7 @@ export class WyBackupStatus extends LitElement {
         </div>
       </div>
     `;
-    }
+  }
 }
 
 customElements.define('wy-backup-status', WyBackupStatus);

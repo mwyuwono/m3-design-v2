@@ -4,20 +4,20 @@ import './wy-form-field.js';
 import './wy-selection-card.js';
 
 export class WyExportModal extends LitElement {
-    static properties = {
-        open: { type: Boolean, reflect: true },
-        workTitle: { type: String, attribute: 'work-title' },
-        previewImage: { type: String, attribute: 'preview-image' }
-    };
+  static properties = {
+    open: { type: Boolean, reflect: true },
+    workTitle: { type: String, attribute: 'work-title' },
+    previewImage: { type: String, attribute: 'preview-image' }
+  };
 
-    constructor() {
-        super();
-        this.open = false;
-        this.workTitle = 'Untitled Work';
-        this.previewImage = '';
-    }
+  constructor() {
+    super();
+    this.open = false;
+    this.workTitle = 'Untitled Work';
+    this.previewImage = '';
+  }
 
-    static styles = css`
+  static styles = css`
     :host {
       display: block;
     }
@@ -48,14 +48,15 @@ export class WyExportModal extends LitElement {
     .controls-pane {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 32px;
+      padding: 8px 0;
     }
 
     .section-title {
       font-family: var(--font-serif);
       font-size: 1.125rem;
       color: var(--md-sys-color-primary);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     .grid-2col {
@@ -75,8 +76,8 @@ export class WyExportModal extends LitElement {
     }
   `;
 
-    render() {
-        return html`
+  render() {
+    return html`
       <wy-modal 
         ?open="${this.open}" 
         heading="Export Plot: ${this.workTitle}"
@@ -120,24 +121,24 @@ export class WyExportModal extends LitElement {
         </div>
       </wy-modal>
     `;
-    }
+  }
 
-    show() { this.open = true; }
-    close() { this.open = false; }
+  show() { this.open = true; }
+  close() { this.open = false; }
 
-    _handleClose() {
-        this.open = false;
-    }
+  _handleClose() {
+    this.open = false;
+  }
 
-    _handleExport() {
-        // Mock export logic
-        this.dispatchEvent(new CustomEvent('export', {
-            detail: { status: 'success' },
-            bubbles: true,
-            composed: true
-        }));
-        this.close();
-    }
+  _handleExport() {
+    // Mock export logic
+    this.dispatchEvent(new CustomEvent('export', {
+      detail: { status: 'success' },
+      bubbles: true,
+      composed: true
+    }));
+    this.close();
+  }
 }
 
 customElements.define('wy-export-modal', WyExportModal);

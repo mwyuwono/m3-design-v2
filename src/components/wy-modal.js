@@ -1,22 +1,22 @@
 import { LitElement, html, css } from 'lit';
 
 export class WyModal extends LitElement {
-    static properties = {
-        open: { type: Boolean, reflect: true },
-        heading: { type: String },
-        maxWidth: { type: String, attribute: 'max-width' },
-        fullScreen: { type: Boolean, attribute: 'full-screen' }
-    };
+  static properties = {
+    open: { type: Boolean, reflect: true },
+    heading: { type: String },
+    maxWidth: { type: String, attribute: 'max-width' },
+    fullScreen: { type: Boolean, attribute: 'full-screen' }
+  };
 
-    constructor() {
-        super();
-        this.open = false;
-        this.heading = '';
-        this.maxWidth = '560px';
-        this.fullScreen = false;
-    }
+  constructor() {
+    super();
+    this.open = false;
+    this.heading = '';
+    this.maxWidth = '560px';
+    this.fullScreen = false;
+  }
 
-    static styles = css`
+  static styles = css`
     :host {
       display: block;
     }
@@ -39,16 +39,21 @@ export class WyModal extends LitElement {
     
     [slot="headline"] {
       font-family: var(--font-serif);
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       color: var(--md-sys-color-primary);
       margin: 0;
+      padding-top: 24px;
+      padding-bottom: 8px;
     }
 
     .modal-content {
-      padding: 0 4px;
+      padding: 12px 4px 24px 4px;
       font-family: var(--font-body);
       color: var(--md-sys-color-on-surface-variant);
       line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
     .footer-actions {
@@ -56,6 +61,8 @@ export class WyModal extends LitElement {
       gap: 12px;
       justify-content: flex-end;
       width: 100%;
+      padding-bottom: 16px;
+      padding-top: 8px;
     }
 
     /* Ensure buttons in footer are capsule-shaped */
@@ -76,8 +83,8 @@ export class WyModal extends LitElement {
     }
   `;
 
-    render() {
-        return html`
+  render() {
+    return html`
       <md-dialog 
         ?open="${this.open}"
         @close="${this._handleClose}"
@@ -95,29 +102,29 @@ export class WyModal extends LitElement {
         </div>
       </md-dialog>
     `;
-    }
+  }
 
-    show() {
-        this.open = true;
-    }
+  show() {
+    this.open = true;
+  }
 
-    close() {
-        this.open = false;
-    }
+  close() {
+    this.open = false;
+  }
 
-    _handleClose(e) {
-        this.open = false;
-        this.dispatchEvent(new CustomEvent('close', {
-            detail: e.detail,
-            bubbles: true,
-            composed: true
-        }));
-    }
+  _handleClose(e) {
+    this.open = false;
+    this.dispatchEvent(new CustomEvent('close', {
+      detail: e.detail,
+      bubbles: true,
+      composed: true
+    }));
+  }
 
-    _handleCancel(e) {
-        // Prevent dismissal if needed, or just sync state
-        this.open = false;
-    }
+  _handleCancel(e) {
+    // Prevent dismissal if needed, or just sync state
+    this.open = false;
+  }
 }
 
 customElements.define('wy-modal', WyModal);
