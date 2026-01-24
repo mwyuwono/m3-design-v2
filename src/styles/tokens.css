@@ -95,6 +95,35 @@
   --md-sys-shape-corner-full: 9999px;
   --md-sys-shape-corner-large: 32px;
   --md-sys-shape-corner-medium: 16px;
+
+  /* --- COMPONENT TOKENS --- */
+  --wy-controls-bar-bg: var(--md-sys-color-primary);
+  --wy-controls-bar-fg: var(--md-sys-color-on-primary);
+  --wy-controls-chip-text: color-mix(in srgb, var(--wy-controls-bar-fg) 60%, transparent);
+  --wy-controls-chip-text-hover: var(--wy-controls-bar-fg);
+  --wy-controls-chip-border: color-mix(in srgb, var(--wy-controls-bar-fg) 20%, transparent);
+  --wy-controls-chip-border-hover: color-mix(in srgb, var(--wy-controls-bar-fg) 40%, transparent);
+  --wy-controls-chip-hover-bg: color-mix(in srgb, var(--wy-controls-bar-fg) 5%, transparent);
+  --wy-controls-chip-focus: color-mix(in srgb, var(--wy-controls-bar-fg) 50%, transparent);
+  --wy-controls-chip-active-bg: #E8F5E9;
+  --wy-controls-chip-active-fg: #2C4C3B;
+  --wy-controls-chip-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+  --wy-filter-chip-text: var(--md-sys-color-on-background);
+  --wy-filter-chip-text-hover: var(--md-sys-color-on-background);
+  --wy-filter-chip-border: var(--md-sys-color-outline-variant);
+  --wy-filter-chip-border-hover: var(--md-sys-color-outline);
+  --wy-filter-chip-hover-bg: var(--md-sys-color-surface-variant);
+  --wy-filter-chip-focus: var(--md-sys-color-primary);
+  --wy-filter-chip-active-bg: var(--md-sys-color-primary);
+  --wy-filter-chip-active-fg: var(--md-sys-color-on-primary);
+  --wy-filter-chip-shadow: none;
+  --wy-filter-chip-font-family: var(--font-display);
+  --wy-filter-chip-font-size: 0.8125rem;
+  --wy-filter-chip-font-weight: 500;
+  --wy-filter-chip-font-weight-active: 500;
+  --wy-filter-chip-font-style: normal;
+  --wy-filter-chip-padding: 8px 16px;
 }
 
 /* --- DARK MODE OVERRIDES --- */
