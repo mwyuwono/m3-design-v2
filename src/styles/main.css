@@ -133,22 +133,49 @@ md-icon-button[selected] {
     --md-icon-button-selected-icon-color: var(--md-sys-color-primary);
 }
 
-/* Button Utilities */
+/* Button Utilities - M3 Design System */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-body);
-    font-weight: 600;
+    gap: var(--space-sm, 0.5rem);
+
+    /* M3 spacing */
+    padding: 0.625rem 1.5rem;
+    min-height: 2.5rem;
+
+    /* M3 Expressive: full rounded corners */
+    border-radius: var(--md-sys-shape-corner-full, 9999px);
+
+    border: none;
+    background-color: transparent;
+
+    /* M3 Label Large typography */
+    font-family: var(--md-sys-typescale-label-large-font, var(--font-body));
+    font-size: var(--md-sys-typescale-label-large-size, 0.875rem);
+    font-weight: var(--md-sys-typescale-label-large-weight, 500);
+    line-height: var(--md-sys-typescale-label-large-line-height, 1.25rem);
+    letter-spacing: var(--md-sys-typescale-label-large-tracking, 0.1px);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-radius: 100px;
+
     cursor: pointer;
-    transition: all 0.2s;
-    border: 1px solid transparent;
-    padding: 10px 24px;
-    font-size: 0.8125rem;
-    line-height: normal;
+
+    /* M3 motion */
+    transition: all var(--md-sys-motion-duration-short4, 0.2s) var(--md-sys-motion-easing-standard, ease);
+
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+/* M3 State layer for all buttons */
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-duration-short2, 0.15s) var(--md-sys-motion-easing-standard, ease);
+    pointer-events: none;
 }
 
 .btn-primary {
@@ -157,25 +184,105 @@ md-icon-button[selected] {
 }
 
 .btn-primary:hover {
-    background-color: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-on-primary-container);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 85%, black);
+    box-shadow: var(--shadow-medium, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+}
+
+.btn-primary:active {
+    background-color: var(--md-sys-color-primary);
+    box-shadow: var(--shadow-subtle, 0 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+.btn-primary:focus-visible {
+    outline: 3px solid var(--md-sys-color-secondary, #C4A484);
+    outline-offset: 2px;
 }
 
 .btn-secondary {
-    background-color: transparent;
-    border-color: var(--md-sys-color-outline);
-    color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-surface-container-lowest, #FDFBF7);
+    color: var(--md-sys-color-on-surface);
+    border: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .btn-secondary:hover {
-    background-color: var(--md-sys-color-surface-container-low);
-    border-color: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-secondary);
+    background-color: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 80%, transparent);
+}
+
+.btn-secondary:active {
+    background-color: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 60%, transparent);
+}
+
+.btn-secondary:focus-visible {
+    outline: 3px solid var(--md-sys-color-secondary);
+    outline-offset: 2px;
+}
+
+/* Outlined button variant */
+.btn-outlined {
+    background-color: transparent;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    color: var(--md-sys-color-secondary);
+}
+
+.btn-outlined::before {
+    background-color: var(--md-sys-color-secondary);
+}
+
+.btn-outlined:hover::before {
+    opacity: var(--md-sys-state-hover-opacity, 0.08);
+}
+
+.btn-outlined:focus-visible::before {
+    opacity: var(--md-sys-state-focus-opacity, 0.12);
+}
+
+.btn-outlined:active::before {
+    opacity: var(--md-sys-state-pressed-opacity, 0.12);
+}
+
+.btn-outlined:focus-visible {
+    outline: 3px solid var(--md-sys-color-secondary);
+    outline-offset: 2px;
+}
+
+/* Text button variant */
+.btn-text {
+    background-color: transparent;
+    color: var(--md-sys-color-secondary);
+    padding: 0.625rem 0.75rem;
+}
+
+.btn-text::before {
+    background-color: var(--md-sys-color-secondary);
+}
+
+.btn-text:hover::before {
+    opacity: var(--md-sys-state-hover-opacity, 0.08);
+}
+
+.btn-text:focus-visible::before {
+    opacity: var(--md-sys-state-focus-opacity, 0.12);
+}
+
+.btn-text:active::before {
+    opacity: var(--md-sys-state-pressed-opacity, 0.12);
+}
+
+.btn-text:focus-visible {
+    outline: 3px solid var(--md-sys-color-secondary);
+    outline-offset: 2px;
 }
 
 .btn-sm {
-    padding: 6px 16px;
-    font-size: 0.75rem;
+    padding: 0.5rem 1.25rem;
+    min-height: 2rem;
+    font-size: var(--md-sys-typescale-label-medium-size, 0.75rem);
+    letter-spacing: var(--md-sys-typescale-label-medium-tracking, 0.5px);
+}
+
+.btn-sm .material-symbols-outlined {
+    font-size: 18px;
 }
 
 /* Text Link Button - for secondary actions like "Download .txt" */
@@ -523,6 +630,222 @@ md-icon-button[selected] {
 
 .wy-icon-btn:active {
     transform: scale(0.98);
+}
+
+/* ========================================
+   TOAST / SNACKBAR COMPONENT
+   ======================================== */
+
+.wy-toast {
+    position: fixed;
+    top: var(--space-xl, 1.5rem);
+    right: var(--space-xl, 1.5rem);
+
+    background-color: var(--md-sys-color-on-surface);
+    color: var(--md-sys-color-surface);
+
+    padding: 0.875rem 1rem;
+    border-radius: var(--md-sys-shape-corner-small, 8px);
+    box-shadow: var(--shadow-large, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+
+    opacity: 0;
+    transform: translateY(-20px);
+
+    transition: all var(--md-sys-motion-duration-medium2, 0.3s) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
+
+    pointer-events: none;
+
+    font-family: var(--md-sys-typescale-body-medium-font, var(--font-body));
+    font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
+    font-weight: var(--md-sys-typescale-body-medium-weight, 400);
+    line-height: var(--md-sys-typescale-body-medium-line-height, 1.25rem);
+
+    z-index: 4000;
+    min-width: 180px;
+}
+
+.wy-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* ========================================
+   TABS COMPONENT
+   ======================================== */
+
+.wy-tabs {
+    margin-bottom: 1.25rem;
+}
+
+.wy-tabs-header {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    position: relative;
+    padding: 0 2rem;
+}
+
+.wy-tab {
+    padding: 0.75rem 0;
+    min-height: 2.5rem;
+
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+
+    color: var(--md-sys-color-text-muted);
+    cursor: pointer;
+
+    transition: all var(--md-sys-motion-duration-short4, 0.2s) var(--md-sys-motion-easing-standard, ease);
+
+    text-transform: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.wy-tab:hover {
+    color: var(--md-sys-color-primary);
+}
+
+.wy-tab.active {
+    color: var(--md-sys-color-primary);
+    border-bottom-color: var(--md-sys-color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+    .wy-tab.active {
+        color: var(--md-sys-color-on-surface);
+        border-bottom-color: var(--md-sys-color-on-surface);
+    }
+}
+
+.wy-tabs-content {
+    position: relative;
+}
+
+.wy-tab-pane {
+    display: none;
+}
+
+.wy-tab-pane.active {
+    display: block;
+}
+
+/* ========================================
+   TOGGLE SWITCH COMPONENT
+   ======================================== */
+
+.wy-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md, 1rem);
+}
+
+.wy-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md, 1rem);
+    cursor: pointer;
+    user-select: none;
+}
+
+.wy-toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.wy-toggle-slider {
+    position: relative;
+    width: 48px;
+    height: 28px;
+    background-color: var(--md-sys-color-outline-variant);
+    border: 2px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--md-sys-shape-corner-full, 9999px);
+    transition: all var(--md-sys-motion-duration-medium2, 0.3s) var(--md-sys-motion-easing-legacy, ease);
+    flex-shrink: 0;
+}
+
+.wy-toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--md-sys-color-surface);
+    border-radius: var(--md-sys-shape-corner-full, 9999px);
+    transition: all 0.4s var(--md-sys-motion-easing-spring, cubic-bezier(0.34, 1.56, 0.64, 1));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.wy-toggle-input:checked + .wy-toggle-slider {
+    background-color: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+}
+
+.wy-toggle-input:checked + .wy-toggle-slider::before {
+    left: calc(100% - 22px);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.wy-toggle-input:active + .wy-toggle-slider::before {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.wy-toggle-input:focus-visible + .wy-toggle-slider {
+    outline: 3px solid var(--md-sys-color-secondary);
+    outline-offset: 2px;
+}
+
+.wy-toggle-text {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+
+/* ========================================
+   EMPTY STATE COMPONENT
+   ======================================== */
+
+.wy-empty-state {
+    text-align: center;
+    padding: var(--space-3xl, 3rem);
+    color: var(--md-sys-color-text-muted);
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.wy-empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-md, 1rem);
+    opacity: 0.5;
+}
+
+.wy-empty-state-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--md-sys-color-primary);
+    margin-bottom: var(--space-sm, 0.5rem);
+}
+
+.wy-empty-state-description {
+    max-width: 32rem;
+    margin: 0 auto;
 }
 
 /* Responsive adjustments */
