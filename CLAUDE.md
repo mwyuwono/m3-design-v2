@@ -45,11 +45,22 @@ git commit -m "Your message" && git push origin main && curl -s "https://purge.j
 ### Purging Multiple Files
 
 ```bash
-curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/m3-tokens.css"
-curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/web-components.js"
+# Full purge (run after any change)
+for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
+  for v in @main "" @latest; do
+    curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
+  done
+done
 ```
 
-Verify purge succeeded: response should contain `"status":"ok"`.
+Or individually:
+```bash
+curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css"
+curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css"
+curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js"
+```
+
+Verify purge succeeded: response should contain `"status":"finished"`.
 
 ### Dependent Projects
 
@@ -115,8 +126,11 @@ JSON files in `src/data/` drive page content. `main.js` reads JSON and dynamical
 
 ## Shadow DOM Font Loading
 
-Components with Shadow DOM require explicit font imports in their styles:
+**CRITICAL: Fonts loaded in the light DOM do NOT propagate into Shadow DOM.** Components must explicitly import any fonts they use.
 
+### Required Font Imports
+
+**Playfair Display** (for headings/display text):
 ```javascript
 static styles = css`
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
@@ -127,7 +141,40 @@ static styles = css`
 `;
 ```
 
-This is already implemented in modal components but must be added to any new Shadow DOM component using Playfair Display.
+**Material Symbols** (for icons):
+```javascript
+static styles = css`
+  @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'liga';
+  }
+`;
+```
+
+### Components with Font Imports
+
+The following components already include necessary font imports:
+- `wy-modal` - Playfair Display
+- `wy-prompt-modal` - Playfair Display + DM Sans
+- `wy-export-modal` - Playfair Display
+- `wy-controls-bar` - Material Symbols
+
+**When creating new components:** If the component uses icons (`<span class="material-symbols-outlined">`) or display fonts, add the appropriate `@import` to the component's `static styles`.
 
 ## CSS Editing
 
