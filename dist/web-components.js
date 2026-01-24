@@ -5850,8 +5850,7 @@ class Xa extends b {
       background-color: var(--md-sys-color-primary, #2C4C3B);
       color: var(--md-sys-color-on-primary, #FFFFFF);
       border-color: transparent;
-      font-weight: 600;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      font-weight: 500;
     }
 
     .count {
@@ -5915,7 +5914,7 @@ class Za extends b {
     :host {
       display: block;
       background-color: transparent;
-      padding: 8px 0;
+      padding: 8px 32px;
       box-sizing: border-box;
     }
 
@@ -7911,9 +7910,8 @@ class ds extends b {
       top: 0;
       z-index: 1000;
       background-color: var(--md-sys-color-surface-container-high);
-      border-bottom: 1px solid var(--md-sys-color-outline-variant);
       height: 64px;
-      padding: 0 16px;
+      padding: 0 32px;
     }
 
     .app-bar-container {

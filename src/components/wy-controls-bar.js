@@ -42,7 +42,7 @@ export class WyControlsBar extends LitElement {
     :host {
       display: block;
       background-color: transparent;
-      padding: 8px 0;
+      padding: 8px 32px;
       box-sizing: border-box;
     }
 

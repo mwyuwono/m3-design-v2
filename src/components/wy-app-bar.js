@@ -19,9 +19,8 @@ export class WyAppBar extends LitElement {
       top: 0;
       z-index: 1000;
       background-color: var(--md-sys-color-surface-container-high);
-      border-bottom: 1px solid var(--md-sys-color-outline-variant);
       height: 64px;
-      padding: 0 16px;
+      padding: 0 32px;
     }
 
     .app-bar-container {

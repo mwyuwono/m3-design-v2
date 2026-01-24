@@ -41,8 +41,7 @@ export class WyFilterChip extends LitElement {
       background-color: var(--md-sys-color-primary, #2C4C3B);
       color: var(--md-sys-color-on-primary, #FFFFFF);
       border-color: transparent;
-      font-weight: 600;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      font-weight: 500;
     }
 
     .count {
