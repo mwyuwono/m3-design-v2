@@ -4,7 +4,7 @@
   /* --- COLOR SYSTEM: Visual Identity v1.0 (Refined) --- */
 
   /* Primary: Hunter Green (Refined) */
-  --md-sys-color-primary: #2d4e3c;
+  --md-sys-color-primary: #2C4C3B;
   --md-sys-color-on-primary: #FFFFFF;
   --md-sys-color-primary-container: #E8F5E9;
   /* Pale wash */
@@ -58,12 +58,14 @@
   --md-sys-color-text-muted: #667f71;
 
   /* --- TYPOGRAPHY FAMILIES --- */
-  --font-display: 'Manrope', sans-serif;
-  /* Primary UI & Accent Sans */
+  --font-display: 'Playfair Display', serif;
+  /* Display Serif */
   --font-serif: 'Playfair Display', serif;
   /* Editorial Headings (Serif) */
-  --font-body: 'Manrope', sans-serif;
-  /* Standardizing Body to Manrope for modern feel */
+  --font-sans: 'DM Sans', sans-serif;
+  /* Sans UI/Body */
+  --font-body: var(--font-sans);
+  /* Standardizing Body to Sans */
 
   /* M3 Typography Token Overrides */
   --md-sys-typescale-display-large-font: var(--font-serif);
@@ -82,9 +84,9 @@
   --md-sys-typescale-body-medium-font: var(--font-body);
   --md-sys-typescale-body-small-font: var(--font-body);
 
-  --md-sys-typescale-label-large-font: var(--font-display);
-  --md-sys-typescale-label-medium-font: var(--font-display);
-  --md-sys-typescale-label-small-font: var(--font-display);
+  --md-sys-typescale-label-large-font: var(--font-sans);
+  --md-sys-typescale-label-medium-font: var(--font-sans);
+  --md-sys-typescale-label-small-font: var(--font-sans);
 
   /* --- SPACING & SHAPE --- */
   --spacing-layout: 120px;

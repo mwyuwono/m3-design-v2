@@ -30,7 +30,7 @@ export class WyPromptModal extends LitElement {
   }
 
   static styles = css`
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
     :host {
       display: block;
@@ -40,6 +40,10 @@ export class WyPromptModal extends LitElement {
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.25s ease;
+      --wy-color-surface-light: #F5F2EA;
+      --wy-color-text-primary: #2C4C3B;
+      --wy-color-badge-bg: #E8E4D9;
+      --wy-color-focus-ring: rgba(44, 76, 59, 0.12);
     }
 
     :host([open]) {
@@ -61,7 +65,7 @@ export class WyPromptModal extends LitElement {
       width: 90%;
       max-width: 800px;
       max-height: 90vh;
-      background: var(--md-sys-color-surface);
+      background: var(--wy-color-surface-light);
       border-radius: 16px; /* 16px radius as per ref */
       box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
       transform: translate(-50%, -50%) scale(0.95);
@@ -70,6 +74,7 @@ export class WyPromptModal extends LitElement {
       flex-direction: column;
       overflow: hidden;
       border: 1px solid var(--md-sys-color-outline-variant);
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
     }
 
     :host([open]) .modal-container {
@@ -90,6 +95,12 @@ export class WyPromptModal extends LitElement {
         align-items: center;
     }
 
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
     .header-main {
         display: flex;
         justify-content: space-between;
@@ -100,36 +111,39 @@ export class WyPromptModal extends LitElement {
     .badge {
       display: inline-block;
       padding: 4px 12px;
-      background: var(--md-sys-color-secondary-container); /* Fallback */
-      color: var(--md-sys-color-on-secondary-container);
-      border-radius: 4px; /* Sharper radius */
-      font-family: var(--font-body);
+      background: var(--wy-color-badge-bg);
+      color: var(--wy-color-text-primary);
+      border-radius: 999px;
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.15em; /* Wider tracking */
     }
 
-    /* Category Specific Badges */
-    :host([category="Productivity"]) .badge { background: #E8E4D9; color: var(--wy-color-productivity); }
-    :host([category="Expertise"]) .badge { background: #E8E4D9; color: var(--wy-color-expertise); }
-    /* Dark mode overrides */
     @media (prefers-color-scheme: dark) {
-        :host([category="Productivity"]) .badge { background: rgba(255,255,255,0.1); color: #E5E5E5; }
-        :host([category="Expertise"]) .badge { background: rgba(255,255,255,0.1); color: #E5E5E5; }
+        :host {
+          --wy-color-surface-light: var(--md-sys-color-surface);
+          --wy-color-text-primary: var(--md-sys-color-primary);
+          --wy-color-badge-bg: rgba(255, 255, 255, 0.12);
+          --wy-color-focus-ring: rgba(141, 224, 176, 0.2);
+        }
+        .badge {
+          color: var(--md-sys-color-on-surface);
+        }
     }
 
     .title-group h2 {
-      font-family: var(--font-serif, 'Playfair Display', serif); /* Playfair Display */
+      font-family: var(--font-display, 'Playfair Display', serif);
       font-size: 2.5rem; /* Larger Title */
       font-weight: 500;
       margin: 0 0 12px 0;
-      color: var(--md-sys-color-primary);
+      color: var(--wy-color-text-primary);
       line-height: 1.1;
     }
 
     .description-text {
-      font-family: var(--font-body);
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.6;
@@ -147,7 +161,7 @@ export class WyPromptModal extends LitElement {
         border: none;
         padding: 10px 20px;
         border-radius: 999px;
-        font-family: var(--font-body);
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
         font-size: 0.875rem;
         font-weight: 500;
         cursor: pointer;
@@ -171,7 +185,7 @@ export class WyPromptModal extends LitElement {
         background: none;
         border: none;
         padding: 12px 0 16px 0;
-        font-family: var(--font-body);
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
         font-size: 0.875rem;
         font-weight: 500;
         color: var(--md-sys-color-on-surface-variant);
@@ -179,25 +193,17 @@ export class WyPromptModal extends LitElement {
         position: relative;
         transition: color 0.2s;
         margin: 0;
+        border-bottom: 2px solid transparent;
     }
 
     .tab-item:hover {
-        color: var(--md-sys-color-primary);
+        color: var(--wy-color-text-primary);
     }
 
     .tab-item.active {
-        color: var(--md-sys-color-primary);
+        color: var(--wy-color-text-primary);
         font-weight: 700;
-    }
-
-    .tab-item.active::after {
-        content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: var(--md-sys-color-primary);
+        border-bottom-color: var(--wy-color-text-primary);
     }
     
     /* CONTENT */
@@ -223,6 +229,25 @@ export class WyPromptModal extends LitElement {
         gap: 12px;
     }
 
+    .variation-label {
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .variation-select {
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
+        font-size: 0.875rem;
+        color: var(--md-sys-color-on-surface);
+        background: var(--md-sys-color-surface-container-lowest);
+        border: 1px solid var(--md-sys-color-outline-variant);
+        border-radius: 999px;
+        padding: 6px 12px;
+    }
+
     /* FORMS */
     .variables-grid {
         display: flex;
@@ -232,12 +257,12 @@ export class WyPromptModal extends LitElement {
 
     .form-group label {
         display: block;
-        font-family: var(--font-body);
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.1em;
-        color: var(--md-sys-color-primary);
+        color: var(--wy-color-text-primary);
         margin-bottom: 8px;
     }
 
@@ -247,7 +272,7 @@ export class WyPromptModal extends LitElement {
         padding: 12px 16px;
         border: 1px solid var(--md-sys-color-outline-variant);
         border-radius: 8px;
-        font-family: var(--font-body);
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
         font-size: 1rem;
         color: var(--md-sys-color-on-surface);
         background: var(--md-sys-color-surface-container-lowest);
@@ -257,7 +282,7 @@ export class WyPromptModal extends LitElement {
     .form-group input:focus, .form-group textarea:focus {
         outline: none;
         border-color: var(--md-sys-color-primary);
-        box-shadow: 0 0 0 2px rgba(45, 78, 60, 0.1);
+        box-shadow: 0 0 0 2px var(--wy-color-focus-ring);
     }
 
     .helper-text {
@@ -272,7 +297,7 @@ export class WyPromptModal extends LitElement {
       background: var(--md-sys-color-surface-container-highest);
       border-radius: 8px;
       padding: 24px;
-      font-family: var(--font-body);
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
       font-size: 1rem;
       line-height: 1.7;
       color: var(--md-sys-color-on-surface);
@@ -307,7 +332,7 @@ export class WyPromptModal extends LitElement {
     .text-link {
         background: none;
         border: none;
-        font-family: var(--font-body);
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
         font-size: 0.875rem;
         font-weight: 500;
         color: var(--md-sys-color-text-muted);
@@ -317,7 +342,7 @@ export class WyPromptModal extends LitElement {
         cursor: pointer;
         transition: color 0.2s;
     }
-    .text-link:hover { color: var(--md-sys-color-primary); }
+    .text-link:hover { color: var(--wy-color-text-primary); }
 
     .primary-btn {
         display: flex;
@@ -328,7 +353,7 @@ export class WyPromptModal extends LitElement {
         border: none;
         padding: 12px 24px;
         border-radius: 999px;
-        font-family: var(--font-body);
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
         font-size: 0.875rem;
         font-weight: 700;
         letter-spacing: 0.02em;
@@ -369,9 +394,17 @@ export class WyPromptModal extends LitElement {
         <header class="header">
             <div class="header-top">
                 <span class="badge category-badge">${this.category}</span>
-                <md-icon-button @click="${this._close}">
-                    <md-icon>close</md-icon>
-                </md-icon-button>
+                <div class="header-actions">
+                    ${this.mode === 'locked' ? html`
+                        <button class="customize-btn" @click="${() => this.mode = 'edit'}">
+                            <md-icon style="font-size: 18px;">edit</md-icon>
+                            Edit Prompt
+                        </button>
+                    ` : ''}
+                    <md-icon-button @click="${this._close}">
+                        <md-icon>close</md-icon>
+                    </md-icon-button>
+                </div>
             </div>
             
             <div class="header-main">
@@ -380,18 +413,21 @@ export class WyPromptModal extends LitElement {
                     <p class="description-text">${this.description}</p>
                 </div>
                 
-                ${this.mode === 'locked' ? html`
-                    <button class="customize-btn" @click="${() => this.mode = 'edit'}">
-                        <md-icon style="font-size: 18px;">edit</md-icon>
-                        Customize Template
-                    </button>
-                ` : ''}
+                ${this.mode === 'locked' ? html`` : ''}
             </div>
         </header>
 
+        ${this.mode === 'locked' ? html`
+          <div class="tabs-container">
+              <wy-tabs active-tab="${this.activeTab}" @tab-change="${e => this.activeTab = e.detail.tab}">
+                <button class="tab-item ${this.activeTab === 'variables' ? 'active' : ''}" role="tab" data-tab="variables">Variables</button>
+                <button class="tab-item ${this.activeTab === 'preview' ? 'active' : ''}" role="tab" data-tab="preview">Final Preview</button>
+              </wy-tabs>
+          </div>
+        ` : ''}
+
         <div class="content">
           ${this.mode === 'locked' ? html`
-            
             ${this.variations.length > 1 ? html`
               <div class="variation-selector">
                 <span class="variation-label">Variation Style:</span>
@@ -402,14 +438,6 @@ export class WyPromptModal extends LitElement {
                 </select>
               </div>
             ` : ''}
-
-            <!-- TABS -->
-            <div class="tabs-container">
-                <wy-tabs active-tab="${this.activeTab}" @tab-change="${e => this.activeTab = e.detail.tab}">
-                  <button class="tab-item ${this.activeTab === 'variables' ? 'active' : ''}" role="tab" data-tab="variables">Variables</button>
-                  <button class="tab-item ${this.activeTab === 'preview' ? 'active' : ''}" role="tab" data-tab="preview">Final Preview</button>
-                </wy-tabs>
-            </div>
 
             <div class="body">
               ${this.activeTab === 'variables' ? html`
