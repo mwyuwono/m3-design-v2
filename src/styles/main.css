@@ -177,3 +177,353 @@ md-icon-button[selected] {
     padding: 6px 16px;
     font-size: 0.75rem;
 }
+
+/* ========================================
+   MODAL COMPONENT SYSTEM
+   Based on Visual Identity Guide v1.0
+   ======================================== */
+
+/* Modal Container */
+.wy-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.wy-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Overlay - Blur background */
+.wy-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    cursor: pointer;
+}
+
+/* Modal Content Panel */
+.wy-modal-content {
+    position: relative;
+    background: var(--md-sys-color-surface);
+    border-radius: 16px;
+    max-width: 56rem;
+    width: 100%;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    transform: scale(0.95) translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.3s ease;
+}
+
+.wy-modal.show .wy-modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Modal Header */
+.wy-modal-header {
+    padding: 2rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.wy-modal-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.wy-modal-header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.wy-modal-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 1rem;
+}
+
+/* Modal Title - Serif, Primary color */
+.wy-modal-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--md-sys-color-primary);
+    margin: 0;
+}
+
+/* Modal Description */
+.wy-modal-description {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--md-sys-color-text-muted);
+    margin: 0;
+    max-width: 36rem;
+}
+
+/* Modal Close Button */
+.wy-modal-close {
+    background: none;
+    border: none;
+    color: var(--md-sys-color-text-muted);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.wy-modal-close:hover {
+    color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* Category Badge */
+.wy-badge {
+    display: inline-block;
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-primary);
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .wy-badge {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--md-sys-color-on-surface);
+    }
+}
+
+/* Modal Tabs */
+.wy-modal-tabs {
+    display: flex;
+    gap: 2rem;
+    padding: 0 2rem;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.wy-modal-tab {
+    background: none;
+    border: none;
+    padding: 0.75rem 0;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    color: var(--md-sys-color-text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.wy-modal-tab:hover {
+    color: var(--md-sys-color-primary);
+}
+
+.wy-modal-tab.active {
+    color: var(--md-sys-color-primary);
+    border-bottom-color: var(--md-sys-color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+    .wy-modal-tab.active {
+        color: var(--md-sys-color-on-surface);
+        border-bottom-color: var(--md-sys-color-on-surface);
+    }
+}
+
+/* Modal Body */
+.wy-modal-body {
+    padding: 2rem;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Form Field Group */
+.wy-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Form Labels - Uppercase, tracked */
+.wy-label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-sys-color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+    .wy-label {
+        color: var(--md-sys-color-on-surface-variant);
+    }
+}
+
+/* Form Inputs - White background on clay surface */
+.wy-input,
+.wy-textarea {
+    width: 100%;
+    background-color: var(--md-sys-color-surface-container-lowest);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--md-sys-color-on-surface);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wy-input::placeholder,
+.wy-textarea::placeholder {
+    color: var(--md-sys-color-text-muted);
+    opacity: 0.6;
+}
+
+.wy-input:focus,
+.wy-textarea:focus {
+    outline: none;
+    border-color: var(--md-sys-color-primary);
+    box-shadow: 0 0 0 1px var(--md-sys-color-primary);
+}
+
+.wy-textarea {
+    resize: vertical;
+    min-height: 8rem;
+}
+
+/* Textarea hint text */
+.wy-textarea-hint {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--md-sys-color-text-muted);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Modal Footer / Actions */
+.wy-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 2rem 2rem;
+    background-color: var(--md-sys-color-surface);
+}
+
+/* Text Link Button (Download .txt style) */
+.wy-link-button {
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--md-sys-color-text-muted);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: var(--md-sys-color-outline-variant);
+    text-underline-offset: 4px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.wy-link-button:hover {
+    color: var(--md-sys-color-primary);
+    text-decoration-color: var(--md-sys-color-primary);
+}
+
+/* Icon Button (for modal actions) */
+.wy-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0.025em;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.wy-icon-btn:hover {
+    background-color: #1a3025;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.wy-icon-btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .wy-modal-header {
+        padding: 1.5rem 1.5rem 1rem;
+    }
+
+    .wy-modal-tabs {
+        padding: 0 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .wy-modal-body {
+        padding: 1.5rem;
+    }
+
+    .wy-modal-footer {
+        padding: 1rem 1.5rem 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .wy-modal-footer .wy-icon-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
