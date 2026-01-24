@@ -5817,52 +5817,50 @@ class Xa extends b {
     count: { type: Number }
   };
   static styles = f`
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
-
     :host {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: var(--wy-filter-chip-padding, 8px 16px);
+      gap: 6px;
+      padding: 4px 12px;
       border-radius: 9999px;
-      font-family: var(--wy-filter-chip-font-family, var(--font-display));
-      font-size: var(--wy-filter-chip-font-size, 0.8125rem);
-      font-weight: var(--wy-filter-chip-font-weight, 500);
-      font-style: var(--wy-filter-chip-font-style, normal);
+      font-family: var(--font-display, 'Playfair Display', serif);
+      font-size: 11px;
+      font-weight: 400;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid var(--wy-filter-chip-border, var(--md-sys-color-outline-variant));
+      transition: all 0.15s ease;
+      border: 1px solid var(--md-sys-color-outline-variant, #e5e7eb);
       background-color: transparent;
-      color: var(--wy-filter-chip-text, var(--md-sys-color-on-background));
+      color: var(--md-sys-color-on-surface-variant, #64748b);
       user-select: none;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    :host(:hover) {
-      color: var(--wy-filter-chip-text-hover, var(--wy-filter-chip-text, var(--md-sys-color-on-background)));
-      background-color: var(--wy-filter-chip-hover-bg, var(--md-sys-color-surface-variant));
-      border-color: var(--wy-filter-chip-border-hover, var(--md-sys-color-outline));
+    :host(:hover:not([active])) {
+      color: var(--md-sys-color-on-surface, #1f2937);
+      background-color: var(--md-sys-color-surface-variant, #f9fafb);
     }
 
     :host(:focus-visible) {
-      outline: 2px solid var(--wy-filter-chip-focus, var(--md-sys-color-primary));
+      outline: 2px solid var(--md-sys-color-primary, #2C4C3B);
       outline-offset: 2px;
     }
 
     :host([active]) {
-      background-color: var(--wy-filter-chip-active-bg, var(--md-sys-color-primary));
-      color: var(--wy-filter-chip-active-fg, var(--md-sys-color-on-primary));
-      border-color: var(--wy-filter-chip-active-bg, var(--md-sys-color-primary));
-      font-weight: var(--wy-filter-chip-font-weight-active, var(--wy-filter-chip-font-weight, 500));
-      box-shadow: var(--wy-filter-chip-shadow, none);
+      background-color: var(--wy-filter-chip-active-bg, #E8F5E9);
+      color: var(--md-sys-color-primary, #2C4C3B);
+      border-color: transparent;
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
 
     .count {
-      opacity: 0.6;
-      font-size: 0.75rem;
+      opacity: 0.7;
+      font-size: 10px;
     }
 
     :host([active]) .count {
-      opacity: 0.8;
+      opacity: 0.85;
     }
   `;
   render() {
@@ -5872,14 +5870,13 @@ class Xa extends b {
     `;
   }
   connectedCallback() {
-    super.connectedCallback(), this.addEventListener("click", this._toggle);
+    super.connectedCallback(), this.setAttribute("role", "button"), this.setAttribute("tabindex", "0"), this.addEventListener("keydown", this._handleKeydown);
   }
-  _toggle() {
-    this.active = !this.active, this.dispatchEvent(new CustomEvent("change", {
-      detail: { active: this.active, label: this.label },
-      bubbles: !0,
-      composed: !0
-    }));
+  disconnectedCallback() {
+    super.disconnectedCallback(), this.removeEventListener("keydown", this._handleKeydown);
+  }
+  _handleKeydown(e) {
+    (e.key === "Enter" || e.key === " ") && (e.preventDefault(), this.click());
   }
 }
 customElements.define("wy-filter-chip", Xa);
@@ -5897,161 +5894,262 @@ class Za extends b {
   static styles = f`
     :host {
       display: block;
-      background-color: var(--md-sys-color-surface);
-      border-bottom: 1px solid var(--md-sys-color-outline-variant);
-      padding: 12px 16px;
-      min-height: 64px;
+      background-color: var(--md-sys-color-surface, #fff);
+      border-bottom: 1px solid var(--md-sys-color-outline-variant, #e5e5e5);
+      padding: 8px 16px;
       box-sizing: border-box;
     }
 
     .controls-container {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
-      gap: 16px;
-      max-width: 1400px;
+      gap: 12px;
+      max-width: 1600px;
       margin: 0 auto;
     }
 
+    /* Search Section */
     .search-section {
-      flex: 1;
-      min-width: 280px;
+      flex: 0 0 auto;
+      width: 192px;
       position: relative;
     }
 
     .search-input {
       width: 100%;
-      height: 40px;
-      background-color: var(--md-sys-color-surface-container-low);
-      border: 1px solid var(--md-sys-color-outline-variant);
-      border-radius: 20px;
-      padding: 0 40px 0 16px;
-      font-family: var(--font-body);
-      font-size: 0.875rem;
-      color: var(--md-sys-color-on-surface);
+      height: 32px;
+      background-color: var(--wy-controls-search-bg, #f3f4f6);
+      border: 1px solid transparent;
+      border-radius: 9999px;
+      padding: 0 12px 0 36px;
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 0.75rem;
+      color: var(--md-sys-color-on-surface, #1f2937);
       box-sizing: border-box;
+      transition: all 0.2s;
+    }
+
+    .search-input::placeholder {
+      color: var(--md-sys-color-on-surface-variant, #9ca3af);
+    }
+
+    .search-input:focus {
+      outline: none;
+      background-color: var(--md-sys-color-surface, #fff);
+      border-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 20%, transparent);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 20%, transparent);
     }
 
     .search-icon {
       position: absolute;
-      right: 12px;
+      left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 20px;
-      color: var(--md-sys-color-on-surface-variant);
+      font-size: 18px;
+      color: var(--md-sys-color-on-surface-variant, #9ca3af);
+      pointer-events: none;
     }
 
+    .search-input:focus + .search-icon {
+      color: var(--md-sys-color-primary, #2C4C3B);
+    }
+
+    /* Divider */
+    .divider {
+      width: 1px;
+      height: 24px;
+      background-color: var(--md-sys-color-outline-variant, #e5e7eb);
+      flex-shrink: 0;
+    }
+
+    /* Toggle Section */
     .toggle-section {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 16px;
+      flex-shrink: 0;
     }
 
-    .category-section {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    .category-section::-webkit-scrollbar {
-      display: none;
-    }
-
+    /* View Toggle */
     .view-toggle {
-      background-color: var(--md-sys-color-surface-container-low);
-      border: 1px solid var(--md-sys-color-outline-variant);
-      border-radius: 20px;
+      background-color: var(--wy-controls-toggle-bg, #f3f4f6);
+      border-radius: 8px;
       display: flex;
       padding: 2px;
     }
 
     .view-btn {
       border: none;
-      background: none;
-      height: 32px;
-      padding: 0 12px;
-      border-radius: 16px;
+      background: transparent;
+      height: 28px;
+      width: 28px;
+      padding: 0;
+      border-radius: 6px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--md-sys-color-on-surface-variant);
-      transition: all 0.2s;
+      justify-content: center;
+      color: var(--md-sys-color-on-surface-variant, #9ca3af);
+      transition: all 0.15s;
+    }
+
+    .view-btn:hover:not(.active) {
+      color: var(--md-sys-color-on-surface, #1f2937);
     }
 
     .view-btn.active {
-      background-color: var(--md-sys-color-secondary-container);
-      color: var(--md-sys-color-on-secondary-container);
+      background-color: var(--md-sys-color-surface, #fff);
+      color: var(--md-sys-color-primary, #2C4C3B);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 0 0 1px var(--md-sys-color-outline-variant, #e5e7eb);
     }
 
+    .view-btn .material-symbols-outlined,
+    .view-btn md-icon {
+      font-size: 16px;
+      --md-icon-size: 16px;
+    }
+
+    /* Details Toggle */
     .details-toggle {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--md-sys-color-on-surface-variant);
       cursor: pointer;
       user-select: none;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 32px;
+      height: 16px;
+      background-color: var(--wy-controls-switch-off, #e5e7eb);
+      border-radius: 9999px;
+      transition: background-color 0.2s;
+    }
+
+    .toggle-switch.on {
+      background-color: var(--md-sys-color-primary, #2C4C3B);
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      background-color: #fff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle-switch.on::after {
+      transform: translateX(16px);
+    }
+
+    .toggle-label {
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--md-sys-color-on-surface-variant, #64748b);
+    }
+
+    /* Category Section */
+    .category-section {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      flex: 1;
+      padding: 2px 0;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      mask-image: linear-gradient(to right, black 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    }
+
+    .category-section::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .controls-container {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .search-section {
+        width: 100%;
+        order: -1;
+      }
+
+      .divider {
+        display: none;
+      }
+
+      .toggle-section {
+        gap: 12px;
+      }
+
+      .category-section {
+        width: 100%;
+        order: 1;
+      }
     }
   `;
   render() {
     return n`
       <div class="controls-container">
         <div class="search-section">
-          <input 
-            type="search" 
-            class="search-input" 
-            placeholder="Search prompts..." 
+          <input
+            type="search"
+            class="search-input"
+            placeholder="Search prompts..."
             .value="${this.searchValue}"
             @input="${this._handleSearch}"
           >
-          <md-icon class="search-icon">search</md-icon>
+          <span class="material-symbols-outlined search-icon">search</span>
         </div>
+
+        <div class="divider"></div>
 
         <div class="toggle-section">
           <div class="view-toggle">
-            <button 
-              class="view-btn ${this.viewMode === "grid" ? "active" : ""}" 
-              @click="${() => this._setViewMode("grid")}"
-            >
-              <md-icon style="font-size: 18px;">grid_view</md-icon>
-              Grid
-            </button>
-            <button 
-              class="view-btn ${this.viewMode === "list" ? "active" : ""}" 
+            <button
+              class="view-btn ${this.viewMode === "list" ? "active" : ""}"
               @click="${() => this._setViewMode("list")}"
+              aria-label="List view"
             >
-              <md-icon style="font-size: 18px;">view_list</md-icon>
-              List
+              <span class="material-symbols-outlined">format_list_bulleted</span>
+            </button>
+            <button
+              class="view-btn ${this.viewMode === "grid" ? "active" : ""}"
+              @click="${() => this._setViewMode("grid")}"
+              aria-label="Grid view"
+            >
+              <span class="material-symbols-outlined">grid_view</span>
             </button>
           </div>
 
-          <label class="details-toggle">
-            <span>Show Details</span>
-            <md-switch 
-              ?selected="${this.showDetails}"
-              @change="${this._toggleDetails}"
-            ></md-switch>
+          <label class="details-toggle" @click="${this._toggleDetails}">
+            <div class="toggle-switch ${this.showDetails ? "on" : ""}"></div>
+            <span class="toggle-label">Descriptions</span>
           </label>
         </div>
 
+        <div class="divider"></div>
+
         <div class="category-section">
-          <wy-filter-chip 
-            label="All" 
+          <wy-filter-chip
+            label="All"
             ?active="${this.activeCategory === "all"}"
             @click="${() => this._setCategory("all")}"
           ></wy-filter-chip>
           ${this.categories.map((e) => n`
-            <wy-filter-chip 
-              label="${e}" 
+            <wy-filter-chip
+              label="${e}"
               ?active="${this.activeCategory === e}"
               @click="${() => this._setCategory(e)}"
             ></wy-filter-chip>
@@ -6066,8 +6164,8 @@ class Za extends b {
   _setViewMode(e) {
     this.viewMode = e, this._notifyChange();
   }
-  _toggleDetails(e) {
-    this.showDetails = e.target.selected, this._notifyChange();
+  _toggleDetails() {
+    this.showDetails = !this.showDetails, this._notifyChange();
   }
   _setCategory(e) {
     this.activeCategory = e, this._notifyChange();
