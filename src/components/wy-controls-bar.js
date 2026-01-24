@@ -41,9 +41,8 @@ export class WyControlsBar extends LitElement {
 
     :host {
       display: block;
-      background-color: var(--md-sys-color-surface, #fff);
-      border-bottom: 1px solid var(--md-sys-color-outline-variant, #e5e5e5);
-      padding: 8px 16px;
+      background-color: transparent;
+      padding: 8px 0;
       box-sizing: border-box;
     }
 

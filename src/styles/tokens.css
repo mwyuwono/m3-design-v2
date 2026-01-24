@@ -117,6 +117,7 @@
   --wy-filter-chip-focus: var(--md-sys-color-primary);
   --wy-filter-chip-active-bg: var(--md-sys-color-primary);
   --wy-filter-chip-active-fg: var(--md-sys-color-on-primary);
+  --wy-filter-chip-font-weight: 500;
   --wy-filter-chip-shadow: none;
   --wy-filter-chip-font-family: var(--font-sans);
   --wy-filter-chip-font-size: var(--md-sys-typescale-label-medium-size, 0.75rem);

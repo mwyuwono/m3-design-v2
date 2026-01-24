@@ -14,9 +14,9 @@ export class WyFilterChip extends LitElement {
       gap: 6px;
       padding: 4px 12px;
       border-radius: 9999px;
-      font-family: var(--font-display, 'Playfair Display', serif);
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
       font-size: 11px;
-      font-weight: 400;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.15s ease;
       border: 1px solid var(--md-sys-color-outline-variant, #e5e7eb);
@@ -38,8 +38,8 @@ export class WyFilterChip extends LitElement {
     }
 
     :host([active]) {
-      background-color: var(--wy-filter-chip-active-bg, #E8F5E9);
-      color: var(--md-sys-color-primary, #2C4C3B);
+      background-color: var(--md-sys-color-primary, #2C4C3B);
+      color: var(--md-sys-color-on-primary, #FFFFFF);
       border-color: transparent;
       font-weight: 600;
       box-shadow: 0 1px 2px rgba(0,0,0,0.05);
