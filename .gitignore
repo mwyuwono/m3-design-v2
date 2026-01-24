@@ -1,5 +1,8 @@
 node_modules/
-dist/
+# Ignore most of dist but include web-components bundle for CDN
+dist/*
+!dist/web-components.js
+!dist/web-components.js.map
 .DS_Store
 *.local
 npm-debug.log*
