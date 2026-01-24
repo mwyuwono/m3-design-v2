@@ -178,6 +178,30 @@ md-icon-button[selected] {
     font-size: 0.75rem;
 }
 
+/* Text Link Button - for secondary actions like "Download .txt" */
+.btn-link {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--md-sys-color-text-muted);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: var(--md-sys-color-outline-variant);
+    text-underline-offset: 4px;
+    text-transform: none;
+    letter-spacing: normal;
+    cursor: pointer;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.btn-link:hover {
+    color: var(--md-sys-color-primary);
+    text-decoration-color: var(--md-sys-color-primary);
+}
+
 /* ========================================
    MODAL COMPONENT SYSTEM
    Based on Visual Identity Guide v1.0
