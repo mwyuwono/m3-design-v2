@@ -5823,9 +5823,9 @@ class Xa extends b {
       gap: 6px;
       padding: 4px 12px;
       border-radius: 9999px;
-      font-family: var(--font-display, 'Playfair Display', serif);
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
       font-size: 11px;
-      font-weight: 400;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.15s ease;
       border: 1px solid var(--md-sys-color-outline-variant, #e5e7eb);
@@ -5847,8 +5847,8 @@ class Xa extends b {
     }
 
     :host([active]) {
-      background-color: var(--wy-filter-chip-active-bg, #E8F5E9);
-      color: var(--md-sys-color-primary, #2C4C3B);
+      background-color: var(--md-sys-color-primary, #2C4C3B);
+      color: var(--md-sys-color-on-primary, #FFFFFF);
       border-color: transparent;
       font-weight: 600;
       box-shadow: 0 1px 2px rgba(0,0,0,0.05);
@@ -5914,9 +5914,8 @@ class Za extends b {
 
     :host {
       display: block;
-      background-color: var(--md-sys-color-surface, #fff);
-      border-bottom: 1px solid var(--md-sys-color-outline-variant, #e5e5e5);
-      padding: 8px 16px;
+      background-color: transparent;
+      padding: 8px 0;
       box-sizing: border-box;
     }
 
