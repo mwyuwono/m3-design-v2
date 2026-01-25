@@ -5943,7 +5943,7 @@ class Za extends b {
     .search-input {
       width: 100%;
       height: 32px;
-      background-color: var(--wy-controls-search-bg, var(--md-sys-color-surface-container, #f3f4f6));
+      background-color: var(--wy-controls-search-bg, var(--md-sys-color-surface-container-high, #f3f4f6));
       border: 1px solid var(--md-sys-color-outline-variant, transparent);
       border-radius: 9999px;
       padding: 0 12px 0 36px;
@@ -5999,7 +5999,7 @@ class Za extends b {
 
     /* View Toggle */
     .view-toggle {
-      background-color: var(--wy-controls-toggle-bg, var(--md-sys-color-surface-container, #f3f4f6));
+      background-color: var(--wy-controls-toggle-bg, var(--md-sys-color-surface-container-high, #f3f4f6));
       border: 1px solid var(--md-sys-color-outline-variant, transparent);
       border-radius: 8px;
       display: flex;

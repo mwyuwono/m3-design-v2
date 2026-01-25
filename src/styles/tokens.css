@@ -99,6 +99,8 @@
   /* --- COMPONENT TOKENS --- */
   --wy-controls-bar-bg: var(--md-sys-color-primary);
   --wy-controls-bar-fg: var(--md-sys-color-on-primary);
+  --wy-controls-search-bg: var(--md-sys-color-surface-container-high);
+  --wy-controls-toggle-bg: var(--md-sys-color-surface-container-high);
   --wy-controls-chip-text: color-mix(in srgb, var(--wy-controls-bar-fg) 60%, transparent);
   --wy-controls-chip-text-hover: var(--wy-controls-bar-fg);
   --wy-controls-chip-border: color-mix(in srgb, var(--wy-controls-bar-fg) 20%, transparent);
