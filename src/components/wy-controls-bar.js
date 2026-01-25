@@ -29,6 +29,24 @@ export class WyControlsBar extends LitElement {
       box-sizing: border-box;
     }
 
+    /* Pass filter chip theming variables through to nested wy-filter-chip shadow DOM */
+    wy-filter-chip {
+      --wy-filter-chip-active-bg: var(--wy-filter-chip-active-bg);
+      --wy-filter-chip-active-fg: var(--wy-filter-chip-active-fg);
+      --wy-filter-chip-text: var(--wy-filter-chip-text);
+      --wy-filter-chip-text-hover: var(--wy-filter-chip-text-hover);
+      --wy-filter-chip-border: var(--wy-filter-chip-border);
+      --wy-filter-chip-border-hover: var(--wy-filter-chip-border-hover);
+      --wy-filter-chip-hover-bg: var(--wy-filter-chip-hover-bg);
+      --wy-filter-chip-focus: var(--wy-filter-chip-focus);
+      --wy-filter-chip-shadow: var(--wy-filter-chip-shadow);
+      --wy-filter-chip-font-family: var(--wy-filter-chip-font-family);
+      --wy-filter-chip-font-size: var(--wy-filter-chip-font-size);
+      --wy-filter-chip-font-weight: var(--wy-filter-chip-font-weight);
+      --wy-filter-chip-font-weight-active: var(--wy-filter-chip-font-weight-active);
+      --wy-filter-chip-padding: var(--wy-filter-chip-padding);
+    }
+
     .material-symbols-outlined {
       font-family: 'Material Symbols Outlined';
       font-variation-settings:
