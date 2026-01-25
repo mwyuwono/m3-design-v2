@@ -21,11 +21,22 @@ export class WyControlsBar extends LitElement {
     static styles = css`
     @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
+    :host {
+      display: block;
+      background-color: var(--wy-controls-bar-bg, transparent);
+      border-bottom: var(--wy-controls-bar-border, none);
+      padding: var(--wy-controls-bar-padding, 8px 32px);
+      box-sizing: border-box;
+    }
+
     .material-symbols-outlined {
       font-family: 'Material Symbols Outlined';
-      font-weight: normal;
-      font-style: normal;
-      font-size: 24px;
+      font-variation-settings:
+        'FILL' var(--wy-controls-icon-fill, 0),
+        'wght' var(--wy-controls-icon-weight, 300),
+        'GRAD' var(--wy-controls-icon-grad, 0),
+        'opsz' var(--wy-controls-icon-opsz, 24);
+      font-size: var(--wy-controls-icon-size, 24px);
       line-height: 1;
       letter-spacing: normal;
       text-transform: none;
@@ -33,17 +44,10 @@ export class WyControlsBar extends LitElement {
       white-space: nowrap;
       word-wrap: normal;
       direction: ltr;
+      user-select: none;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
-      font-feature-settings: 'liga';
-    }
-
-    :host {
-      display: block;
-      background-color: transparent;
-      padding: 8px 32px;
-      box-sizing: border-box;
     }
 
     .controls-container {
@@ -248,7 +252,7 @@ export class WyControlsBar extends LitElement {
 
     render() {
         return html`
-      <div class="controls-container">
+      <div class="controls-container" part="controls-container">
         <div class="search-section">
           <input
             type="search"
