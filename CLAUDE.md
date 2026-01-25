@@ -16,6 +16,50 @@ npm run preview  # Preview production build
 
 **IMPORTANT: When committing changes, you MUST follow the [Commit & Deploy Workflow](#commit--deploy-workflow) to purge the jsDelivr CDN cache. Dependent projects will not receive updates without this step.**
 
+## Visual QA Skill
+
+This project includes a **visual-qa** skill for detecting visual issues (contrast problems, invisible elements, spacing issues) after CSS/component changes.
+
+### Prerequisites
+
+```bash
+pip install playwright && playwright install chromium
+```
+
+### Usage
+
+After making component or styling changes, test against a consuming project:
+
+```bash
+# Build the design system first
+npm run build
+
+# Start the consuming project's dev server (e.g., prompts-library)
+cd /path/to/prompts-library && python3 -m http.server 8000 &
+
+# Capture screenshots in light and dark mode
+python3 skills/visual-qa/scripts/capture.py --url http://localhost:8000 --output /tmp/visual-qa
+
+# Review the screenshots
+open /tmp/visual-qa/light.png /tmp/visual-qa/dark.png
+```
+
+### Automatic Reminder
+
+A Claude Code hook is configured globally to remind you to run `/visual-qa` after editing CSS or JS files.
+
+### Investigating Issues
+
+```bash
+# Inspect an element's computed styles in dark mode
+python3 skills/visual-qa/scripts/inspect.py --url http://localhost:8000 --selector "wy-controls-bar" --shadow-selector ".search-input" --color-scheme dark
+
+# Check contrast ratio
+python3 skills/visual-qa/scripts/inspect.py --url http://localhost:8000 --selector ".search-input" --contrast
+```
+
+See [skills/visual-qa/SKILL.md](skills/visual-qa/SKILL.md) for the complete workflow.
+
 ## Commit & Deploy Workflow
 
 This design system is consumed by dependent projects via jsDelivr CDN. **After every commit, you must purge the CDN cache.**
