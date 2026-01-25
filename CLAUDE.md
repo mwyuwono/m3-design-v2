@@ -197,6 +197,54 @@ The following components already include necessary font imports:
 
 **When creating new components:** If the component uses icons (`<span class="material-symbols-outlined">`) or display fonts, add the appropriate `@import` to the component's `static styles`.
 
+## CSS Custom Property Inheritance in Shadow DOM
+
+**CRITICAL: CSS variables have limited inheritance through nested shadow DOM boundaries.**
+
+### How it works
+- CSS custom properties set on `:root` cascade into a component's shadow DOM
+- They also cascade to child elements inside that shadow DOM
+- **BUT** they do NOT automatically cascade into nested custom elements (component B inside component A's shadow DOM)
+
+### Example: `wy-controls-bar` contains `wy-filter-chip`
+```
+Light DOM
+└── wy-controls-bar (shadow DOM)
+    └── wy-filter-chip (its own shadow DOM) ← variables from :root don't reach here directly
+```
+
+### Solution for consuming projects
+Set variables on the parent component's host element - they cascade to immediate shadow children:
+```css
+/* This works - set on the outer component's host */
+.controls-bar {
+    --wy-filter-chip-active-bg: #E8F5E9;
+}
+```
+
+### When using `prefers-color-scheme` tokens
+If the consuming app is light-theme-only but the design system has dark mode overrides, use explicit hex values instead of `var()` references to avoid dark mode interference:
+```css
+/* Bad - may resolve to dark mode value if user prefers dark */
+--wy-filter-chip-active-bg: var(--md-sys-color-primary-container);
+
+/* Good - explicit value for light-theme-only apps */
+--wy-filter-chip-active-bg: #E8F5E9;
+```
+
+### Exposing parts for direct styling
+Components should expose key internal elements via `part` attribute for consumers who need direct style control:
+```javascript
+// In component template
+html`<div class="container" part="container">...</div>`
+```
+```css
+/* Consumer can then style directly */
+my-component::part(container) {
+    padding: 24px;
+}
+```
+
 ## CSS Editing
 
 When editing CSS, reference the relevant file:
