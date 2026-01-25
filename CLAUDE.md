@@ -33,13 +33,18 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 git push origin main
 
 # 3. Purge jsDelivr cache (REQUIRED for immediate propagation)
-curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/m3-tokens.css"
+for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
+  for v in @main "" @latest; do
+    curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
+  done
+done
 ```
 
 ### Quick One-Liner
 
 ```bash
-git commit -m "Your message" && git push origin main && curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/m3-tokens.css"
+git commit -m "Your message" && git push origin main && \
+for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done
 ```
 
 ### Purging Multiple Files
@@ -70,10 +75,26 @@ Changes affect these projects (hard refresh with Cmd+Shift+R after purging):
 
 These import tokens via:
 ```css
-@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/m3-tokens.css');
+@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css');
+@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css');
+```
+
+Web components via:
+```javascript
+import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';
 ```
 
 jsDelivr caches for up to 24 hours - without purging, changes won't propagate immediately.
+
+### CDN Staleness Fallback (Consumers)
+
+If `@main` is still stale after a purge, consumers may temporarily pin to a commit hash to unblock production:
+```javascript
+// TODO: revert to @main once CDN serves the updated bundle
+import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@<commit>/dist/web-components.js';
+```
+
+Revert the pin once `@main` serves the expected snippet.
 
 ## Architecture
 
