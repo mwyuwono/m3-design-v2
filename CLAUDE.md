@@ -52,10 +52,10 @@ A Claude Code hook is configured globally to remind you to run `/visual-qa` afte
 
 ```bash
 # Inspect an element's computed styles in dark mode
-python3 skills/visual-qa/scripts/inspect.py --url http://localhost:8000 --selector "wy-controls-bar" --shadow-selector ".search-input" --color-scheme dark
+python3 skills/visual-qa/scripts/inspect_element.py --url http://localhost:8000 --selector "wy-controls-bar" --shadow-selector ".search-input" --color-scheme dark
 
 # Check contrast ratio
-python3 skills/visual-qa/scripts/inspect.py --url http://localhost:8000 --selector ".search-input" --contrast
+python3 skills/visual-qa/scripts/inspect_element.py --url http://localhost:8000 --selector ".search-input" --contrast
 ```
 
 See [skills/visual-qa/SKILL.md](skills/visual-qa/SKILL.md) for the complete workflow.
