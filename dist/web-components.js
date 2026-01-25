@@ -5943,8 +5943,8 @@ class Za extends b {
     .search-input {
       width: 100%;
       height: 32px;
-      background-color: var(--wy-controls-search-bg, #f3f4f6);
-      border: 1px solid transparent;
+      background-color: var(--wy-controls-search-bg, var(--md-sys-color-surface-container, #f3f4f6));
+      border: 1px solid var(--md-sys-color-outline-variant, transparent);
       border-radius: 9999px;
       padding: 0 12px 0 36px;
       font-family: var(--font-body, 'DM Sans', sans-serif);
@@ -5956,6 +5956,7 @@ class Za extends b {
 
     .search-input::placeholder {
       color: var(--md-sys-color-on-surface-variant, #9ca3af);
+      opacity: 0.7;
     }
 
     .search-input:focus {
@@ -5972,6 +5973,7 @@ class Za extends b {
       transform: translateY(-50%);
       font-size: 18px;
       color: var(--md-sys-color-on-surface-variant, #9ca3af);
+      opacity: 0.7;
       pointer-events: none;
     }
 
@@ -5997,7 +5999,8 @@ class Za extends b {
 
     /* View Toggle */
     .view-toggle {
-      background-color: var(--wy-controls-toggle-bg, #f3f4f6);
+      background-color: var(--wy-controls-toggle-bg, var(--md-sys-color-surface-container, #f3f4f6));
+      border: 1px solid var(--md-sys-color-outline-variant, transparent);
       border-radius: 8px;
       display: flex;
       padding: 2px;
@@ -6015,16 +6018,19 @@ class Za extends b {
       align-items: center;
       justify-content: center;
       color: var(--md-sys-color-on-surface-variant, #9ca3af);
+      opacity: 0.7;
       transition: all 0.15s;
     }
 
     .view-btn:hover:not(.active) {
       color: var(--md-sys-color-on-surface, #1f2937);
+      opacity: 1;
     }
 
     .view-btn.active {
       background-color: var(--md-sys-color-surface, #fff);
       color: var(--md-sys-color-primary, #2C4C3B);
+      opacity: 1;
       box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 0 0 1px var(--md-sys-color-outline-variant, #e5e7eb);
     }
 
