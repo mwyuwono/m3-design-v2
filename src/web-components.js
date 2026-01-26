@@ -52,6 +52,8 @@ import './components/wy-selection-card.js';
 import './components/wy-prompt-card.js';
 import './components/wy-prompt-modal.js';
 import './components/wy-export-modal.js';
+import './components/wy-links-modal.js';
+import './components/wy-logo.js';
 import './components/wy-app-bar.js';
 import './components/wy-library-header.js';
 
