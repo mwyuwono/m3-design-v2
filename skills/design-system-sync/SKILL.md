@@ -222,8 +222,9 @@ When tokens or components are added/modified:
    - Hard refresh browser (Cmd+Shift+R)
 
 3. **For Weaver-Yuwono-Home-Page**:
-   - Check if needs migration to m3-design-v2
-   - If integrated, follow same steps as prompt-library (CDN) or plots (npm link)
+   - ⚠️ **Not yet integrated** - uses local design system
+   - Migration guide: See [WEAVER-YUWONO-MIGRATION.md](WEAVER-YUWONO-MIGRATION.md)
+   - Once migrated, follow same steps as prompt-library (CDN)
 
 ## Notes
 
