@@ -10,7 +10,7 @@ M3 Design System v2 - A production-ready Web Component library built on Material
 
 When adapting external components to the design system, use the **automated Component Adaptation Workflow** with Playwright verification.
 
-**Quick Start:** [QUICK-START-COMPONENT-ADAPTATION.md](QUICK-START-COMPONENT-ADAPTATION.md) - Copy/paste prompt
+**Quick Start:** [workflows/component-adaptation/QUICK-START-COMPONENT-ADAPTATION.md](workflows/component-adaptation/QUICK-START-COMPONENT-ADAPTATION.md) - Copy/paste prompt
 
 **How it works:**
 1. You provide: Screenshot + original code
