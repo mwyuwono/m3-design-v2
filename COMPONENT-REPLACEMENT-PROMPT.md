@@ -76,11 +76,11 @@ I need to replace the UI of an existing component with a new design while preser
 
 **Component Name:** [e.g., `wy-links-modal` or `linksModal`]
 
-**Location:** [Path to existing component file(s)]
+**Location:** You must identify the location of this component to facilitate replacement and proper linking. 
 
-**Current Usage:**
-- [Describe where/how it's currently used]
-- [List any consuming projects/components]
+
+
+
 
 ## Reference Materials
 
@@ -439,6 +439,84 @@ Create token mapping table:
 
 **Rule:** If a value cannot be matched exactly, create a new component-specific token. No approximations allowed.
 
+#### 1.3 Color Extraction & Verification (CRITICAL - Added Jan 2026)
+
+**Purpose:** Extract exact color values from reference design and verify they match design system tokens to prevent visual mismatches.
+
+**Why This Step Is Critical:**
+- Generic semantic tokens (e.g., `--md-sys-color-on-surface`) may not match the specific colors used in the reference design
+- Tailwind palettes (stone, slate, etc.) don't align with Material Design 3 semantic colors
+- Using wrong tokens causes subtle but noticeable visual differences in hierarchy and warmth
+
+**Extract ALL Colors Using Automated Script:**
+
+```python
+# extract-colors.py
+from playwright.sync_api import sync_playwright
+
+def extract_reference_colors(mockup_path):
+    """Extract all computed color values from reference design"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto(mockup_path)
+        page.wait_for_timeout(2000)
+        
+        colors = page.evaluate('''() => {
+            const getColor = (selector, property = 'color') => {
+                const el = document.querySelector(selector);
+                if (!el) return null;
+                return getComputedStyle(el).getPropertyValue(property);
+            };
+            
+            return {
+                title: getColor('h1'),
+                section_header: getColor('h2'),
+                inactive_chip_text: getColor('button.border'),
+                inactive_chip_border: getColor('button.border', 'border-color'),
+                inactive_chip_bg: getColor('button.border', 'background-color'),
+                active_chip_text: getColor('button.bg-primary'),
+                active_chip_bg: getColor('button.bg-primary', 'background-color'),
+                close_button: getColor('button.absolute'),
+                container_bg: getColor('div', 'background-color')
+            };
+        }''')
+        
+        browser.close()
+        return colors
+```
+
+**Create Color Mapping Table:**
+
+| Element | Reference Color (RGB) | Hex Value | Design System Token | Match? | Action |
+|---------|----------------------|-----------|---------------------|--------|--------|
+| Title | rgb(28, 25, 23) | #1C1917 | `--md-sys-color-on-surface` (#121714) | ❌ | Create `--wy-component-title-color` |
+| Section header | rgb(41, 37, 36) | #292524 | `--md-sys-color-on-surface` (#121714) | ❌ | Create `--wy-component-header-color` |
+| Chip text | rgb(68, 64, 60) | #44403C | `--md-sys-color-on-surface` (#121714) | ❌ | Create `--wy-component-chip-text-color` |
+| Close button | rgb(168, 162, 158) | #A8A29E | `--wy-component-text-muted` (#6B685F) | ❌ | Update token value |
+
+**Decision Matrix:**
+
+```mermaid
+graph TD
+    Start[Extract Color from Reference] --> Compare{Exists in<br/>Design System?}
+    Compare -->|No| CreateNew[Create Component-Specific Token]
+    Compare -->|Yes| CheckMatch{Semantic Match?}
+    CheckMatch -->|Yes| UseToken[Use Design System Token]
+    CheckMatch -->|No| Priority{Priority:<br/>Fidelity or Consistency?}
+    Priority -->|Visual Fidelity| CreateNew
+    Priority -->|Design System| UseToken
+    CreateNew --> Document[Document Deviation Reason]
+    UseToken --> VerifyColor[Verify Color Match]
+    Document --> VerifyColor
+    VerifyColor --> Pass{Colors Match?}
+    Pass -->|Yes| Done[✅ Proceed]
+    Pass -->|No| FixToken[Update Token Value]
+    FixToken --> VerifyColor
+```
+
+**Rule:** If design system token doesn't match reference color AND visual fidelity is required, create component-specific tokens. Document why semantic tokens don't work for this use case.
+
 ### Phase 2: Design System Updates
 
 **Purpose:** Add any missing tokens needed for exact matches.
@@ -655,6 +733,141 @@ def verify_elements(component_selector, element_inventory):
 ```
 
 **Success Criteria:** All elements present (0 missing)
+
+#### 5.4 Color Accuracy Verification (MANDATORY - Added Jan 2026)
+
+**Purpose:** Verify that all computed colors match the reference design exactly, preventing subtle visual mismatches caused by incorrect token usage.
+
+**Create Color Accuracy Test:**
+
+```python
+#!/usr/bin/env python3
+"""
+Test Color Accuracy Against Reference Design
+
+Verifies that ALL computed colors match the reference design exactly.
+Uses color delta (ΔE) to measure perceptual difference.
+"""
+
+import sys
+from playwright.sync_api import sync_playwright
+
+# Extract these from reference design using extraction script (Phase 1.3)
+REFERENCE_COLORS = {
+    'title': (28, 25, 23),           # text-stone-900: #1C1917
+    'section_header': (41, 37, 36),  # text-stone-800: #292524
+    'chip_text': (68, 64, 60),       # text-stone-700: #44403C
+    'close_button': (168, 162, 158), # text-stone-400: #A8A29E
+    'chip_border': (217, 212, 199),  # border-accent-taupe: #D9D4C7
+}
+
+def rgb_to_tuple(rgb_string):
+    """Convert 'rgb(r, g, b)' to (r, g, b) tuple"""
+    values = rgb_string.replace('rgb(', '').replace(')', '').split(',')
+    return tuple(int(v.strip()) for v in values)
+
+def color_delta(color1, color2):
+    """
+    Calculate color difference (Euclidean distance in RGB space).
+    
+    ΔE < 2.0 = Imperceptible difference
+    ΔE 2.0-5.0 = Noticeable but minor
+    ΔE > 5.0 = Clearly visible difference
+    """
+    return sum((a - b) ** 2 for a, b in zip(color1, color2)) ** 0.5
+
+def test_color_accuracy():
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto('http://localhost:8000')
+        page.wait_for_timeout(2000)
+        
+        # Open component if needed
+        page.evaluate('document.getElementById("component").show()')
+        page.wait_for_timeout(500)
+        
+        # Extract computed colors from implementation
+        colors = page.evaluate('''() => {
+            const component = document.getElementById("component");
+            const sr = component.shadowRoot;
+            const getColor = (selector, property = 'color') => {
+                const el = sr.querySelector(selector);
+                if (!el) return null;
+                return getComputedStyle(el).getPropertyValue(property);
+            };
+            
+            return {
+                title: getColor('.title'),
+                section_header: getColor('.section-header'),
+                chip_text: getColor('.chip:not(.active)'),
+                close_button: getColor('.close-button'),
+                chip_border: getColor('.chip:not(.active)', 'border-color')
+            };
+        }''')
+        
+        browser.close()
+        
+        # Verify each color
+        all_passed = True
+        max_delta = 0.0
+        
+        print("\\nCOLOR ACCURACY TEST")
+        print("=" * 80)
+        print("Element".ljust(20) + "Actual".ljust(25) + "Expected".ljust(25) + "Delta")
+        print("-" * 80)
+        
+        for element, expected_rgb in REFERENCE_COLORS.items():
+            actual_str = colors[element]
+            if not actual_str:
+                print(f"❌ {element}: Element not found")
+                all_passed = False
+                continue
+                
+            actual_rgb = rgb_to_tuple(actual_str)
+            delta = color_delta(actual_rgb, expected_rgb)
+            max_delta = max(max_delta, delta)
+            
+            if delta < 2.0:
+                print(f"✅ {element.ljust(18)} rgb{actual_rgb} rgb{expected_rgb} Δ={delta:.2f}")
+            else:
+                print(f"❌ {element.ljust(18)} rgb{actual_rgb} rgb{expected_rgb} Δ={delta:.2f}")
+                all_passed = False
+        
+        print("-" * 80)
+        print(f"\\nMax Delta: {max_delta:.2f}")
+        print("Pass Threshold: ΔE < 2.0 (imperceptible difference)\\n")
+        
+        return all_passed
+
+if __name__ == '__main__':
+    success = test_color_accuracy()
+    sys.exit(0 if success else 1)
+```
+
+**Run Test:**
+
+```bash
+python3 test-color-accuracy.py
+```
+
+**Success Criteria:**
+- All color deltas < 2.0 (imperceptible difference)
+- No missing elements
+- Maximum delta reported
+
+**If Test Fails:**
+1. Check which colors have high delta values
+2. Verify component is using correct tokens (not generic semantic tokens)
+3. Ensure tokens are defined in `:host` block for Shadow DOM components
+4. Re-run extraction script to verify reference colors
+5. Update token values or create component-specific tokens
+
+**Common Failure Causes:**
+- Using `var(--md-sys-color-on-surface)` when reference uses Tailwind stone palette
+- Tokens not cascading into Shadow DOM (missing `:host` definitions)
+- Circular variable references (e.g., `--spacing-sm: var(--spacing-sm, ...)`)
+- CDN cache serving old bundle (use commit hash temporarily)
 
 ### Phase 6: Version Management & Integration
 
@@ -974,6 +1187,6 @@ After using this prompt:
 3. Implement mockup exactly, wire up functionality
 4. Verify both functionality and visual match
 5. Update components library with latest version
-6. Create migration guide if replacing existing component
+6. Create a very concise migration guide if replacing existing component (only if guide is likely to be needed)
 
-This workflow ensures exact visual matches while preserving all functionality and maintaining version management in your design system.
+

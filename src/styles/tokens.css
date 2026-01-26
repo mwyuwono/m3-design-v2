@@ -57,9 +57,13 @@
   --md-sys-color-text-main: #121714;
   --md-sys-color-text-muted: #667f71;
   
-  /* Links Modal Specific Colors (exact match to mockup) */
-  --wy-links-modal-text-muted: #6B685F; /* Exact match to mockup text-muted */
-  --wy-links-modal-chip-border: #D9D4C7; /* Exact match to mockup accent-taupe */
+  /* Links Modal Specific Colors (exact match to Tailwind stone palette from reference design) */
+  /* These are component-specific colors that don't align with M3 semantic tokens */
+  --wy-links-modal-title-color: #1C1917;        /* stone-900: rgb(28, 25, 23) */
+  --wy-links-modal-header-color: #292524;       /* stone-800: rgb(41, 37, 36) */
+  --wy-links-modal-chip-text-color: #44403C;    /* stone-700: rgb(68, 64, 60) */
+  --wy-links-modal-close-color: #A8A29E;        /* stone-400: rgb(168, 162, 158) */
+  --wy-links-modal-chip-border: #D9D4C7;        /* accent-taupe: rgb(217, 212, 199) */
 
   /* --- TYPOGRAPHY FAMILIES --- */
   --font-display: 'Playfair Display', serif;
