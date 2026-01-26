@@ -501,21 +501,24 @@ def extract_reference_colors(mockup_path):
 graph TD
     Start[Extract Color from Reference] --> Compare{Exists in<br/>Design System?}
     Compare -->|No| CreateNew[Create Component-Specific Token]
-    Compare -->|Yes| CheckMatch{Semantic Match?}
+    Compare -->|Yes| CheckMatch{Exact RGB Match?}
     CheckMatch -->|Yes| UseToken[Use Design System Token]
-    CheckMatch -->|No| Priority{Priority:<br/>Fidelity or Consistency?}
-    Priority -->|Visual Fidelity| CreateNew
-    Priority -->|Design System| UseToken
-    CreateNew --> Document[Document Deviation Reason]
-    UseToken --> VerifyColor[Verify Color Match]
+    CheckMatch -->|No| CreateNew
+    CreateNew --> Document[Document Why Semantic Token Doesn't Work]
+    UseToken --> VerifyColor[Verify Color Match with Test]
     Document --> VerifyColor
-    VerifyColor --> Pass{Colors Match?}
+    VerifyColor --> Pass{ΔE < 2.0?}
     Pass -->|Yes| Done[✅ Proceed]
     Pass -->|No| FixToken[Update Token Value]
     FixToken --> VerifyColor
 ```
 
-**Rule:** If design system token doesn't match reference color AND visual fidelity is required, create component-specific tokens. Document why semantic tokens don't work for this use case.
+**CRITICAL RULE: ALWAYS PRIORITIZE PERFECT VISUAL FIDELITY**
+
+- If design system token doesn't match reference color (ΔE ≥ 2.0), **always create component-specific tokens**
+- Never approximate or use "close enough" colors - exact match required
+- Document why semantic tokens don't work for this specific design
+- Component-specific tokens are preferred over compromising visual accuracy
 
 ### Phase 2: Design System Updates
 
@@ -868,6 +871,428 @@ python3 test-color-accuracy.py
 - Tokens not cascading into Shadow DOM (missing `:host` definitions)
 - Circular variable references (e.g., `--spacing-sm: var(--spacing-sm, ...)`)
 - CDN cache serving old bundle (use commit hash temporarily)
+
+#### 5.5 Interactive State Testing (MANDATORY - Added Jan 2026)
+
+**Purpose:** Verify that ALL interactive states (hover, active, focus, disabled) match the reference design exactly.
+
+**Why This Step Is Critical:**
+- Default/rest state matching is insufficient - users interact with components
+- State transitions often use different colors/styles than default state
+- Missing state styling creates poor UX and breaks visual consistency
+
+**Extract State Colors from Reference:**
+
+```python
+# extract-state-colors.py
+from playwright.sync_api import sync_playwright
+
+def extract_state_colors(mockup_path):
+    """Extract colors for all interactive states from reference"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)  # Visual debugging
+        page = browser.new_page()
+        page.goto(mockup_path)
+        page.wait_for_timeout(2000)
+        
+        # Extract all state variations
+        states = {}
+        
+        # Get button/interactive element
+        button = page.query_selector('button.border')  # Adjust selector
+        
+        if button:
+            # Default state
+            states['default'] = {
+                'color': button.evaluate('el => getComputedStyle(el).color'),
+                'background': button.evaluate('el => getComputedStyle(el).backgroundColor'),
+                'border': button.evaluate('el => getComputedStyle(el).borderColor')
+            }
+            
+            # Hover state
+            button.hover()
+            page.wait_for_timeout(300)  # Wait for transition
+            states['hover'] = {
+                'color': button.evaluate('el => getComputedStyle(el).color'),
+                'background': button.evaluate('el => getComputedStyle(el).backgroundColor'),
+                'border': button.evaluate('el => getComputedStyle(el).borderColor')
+            }
+            
+            # Focus state (keyboard)
+            page.keyboard.press('Tab')
+            page.wait_for_timeout(300)
+            states['focus'] = {
+                'color': button.evaluate('el => getComputedStyle(el).color'),
+                'background': button.evaluate('el => getComputedStyle(el).backgroundColor'),
+                'border': button.evaluate('el => getComputedStyle(el).borderColor'),
+                'outline': button.evaluate('el => getComputedStyle(el).outline')
+            }
+            
+            # Active/pressed state
+            button.click()
+            states['active'] = {
+                'color': button.evaluate('el => getComputedStyle(el).color'),
+                'background': button.evaluate('el => getComputedStyle(el).backgroundColor'),
+                'border': button.evaluate('el => getComputedStyle(el).borderColor')
+            }
+        
+        browser.close()
+        return states
+```
+
+**Create State Testing Script:**
+
+```python
+#!/usr/bin/env python3
+"""
+Test Interactive State Accuracy
+
+Verifies that hover, active, focus, and disabled states match reference design.
+"""
+
+import sys
+from playwright.sync_api import sync_playwright
+
+# Extract these from reference using extract-state-colors.py
+REFERENCE_STATES = {
+    'default': {
+        'color': 'rgb(68, 64, 60)',
+        'background': 'rgba(0, 0, 0, 0)',
+        'border': 'rgb(217, 212, 199)'
+    },
+    'hover': {
+        'color': 'rgb(68, 64, 60)',
+        'background': 'rgba(0, 0, 0, 0)',
+        'border': 'rgb(44, 76, 59)'  # Changes to primary on hover
+    },
+    'focus': {
+        'outline': '3px solid rgb(44, 76, 59)',  # Primary color outline
+    },
+    'active': {
+        'background': 'rgb(44, 76, 59)',  # Active chip
+        'color': 'rgb(255, 255, 255)'
+    }
+}
+
+def test_interactive_states():
+    """Test all interactive states match reference"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
+        page.goto('http://localhost:8000')
+        page.wait_for_timeout(2000)
+        
+        # Open component
+        page.evaluate('document.getElementById("component").show()')
+        page.wait_for_timeout(500)
+        
+        all_passed = True
+        
+        # Get interactive element
+        chip = page.locator('wy-component-name').locator('.chip').first
+        
+        print("\nINTERACTIVE STATE TESTING")
+        print("=" * 80)
+        
+        # Test default state
+        print("\n[DEFAULT STATE]")
+        default_color = chip.evaluate('el => getComputedStyle(el).color')
+        default_border = chip.evaluate('el => getComputedStyle(el).borderColor')
+        
+        if default_color == REFERENCE_STATES['default']['color']:
+            print(f"✅ Default color: {default_color}")
+        else:
+            print(f"❌ Default color: {default_color} (expected {REFERENCE_STATES['default']['color']})")
+            all_passed = False
+        
+        # Test hover state
+        print("\n[HOVER STATE]")
+        chip.hover()
+        page.wait_for_timeout(300)
+        hover_border = chip.evaluate('el => getComputedStyle(el).borderColor')
+        
+        if hover_border == REFERENCE_STATES['hover']['border']:
+            print(f"✅ Hover border: {hover_border}")
+        else:
+            print(f"❌ Hover border: {hover_border} (expected {REFERENCE_STATES['hover']['border']})")
+            all_passed = False
+        
+        # Test focus state
+        print("\n[FOCUS STATE]")
+        page.keyboard.press('Tab')
+        page.wait_for_timeout(300)
+        focus_outline = chip.evaluate('el => getComputedStyle(el).outline')
+        
+        if focus_outline == REFERENCE_STATES['focus']['outline']:
+            print(f"✅ Focus outline: {focus_outline}")
+        else:
+            print(f"❌ Focus outline: {focus_outline} (expected {REFERENCE_STATES['focus']['outline']})")
+            all_passed = False
+        
+        # Test active state
+        print("\n[ACTIVE STATE]")
+        chip.click()
+        page.wait_for_timeout(300)
+        active_bg = chip.evaluate('el => getComputedStyle(el).backgroundColor')
+        active_color = chip.evaluate('el => getComputedStyle(el).color')
+        
+        if active_bg == REFERENCE_STATES['active']['background']:
+            print(f"✅ Active background: {active_bg}")
+        else:
+            print(f"❌ Active background: {active_bg} (expected {REFERENCE_STATES['active']['background']})")
+            all_passed = False
+        
+        print("-" * 80)
+        
+        browser.close()
+        return all_passed
+
+if __name__ == '__main__':
+    success = test_interactive_states()
+    sys.exit(0 if success else 1)
+```
+
+**State Testing Checklist:**
+
+For EACH interactive element, verify:
+
+- [ ] **Default/Rest State** - Colors match reference exactly (ΔE < 2.0)
+- [ ] **Hover State** - Border/background/color changes match reference
+- [ ] **Focus State** - Keyboard focus indicator matches (outline style, color, width, offset)
+- [ ] **Active/Pressed State** - Click/press appearance matches
+- [ ] **Disabled State** - Opacity, cursor, and colors match (if applicable)
+- [ ] **Loading State** - Loading indicators match (if applicable)
+- [ ] **Error State** - Error styling matches (if applicable)
+- [ ] **State Transitions** - Animation duration and easing match reference
+
+**Success Criteria:**
+- All state colors match reference (ΔE < 2.0)
+- State transitions occur (no static states when reference has transitions)
+- No states missing from implementation
+- Focus indicators meet WCAG accessibility requirements
+
+**Common State Issues:**
+- ❌ Using `:hover` without state layer pseudo-element
+- ❌ Missing `:focus-visible` styles (keyboard users get no indicator)
+- ❌ Hardcoding state colors instead of using state layer opacity
+- ❌ Missing disabled state styling
+- ❌ Transitions too fast/slow compared to reference
+
+#### 5.6 Pixel-Perfect Visual Comparison (MANDATORY - Added Jan 2026)
+
+**Purpose:** Automated pixel-by-pixel comparison to ensure 100% visual fidelity between reference and implementation.
+
+**Why This Step Is Critical:**
+- Human eyes miss subtle differences (1-2px offsets, slight color variations)
+- Automated comparison catches every visual discrepancy
+- Prevents "close enough" implementations that accumulate visual debt
+
+**Create Pixel-Perfect Comparison Script:**
+
+```python
+#!/usr/bin/env python3
+"""
+Pixel-Perfect Visual Comparison
+
+Compares implementation against reference design pixel-by-pixel.
+Generates visual diff heatmap and calculates match percentage.
+"""
+
+import sys
+from playwright.sync_api import sync_playwright
+from PIL import Image, ImageDraw, ImageFont
+import numpy as np
+
+def capture_screenshots(reference_url, implementation_url, output_dir):
+    """Capture screenshots from both reference and implementation"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        
+        # Use consistent viewport
+        viewport = {'width': 1200, 'height': 900}
+        
+        # Capture reference
+        ref_page = browser.new_page(viewport=viewport)
+        ref_page.goto(reference_url)
+        ref_page.wait_for_timeout(2000)
+        ref_page.screenshot(path=f'{output_dir}/reference.png')
+        
+        # Capture implementation
+        impl_page = browser.new_page(viewport=viewport)
+        impl_page.goto(implementation_url)
+        impl_page.wait_for_timeout(2000)
+        
+        # Open modal/component if needed
+        impl_page.evaluate('document.getElementById("component")?.show()')
+        impl_page.wait_for_timeout(500)
+        
+        impl_page.screenshot(path=f'{output_dir}/implementation.png')
+        
+        browser.close()
+
+def calculate_pixel_diff(ref_path, impl_path, output_dir, tolerance=2):
+    """
+    Calculate pixel difference between images.
+    
+    Args:
+        ref_path: Path to reference screenshot
+        impl_path: Path to implementation screenshot
+        output_dir: Output directory for diff images
+        tolerance: Acceptable per-channel difference (0-255)
+    
+    Returns:
+        dict with match_percentage and diff image path
+    """
+    ref_img = Image.open(ref_path).convert('RGB')
+    impl_img = Image.open(impl_path).convert('RGB')
+    
+    # Ensure same size
+    if ref_img.size != impl_img.size:
+        print(f"⚠️  Size mismatch: Reference {ref_img.size} vs Implementation {impl_img.size}")
+        impl_img = impl_img.resize(ref_img.size)
+    
+    # Convert to numpy arrays for fast comparison
+    ref_array = np.array(ref_img)
+    impl_array = np.array(impl_img)
+    
+    # Calculate per-pixel difference
+    diff_array = np.abs(ref_array.astype(int) - impl_array.astype(int))
+    
+    # Create diff heatmap
+    # Red channel = difference magnitude
+    heatmap = np.zeros_like(ref_array)
+    
+    # Pixels within tolerance = green
+    # Pixels outside tolerance = red with intensity based on difference
+    match_mask = np.all(diff_array <= tolerance, axis=2)
+    
+    heatmap[match_mask] = [0, 255, 0]  # Green for matching pixels
+    heatmap[~match_mask] = [255, 0, 0]  # Red for different pixels
+    
+    # Create visual outputs
+    diff_img = Image.fromarray(heatmap)
+    
+    # Side-by-side comparison
+    side_by_side = Image.new('RGB', (ref_img.width * 2, ref_img.height))
+    side_by_side.paste(ref_img, (0, 0))
+    side_by_side.paste(impl_img, (ref_img.width, 0))
+    
+    # Add labels
+    draw = ImageDraw.Draw(side_by_side)
+    try:
+        font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 24)
+    except:
+        font = ImageFont.load_default()
+    
+    draw.text((10, 10), "REFERENCE", fill=(255, 0, 0), font=font)
+    draw.text((ref_img.width + 10, 10), "IMPLEMENTATION", fill=(0, 255, 0), font=font)
+    
+    # Save outputs
+    diff_img.save(f'{output_dir}/diff-heatmap.png')
+    side_by_side.save(f'{output_dir}/side-by-side.png')
+    
+    # Calculate statistics
+    total_pixels = ref_array.shape[0] * ref_array.shape[1]
+    matching_pixels = np.sum(match_mask)
+    match_percentage = (matching_pixels / total_pixels) * 100
+    
+    return {
+        'match_percentage': match_percentage,
+        'total_pixels': total_pixels,
+        'matching_pixels': matching_pixels,
+        'diff_pixels': total_pixels - matching_pixels,
+        'tolerance': tolerance
+    }
+
+def test_pixel_perfect_match():
+    """Run pixel-perfect comparison test"""
+    output_dir = '/tmp/visual-comparison'
+    import os
+    os.makedirs(output_dir, exist_ok=True)
+    
+    print("\nPIXEL-PERFECT VISUAL COMPARISON")
+    print("=" * 80)
+    
+    # Capture screenshots
+    print("\n📸 Capturing screenshots...")
+    reference_url = 'file:///path/to/reference.html'
+    implementation_url = 'http://localhost:8000'
+    
+    capture_screenshots(reference_url, implementation_url, output_dir)
+    print("✅ Screenshots captured")
+    
+    # Calculate diff
+    print("\n🔍 Calculating pixel differences...")
+    result = calculate_pixel_diff(
+        f'{output_dir}/reference.png',
+        f'{output_dir}/implementation.png',
+        output_dir,
+        tolerance=2  # Allow 2-point RGB difference for anti-aliasing
+    )
+    
+    print(f"\nTotal pixels: {result['total_pixels']:,}")
+    print(f"Matching pixels: {result['matching_pixels']:,}")
+    print(f"Different pixels: {result['diff_pixels']:,}")
+    print(f"Match percentage: {result['match_percentage']:.2f}%")
+    print(f"Tolerance: {result['tolerance']} per channel")
+    
+    print(f"\n📁 Output files:")
+    print(f"  - {output_dir}/reference.png")
+    print(f"  - {output_dir}/implementation.png")
+    print(f"  - {output_dir}/side-by-side.png")
+    print(f"  - {output_dir}/diff-heatmap.png")
+    
+    # Success criteria
+    success = result['match_percentage'] >= 99.9
+    
+    if success:
+        print(f"\n✅ PASS: Visual match {result['match_percentage']:.2f}% (≥99.9% required)")
+    else:
+        print(f"\n❌ FAIL: Visual match {result['match_percentage']:.2f}% (≥99.9% required)")
+        print(f"\nReview diff heatmap: {output_dir}/diff-heatmap.png")
+        print("Green = matching pixels, Red = different pixels")
+    
+    return success
+
+if __name__ == '__main__':
+    success = test_pixel_perfect_match()
+    sys.exit(0 if success else 1)
+```
+
+**Pixel-Perfect Testing Checklist:**
+
+- [ ] Screenshots captured at same viewport size (1200x900 recommended)
+- [ ] Anti-aliasing tolerance set appropriately (2-5 per channel)
+- [ ] Match percentage ≥ 99.9% achieved
+- [ ] Diff heatmap reviewed for any red pixels
+- [ ] Side-by-side comparison confirms visual match
+- [ ] Multiple viewport sizes tested (desktop, tablet, mobile)
+
+**Success Criteria:**
+- **Match percentage ≥ 99.9%** (allows ~0.1% for anti-aliasing differences)
+- No visible differences in side-by-side comparison
+- Diff heatmap shows only minor anti-aliasing differences (if any)
+
+**Acceptable Differences:**
+- Font rendering variations (1-2px) due to browser/OS differences
+- Anti-aliasing on rounded corners (within tolerance)
+- Sub-pixel rendering differences (< 2 points per RGB channel)
+
+**Unacceptable Differences:**
+- ❌ Wrong colors (different hue, saturation, or lightness)
+- ❌ Wrong spacing (margin, padding, gap offsets)
+- ❌ Wrong font sizes or weights
+- ❌ Wrong border radius or shapes
+- ❌ Missing elements or incorrect positioning
+
+**Troubleshooting:**
+
+If match percentage < 99.9%:
+1. Review diff heatmap to identify problem areas
+2. Check if differences are acceptable (anti-aliasing) or real issues
+3. Increase tolerance slightly if only anti-aliasing differences (max 5)
+4. If real differences found, fix implementation and re-test
+5. Never lower success threshold - fix the implementation instead
 
 ### Phase 6: Version Management & Integration
 
