@@ -89,12 +89,59 @@
   --md-sys-typescale-label-small-font: var(--font-sans);
 
   /* --- SPACING & SHAPE --- */
+  
+  /* Layout Spacing (for page-level margins and section gaps) */
   --spacing-layout: 120px;
   --spacing-gap: 64px;
 
+  /* Component Spacing Scale (8px baseline grid) */
+  --spacing-xxs: 0.125rem;  /* 2px */
+  --spacing-xs: 0.25rem;    /* 4px */
+  --spacing-sm: 0.5rem;     /* 8px */
+  --spacing-md: 1rem;       /* 16px */
+  --spacing-lg: 1.5rem;     /* 24px */
+  --spacing-xl: 2rem;       /* 32px */
+  --spacing-2xl: 3rem;      /* 48px */
+  --spacing-3xl: 4rem;      /* 64px - same as --spacing-gap */
+
+  /* Shape (Border Radius) */
   --md-sys-shape-corner-full: 9999px;
   --md-sys-shape-corner-large: 32px;
   --md-sys-shape-corner-medium: 16px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-xs: 4px;
+
+  /* --- MOTION TOKENS --- */
+  /* Easing Curves */
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-legacy: cubic-bezier(0.4, 0, 0.2, 1);
+  --md-sys-motion-easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Duration Scale */
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+
+  /* --- STATE TOKENS --- */
+  /* Opacity values for Material Design 3 state layers */
+  --md-sys-state-hover-opacity: 0.08;
+  --md-sys-state-focus-opacity: 0.12;
+  --md-sys-state-pressed-opacity: 0.12;
+  --md-sys-state-dragged-opacity: 0.16;
+  --md-sys-state-disabled-opacity: 0.38;
+  --md-sys-state-disabled-container-opacity: 0.12;
 
   /* --- COMPONENT TOKENS --- */
   --wy-controls-bar-bg: var(--md-sys-color-primary);

@@ -188,11 +188,54 @@ JSON files in `src/data/` drive page content. `main.js` reads JSON and dynamical
 ```
 
 ### Spacing & Shape
-- Layout margins: 120px desktop, 24px mobile
-- Section gaps: 64px (generous, not dense M3 defaults)
-- Card radius: 16px medium, 32px large
-- Buttons: Full capsule (9999px)
-- Prefer subtle borders over heavy shadows
+
+**Layout Spacing:**
+- `--spacing-layout`: 120px (desktop page margins)
+- `--spacing-gap`: 64px (section gaps)
+
+**Component Spacing Scale (8px baseline grid):**
+- `--spacing-xxs`: 2px (0.125rem)
+- `--spacing-xs`: 4px (0.25rem)
+- `--spacing-sm`: 8px (0.5rem)
+- `--spacing-md`: 16px (1rem)
+- `--spacing-lg`: 24px (1.5rem)
+- `--spacing-xl`: 32px (2rem)
+- `--spacing-2xl`: 48px (3rem)
+- `--spacing-3xl`: 64px (4rem)
+
+**Shape (Border Radius):**
+- `--md-sys-shape-corner-xs`: 4px
+- `--md-sys-shape-corner-small`: 8px
+- `--md-sys-shape-corner-medium`: 16px (cards)
+- `--md-sys-shape-corner-large`: 32px (large cards)
+- `--md-sys-shape-corner-full`: 9999px (capsule buttons)
+
+### Motion Tokens
+
+**Easing Curves:**
+- `--md-sys-motion-easing-standard`: cubic-bezier(0.2, 0, 0, 1)
+- `--md-sys-motion-easing-emphasized`: cubic-bezier(0.2, 0, 0, 1)
+- `--md-sys-motion-easing-emphasized-decelerate`: cubic-bezier(0.05, 0.7, 0.1, 1)
+- `--md-sys-motion-easing-emphasized-accelerate`: cubic-bezier(0.3, 0, 0.8, 0.15)
+- `--md-sys-motion-easing-legacy`: cubic-bezier(0.4, 0, 0.2, 1)
+- `--md-sys-motion-easing-spring`: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+**Duration Scale:**
+- Short: `--md-sys-motion-duration-short1` (50ms) through `short4` (200ms)
+- Medium: `--md-sys-motion-duration-medium1` (250ms) through `medium4` (400ms)
+- Long: `--md-sys-motion-duration-long1` (450ms) through `long4` (600ms)
+
+### State Tokens
+
+**Opacity values for Material Design 3 state layers:**
+- `--md-sys-state-hover-opacity`: 0.08
+- `--md-sys-state-focus-opacity`: 0.12
+- `--md-sys-state-pressed-opacity`: 0.12
+- `--md-sys-state-dragged-opacity`: 0.16
+- `--md-sys-state-disabled-opacity`: 0.38
+- `--md-sys-state-disabled-container-opacity`: 0.12
+
+**Usage:** Always use state tokens with pseudo-element overlays for interactive states. Never change background colors directly on hover.
 
 ## Shadow DOM Font Loading
 
