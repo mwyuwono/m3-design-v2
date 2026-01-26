@@ -82,6 +82,9 @@ for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
     curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
   done
 done
+
+# 4. Verify all consuming projects (optional but recommended)
+./skills/design-system-sync/verify-projects.sh
 ```
 
 ### Quick One-Liner
@@ -116,6 +119,7 @@ Verify purge succeeded: response should contain `"status":"finished"`.
 Changes affect these projects (hard refresh with Cmd+Shift+R after purging):
 - **prompts-library** - https://p.weaver-yuwono.com (uses CDN imports)
 - **plots** - `/Users/Matt_Weaver-Yuwono/Library/CloudStorage/OneDrive-McKinsey&Company/Documents/Projects/plots` (uses `npm link` for local development, installed January 2026)
+- **Weaver-Yuwono-Home-Page** - https://weaver-yuwono.com (uses CDN imports, migrated January 2026)
 
 **prompts-library** imports tokens via CDN:
 ```css
@@ -134,6 +138,22 @@ import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-componen
 ```
 
 jsDelivr caches for up to 24 hours - without purging, changes won't propagate immediately.
+
+### Verify All Projects After Changes
+
+After committing and purging CDN cache, verify all consuming projects are properly integrated:
+
+```bash
+./skills/design-system-sync/verify-projects.sh
+```
+
+This script checks:
+- Integration status (CDN, npm link, or not integrated)
+- Local token definitions that should use design system
+- Local component overrides
+- Overall health status
+
+For complete workflow details, see [skills/design-system-sync/SKILL.md](skills/design-system-sync/SKILL.md).
 
 ### CDN Staleness Fallback (Consumers)
 
