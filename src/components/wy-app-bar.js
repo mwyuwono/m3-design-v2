@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import './wy-logo.js';
 
 export class WyAppBar extends LitElement {
     static properties = {
@@ -47,9 +48,8 @@ export class WyAppBar extends LitElement {
     }
 
     .logo {
-      width: 32px;
-      height: 32px;
-      color: var(--md-sys-color-primary);
+      display: flex;
+      align-items: center;
     }
 
     .app-title {
@@ -110,7 +110,7 @@ export class WyAppBar extends LitElement {
           ` : ''}
           <a href="/" class="logo-container">
             <slot name="logo">
-              <md-icon class="logo">auto_awesome</md-icon>
+              <wy-logo class="logo" size="32"></wy-logo>
             </slot>
             <h1 class="app-title">${this.title}</h1>
           </a>

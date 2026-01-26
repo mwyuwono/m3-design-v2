@@ -463,4 +463,9 @@ export class WyLinksModal extends LitElement {
   }
 }
 
-customElements.define('wy-links-modal', WyLinksModal);
+try {
+  customElements.define('wy-links-modal', WyLinksModal);
+} catch (error) {
+  console.error('[wy-links-modal] Failed to register component:', error);
+  throw error;
+}

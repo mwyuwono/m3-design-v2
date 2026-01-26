@@ -21,10 +21,14 @@
         .ds-layout {
             max-width: 1440px;
             margin: 0 auto;
-            padding: 80px 40px;
+            padding: clamp(24px, 5vw, 80px) clamp(16px, 4vw, 40px);
             display: grid;
             grid-template-columns: 300px 1fr;
-            gap: 80px;
+            gap: clamp(32px, 6vw, 80px);
+            width: 100%;
+            box-sizing: border-box;
+            /* Ensure layout doesn't prevent sticky positioning */
+            overflow: visible;
         }
 
         .ds-sidebar {
@@ -59,6 +63,8 @@
         .ds-section {
             margin-bottom: 80px;
         }
+
+        /* Component library styles removed - now on components-library.html */
 
         .ds-section-header {
             margin-bottom: 40px;
@@ -155,12 +161,57 @@
         @media (max-width: 1024px) {
             .ds-layout {
                 grid-template-columns: 1fr;
+                padding: clamp(20px, 4vw, 40px) clamp(16px, 3vw, 24px);
             }
 
             .ds-sidebar {
                 display: none;
             }
+            
+            /* Stack component library navigation on mobile */
+            #components > div:last-child > div {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Component library styles moved to components-library.html */
         }
+
+        @media (max-width: 768px) {
+            .ds-layout {
+                padding: 20px 16px;
+            }
+
+            .ds-section {
+                margin-bottom: 48px;
+            }
+
+            .ds-section-header {
+                margin-bottom: 24px;
+            }
+
+            .ds-section-header h3 {
+                font-size: clamp(1.75rem, 8vw, 3rem);
+            }
+        }
+
+        /* Prevent horizontal scroll */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        main {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            /* Don't set overflow-y or position relative - they can prevent sticky */
+        }
+
+        /* Component library styles moved to components-library.html */
     </style>
 </head>
 
@@ -177,7 +228,7 @@
                 <a href="#philosophy">Philosophy</a>
                 <a href="#typography">Typography</a>
                 <a href="#palette">Palette</a>
-                <a href="#components">Components</a>
+                <a href="components-library.html">Components</a>
                 <a href="#dashboard">Dashboard Patterns</a>
             </nav>
         </aside>
@@ -270,114 +321,13 @@
                     <h2>04</h2>
                     <h3>Components</h3>
                 </div>
-
-                <div style="margin-bottom: 80px;">
-                    <h4 class="label-overline" style="margin-bottom: 32px;">Interactive Elements</h4>
-                    <div class="component-preview">
-                        <md-filled-button>Request Access</md-filled-button>
-                        <md-outlined-button>Documentation</md-outlined-button>
-                        <md-text-button>Read More</md-text-button>
-                        <md-icon-button><md-icon>settings</md-icon></md-icon-button>
-                        <md-icon-button toggle><md-icon>favorite_border</md-icon><md-icon
-                                slot="selected">favorite</md-icon></md-icon-button>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 80px;">
-                    <h4 class="label-overline" style="margin-bottom: 32px;">Form Foundations</h4>
-                    <div class="component-preview"
-                        style="flex-direction: column; align-items: stretch; max-width: 600px; margin: 0 auto;">
-                        <wy-form-field label="Full Name" id="name-input" description="As it appears on your passport"
-                            required>
-                            <input type="text" id="name-input" placeholder="e.g. Alexander Weaver">
-                        </wy-form-field>
-
-                        <wy-form-field label="Asset Category" id="cat-select">
-                            <select id="cat-select">
-                                <option>Private Equity</option>
-                                <option>Real Estate</option>
-                                <option>Venture Capital</option>
-                            </select>
-                        </wy-form-field>
-
-                        <wy-form-field label="Investment Thesis" id="thesis-error"
-                            error="Thesis must be at least 200 characters.">
-                            <textarea id="thesis-error" rows="4">Initial draft...</textarea>
-                        </wy-form-field>
-
-                        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px;">
-                            <wy-filter-chip label="Ready" active count="12"></wy-filter-chip>
-                            <wy-filter-chip label="Backlog" count="5"></wy-filter-chip>
-                            <wy-filter-chip label="In Review"></wy-filter-chip>
-                        </div>
-
-                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px;">
-                            <wy-tag-chip label="High Yield" variant="user-entered" removable></wy-tag-chip>
-                            <wy-tag-chip label="AI Suggested" variant="ai-generated"></wy-tag-chip>
-                            <wy-tag-chip label="Real Estate" variant="user-entered"></wy-tag-chip>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 80px;">
-                    <h4 class="label-overline" style="margin-bottom: 32px;">Complex Inputs</h4>
-                    <div class="component-preview"
-                        style="flex-direction: column; align-items: stretch; max-width: 600px; margin: 0 auto;">
-                        <wy-form-field label="Tags (with Autocomplete)" id="tag-field"
-                            description="Type to see suggestions like 'Portrait' or 'Landscape'">
-                            <wy-tag-input id="tag-specimen" placeholder="Add custom tag..."></wy-tag-input>
-                        </wy-form-field>
-
-                        <wy-form-field label="Advanced Category" id="cat-field" description="Searchable category list">
-                            <wy-category-select id="cat-specimen"
-                                placeholder="Search categories..."></wy-category-select>
-                        </wy-form-field>
-                    </div>
-                </div>
-
-                <script>
-                    // Initialize complex components once they are defined
-                    customElements.whenDefined('wy-tag-input').then(() => {
-                        const tagInput = document.getElementById('tag-specimen');
-                        if (tagInput) {
-                            tagInput.tags = [
-                                { value: 'Modernism', source: 'user-entered' },
-                                { value: 'Heritage', source: 'ai-generated' }
-                            ];
-                            tagInput.suggestions = [
-                                { value: 'Portrait', count: 12 },
-                                { value: 'Landscape', count: 8 },
-                                { value: 'Abstract', count: 5 },
-                                { value: 'Minimalism', count: 15 }
-                            ];
-                        }
-                    });
-
-                    customElements.whenDefined('wy-category-select').then(() => {
-                        const catSelect = document.getElementById('cat-specimen');
-                        if (catSelect) {
-                            catSelect.categories = ['Private Equity', 'Real Estate', 'Venture Capital', 'Crypto Assets', 'Art Collections', 'Public Equities'];
-                            catSelect.value = 'Real Estate';
-                        }
-                    });
-                </script>
-
-                <div style="margin-bottom: 80px;">
-                    <h4 class="label-overline" style="margin-bottom: 32px;">Selection Cards</h4>
-                    <div class="component-preview"
-                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch;">
-                        <wy-selection-card name="size-group" label="Letter Size"
-                            description="8.5 x 11 inches. Standard office paper for daily reports." icon="description"
-                            value="letter" checked>
-                        </wy-selection-card>
-                        <wy-selection-card name="size-group" label="Tabloid (A3)"
-                            description="11 x 17 inches. Large format for architectural plans." icon="architecture"
-                            value="tabloid">
-                        </wy-selection-card>
-                    </div>
-                </div>
-
-    </div>
+                <p style="font-size: 1.125rem; line-height: 1.6; max-width: 60ch; margin-bottom: 32px;">
+                    Browse the complete component library with interactive examples, props documentation, and usage guidelines.
+                </p>
+                <a href="components-library.html" style="display: inline-block; padding: 12px 24px; background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); text-decoration: none; border-radius: 24px; font-weight: 500; transition: opacity 0.2s;">
+                    View Components Library →
+                </a>
+            </section>
 
     <!-- Layout & Navigation -->
     <section id="navigation" class="ds-section">

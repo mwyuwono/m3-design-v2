@@ -40,14 +40,26 @@ export class WyModal extends LitElement {
        we'll inject specific timing for 'Soft Modernism' */
     
     
+    /* Use more specific selector instead of !important */
     ::slotted(.headline-text) {
-      font-family: 'Playfair Display', serif !important;
-      font-size: 1.75rem !important;
-      color: var(--md-sys-color-primary) !important;
-      margin: 0 !important;
-      padding-top: 24px !important;
-      padding-bottom: 8px !important;
-      display: block !important;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: var(--md-sys-color-primary);
+      margin: 0;
+      padding-top: 24px;
+      padding-bottom: 8px;
+      display: block;
+    }
+    
+    /* Ensure specificity overrides any conflicting styles */
+    md-dialog::slotted(.headline-text) {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: var(--md-sys-color-primary);
+      margin: 0;
+      padding-top: 24px;
+      padding-bottom: 8px;
+      display: block;
     }
 
     .modal-content {

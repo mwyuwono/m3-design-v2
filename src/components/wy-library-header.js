@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import './wy-logo.js';
 
 export class WyLibraryHeader extends LitElement {
   static properties = {
@@ -40,6 +41,11 @@ export class WyLibraryHeader extends LitElement {
       display: flex;
       align-items: center;
       gap: 16px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
     }
 
     .breadcrumb {
@@ -158,6 +164,9 @@ export class WyLibraryHeader extends LitElement {
           <md-icon-button>
             <md-icon>menu</md-icon>
           </md-icon-button>
+          <slot name="logo">
+            <wy-logo class="logo-container" size="28"></wy-logo>
+          </slot>
           <div class="breadcrumb">${this.breadcrumb}</div>
         </div>
 

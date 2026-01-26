@@ -56,6 +56,10 @@
   /* Semantic Text */
   --md-sys-color-text-main: #121714;
   --md-sys-color-text-muted: #667f71;
+  
+  /* Links Modal Specific Colors (exact match to mockup) */
+  --wy-links-modal-text-muted: #6B685F; /* Exact match to mockup text-muted */
+  --wy-links-modal-chip-border: #D9D4C7; /* Exact match to mockup accent-taupe */
 
   /* --- TYPOGRAPHY FAMILIES --- */
   --font-display: 'Playfair Display', serif;
@@ -223,5 +227,9 @@
     /* Text: Warm Clay (#F5F2EA) for main, muted for secondary */
     --md-sys-color-text-main: #F5F2EA;
     --md-sys-color-text-muted: rgba(245, 242, 234, 0.7);
+    
+    /* Links Modal Specific Colors (dark mode) */
+    --wy-links-modal-text-muted: rgba(245, 242, 234, 0.7); /* Muted text in dark mode */
+    --wy-links-modal-chip-border: rgba(255, 255, 255, 0.1); /* Subtle border in dark mode */
   }
 }

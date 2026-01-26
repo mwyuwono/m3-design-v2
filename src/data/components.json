@@ -1,0 +1,931 @@
+{
+  "components": [
+    {
+      "name": "wy-form-field",
+      "category": "form-input",
+      "title": "Form Field",
+      "description": "Form input wrapper with labels, helper text, and error states",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-form-field label=\"Full Name\" id=\"name-input\">\n  <input type=\"text\" id=\"name-input\" placeholder=\"Enter your name\">\n</wy-form-field>",
+          "props": { "label": "Full Name", "id": "name-input" }
+        },
+        {
+          "name": "With Helper Text",
+          "code": "<wy-form-field label=\"Email Address\" id=\"email-input\" description=\"We'll never share your email\">\n  <input type=\"email\" id=\"email-input\" placeholder=\"you@example.com\">\n</wy-form-field>",
+          "props": { "label": "Email Address", "id": "email-input", "description": "We'll never share your email" }
+        },
+        {
+          "name": "Required Field",
+          "code": "<wy-form-field label=\"Password\" id=\"password-input\" required>\n  <input type=\"password\" id=\"password-input\" placeholder=\"Enter password\">\n</wy-form-field>",
+          "props": { "label": "Password", "id": "password-input", "required": true }
+        },
+        {
+          "name": "Error State",
+          "code": "<wy-form-field label=\"Password\" id=\"password-error\" error=\"Password must be at least 8 characters\">\n  <input type=\"password\" id=\"password-error\" aria-invalid=\"true\">\n</wy-form-field>",
+          "props": { "label": "Password", "id": "password-error", "error": "Password must be at least 8 characters" }
+        },
+        {
+          "name": "With Select",
+          "code": "<wy-form-field label=\"Category\" id=\"category-select\">\n  <select id=\"category-select\">\n    <option>Private Equity</option>\n    <option>Real Estate</option>\n    <option>Venture Capital</option>\n  </select>\n</wy-form-field>",
+          "props": { "label": "Category", "id": "category-select" }
+        },
+        {
+          "name": "With Textarea",
+          "code": "<wy-form-field label=\"Description\" id=\"description-input\" description=\"Provide a brief description\">\n  <textarea id=\"description-input\" rows=\"4\" placeholder=\"Enter description...\"></textarea>\n</wy-form-field>",
+          "props": { "label": "Description", "id": "description-input", "description": "Provide a brief description" }
+        }
+      ],
+      "props": [
+        { "name": "label", "type": "String", "required": false, "description": "Field label text" },
+        { "name": "id", "type": "String", "required": false, "description": "Input ID (should match input element's id)" },
+        { "name": "description", "type": "String", "required": false, "description": "Helper text displayed below input" },
+        { "name": "error", "type": "String", "required": false, "description": "Error message (displays in red)" },
+        { "name": "required", "type": "Boolean", "required": false, "description": "Shows required asterisk (*)" }
+      ],
+      "slots": [
+        { "name": "default", "description": "Input element (input, textarea, or select)" }
+      ]
+    },
+    {
+      "name": "wy-filter-chip",
+      "category": "form-input",
+      "title": "Filter Chip",
+      "description": "Toggleable filter chip with optional count badge",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-filter-chip label=\"Ready\"></wy-filter-chip>",
+          "props": { "label": "Ready" }
+        },
+        {
+          "name": "Active State",
+          "code": "<wy-filter-chip label=\"Ready\" active></wy-filter-chip>",
+          "props": { "label": "Ready", "active": true }
+        },
+        {
+          "name": "With Count",
+          "code": "<wy-filter-chip label=\"Ready\" count=\"12\"></wy-filter-chip>",
+          "props": { "label": "Ready", "count": 12 }
+        },
+        {
+          "name": "Active With Count",
+          "code": "<wy-filter-chip label=\"Backlog\" active count=\"5\"></wy-filter-chip>",
+          "props": { "label": "Backlog", "active": true, "count": 5 }
+        },
+        {
+          "name": "Group",
+          "code": "<div style=\"display: flex; gap: 12px; flex-wrap: wrap;\">\n  <wy-filter-chip label=\"Ready\" active count=\"12\"></wy-filter-chip>\n  <wy-filter-chip label=\"Backlog\" count=\"5\"></wy-filter-chip>\n  <wy-filter-chip label=\"In Review\"></wy-filter-chip>\n</div>",
+          "props": {}
+        }
+      ],
+      "props": [
+        { "name": "label", "type": "String", "required": true, "description": "Chip label text" },
+        { "name": "active", "type": "Boolean", "required": false, "description": "Active/selected state" },
+        { "name": "count", "type": "Number", "required": false, "description": "Badge count displayed in parentheses" }
+      ],
+      "slots": []
+    },
+    {
+      "name": "wy-tag-chip",
+      "category": "form-input",
+      "title": "Tag Chip",
+      "description": "Visual pill for individual tags with remove functionality",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-tag-chip label=\"Architecture\"></wy-tag-chip>",
+          "props": { "label": "Architecture" }
+        },
+        {
+          "name": "Removable",
+          "code": "<wy-tag-chip label=\"Architecture\" removable></wy-tag-chip>",
+          "props": { "label": "Architecture", "removable": true }
+        },
+        {
+          "name": "User Entered",
+          "code": "<wy-tag-chip label=\"High Yield\" variant=\"user-entered\" removable></wy-tag-chip>",
+          "props": { "label": "High Yield", "variant": "user-entered", "removable": true }
+        },
+        {
+          "name": "AI Generated",
+          "code": "<wy-tag-chip label=\"AI Suggested\" variant=\"ai-generated\"></wy-tag-chip>",
+          "props": { "label": "AI Suggested", "variant": "ai-generated" }
+        },
+        {
+          "name": "Group",
+          "code": "<div style=\"display: flex; gap: 8px; flex-wrap: wrap;\">\n  <wy-tag-chip label=\"High Yield\" variant=\"user-entered\" removable></wy-tag-chip>\n  <wy-tag-chip label=\"AI Suggested\" variant=\"ai-generated\"></wy-tag-chip>\n  <wy-tag-chip label=\"Real Estate\" variant=\"user-entered\"></wy-tag-chip>\n</div>",
+          "props": {}
+        }
+      ],
+      "props": [
+        { "name": "label", "type": "String", "required": true, "description": "Tag text" },
+        { "name": "removable", "type": "Boolean", "required": false, "description": "Shows remove button" },
+        { "name": "variant", "type": "String", "required": false, "description": "Tag source: 'user-entered' or 'ai-generated'" }
+      ],
+      "slots": []
+    },
+    {
+      "name": "wy-tag-input",
+      "category": "form-input",
+      "title": "Tag Input",
+      "description": "Autocomplete-enabled input for managing multiple tags",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-tag-input placeholder=\"Add tag...\"></wy-tag-input>",
+          "props": { "placeholder": "Add tag..." }
+        },
+        {
+          "name": "With Tags",
+          "code": "<wy-tag-input placeholder=\"Add tag...\" id=\"tag-input-1\"></wy-tag-input>\n<script>\n  const input = document.getElementById('tag-input-1');\n  input.tags = [\n    { value: 'Modernism', source: 'user-entered' },\n    { value: 'Heritage', source: 'ai-generated' }\n  ];\n</script>",
+          "props": { "placeholder": "Add tag..." }
+        },
+        {
+          "name": "With Suggestions",
+          "code": "<wy-tag-input placeholder=\"Add tag...\" id=\"tag-input-2\"></wy-tag-input>\n<script>\n  const input = document.getElementById('tag-input-2');\n  input.suggestions = [\n    { value: 'Portrait', count: 12 },\n    { value: 'Landscape', count: 8 },\n    { value: 'Abstract', count: 5 },\n    { value: 'Minimalism', count: 15 }\n  ];\n</script>",
+          "props": { "placeholder": "Add tag..." }
+        },
+        {
+          "name": "Full Example",
+          "code": "<wy-form-field label=\"Tags (with Autocomplete)\" id=\"tag-field\" description=\"Type to see suggestions\">\n  <wy-tag-input id=\"tag-specimen\" placeholder=\"Add custom tag...\"></wy-tag-input>\n</wy-form-field>\n<script>\n  customElements.whenDefined('wy-tag-input').then(() => {\n    const tagInput = document.getElementById('tag-specimen');\n    tagInput.tags = [\n      { value: 'Modernism', source: 'user-entered' },\n      { value: 'Heritage', source: 'ai-generated' }\n    ];\n    tagInput.suggestions = [\n      { value: 'Portrait', count: 12 },\n      { value: 'Landscape', count: 8 },\n      { value: 'Abstract', count: 5 }\n    ];\n  });\n</script>",
+          "props": {}
+        }
+      ],
+      "props": [
+        { "name": "tags", "type": "Array", "required": false, "description": "Current tag list: [{ value: String, source: String }]" },
+        { "name": "suggestions", "type": "Array", "required": false, "description": "Autocomplete suggestions: [{ value: String, count?: Number }]" },
+        { "name": "placeholder", "type": "String", "required": false, "description": "Input placeholder text" },
+        { "name": "disabled", "type": "Boolean", "required": false, "description": "Disable input" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "change", "detail": "{ tags: Array }", "description": "Fired when tags are added or removed" }
+      ]
+    },
+    {
+      "name": "wy-category-select",
+      "category": "form-input",
+      "title": "Category Select",
+      "description": "Searchable dropdown for category selection",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-category-select placeholder=\"Search categories...\"></wy-category-select>",
+          "props": { "placeholder": "Search categories..." }
+        },
+        {
+          "name": "With Categories",
+          "code": "<wy-category-select id=\"cat-select-1\" placeholder=\"Search categories...\"></wy-category-select>\n<script>\n  customElements.whenDefined('wy-category-select').then(() => {\n    const select = document.getElementById('cat-select-1');\n    select.categories = ['Private Equity', 'Real Estate', 'Venture Capital', 'Crypto Assets', 'Art Collections'];\n  });\n</script>",
+          "props": { "placeholder": "Search categories..." }
+        },
+        {
+          "name": "With Selected Value",
+          "code": "<wy-category-select id=\"cat-select-2\" placeholder=\"Search categories...\"></wy-category-select>\n<script>\n  customElements.whenDefined('wy-category-select').then(() => {\n    const select = document.getElementById('cat-select-2');\n    select.categories = ['Private Equity', 'Real Estate', 'Venture Capital'];\n    select.value = 'Real Estate';\n  });\n</script>",
+          "props": { "placeholder": "Search categories..." }
+        },
+        {
+          "name": "In Form Field",
+          "code": "<wy-form-field label=\"Advanced Category\" id=\"cat-field\" description=\"Searchable category list\">\n  <wy-category-select id=\"cat-specimen\" placeholder=\"Search categories...\"></wy-category-select>\n</wy-form-field>\n<script>\n  customElements.whenDefined('wy-category-select').then(() => {\n    const catSelect = document.getElementById('cat-specimen');\n    catSelect.categories = ['Private Equity', 'Real Estate', 'Venture Capital', 'Crypto Assets', 'Art Collections', 'Public Equities'];\n  });\n</script>",
+          "props": {}
+        }
+      ],
+      "props": [
+        { "name": "categories", "type": "Array", "required": false, "description": "Available categories: [String]" },
+        { "name": "value", "type": "String", "required": false, "description": "Currently selected category" },
+        { "name": "placeholder", "type": "String", "required": false, "description": "Placeholder text" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "change", "detail": "{ value: String }", "description": "Fired when selection changes" }
+      ]
+    },
+    {
+      "name": "wy-selection-card",
+      "category": "form-input",
+      "title": "Selection Card",
+      "description": "Visual radio button card for options",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-selection-card name=\"size-group\" label=\"Letter Size\" value=\"letter\"></wy-selection-card>",
+          "props": { "name": "size-group", "label": "Letter Size", "value": "letter" }
+        },
+        {
+          "name": "Checked",
+          "code": "<wy-selection-card name=\"size-group\" label=\"Letter Size\" value=\"letter\" checked></wy-selection-card>",
+          "props": { "name": "size-group", "label": "Letter Size", "value": "letter", "checked": true }
+        },
+        {
+          "name": "With Icon and Description",
+          "code": "<wy-selection-card name=\"size-group\" label=\"Letter Size\" description=\"8.5 x 11 inches. Standard office paper.\" icon=\"description\" value=\"letter\" checked></wy-selection-card>",
+          "props": { "name": "size-group", "label": "Letter Size", "description": "8.5 x 11 inches. Standard office paper.", "icon": "description", "value": "letter", "checked": true }
+        },
+        {
+          "name": "Group",
+          "code": "<div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 16px;\">\n  <wy-selection-card name=\"size-group\" label=\"Letter Size\" description=\"8.5 x 11 inches. Standard office paper.\" icon=\"description\" value=\"letter\" checked></wy-selection-card>\n  <wy-selection-card name=\"size-group\" label=\"Tabloid (A3)\" description=\"11 x 17 inches. Large format.\" icon=\"architecture\" value=\"tabloid\"></wy-selection-card>\n</div>",
+          "props": {}
+        }
+      ],
+      "props": [
+        { "name": "name", "type": "String", "required": true, "description": "Radio group name" },
+        { "name": "label", "type": "String", "required": true, "description": "Card label" },
+        { "name": "value", "type": "String", "required": true, "description": "Card value" },
+        { "name": "description", "type": "String", "required": false, "description": "Optional description text" },
+        { "name": "icon", "type": "String", "required": false, "description": "Material icon name" },
+        { "name": "checked", "type": "Boolean", "required": false, "description": "Selected state" },
+        { "name": "disabled", "type": "Boolean", "required": false, "description": "Disabled state" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "change", "detail": "{ checked: Boolean, value: String }", "description": "Fired when selection changes" }
+      ]
+    },
+    {
+      "name": "wy-app-bar",
+      "category": "layout-navigation",
+      "title": "App Bar",
+      "description": "Application header with navigation and branding",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-app-bar title=\"Prompt Library\"></wy-app-bar>",
+          "props": { "title": "Prompt Library" }
+        },
+        {
+          "name": "With Custom Logo",
+          "code": "<wy-app-bar title=\"Prompt Library Showcase\">\n  <md-icon slot=\"logo\" style=\"color: var(--wy-color-productivity)\">Architecture</md-icon>\n</wy-app-bar>",
+          "props": { "title": "Prompt Library Showcase" }
+        },
+        {
+          "name": "With Actions",
+          "code": "<wy-app-bar title=\"My App\">\n  <md-filled-button slot=\"actions\">New Item</md-filled-button>\n  <md-icon-button slot=\"actions\">\n    <md-icon>settings</md-icon>\n  </md-icon-button>\n</wy-app-bar>",
+          "props": { "title": "My App" }
+        },
+        {
+          "name": "Hide Menu",
+          "code": "<wy-app-bar title=\"My App\" hide-menu></wy-app-bar>",
+          "props": { "title": "My App", "hide-menu": true }
+        }
+      ],
+      "props": [
+        { "name": "title", "type": "String", "required": false, "description": "Application title (default: 'Prompt Library')" },
+        { "name": "hideMenu", "type": "Boolean", "required": false, "description": "Hide mobile menu button" }
+      ],
+      "slots": [
+        { "name": "logo", "description": "Custom logo icon" },
+        { "name": "actions", "description": "Right-side action buttons" }
+      ],
+      "events": [
+        { "name": "ai-tools-click", "description": "Fired when AI Tools link is clicked" }
+      ]
+    },
+    {
+      "name": "wy-library-header",
+      "category": "layout-navigation",
+      "title": "Library Header",
+      "description": "Sticky header with search and breadcrumbs",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-library-header breadcrumb=\"Design Preview\"></wy-library-header>",
+          "props": { "breadcrumb": "Design Preview" }
+        },
+        {
+          "name": "With Search",
+          "code": "<wy-library-header breadcrumb=\"Library\" search-placeholder=\"Search works...\"></wy-library-header>",
+          "props": { "breadcrumb": "Library", "search-placeholder": "Search works..." }
+        }
+      ],
+      "props": [
+        { "name": "breadcrumb", "type": "String", "required": false, "description": "Breadcrumb text" },
+        { "name": "searchPlaceholder", "type": "String", "required": false, "description": "Search input placeholder" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "search", "detail": "{ query: String }", "description": "Fired on search input" }
+      ]
+    },
+    {
+      "name": "wy-controls-bar",
+      "category": "layout-navigation",
+      "title": "Controls Bar",
+      "description": "Action toolbar for list/grid views",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-controls-bar id=\"demo-controls\"></wy-controls-bar>",
+          "props": {}
+        },
+        {
+          "name": "With Initial State",
+          "code": "<wy-controls-bar id=\"controls-1\" view-mode=\"grid\" sort-by=\"date\"></wy-controls-bar>",
+          "props": { "view-mode": "grid", "sort-by": "date" }
+        }
+      ],
+      "props": [
+        { "name": "viewMode", "type": "String", "required": false, "description": "'grid' or 'list'" },
+        { "name": "sortBy", "type": "String", "required": false, "description": "Current sort field" }
+      ],
+      "slots": [
+        { "name": "actions", "description": "Custom action buttons" }
+      ],
+      "events": [
+        { "name": "view-change", "detail": "{ viewMode: String }", "description": "Fired when view mode changes" },
+        { "name": "sort-change", "detail": "{ sortBy: String }", "description": "Fired when sort changes" },
+        { "name": "filter-change", "detail": "{ viewMode, search, category, showDetails }", "description": "Fired when filters change" }
+      ]
+    },
+    {
+      "name": "wy-tabs",
+      "category": "layout-navigation",
+      "title": "Tabs",
+      "description": "Text-only tab navigation with bottom border indicator",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-tabs active-tab=\"variables\">\n  <button role=\"tab\" data-tab=\"variables\">Variables</button>\n  <button role=\"tab\" data-tab=\"preview\">Preview</button>\n</wy-tabs>",
+          "props": { "active-tab": "variables" }
+        },
+        {
+          "name": "Three Tabs",
+          "code": "<wy-tabs active-tab=\"overview\">\n  <button role=\"tab\" data-tab=\"overview\">Overview</button>\n  <button role=\"tab\" data-tab=\"details\">Details</button>\n  <button role=\"tab\" data-tab=\"settings\">Settings</button>\n</wy-tabs>",
+          "props": { "active-tab": "overview" }
+        }
+      ],
+      "props": [
+        { "name": "activeTab", "type": "String", "required": false, "description": "Currently active tab ID (attribute: active-tab)" }
+      ],
+      "slots": [
+        { "name": "default", "description": "Tab button elements with role=\"tab\" and data-tab attributes" }
+      ],
+      "events": [
+        { "name": "tab-change", "detail": "{ tab: String }", "description": "Fired when tab changes" }
+      ]
+    },
+    {
+      "name": "wy-profile-card",
+      "category": "cards-content",
+      "title": "Profile Card",
+      "description": "User profile display card",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-profile-card name=\"Alexander Weaver\" role=\"Principal\" photo=\"/path/to/photo.jpg\" profile-id=\"alex\"></wy-profile-card>",
+          "props": { "name": "Alexander Weaver", "role": "Principal", "photo": "/path/to/photo.jpg", "profile-id": "alex" }
+        },
+        {
+          "name": "With Action",
+          "code": "<wy-profile-card name=\"Sarah Yuwono\" role=\"Director\" photo=\"/path/to/photo.jpg\" profile-id=\"sarah\"></wy-profile-card>",
+          "props": { "name": "Sarah Yuwono", "role": "Director", "photo": "/path/to/photo.jpg", "profile-id": "sarah" }
+        }
+      ],
+      "props": [
+        { "name": "name", "type": "String", "required": true, "description": "Person name" },
+        { "name": "role", "type": "String", "required": false, "description": "Role/title" },
+        { "name": "photo", "type": "String", "required": false, "description": "Photo URL" },
+        { "name": "profileId", "type": "String", "required": false, "description": "Profile identifier (attribute: profile-id)" }
+      ],
+      "slots": []
+    },
+    {
+      "name": "wy-bio-card",
+      "category": "cards-content",
+      "title": "Bio Card",
+      "description": "Extended biography layout card",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-bio-card name=\"Alexander Weaver\" role=\"Principal\" photo=\"/path/to/photo.jpg\" bio=\"Alexander Weaver brings over two decades of experience in asset management and strategic planning. His expertise spans private equity, real estate development, and sustainable infrastructure investments.\"></wy-bio-card>",
+          "props": {
+            "name": "Alexander Weaver",
+            "role": "Principal",
+            "photo": "/path/to/photo.jpg",
+            "bio": "Alexander Weaver brings over two decades of experience in asset management and strategic planning. His expertise spans private equity, real estate development, and sustainable infrastructure investments."
+          }
+        },
+        {
+          "name": "Long Bio",
+          "code": "<wy-bio-card name=\"Sarah Yuwono\" role=\"Director\" photo=\"/path/to/photo.jpg\" bio=\"Sarah Yuwono is a visionary leader in sustainable architecture and urban planning. With a background in both design and finance, she bridges the gap between aesthetic excellence and long-term value creation. Her portfolio includes award-winning residential developments and commercial projects that prioritize environmental stewardship and community impact.\"></wy-bio-card>",
+          "props": {
+            "name": "Sarah Yuwono",
+            "role": "Director",
+            "photo": "/path/to/photo.jpg",
+            "bio": "Sarah Yuwono is a visionary leader in sustainable architecture and urban planning. With a background in both design and finance, she bridges the gap between aesthetic excellence and long-term value creation."
+          }
+        }
+      ],
+      "props": [
+        { "name": "name", "type": "String", "required": true, "description": "Person name" },
+        { "name": "role", "type": "String", "required": false, "description": "Role/title" },
+        { "name": "photo", "type": "String", "required": false, "description": "Photo URL" },
+        { "name": "bio", "type": "String", "required": true, "description": "Biography text" }
+      ],
+      "slots": []
+    },
+    {
+      "name": "wy-work-card",
+      "category": "cards-content",
+      "title": "Work Card",
+      "description": "Artwork/asset card with media preview",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-work-card title=\"Ethereal Geometry I\" artist=\"Yuwono\" date=\"2024\"></wy-work-card>",
+          "props": { "title": "Ethereal Geometry I", "artist": "Yuwono", "date": "2024" }
+        },
+        {
+          "name": "With Image",
+          "code": "<wy-work-card title=\"Ethereal Geometry I\" artist=\"Yuwono\" date=\"2024\" image=\"/src/assets/artwork/ethereal_geometry_i.png\"></wy-work-card>",
+          "props": { "title": "Ethereal Geometry I", "artist": "Yuwono", "date": "2024", "image": "/src/assets/artwork/ethereal_geometry_i.png" }
+        },
+        {
+          "name": "With Status",
+          "code": "<wy-work-card title=\"Ethereal Geometry I\" artist=\"Yuwono\" date=\"2024\" status=\"READY\" image=\"/src/assets/artwork/ethereal_geometry_i.png\"></wy-work-card>",
+          "props": { "title": "Ethereal Geometry I", "artist": "Yuwono", "date": "2024", "status": "READY", "image": "/src/assets/artwork/ethereal_geometry_i.png" }
+        },
+        {
+          "name": "Favorite",
+          "code": "<wy-work-card title=\"Heritage Landscape\" artist=\"Weaver\" date=\"2023\" favorite status=\"EXPORTED\" image=\"/src/assets/artwork/heritage_landscape.png\"></wy-work-card>",
+          "props": { "title": "Heritage Landscape", "artist": "Weaver", "date": "2023", "favorite": true, "status": "EXPORTED", "image": "/src/assets/artwork/heritage_landscape.png" }
+        }
+      ],
+      "props": [
+        { "name": "title", "type": "String", "required": false, "description": "Work title (default: 'Untitled')" },
+        { "name": "artist", "type": "String", "required": false, "description": "Artist name (default: 'Unknown')" },
+        { "name": "date", "type": "String", "required": false, "description": "Date string" },
+        { "name": "image", "type": "String", "required": false, "description": "Preview image URL" },
+        { "name": "favorite", "type": "Boolean", "required": false, "description": "Favorite state" },
+        { "name": "status", "type": "String", "required": false, "description": "Status badge: 'draft', 'ready', 'exported'" },
+        { "name": "selected", "type": "Boolean", "required": false, "description": "Selected state" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "selection-change", "detail": "{ selected: Boolean, title: String }", "description": "Fired when card is clicked" },
+        { "name": "favorite-toggle", "detail": "{ favorite: Boolean }", "description": "Fired when favorite clicked" }
+      ]
+    },
+    {
+      "name": "wy-plot-card",
+      "category": "cards-content",
+      "title": "Plot Card",
+      "description": "Configuration display card for plotter settings",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-plot-card title=\"High Res Archival\" paper-size=\"A3 (11x17)\" bucket=\"Landscape\"></wy-plot-card>",
+          "props": { "title": "High Res Archival", "paper-size": "A3 (11x17)", "bucket": "Landscape" }
+        },
+        {
+          "name": "With Status",
+          "code": "<wy-plot-card title=\"High Res Archival\" paper-size=\"A3 (11x17)\" bucket=\"Landscape\" status=\"success\"></wy-plot-card>",
+          "props": { "title": "High Res Archival", "paper-size": "A3 (11x17)", "bucket": "Landscape", "status": "success" }
+        },
+        {
+          "name": "Pending",
+          "code": "<wy-plot-card title=\"Draft Preview\" paper-size=\"Letter (8.5x11)\" bucket=\"Portrait\" status=\"pending\"></wy-plot-card>",
+          "props": { "title": "Draft Preview", "paper-size": "Letter (8.5x11)", "bucket": "Portrait", "status": "pending" }
+        },
+        {
+          "name": "Error",
+          "code": "<wy-plot-card title=\"Legacy Plot\" status=\"error\"></wy-plot-card>",
+          "props": { "title": "Legacy Plot", "status": "error" }
+        }
+      ],
+      "props": [
+        { "name": "title", "type": "String", "required": true, "description": "Configuration name" },
+        { "name": "paperSize", "type": "String", "required": false, "description": "Paper size (attribute: paper-size)" },
+        { "name": "bucket", "type": "String", "required": false, "description": "Stroke bucket name" },
+        { "name": "status", "type": "String", "required": false, "description": "Status: 'success', 'pending', 'error'" }
+      ],
+      "slots": []
+    },
+    {
+      "name": "wy-prompt-card",
+      "category": "cards-content",
+      "title": "Prompt Card",
+      "description": "Prompt template card with category and actions",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-prompt-card title=\"Meeting Minutes Architect\" description=\"Professional summarization with action items\" category=\"Productivity\"></wy-prompt-card>",
+          "props": { "title": "Meeting Minutes Architect", "description": "Professional summarization with action items", "category": "Productivity" }
+        },
+        {
+          "name": "With Variables",
+          "code": "<wy-prompt-card title=\"Meeting Minutes Architect\" description=\"Professional summarization with action items\" category=\"Productivity\" variables=\"4\"></wy-prompt-card>",
+          "props": { "title": "Meeting Minutes Architect", "description": "Professional summarization with action items", "category": "Productivity", "variables": "4" }
+        },
+        {
+          "name": "Favorite",
+          "code": "<wy-prompt-card title=\"Legacy Code Explainer\" description=\"Translates complex logic\" category=\"Expertise\" favorite></wy-prompt-card>",
+          "props": { "title": "Legacy Code Explainer", "description": "Translates complex logic", "category": "Expertise", "favorite": true }
+        },
+        {
+          "name": "Show Details",
+          "code": "<wy-prompt-card title=\"Hyper-Local Itinerary\" description=\"Curates off-the-beaten-path experiences\" category=\"Travel & Shopping\" show-details></wy-prompt-card>",
+          "props": { "title": "Hyper-Local Itinerary", "description": "Curates off-the-beaten-path experiences", "category": "Travel & Shopping", "show-details": true }
+        }
+      ],
+      "props": [
+        { "name": "title", "type": "String", "required": true, "description": "Prompt title" },
+        { "name": "description", "type": "String", "required": false, "description": "Brief description" },
+        { "name": "category", "type": "String", "required": false, "description": "Category label" },
+        { "name": "variables", "type": "String", "required": false, "description": "Number of variables" },
+        { "name": "favorite", "type": "Boolean", "required": false, "description": "Favorite state" },
+        { "name": "showDetails", "type": "Boolean", "required": false, "description": "Show detailed view (attribute: show-details)" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "open", "description": "Fired when card clicked" },
+        { "name": "favorite-toggle", "detail": "{ favorite: Boolean }", "description": "Fired when favorite clicked" }
+      ]
+    },
+    {
+      "name": "wy-metric-card",
+      "category": "cards-content",
+      "title": "Metric Card",
+      "description": "Financial/analytics metric display",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-metric-card title=\"Total Asset Value\" value=\"$2,410,000\" icon=\"payments\"></wy-metric-card>",
+          "props": { "title": "Total Asset Value", "value": "$2,410,000", "icon": "payments" }
+        },
+        {
+          "name": "With Trend",
+          "code": "<wy-metric-card title=\"Total Asset Value\" value=\"$2,410,000\" trend=\"+12.4% YTD\" icon=\"payments\"></wy-metric-card>",
+          "props": { "title": "Total Asset Value", "value": "$2,410,000", "trend": "+12.4% YTD", "icon": "payments" }
+        },
+        {
+          "name": "Top Performer",
+          "code": "<wy-metric-card title=\"Top Performer\" value=\"Private Equity IV\" trend=\"+22.1% Return\" icon=\"trending_up\"></wy-metric-card>",
+          "props": { "title": "Top Performer", "value": "Private Equity IV", "trend": "+22.1% Return", "icon": "trending_up" }
+        },
+        {
+          "name": "No Trend",
+          "code": "<wy-metric-card title=\"Active Projects\" value=\"14\" icon=\"account_balance\"></wy-metric-card>",
+          "props": { "title": "Active Projects", "value": "14", "icon": "account_balance" }
+        }
+      ],
+      "props": [
+        { "name": "title", "type": "String", "required": true, "description": "Metric label" },
+        { "name": "value", "type": "String", "required": true, "description": "Metric value" },
+        { "name": "trend", "type": "String", "required": false, "description": "Change percentage or trend text" },
+        { "name": "icon", "type": "String", "required": false, "description": "Material icon name" }
+      ],
+      "slots": []
+    },
+    {
+      "name": "wy-allocation-card",
+      "category": "cards-content",
+      "title": "Allocation Card",
+      "description": "Portfolio allocation visualization",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-allocation-card title=\"Current Allocation\"></wy-allocation-card>",
+          "props": { "title": "Current Allocation" }
+        },
+        {
+          "name": "With Items",
+          "code": "<wy-allocation-card title=\"Current Allocation\" id=\"alloc-1\"></wy-allocation-card>\n<script>\n  const card = document.getElementById('alloc-1');\n  card.items = [\n    { label: 'Public Equities', value: 45, color: 'var(--md-sys-color-primary)' },\n    { label: 'Real Estate', value: 25, color: '#8FA397' },\n    { label: 'Private Credit', value: 20, color: '#BCCBC3' },\n    { label: 'Cash & Equiv.', value: 10, color: '#E0E5E2' }\n  ];\n</script>",
+          "props": { "title": "Current Allocation" }
+        }
+      ],
+      "props": [
+        { "name": "title", "type": "String", "required": true, "description": "Allocation title" },
+        { "name": "items", "type": "Array", "required": false, "description": "Allocation data: [{ label: String, value: Number, color: String }]" }
+      ],
+      "slots": [
+        { "name": "analysis", "description": "Analysis text slot" }
+      ]
+    },
+    {
+      "name": "wy-insight-card",
+      "category": "cards-content",
+      "title": "Insight Card",
+      "description": "Key insight highlight card",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-insight-card category=\"Stewardship\" title=\"London Estate acquisition finalized pending regulatory approval.\" icon=\"verified_user\"></wy-insight-card>",
+          "props": { "category": "Stewardship", "title": "London Estate acquisition finalized pending regulatory approval.", "icon": "verified_user" }
+        },
+        {
+          "name": "With Image",
+          "code": "<wy-insight-card image=\"https://images.unsplash.com/photo-1541462608141-adb61b1a7bac\" category=\"Stewardship\" title=\"London Estate acquisition finalized pending regulatory approval.\" icon=\"verified_user\"></wy-insight-card>",
+          "props": { "image": "https://images.unsplash.com/photo-1541462608141-adb61b1a7bac", "category": "Stewardship", "title": "London Estate acquisition finalized pending regulatory approval.", "icon": "verified_user" }
+        }
+      ],
+      "props": [
+        { "name": "title", "type": "String", "required": true, "description": "Insight title" },
+        { "name": "category", "type": "String", "required": false, "description": "Category label" },
+        { "name": "image", "type": "String", "required": false, "description": "Image URL" },
+        { "name": "icon", "type": "String", "required": false, "description": "Material icon name" }
+      ],
+      "slots": []
+    },
+    {
+      "name": "wy-modal",
+      "category": "modals-overlays",
+      "title": "Modal",
+      "description": "Base modal component with slide-up animation",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-modal id=\"modal-1\" heading=\"Confirm Action\" open>\n  <p>Are you sure you want to proceed?</p>\n  <div slot=\"actions\">\n    <md-text-button onclick=\"document.getElementById('modal-1').open = false\">Cancel</md-text-button>\n    <md-filled-button onclick=\"document.getElementById('modal-1').open = false\">Confirm</md-filled-button>\n  </div>\n</wy-modal>",
+          "props": { "heading": "Confirm Action", "open": true }
+        },
+        {
+          "name": "With Form",
+          "code": "<wy-modal id=\"modal-2\" heading=\"System Configuration\" open>\n  <wy-form-field label=\"Sync Frequency\">\n    <select>\n      <option>Every 5 minutes</option>\n      <option>Every hour</option>\n      <option>Daily at midnight</option>\n    </select>\n  </wy-form-field>\n  <div slot=\"actions\">\n    <md-text-button onclick=\"document.getElementById('modal-2').open = false\">Cancel</md-text-button>\n    <md-filled-button onclick=\"document.getElementById('modal-2').open = false\">Save</md-filled-button>\n  </div>\n</wy-modal>",
+          "props": { "heading": "System Configuration", "open": true }
+        },
+        {
+          "name": "Custom Width",
+          "code": "<wy-modal id=\"modal-3\" heading=\"Wide Modal\" max-width=\"800px\" open>\n  <p>This modal has a custom max width.</p>\n  <div slot=\"actions\">\n    <md-text-button onclick=\"document.getElementById('modal-3').open = false\">Close</md-text-button>\n  </div>\n</wy-modal>",
+          "props": { "heading": "Wide Modal", "max-width": "800px", "open": true }
+        }
+      ],
+      "props": [
+        { "name": "open", "type": "Boolean", "required": false, "description": "Modal visibility" },
+        { "name": "heading", "type": "String", "required": false, "description": "Modal title" },
+        { "name": "maxWidth", "type": "String", "required": false, "description": "Max width (default: '560px', attribute: max-width)" },
+        { "name": "fullScreen", "type": "Boolean", "required": false, "description": "Full screen mode (attribute: full-screen)" }
+      ],
+      "slots": [
+        { "name": "default", "description": "Modal content" },
+        { "name": "actions", "description": "Footer action buttons" }
+      ],
+      "events": [
+        { "name": "close", "description": "Fired when modal closes" }
+      ],
+      "methods": [
+        { "name": "show()", "description": "Open the modal" },
+        { "name": "close()", "description": "Close the modal" }
+      ]
+    },
+    {
+      "name": "wy-prompt-modal",
+      "category": "modals-overlays",
+      "title": "Prompt Modal",
+      "description": "Advanced modal for prompt template configuration",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-prompt-modal id=\"prompt-modal-1\" open title=\"Meeting Minutes Architect\" category=\"Productivity\" description=\"Professional summarization with action items\"></wy-prompt-modal>",
+          "props": { "open": true, "title": "Meeting Minutes Architect", "category": "Productivity", "description": "Professional summarization with action items" }
+        },
+        {
+          "name": "With Template",
+          "code": "<wy-prompt-modal id=\"prompt-modal-2\" open title=\"Meeting Minutes Architect\" category=\"Productivity\" description=\"Professional summarization\" template=\"Analyze: {{transcript}}\"></wy-prompt-modal>",
+          "props": { "open": true, "title": "Meeting Minutes Architect", "category": "Productivity", "description": "Professional summarization", "template": "Analyze: {{transcript}}" }
+        }
+      ],
+      "props": [
+        { "name": "open", "type": "Boolean", "required": false, "description": "Modal visibility" },
+        { "name": "title", "type": "String", "required": false, "description": "Prompt title" },
+        { "name": "category", "type": "String", "required": false, "description": "Category label" },
+        { "name": "description", "type": "String", "required": false, "description": "Prompt description" },
+        { "name": "template", "type": "String", "required": false, "description": "Prompt template text" },
+        { "name": "variables", "type": "Array", "required": false, "description": "Template variables: [{ name, label, type, placeholder }]" },
+        { "name": "variations", "type": "Array", "required": false, "description": "Template variations" },
+        { "name": "mode", "type": "String", "required": false, "description": "'locked' or 'edit'" },
+        { "name": "activeTab", "type": "String", "required": false, "description": "'variables' or 'preview'" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "close", "description": "Fired when modal closes" },
+        { "name": "save", "detail": "{ template: String }", "description": "Fired when template saved" },
+        { "name": "toast", "description": "Fired for toast notifications" }
+      ]
+    },
+    {
+      "name": "wy-export-modal",
+      "category": "modals-overlays",
+      "title": "Export Modal",
+      "description": "Multi-pane export configuration modal",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-export-modal id=\"export-modal-1\" open work-title=\"Ethereal Geometry I\" preview-image=\"/src/assets/artwork/ethereal_geometry_i.png\"></wy-export-modal>",
+          "props": { "open": true, "work-title": "Ethereal Geometry I", "preview-image": "/src/assets/artwork/ethereal_geometry_i.png" }
+        }
+      ],
+      "props": [
+        { "name": "open", "type": "Boolean", "required": false, "description": "Modal visibility" },
+        { "name": "workTitle", "type": "String", "required": false, "description": "Work title (attribute: work-title)" },
+        { "name": "previewImage", "type": "String", "required": false, "description": "Preview image URL (attribute: preview-image)" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "close", "description": "Fired when modal closes" },
+        { "name": "export", "description": "Fired when export triggered" }
+      ]
+    },
+    {
+      "name": "wy-links-modal",
+      "category": "modals-overlays",
+      "title": "Links Modal",
+      "description": "Modal dialog displaying categorized AI tool links as interactive chips",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-links-modal id=\"links-modal-1\" title=\"AI Tools\" open></wy-links-modal>\n<script>\n  const modal = document.getElementById('links-modal-1');\n  modal.links = [\n    {\n      category: 'Models',\n      links: [\n        { name: 'ChatGPT', url: 'https://chat.openai.com', active: true },\n        { name: 'Gemini', url: 'https://gemini.google.com', active: false }\n      ]\n    }\n  ];\n</script>",
+          "props": { "title": "AI Tools", "open": true }
+        },
+        {
+          "name": "With Multiple Categories",
+          "code": "<wy-links-modal id=\"links-modal-2\" title=\"AI Tools\" open></wy-links-modal>\n<script>\n  const modal = document.getElementById('links-modal-2');\n  modal.links = [\n    {\n      category: 'Models',\n      links: [\n        { name: 'ChatGPT', url: 'https://chat.openai.com', active: true },\n        { name: 'Gemini', url: 'https://gemini.google.com' }\n      ]\n    },\n    {\n      category: 'Images',\n      links: [\n        { name: 'AI Studio', url: 'https://aistudio.google.com', active: true },\n        { name: 'Midjourney', url: 'https://midjourney.com' }\n      ]\n    }\n  ];\n</script>",
+          "props": { "title": "AI Tools", "open": true }
+        },
+        {
+          "name": "Programmatic Control",
+          "code": "<button onclick=\"document.getElementById('links-modal-3').show()\">Open Links</button>\n<wy-links-modal id=\"links-modal-3\" title=\"AI Tools\"></wy-links-modal>\n<script>\n  const modal = document.getElementById('links-modal-3');\n  modal.links = [{ category: 'Models', links: [{ name: 'ChatGPT', url: 'https://chat.openai.com' }] }];\n  modal.addEventListener('close', () => console.log('Modal closed'));\n  modal.addEventListener('link-click', (e) => console.log('Link clicked:', e.detail.link));\n</script>",
+          "props": { "title": "AI Tools" }
+        }
+      ],
+      "props": [
+        { "name": "open", "type": "Boolean", "required": false, "description": "Modal visibility state" },
+        { "name": "title", "type": "String", "required": false, "description": "Modal title (default: 'AI Tools')" },
+        { "name": "links", "type": "Array", "required": false, "description": "Array of category objects: [{ category: String, links: [{ name: String, url: String, active?: Boolean }] }]" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "close", "description": "Fired when modal closes (via close button or overlay click)" },
+        { "name": "link-click", "detail": "{ link: Object }", "description": "Fired when a link chip is clicked" }
+      ],
+      "methods": [
+        { "name": "show()", "description": "Open the modal" },
+        { "name": "close()", "description": "Close the modal" }
+      ]
+    },
+    {
+      "name": "wy-works-grid",
+      "category": "specialized",
+      "title": "Works Grid",
+      "description": "Responsive grid container for work cards",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-works-grid>\n  <wy-work-card title=\"Ethereal Geometry I\" artist=\"Yuwono\" date=\"2024\" status=\"READY\" image=\"/src/assets/artwork/ethereal_geometry_i.png\"></wy-work-card>\n  <wy-work-card title=\"Heritage Landscape\" artist=\"Weaver\" date=\"2023\" favorite status=\"EXPORTED\" image=\"/src/assets/artwork/heritage_landscape.png\"></wy-work-card>\n  <wy-work-card title=\"Abstract Flow\" artist=\"M. Wyuwono\" date=\"2024\" status=\"DRAFT\"></wy-work-card>\n</wy-works-grid>",
+          "props": {}
+        },
+        {
+          "name": "Spacious Density",
+          "code": "<wy-works-grid density=\"spacious\">\n  <wy-work-card title=\"Work 1\" artist=\"Artist\" date=\"2024\"></wy-work-card>\n  <wy-work-card title=\"Work 2\" artist=\"Artist\" date=\"2024\"></wy-work-card>\n</wy-works-grid>",
+          "props": { "density": "spacious" }
+        },
+        {
+          "name": "Compact Density",
+          "code": "<wy-works-grid density=\"compact\">\n  <wy-work-card title=\"Work 1\" artist=\"Artist\" date=\"2024\"></wy-work-card>\n  <wy-work-card title=\"Work 2\" artist=\"Artist\" date=\"2024\"></wy-work-card>\n</wy-works-grid>",
+          "props": { "density": "compact" }
+        }
+      ],
+      "props": [
+        { "name": "density", "type": "String", "required": false, "description": "'spacious' or 'compact'" }
+      ],
+      "slots": [
+        { "name": "default", "description": "Work card elements" }
+      ]
+    },
+    {
+      "name": "wy-project-list",
+      "category": "specialized",
+      "title": "Project List",
+      "description": "Filterable project listing component",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-project-list title=\"Featured Projects\"></wy-project-list>",
+          "props": { "title": "Featured Projects" }
+        },
+        {
+          "name": "With Filter",
+          "code": "<wy-project-list title=\"Real Estate Projects\" filter=\"real-estate\"></wy-project-list>",
+          "props": { "title": "Real Estate Projects", "filter": "real-estate" }
+        }
+      ],
+      "props": [
+        { "name": "filter", "type": "String", "required": false, "description": "Filter criteria" },
+        { "name": "title", "type": "String", "required": false, "description": "List title" }
+      ],
+      "slots": []
+    },
+    {
+      "name": "wy-backup-status",
+      "category": "specialized",
+      "title": "Backup Status",
+      "description": "Git sync status indicator with animation",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Synced",
+          "code": "<wy-backup-status status=\"synced\" last-sync=\"Just now\"></wy-backup-status>",
+          "props": { "status": "synced", "last-sync": "Just now" }
+        },
+        {
+          "name": "Syncing",
+          "code": "<wy-backup-status status=\"syncing\" last-sync=\"2m ago\"></wy-backup-status>",
+          "props": { "status": "syncing", "last-sync": "2m ago" }
+        },
+        {
+          "name": "Error",
+          "code": "<wy-backup-status status=\"error\" last-sync=\"Failed 1h ago\"></wy-backup-status>",
+          "props": { "status": "error", "last-sync": "Failed 1h ago" }
+        }
+      ],
+      "props": [
+        { "name": "status", "type": "String", "required": false, "description": "'synced', 'syncing', or 'error' (default: 'synced')" },
+        { "name": "lastSync", "type": "String", "required": false, "description": "Last sync timestamp (attribute: last-sync, default: '2 mins ago')" }
+      ],
+      "slots": []
+    },
+    {
+      "name": "wy-toast",
+      "category": "specialized",
+      "title": "Toast",
+      "description": "Toast notification system",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-toast id=\"toast-1\" message=\"Copied to clipboard!\" show></wy-toast>",
+          "props": { "message": "Copied to clipboard!", "show": true }
+        },
+        {
+          "name": "Custom Duration",
+          "code": "<wy-toast id=\"toast-2\" message=\"Settings saved successfully\" duration=\"5000\" show></wy-toast>",
+          "props": { "message": "Settings saved successfully", "duration": 5000, "show": true }
+        },
+        {
+          "name": "Programmatic",
+          "code": "<wy-toast id=\"toast-3\" message=\"\"></wy-toast>\n<script>\n  const toast = document.getElementById('toast-3');\n  toast.message = 'System state synchronized successfully!';\n  toast.show = true;\n</script>",
+          "props": {}
+        }
+      ],
+      "props": [
+        { "name": "message", "type": "String", "required": false, "description": "Toast message" },
+        { "name": "show", "type": "Boolean", "required": false, "description": "Visibility state" },
+        { "name": "duration", "type": "Number", "required": false, "description": "Display duration in ms (default: 3000)" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "dismiss", "description": "Fired when toast auto-dismisses" }
+      ]
+    }
+  ],
+  "categories": {
+    "form-input": {
+      "name": "Form & Input",
+      "description": "Form controls and input components",
+      "order": 1
+    },
+    "layout-navigation": {
+      "name": "Layout & Navigation",
+      "description": "Layout containers and navigation components",
+      "order": 2
+    },
+    "cards-content": {
+      "name": "Cards & Content",
+      "description": "Content display cards and containers",
+      "order": 3
+    },
+    "modals-overlays": {
+      "name": "Modals & Overlays",
+      "description": "Modal dialogs and overlay components",
+      "order": 4
+    },
+    "specialized": {
+      "name": "Specialized Components",
+      "description": "Domain-specific components",
+      "order": 5
+    }
+  }
+}

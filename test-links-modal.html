@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wy-links-modal Test</title>
+  <link rel="stylesheet" href="./src/styles/tokens.css">
+  <link rel="stylesheet" href="./src/styles/main.css">
+  <script type="module" src="./src/main.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: var(--spacing-xl);
+      background-color: var(--md-sys-color-background);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .test-controls {
+      position: fixed;
+      top: var(--spacing-lg);
+      left: var(--spacing-lg);
+      z-index: 1000;
+    }
+
+    button {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      background: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+      border: none;
+      border-radius: var(--md-sys-shape-corner-full);
+      font-family: var(--font-sans);
+      font-size: var(--md-sys-typescale-label-medium-size);
+      cursor: pointer;
+      margin-right: var(--spacing-sm);
+    }
+  </style>
+</head>
+<body>
+  <div class="test-controls">
+    <button onclick="openModal()">Open Modal</button>
+    <button onclick="closeModal()">Close Modal</button>
+  </div>
+
+  <wy-links-modal 
+    id="linksModal"
+    title="AI Tools"
+  ></wy-links-modal>
+
+  <script>
+    const linksData = [
+      {
+        category: "Models",
+        icon: "psychology",
+        links: [
+          { name: "ChatGPT", company: "OpenAI", url: "https://chat.openai.com", active: true },
+          { name: "Gemini", company: "Google", url: "https://gemini.google.com", active: false },
+          { name: "Claude", company: "Anthropic", url: "https://www.claude.com", active: false },
+          { name: "Perplexity", company: "Perplexity", url: "https://perplexity.ai", active: false },
+          { name: "Poe", company: "Quora", url: "https://poe.com", active: false }
+        ]
+      },
+      {
+        category: "Images",
+        icon: "palette",
+        links: [
+          { name: "AI Studio", company: "Google", url: "https://aistudio.google.com", active: true },
+          { name: "OpenAI Image Playground", company: "OpenAI", url: "https://platform.openai.com/playground/images", active: false },
+          { name: "Black Forest Labs", company: "Black Forest Labs", url: "https://blackforestlabs.ai", active: false },
+          { name: "Midjourney", company: "Midjourney", url: "https://midjourney.com", active: false },
+          { name: "ImageFX", company: "Google Labs", url: "https://aitestkitchen.withgoogle.com/tools/image-fx", active: false },
+          { name: "Image Outpainter", company: "Hugging Face", url: "https://huggingface.co/spaces/fffiloni/Image-Outpainter", active: false }
+        ]
+      },
+      {
+        category: "Specialized",
+        icon: "science",
+        links: [
+          { name: "NotebookLM", company: "Google", url: "https://notebooklm.google.com", active: false },
+          { name: "Perchance", company: "Perchance", url: "https://perchance.org", active: false },
+          { name: "Google Stitch", company: "Google", url: "https://stitch.withgoogle.com", active: false },
+          { name: "OpenAI Academy", company: "OpenAI", url: "https://academy.openai.com/home/tags/prompt-packs-6849a0f98c613939acef841c", active: false }
+        ]
+      },
+      {
+        category: "Music",
+        icon: "music_note",
+        links: [
+          { name: "Suno", company: "Suno", url: "https://suno.com", active: false },
+          { name: "Udio", company: "Udio", url: "https://udio.com", active: false }
+        ]
+      }
+    ];
+
+    customElements.whenDefined('wy-links-modal').then(() => {
+      const modal = document.getElementById('linksModal');
+      modal.links = linksData;
+    });
+
+    function openModal() {
+      const modal = document.getElementById('linksModal');
+      modal.open = true;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('linksModal');
+      modal.open = false;
+    }
+
+    // Handle Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>

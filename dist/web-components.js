@@ -8304,7 +8304,11 @@ class ds extends b {
     this._handleClose();
   }
 }
-customElements.define("wy-links-modal", ds);
+try {
+  customElements.define("wy-links-modal", ds);
+} catch (r) {
+  throw console.error("[wy-links-modal] Failed to register component:", r), r;
+}
 class cs extends b {
   static properties = {
     size: { type: Number }

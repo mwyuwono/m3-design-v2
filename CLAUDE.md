@@ -6,6 +6,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 M3 Design System v2 - A production-ready Web Component library built on Material Design 3 with Lit 3.x. The aesthetic is "Soft Modernism": organic M3 shapes (capsule buttons, rounded cards) paired with sharp editorial typography (Playfair Display) and a warm heritage color palette.
 
+## Component Adaptation Workflow (NEW - Jan 2026)
+
+When adapting external components to the design system, use the **automated Component Adaptation Workflow** with Playwright verification.
+
+**Quick Start:** [QUICK-START-COMPONENT-ADAPTATION.md](QUICK-START-COMPONENT-ADAPTATION.md) - Copy/paste prompt
+
+**How it works:**
+1. You provide: Screenshot + original code
+2. Agent analyzes and maps to design tokens
+3. **Playwright automatically verifies** quality (no hardcoded values, dark mode, layout, etc.)
+4. You receive: Working component + test results + screenshots
+
+**Key Benefits:**
+- ✅ 100% design system token usage enforced
+- ✅ Automated Playwright testing (no manual QA)
+- ✅ Visual fidelity proven with screenshots
+- ✅ Dark mode automatically tested
+- ✅ Issues caught before delivery
+
+**Testing Script:**
+```bash
+python3 skills/component-adaptation/test-component.py \
+  --url http://localhost:5173/test.html \
+  --selector wy-component-name \
+  --output /tmp/component-test
+```
+
+**Complete Documentation:**
+- [COMPONENT-ADAPTATION-SUMMARY.md](COMPONENT-ADAPTATION-SUMMARY.md) - Setup summary and how to use
+- [COMPONENT-ADAPTATION-INDEX.md](COMPONENT-ADAPTATION-INDEX.md) - Documentation index
+- [COMPONENT-ADAPTATION-WORKFLOW.md](COMPONENT-ADAPTATION-WORKFLOW.md) - Full methodology
+- [skills/component-adaptation/](skills/component-adaptation/) - Testing tools
+
 ## Commands
 
 ```bash
@@ -363,6 +396,16 @@ When editing CSS, reference the relevant file:
 - Design tokens: [tokens.css](src/styles/tokens.css)
 - Global styles: [main.css](src/styles/main.css)
 - Component styles: Located within each `src/components/wy-*.js` file in `static styles`
+
+### CSS Quality Standards
+
+#### CRITICAL: NO !important Declarations
+- **NEVER use `!important`** in CSS except for true utility classes that must override everything
+- If specificity conflicts arise, resolve them by:
+  - Increasing selector specificity (e.g., adding a class or parent selector)
+  - Reordering rules in the source file
+  - Using attribute selectors `[hidden]` for utilities
+- `!important` breaks the cascade and makes maintenance extremely difficult
 
 ## Component Categories
 
