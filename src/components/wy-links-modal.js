@@ -165,8 +165,8 @@ export class WyLinksModal extends LitElement {
       position: relative;
       width: 100%;
       max-width: 56rem; /* max-w-4xl = 896px */
-      background: var(--md-sys-color-surface); /* bg-background-light = #F5F2EA */
-      border-radius: var(--md-sys-shape-corner-medium); /* rounded-2xl = 16px */
+      background: #F5F2EA; /* bg-background-light = #F5F2EA - explicit value to match design specs */
+      border-radius: 16px; /* rounded-2xl = 16px - explicit value to match design specs */
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
       overflow: hidden;
       border: 1px solid color-mix(in srgb, var(--md-sys-color-on-surface) 5%, transparent); /* border-black/5 */
@@ -318,8 +318,8 @@ export class WyLinksModal extends LitElement {
       font-size: 0.875rem; /* text-sm = 14px */
       font-weight: 500; /* font-medium */
       cursor: pointer;
-      border: 1px solid var(--wy-links-modal-chip-border); /* border-accent-taupe = #D9D4C7 */
-      background-color: var(--md-sys-color-surface-container-lowest); /* bg-white = #FFFFFF */
+      border: 1px solid #D9D4C7; /* border-accent-taupe = #D9D4C7 - explicit value to match design specs */
+      background-color: #FFFFFF; /* bg-white = #FFFFFF - explicit value to match design specs */
       color: var(--md-sys-color-on-surface); /* text-stone-700 = #121714 */
       text-decoration: none;
       transition: border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
