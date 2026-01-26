@@ -3,7 +3,12 @@ import './styles/main.css';
 
 // Component Imports
 // Standard MWC (Buttons, Icons, etc.)
-import '@material/web/all.js';
+import '@material/web/button/filled-button.js';
+import '@material/web/button/outlined-button.js';
+import '@material/web/button/text-button.js';
+import '@material/web/iconbutton/icon-button.js';
+import '@material/web/icon/icon.js';
+import '@material/web/dialog/dialog.js';
 
 // Labs Components
 import '@material/web/labs/card/elevated-card.js';
@@ -29,6 +34,7 @@ import './components/wy-work-card.js';
 import './components/wy-works-grid.js';
 import './components/wy-plot-card.js';
 import './components/wy-export-modal.js';
+import './components/wy-logo.js';
 import './components/wy-app-bar.js';
 import './components/wy-controls-bar.js';
 import './components/wy-prompt-card.js';
@@ -36,12 +42,31 @@ import './components/wy-prompt-card.js';
 import './components/wy-prompt-modal.js';
 import './components/wy-tabs.js';
 import './components/wy-toast.js';
+import './components/wy-links-modal.js';
 
 // Data Imports
 import profiles from './data/profiles.json';
 import projects from './data/projects.json';
 
+// Component Library Renderer
+import ComponentLibraryRenderer from './components-library.js';
+
+// Export globally for use in components-library.html
+window.ComponentLibraryRenderer = ComponentLibraryRenderer;
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    // ======================================================
+    // COMPONENT LIBRARY (Design System Page)
+    // ======================================================
+    const componentLibraryContainer = document.getElementById('component-library-container');
+    if (componentLibraryContainer) {
+        // Wait a bit for all components to be registered
+        setTimeout(() => {
+            const renderer = new ComponentLibraryRenderer(componentLibraryContainer);
+            renderer.init();
+        }, 100);
+    }
 
     // ======================================================
     // LANDING PAGE LOGIC
