@@ -464,13 +464,13 @@ export class WyLinksModal extends LitElement {
 }
 
 // Verify class exists before defining
-if (typeof WyLinksModal === 'undefined') {
+if (!WyLinksModal) {
   console.error('[wy-links-modal] Component class is undefined');
   throw new Error('WyLinksModal class is undefined');
 }
 
 // Verify customElements API is available
-if (typeof customElements === 'undefined') {
+if (!customElements) {
   console.error('[wy-links-modal] customElements API not available');
   throw new Error('customElements API not available');
 }

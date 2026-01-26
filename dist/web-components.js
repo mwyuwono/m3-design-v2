@@ -8304,9 +8304,9 @@ class Ge extends b {
     this._handleClose();
   }
 }
-if (typeof Ge > "u")
+if (!Ge)
   throw console.error("[wy-links-modal] Component class is undefined"), new Error("WyLinksModal class is undefined");
-if (typeof customElements > "u")
+if (!customElements)
   throw console.error("[wy-links-modal] customElements API not available"), new Error("customElements API not available");
 try {
   customElements.define("wy-links-modal", Ge), console.log("[wy-links-modal] Component registered successfully");
