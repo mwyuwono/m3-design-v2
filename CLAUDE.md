@@ -114,16 +114,21 @@ Verify purge succeeded: response should contain `"status":"finished"`.
 ### Dependent Projects
 
 Changes affect these projects (hard refresh with Cmd+Shift+R after purging):
-- **prompts-library** - https://p.weaver-yuwono.com
-- **plots** - `/Users/mwy/Library/Mobile Documents/com~apple~CloudDocs/Projects/plots-library`
+- **prompts-library** - https://p.weaver-yuwono.com (uses CDN imports)
+- **plots** - `/Users/Matt_Weaver-Yuwono/Library/CloudStorage/OneDrive-McKinsey&Company/Documents/Projects/plots` (uses `npm link` for local development, installed January 2026)
 
-These import tokens via:
+**prompts-library** imports tokens via CDN:
 ```css
 @import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css');
 @import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css');
 ```
 
-Web components via:
+**plots** imports tokens via npm link:
+```css
+@import "./styles/tokens-no-fonts.css"; /* Generated from node_modules/wy-family-office/src/styles/tokens.css */
+```
+
+Web components via CDN (for prompts-library):
 ```javascript
 import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';
 ```
