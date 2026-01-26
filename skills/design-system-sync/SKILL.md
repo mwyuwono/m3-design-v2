@@ -33,10 +33,10 @@ The following projects consume m3-design-v2:
    - Status: ✅ Fully integrated
 
 3. **Weaver-Yuwono-Home-Page** - `/Users/Matt_Weaver-Yuwono/Library/CloudStorage/OneDrive-McKinsey&Company/Documents/Projects/Weaver-Yuwono-Home-Page`
-   - Installation: ⚠️ **Not integrated** - uses local `design-system/` directory
-   - Current: Local Material Design 3 tokens in `design-system/tokens/material3.web.css`
-   - Status: ❌ Needs migration to m3-design-v2
-   - Action: Should migrate to use m3-design-v2 via CDN or npm link
+   - Installation: CDN imports via jsDelivr
+   - Tokens: Imported via `tokens.css` → CDN (`@main` branch)
+   - Components: Not using web components (vanilla HTML/CSS/JS)
+   - Status: ✅ Fully integrated (migrated January 2026)
 
 ## Workflow
 
@@ -222,9 +222,9 @@ When tokens or components are added/modified:
    - Hard refresh browser (Cmd+Shift+R)
 
 3. **For Weaver-Yuwono-Home-Page**:
-   - ⚠️ **Not yet integrated** - uses local design system
-   - Migration guide: See [WEAVER-YUWONO-MIGRATION.md](WEAVER-YUWONO-MIGRATION.md)
-   - Once migrated, follow same steps as prompt-library (CDN)
+   - ✅ **Integrated** - uses CDN imports (same as prompt-library)
+   - Purge CDN cache: `for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done`
+   - Hard refresh browser (Cmd+Shift+R) to see changes
 
 ## Notes
 
