@@ -7974,9 +7974,13 @@ class Ge extends b {
       --spacing-xl: 2rem;     /* 32px fallback */
       --spacing-2xl: 3rem;   /* 48px fallback */
       
-      /* Component-specific color variables - provide fallbacks if root variables aren't available */
-      --wy-links-modal-text-muted: #6B685F;
-      --wy-links-modal-chip-border: #D9D4C7;
+      /* Component-specific color tokens matching Tailwind stone palette from reference design */
+      /* These exact colors are required for visual fidelity - not using generic semantic tokens */
+      --wy-links-modal-title-color: #1C1917;        /* stone-900: rgb(28, 25, 23) */
+      --wy-links-modal-header-color: #292524;       /* stone-800: rgb(41, 37, 36) */
+      --wy-links-modal-chip-text-color: #44403C;    /* stone-700: rgb(68, 64, 60) */
+      --wy-links-modal-close-color: #A8A29E;        /* stone-400: rgb(168, 162, 158) */
+      --wy-links-modal-chip-border: #D9D4C7;        /* accent-taupe: rgb(217, 212, 199) */
     }
     
     /* Override with root values if they cascade (they should, but :host shadows them) */
@@ -8082,7 +8086,7 @@ class Ge extends b {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: var(--wy-links-modal-text-muted);
+      color: var(--wy-links-modal-close-color); /* stone-400 from reference */
       transition: color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       position: relative;
       overflow: hidden;
@@ -8134,7 +8138,7 @@ class Ge extends b {
       font-size: 2.25rem; /* text-4xl = 36px */
       font-weight: 500; /* font-medium */
       line-height: 1.2;
-      color: var(--md-sys-color-on-surface); /* text-stone-900 = #121714 */
+      color: var(--wy-links-modal-title-color); /* stone-900 from reference */
       margin: 0;
     }
 
@@ -8163,7 +8167,7 @@ class Ge extends b {
       font-size: 1.25rem; /* text-xl = 20px */
       font-weight: 500; /* font-medium */
       line-height: 1.2;
-      color: var(--md-sys-color-on-surface); /* text-stone-800 */
+      color: var(--wy-links-modal-header-color); /* stone-800 from reference */
       margin: 0 0 1.25rem 0; /* 20px = 1.25rem */
     }
 
@@ -8193,7 +8197,7 @@ class Ge extends b {
       cursor: pointer;
       border: 1px solid var(--wy-links-modal-chip-border);
       background-color: var(--md-sys-color-surface-container-lowest);
-      color: var(--md-sys-color-on-surface); /* text-stone-700 = #121714 */
+      color: var(--wy-links-modal-chip-text-color); /* stone-700 from reference */
       text-decoration: none;
       transition: border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
                   transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
