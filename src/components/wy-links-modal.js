@@ -4,7 +4,7 @@ import { LitElement, html, css } from 'lit';
  * wy-links-modal Component
  * 
  * Modal dialog displaying categorized AI tool links as interactive chips.
- * Supports active/inactive chip states, dark mode, and Material Design 3 patterns.
+ * Rebuilt from scratch to match design mockup exactly.
  * 
  * @example
  * ```html
@@ -33,15 +33,12 @@ export class WyLinksModal extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    // Load fonts for Shadow DOM
     this._loadFonts();
-    // Setup ESC key handler
     this._escKeyHandler = this._handleEscKey.bind(this);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    // Remove ESC key handler
     if (this._escKeyHandler) {
       document.removeEventListener('keydown', this._escKeyHandler);
     }
@@ -49,11 +46,9 @@ export class WyLinksModal extends LitElement {
 
   updated(changedProperties) {
     super.updated(changedProperties);
-    // Add/remove ESC key listener and manage focus based on open state
     if (changedProperties.has('open')) {
       if (this.open) {
         document.addEventListener('keydown', this._escKeyHandler);
-        // Focus first focusable element when modal opens
         this._focusFirstElement();
       } else {
         document.removeEventListener('keydown', this._escKeyHandler);
@@ -62,7 +57,6 @@ export class WyLinksModal extends LitElement {
   }
 
   _focusFirstElement() {
-    // Focus the close button when modal opens
     requestAnimationFrame(() => {
       const closeButton = this.shadowRoot?.querySelector('.close-button');
       if (closeButton) {
@@ -78,13 +72,11 @@ export class WyLinksModal extends LitElement {
   }
 
   _loadFonts() {
-    // Check if fonts are already loaded
     const existingLinks = document.querySelectorAll('link[data-wy-links-modal-fonts]');
     if (existingLinks.length >= 2) {
-      return; // Fonts already loaded
+      return;
     }
 
-    // Load Playfair Display
     if (!document.querySelector('link[href*="Playfair+Display"][data-wy-links-modal-fonts]')) {
       const playfairLink = document.createElement('link');
       playfairLink.rel = 'stylesheet';
@@ -93,7 +85,6 @@ export class WyLinksModal extends LitElement {
       document.head.appendChild(playfairLink);
     }
 
-    // Load Material Symbols
     if (!document.querySelector('link[href*="Material+Symbols"][data-wy-links-modal-fonts]')) {
       const materialLink = document.createElement('link');
       materialLink.rel = 'stylesheet';
@@ -104,14 +95,15 @@ export class WyLinksModal extends LitElement {
   }
 
   static styles = css`
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
     :host {
       display: block;
       position: relative;
-      min-height: 1px;
     }
 
-    /* Material Symbols font setup */
+    /* Material Symbols */
     .material-symbols-outlined {
       font-family: 'Material Symbols Outlined';
       font-weight: normal;
@@ -130,7 +122,7 @@ export class WyLinksModal extends LitElement {
       font-feature-settings: 'liga';
     }
 
-    /* Modal overlay */
+    /* Modal overlay - matches mockup backdrop */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -144,6 +136,7 @@ export class WyLinksModal extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 1rem; /* p-4 from mockup */
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -157,24 +150,20 @@ export class WyLinksModal extends LitElement {
       pointer-events: auto;
     }
 
-    /* Ensure component is always detectable for testing */
     :host([open]) {
       display: block;
     }
 
-    /* Modal container */
+    /* Modal container - matches mockup exactly */
     .modal-container {
       position: relative;
-      background: var(--md-sys-color-surface);
-      border-radius: var(--md-sys-shape-corner-medium);
-      max-width: 56rem; /* 896px - matches max-w-4xl from mockup */
-      width: 95%;
-      max-height: 95vh;
-      display: flex;
-      flex-direction: column;
+      width: 100%;
+      max-width: 56rem; /* max-w-4xl = 896px */
+      background: var(--md-sys-color-surface); /* bg-background-light = #F5F2EA */
+      border-radius: var(--md-sys-shape-corner-medium); /* rounded-2xl = 16px */
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
       overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      border: 1px solid color-mix(in srgb, var(--md-sys-color-on-surface) 5%, transparent);
+      border: 1px solid color-mix(in srgb, var(--md-sys-color-on-surface) 5%, transparent); /* border-black/5 */
       transform: scale(0.95) translateY(20px);
       opacity: 0;
       transition: transform var(--md-sys-motion-duration-long2) var(--md-sys-motion-easing-spring),
@@ -188,38 +177,36 @@ export class WyLinksModal extends LitElement {
 
     @media (prefers-color-scheme: dark) {
       .modal-container {
-        border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 10%, transparent);
+        background: var(--md-sys-color-background); /* background-dark */
+        border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 10%, transparent); /* border-white/10 */
       }
     }
 
-    /* Modal content */
+    /* Content wrapper with padding - matches mockup p-8 */
     .modal-content {
-      padding: var(--spacing-xl);
+      padding: var(--spacing-xl); /* p-8 = 32px */
       display: flex;
       flex-direction: column;
       overflow-y: auto;
       overflow-x: hidden;
     }
 
-    /* Close button */
+    /* Close button - matches mockup exactly */
     .close-button {
       position: absolute;
-      top: var(--spacing-xl);
-      right: var(--spacing-xl);
+      top: var(--spacing-xl); /* top-8 = 32px */
+      right: var(--spacing-xl); /* right-8 = 32px */
       background: none;
       border: none;
       padding: 0;
-      width: 2.5rem;
-      height: 2.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: var(--wy-links-modal-text-muted);
-      border-radius: var(--md-sys-shape-corner-full);
+      color: var(--wy-links-modal-text-muted); /* text-stone-400 = #6B685F */
+      transition: color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       position: relative;
       overflow: hidden;
-      transition: color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
     }
 
     .close-button::before {
@@ -237,12 +224,12 @@ export class WyLinksModal extends LitElement {
     }
 
     .close-button:hover {
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-primary); /* hover:text-primary */
     }
 
     @media (prefers-color-scheme: dark) {
       .close-button:hover {
-        color: var(--md-sys-color-on-surface);
+        color: var(--md-sys-color-on-surface); /* dark:hover:text-stone-100 */
       }
     }
 
@@ -252,79 +239,104 @@ export class WyLinksModal extends LitElement {
     }
 
     .close-button .material-symbols-outlined {
-      font-size: 2rem;
+      font-size: 2rem; /* text-2xl */
       position: relative;
       z-index: 1;
     }
 
-    /* Title */
-    .modal-title {
-      font-family: var(--font-serif);
-      font-size: 2.25rem; /* 36px - matches text-4xl from mockup */
-      font-weight: 500; /* medium - matches mockup */
-      line-height: 1.2;
-      color: var(--md-sys-color-on-surface);
-      margin: 0 0 var(--spacing-2xl) 0;
+    /* Title wrapper with mb-12 */
+    .title-wrapper {
+      margin-bottom: var(--spacing-2xl); /* mb-12 = 48px */
     }
 
-    /* Sections container */
+    /* Title - matches mockup exactly */
+    .modal-title {
+      font-family: var(--font-serif); /* playfair */
+      font-size: 2.25rem; /* text-4xl = 36px */
+      font-weight: 500; /* font-medium */
+      line-height: 1.2;
+      color: var(--md-sys-color-on-surface); /* text-stone-900 = #121714 */
+      margin: 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .modal-title {
+        color: var(--md-sys-color-on-surface); /* dark:text-stone-100 */
+      }
+    }
+
+    /* Sections container - matches space-y-10 */
     .sections-container {
       display: flex;
       flex-direction: column;
-      gap: 2.5rem; /* 40px - matches space-y-10 from mockup */
+      gap: 2.5rem; /* space-y-10 = 40px */
     }
 
     /* Section */
     .section {
       display: flex;
       flex-direction: column;
-      gap: calc(var(--spacing-sm) * 2.5); /* 20px - matches mb-5 from mockup (2.5 * 8px) */
     }
 
-    /* Section header */
+    /* Section header - matches mockup exactly */
     .section-header {
-      font-family: var(--font-serif);
-      font-size: 1.25rem; /* 20px - matches text-xl from mockup */
-      font-weight: 500; /* medium - matches mockup */
+      font-family: var(--font-serif); /* playfair */
+      font-size: 1.25rem; /* text-xl = 20px */
+      font-weight: 500; /* font-medium */
       line-height: 1.2;
-      color: var(--md-sys-color-on-surface);
-      margin: 0;
+      color: var(--md-sys-color-on-surface); /* text-stone-800 */
+      margin: 0 0 calc(var(--spacing-sm) * 2.5) 0; /* mb-5 = 20px */
     }
 
-    /* Chips container */
+    @media (prefers-color-scheme: dark) {
+      .section-header {
+        color: var(--md-sys-color-on-surface-variant); /* dark:text-stone-200 */
+      }
+    }
+
+    /* Chips container - matches flex flex-wrap gap-3 */
     .chips-container {
       display: flex;
       flex-wrap: wrap;
-      gap: calc(var(--spacing-sm) * 1.5); /* 12px - matches gap-3 from mockup (1.5 * 8px) */
+      gap: calc(var(--spacing-sm) * 1.5); /* gap-3 = 12px */
     }
 
-    /* Link chip */
+    /* Link chip button - matches mockup exactly */
     .link-chip {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: calc(var(--spacing-sm) * 1.25) var(--spacing-lg); /* 10px vertical (1.25 * 8px), 24px horizontal - matches py-2.5 px-6 from mockup */
-      border-radius: var(--md-sys-shape-corner-full);
-      font-family: var(--font-sans);
-      font-size: 0.875rem; /* 14px - matches text-sm from mockup */
-      font-weight: 500; /* medium - matches mockup */
-      text-decoration: none;
+      padding: calc(var(--spacing-sm) * 1.25) var(--spacing-lg); /* py-2.5 px-6 = 10px 24px */
+      border-radius: var(--md-sys-shape-corner-full); /* rounded-full */
+      font-family: var(--font-sans); /* DM Sans */
+      font-size: 0.875rem; /* text-sm = 14px */
+      font-weight: 500; /* font-medium */
       cursor: pointer;
-      border: 1px solid var(--wy-links-modal-chip-border);
-      background-color: var(--md-sys-color-surface-container-lowest);
-      color: var(--md-sys-color-on-surface);
+      border: 1px solid var(--wy-links-modal-chip-border); /* border-accent-taupe = #D9D4C7 */
+      background-color: var(--md-sys-color-surface-container-lowest); /* bg-white = #FFFFFF */
+      color: var(--md-sys-color-on-surface); /* text-stone-700 = #121714 */
+      text-decoration: none;
       transition: border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
-                  color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
                   transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       position: relative;
       overflow: hidden;
     }
 
-    /* Active chip */
+    /* Active chip - matches mockup bg-primary text-white */
     .link-chip.active {
-      background-color: var(--md-sys-color-primary);
-      color: var(--md-sys-color-on-primary);
+      background-color: var(--md-sys-color-primary); /* bg-primary = #2C4C3B */
+      color: var(--md-sys-color-on-primary); /* text-white = #FFFFFF */
       border-color: var(--md-sys-color-primary);
+    }
+
+    /* Active chip pressed state */
+    .link-chip.active:active {
+      transform: scale(0.95); /* active:scale-95 */
+    }
+
+    /* Inactive chip hover - matches mockup hover:border-primary */
+    .link-chip:not(.active):hover {
+      border-color: var(--md-sys-color-primary); /* hover:border-primary */
     }
 
     /* Inactive chip hover state layer */
@@ -342,21 +354,6 @@ export class WyLinksModal extends LitElement {
       opacity: var(--md-sys-state-hover-opacity);
     }
 
-    .link-chip:not(.active):hover {
-      border-color: var(--md-sys-color-primary);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .link-chip:not(.active):hover {
-        border-color: var(--md-sys-color-outline);
-      }
-    }
-
-    /* Active chip pressed state */
-    .link-chip.active:active {
-      transform: scale(0.95);
-    }
-
     /* Focus state */
     .link-chip:focus-visible {
       outline: 3px solid var(--md-sys-color-primary);
@@ -367,8 +364,12 @@ export class WyLinksModal extends LitElement {
     @media (prefers-color-scheme: dark) {
       .link-chip {
         background-color: var(--md-sys-color-surface-container);
-        border-color: var(--md-sys-color-outline-variant);
-        color: var(--md-sys-color-on-surface-variant);
+        border-color: var(--md-sys-color-outline-variant); /* dark:border-stone-700 */
+        color: var(--md-sys-color-on-surface-variant); /* dark:text-stone-300 */
+      }
+
+      .link-chip:not(.active):hover {
+        border-color: var(--md-sys-color-outline); /* dark:hover:border-stone-400 */
       }
     }
   `;
@@ -386,7 +387,9 @@ export class WyLinksModal extends LitElement {
           </button>
           
           <div class="modal-content">
-            <h1 class="modal-title">${this.title}</h1>
+            <div class="title-wrapper">
+              <h1 class="modal-title">${this.title}</h1>
+            </div>
             
             <div class="sections-container">
               ${this.links.map(category => html`
@@ -394,15 +397,13 @@ export class WyLinksModal extends LitElement {
                   <h2 class="section-header">${category.category}</h2>
                   <div class="chips-container">
                     ${category.links.map(link => html`
-                      <a 
-                        href="${link.url}" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
+                      <button 
                         class="link-chip ${link.active ? 'active' : ''}"
                         @click="${(e) => this._handleLinkClick(e, link)}"
+                        aria-label="Open ${link.name}"
                       >
                         ${link.name}
-                      </a>
+                      </button>
                     `)}
                   </div>
                 </section>
@@ -415,14 +416,12 @@ export class WyLinksModal extends LitElement {
   }
 
   _handleOverlayClick(e) {
-    // Close when clicking overlay (but not the container)
     if (e.target === e.currentTarget) {
       this._handleClose();
     }
   }
 
   _handleContainerClick(e) {
-    // Prevent clicks inside container from bubbling to overlay
     e.stopPropagation();
   }
 
@@ -435,6 +434,9 @@ export class WyLinksModal extends LitElement {
   }
 
   _handleLinkClick(e, link) {
+    // Navigate to URL (buttons don't navigate by default)
+    window.open(link.url, '_blank', 'noopener,noreferrer');
+    
     this.dispatchEvent(new CustomEvent('link-click', {
       detail: { link },
       bubbles: true,
@@ -442,7 +444,6 @@ export class WyLinksModal extends LitElement {
     }));
   }
 
-  // Public methods
   show() {
     this.open = true;
   }
