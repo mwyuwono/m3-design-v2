@@ -7967,16 +7967,20 @@ class Ge extends b {
       display: block;
       position: relative;
       
-      /* Spacing scale variables - reference design system tokens with fallbacks */
-      --spacing-sm: var(--spacing-sm, 0.5rem);   /* 8px fallback */
-      --spacing-lg: var(--spacing-lg, 1.5rem);   /* 24px fallback */
-      --spacing-xl: var(--spacing-xl, 2rem);     /* 32px fallback */
-      --spacing-2xl: var(--spacing-2xl, 3rem);   /* 48px fallback */
+      /* Spacing scale variables - provide fallbacks if root variables aren't available */
+      /* CSS will use root values if they cascade, otherwise use these fallbacks */
+      --spacing-sm: 0.5rem;   /* 8px fallback */
+      --spacing-lg: 1.5rem;   /* 24px fallback */
+      --spacing-xl: 2rem;     /* 32px fallback */
+      --spacing-2xl: 3rem;   /* 48px fallback */
       
-      /* Component-specific color variables - reference design system tokens */
-      --wy-links-modal-text-muted: var(--wy-links-modal-text-muted, #6B685F);
-      --wy-links-modal-chip-border: var(--wy-links-modal-chip-border, #D9D4C7);
+      /* Component-specific color variables - provide fallbacks if root variables aren't available */
+      --wy-links-modal-text-muted: #6B685F;
+      --wy-links-modal-chip-border: #D9D4C7;
     }
+    
+    /* Override with root values if they cascade (they should, but :host shadows them) */
+    /* So we need to explicitly reference root in the styles that use these variables */
 
     /* Material Symbols */
     .material-symbols-outlined {
