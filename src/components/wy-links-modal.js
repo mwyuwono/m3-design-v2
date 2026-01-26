@@ -107,6 +107,16 @@ export class WyLinksModal extends LitElement {
     :host {
       display: block;
       position: relative;
+      
+      /* Spacing scale variables - reference design system tokens with fallbacks */
+      --spacing-sm: var(--spacing-sm, 0.5rem);   /* 8px fallback */
+      --spacing-lg: var(--spacing-lg, 1.5rem);   /* 24px fallback */
+      --spacing-xl: var(--spacing-xl, 2rem);     /* 32px fallback */
+      --spacing-2xl: var(--spacing-2xl, 3rem);   /* 48px fallback */
+      
+      /* Component-specific color variables - reference design system tokens */
+      --wy-links-modal-text-muted: var(--wy-links-modal-text-muted, #6B685F);
+      --wy-links-modal-chip-border: var(--wy-links-modal-chip-border, #D9D4C7);
     }
 
     /* Material Symbols */
@@ -165,8 +175,8 @@ export class WyLinksModal extends LitElement {
       position: relative;
       width: 100%;
       max-width: 56rem; /* max-w-4xl = 896px */
-      background: #F5F2EA; /* bg-background-light = #F5F2EA - explicit value to match design specs */
-      border-radius: 16px; /* rounded-2xl = 16px - explicit value to match design specs */
+      background: var(--md-sys-color-surface);
+      border-radius: var(--md-sys-shape-corner-medium);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
       overflow: hidden;
       border: 1px solid color-mix(in srgb, var(--md-sys-color-on-surface) 5%, transparent); /* border-black/5 */
@@ -190,7 +200,7 @@ export class WyLinksModal extends LitElement {
 
     /* Content wrapper with padding - matches mockup p-8 */
     .modal-content {
-      padding: 32px; /* p-8 = 32px - explicit value to match design specs */
+      padding: var(--spacing-xl);
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -200,8 +210,8 @@ export class WyLinksModal extends LitElement {
     /* Close button - matches mockup exactly */
     .close-button {
       position: absolute;
-      top: 32px; /* top-8 = 32px - explicit value to match design specs */
-      right: 32px; /* right-8 = 32px - explicit value to match design specs */
+      top: var(--spacing-xl);
+      right: var(--spacing-xl);
       background: none;
       border: none;
       padding: 0;
@@ -209,7 +219,7 @@ export class WyLinksModal extends LitElement {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: var(--wy-links-modal-text-muted); /* text-stone-400 = #6B685F */
+      color: var(--wy-links-modal-text-muted);
       transition: color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       position: relative;
       overflow: hidden;
@@ -252,7 +262,7 @@ export class WyLinksModal extends LitElement {
 
     /* Title wrapper with mb-12 */
     .title-wrapper {
-      margin-bottom: 48px; /* mb-12 = 48px - explicit value to match design specs */
+      margin-bottom: var(--spacing-2xl);
     }
 
     /* Title - matches mockup exactly */
@@ -275,7 +285,7 @@ export class WyLinksModal extends LitElement {
     .sections-container {
       display: flex;
       flex-direction: column;
-      gap: 40px; /* space-y-10 = 40px - explicit value to match design specs */
+      gap: 2.5rem; /* 40px = 2.5rem */
     }
 
     /* Section */
@@ -291,7 +301,7 @@ export class WyLinksModal extends LitElement {
       font-weight: 500; /* font-medium */
       line-height: 1.2;
       color: var(--md-sys-color-on-surface); /* text-stone-800 */
-      margin: 0 0 20px 0; /* mb-5 = 20px - explicit value to match design specs */
+      margin: 0 0 1.25rem 0; /* 20px = 1.25rem */
     }
 
     @media (prefers-color-scheme: dark) {
@@ -304,7 +314,7 @@ export class WyLinksModal extends LitElement {
     .chips-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px; /* gap-3 = 12px - explicit value to match design specs */
+      gap: calc(var(--spacing-sm) * 1.5); /* 12px = 1.5 * 8px */
     }
 
     /* Link chip button - matches mockup exactly */
@@ -312,14 +322,14 @@ export class WyLinksModal extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 24px; /* py-2.5 px-6 = 10px 24px - explicit values to match design specs */
-      border-radius: 9999px; /* rounded-full - explicit value */
+      padding: calc(var(--spacing-sm) * 1.25) var(--spacing-lg); /* 10px 24px = 1.25 * 8px, 24px */
+      border-radius: var(--md-sys-shape-corner-full);
       font-family: var(--font-sans); /* DM Sans */
       font-size: 0.875rem; /* text-sm = 14px */
       font-weight: 500; /* font-medium */
       cursor: pointer;
-      border: 1px solid #D9D4C7; /* border-accent-taupe = #D9D4C7 - explicit value to match design specs */
-      background-color: #FFFFFF; /* bg-white = #FFFFFF - explicit value to match design specs */
+      border: 1px solid var(--wy-links-modal-chip-border);
+      background-color: var(--md-sys-color-surface-container-lowest);
       color: var(--md-sys-color-on-surface); /* text-stone-700 = #121714 */
       text-decoration: none;
       transition: border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
