@@ -463,9 +463,25 @@ export class WyLinksModal extends LitElement {
   }
 }
 
+// Verify class exists before defining
+if (typeof WyLinksModal === 'undefined') {
+  console.error('[wy-links-modal] Component class is undefined');
+  throw new Error('WyLinksModal class is undefined');
+}
+
+// Verify customElements API is available
+if (typeof customElements === 'undefined') {
+  console.error('[wy-links-modal] customElements API not available');
+  throw new Error('customElements API not available');
+}
+
 try {
   customElements.define('wy-links-modal', WyLinksModal);
+  console.log('[wy-links-modal] Component registered successfully');
 } catch (error) {
   console.error('[wy-links-modal] Failed to register component:', error);
-  throw error;
+  console.error('[wy-links-modal] Error stack:', error.stack);
+  console.error('[wy-links-modal] WyLinksModal type:', typeof WyLinksModal);
+  console.error('[wy-links-modal] WyLinksModal value:', WyLinksModal);
+  throw error; // Re-throw to prevent silent failure
 }
