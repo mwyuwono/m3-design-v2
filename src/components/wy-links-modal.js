@@ -73,8 +73,8 @@ export class WyLinksModal extends LitElement {
 
   _loadFonts() {
     const existingLinks = document.querySelectorAll('link[data-wy-links-modal-fonts]');
-    if (existingLinks.length >= 2) {
-      return;
+    if (existingLinks.length >= 3) {
+      return; // All fonts already loaded
     }
 
     if (!document.querySelector('link[href*="Playfair+Display"][data-wy-links-modal-fonts]')) {
@@ -92,12 +92,18 @@ export class WyLinksModal extends LitElement {
       materialLink.setAttribute('data-wy-links-modal-fonts', 'material');
       document.head.appendChild(materialLink);
     }
+
+    // Load DM Sans font
+    if (!document.querySelector('link[href*="DM+Sans"][data-wy-links-modal-fonts]')) {
+      const dmSansLink = document.createElement('link');
+      dmSansLink.rel = 'stylesheet';
+      dmSansLink.href = 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap';
+      dmSansLink.setAttribute('data-wy-links-modal-fonts', 'dm-sans');
+      document.head.appendChild(dmSansLink);
+    }
   }
 
   static styles = css`
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
-
     :host {
       display: block;
       position: relative;
@@ -392,22 +398,26 @@ export class WyLinksModal extends LitElement {
             </div>
             
             <div class="sections-container">
-              ${this.links.map(category => html`
-                <section class="section">
-                  <h2 class="section-header">${category.category}</h2>
-                  <div class="chips-container">
-                    ${category.links.map(link => html`
-                      <button 
-                        class="link-chip ${link.active ? 'active' : ''}"
-                        @click="${(e) => this._handleLinkClick(e, link)}"
-                        aria-label="Open ${link.name}"
-                      >
-                        ${link.name}
-                      </button>
-                    `)}
-                  </div>
-                </section>
-              `)}
+              ${!this.links || this.links.length === 0 
+                ? html`<p style="color: var(--md-sys-color-on-surface-variant); text-align: center; padding: 2rem;">No links available.</p>`
+                : this.links.map(category => html`
+                  <section class="section">
+                    <h2 class="section-header">${category.category}</h2>
+                    <div class="chips-container">
+                      ${category.links && category.links.length > 0 
+                        ? category.links.map(link => html`
+                          <button 
+                            class="link-chip ${link.active ? 'active' : ''}"
+                            @click="${(e) => this._handleLinkClick(e, link)}"
+                            aria-label="Open ${link.name}"
+                          >
+                            ${link.name}
+                          </button>
+                        `)
+                        : ''}
+                    </div>
+                  </section>
+                `)}
             </div>
           </div>
         </div>
