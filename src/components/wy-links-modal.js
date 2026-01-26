@@ -190,7 +190,7 @@ export class WyLinksModal extends LitElement {
 
     /* Content wrapper with padding - matches mockup p-8 */
     .modal-content {
-      padding: var(--spacing-xl); /* p-8 = 32px */
+      padding: 32px; /* p-8 = 32px - explicit value to match design specs */
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -200,8 +200,8 @@ export class WyLinksModal extends LitElement {
     /* Close button - matches mockup exactly */
     .close-button {
       position: absolute;
-      top: var(--spacing-xl); /* top-8 = 32px */
-      right: var(--spacing-xl); /* right-8 = 32px */
+      top: 32px; /* top-8 = 32px - explicit value to match design specs */
+      right: 32px; /* right-8 = 32px - explicit value to match design specs */
       background: none;
       border: none;
       padding: 0;
@@ -252,7 +252,7 @@ export class WyLinksModal extends LitElement {
 
     /* Title wrapper with mb-12 */
     .title-wrapper {
-      margin-bottom: var(--spacing-2xl); /* mb-12 = 48px */
+      margin-bottom: 48px; /* mb-12 = 48px - explicit value to match design specs */
     }
 
     /* Title - matches mockup exactly */
@@ -275,7 +275,7 @@ export class WyLinksModal extends LitElement {
     .sections-container {
       display: flex;
       flex-direction: column;
-      gap: 2.5rem; /* space-y-10 = 40px */
+      gap: 40px; /* space-y-10 = 40px - explicit value to match design specs */
     }
 
     /* Section */
@@ -291,7 +291,7 @@ export class WyLinksModal extends LitElement {
       font-weight: 500; /* font-medium */
       line-height: 1.2;
       color: var(--md-sys-color-on-surface); /* text-stone-800 */
-      margin: 0 0 calc(var(--spacing-sm) * 2.5) 0; /* mb-5 = 20px */
+      margin: 0 0 20px 0; /* mb-5 = 20px - explicit value to match design specs */
     }
 
     @media (prefers-color-scheme: dark) {
@@ -304,7 +304,7 @@ export class WyLinksModal extends LitElement {
     .chips-container {
       display: flex;
       flex-wrap: wrap;
-      gap: calc(var(--spacing-sm) * 1.5); /* gap-3 = 12px */
+      gap: 12px; /* gap-3 = 12px - explicit value to match design specs */
     }
 
     /* Link chip button - matches mockup exactly */
@@ -312,8 +312,8 @@ export class WyLinksModal extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: calc(var(--spacing-sm) * 1.25) var(--spacing-lg); /* py-2.5 px-6 = 10px 24px */
-      border-radius: var(--md-sys-shape-corner-full); /* rounded-full */
+      padding: 10px 24px; /* py-2.5 px-6 = 10px 24px - explicit values to match design specs */
+      border-radius: 9999px; /* rounded-full - explicit value */
       font-family: var(--font-sans); /* DM Sans */
       font-size: 0.875rem; /* text-sm = 14px */
       font-weight: 500; /* font-medium */
