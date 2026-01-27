@@ -202,6 +202,7 @@
 
 /* --- DARK MODE OVERRIDES --- */
 /* Based on Visual Identity Guide v1.0 dark mode specification */
+/* Supports both system preference (prefers-color-scheme) and manual toggle (html.dark class) */
 @media (prefers-color-scheme: dark) {
   :root {
     /* Primary: Hunter Green remains the accent color in dark mode */
@@ -266,4 +267,65 @@
     --wy-info-panel-border: #27272A;            /* zinc-800: subtle border in dark mode */
     --wy-info-panel-text-color: #A1A1AA;        /* zinc-400: muted text for dark mode */
   }
+}
+
+/* Dark mode via manual toggle (html.dark class) - mirrors system preference dark mode */
+html.dark :root {
+  /* Primary: Hunter Green remains the accent color in dark mode */
+  --md-sys-color-primary: #2D4E3C;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #2D4E3C;
+  --md-sys-color-on-primary-container: #FFFFFF;
+
+  /* Background: Deep Dark (#161C19) */
+  --md-sys-color-background: #161C19;
+  --md-sys-color-on-background: #F5F2EA;
+
+  /* Surface: Slightly lighter dark (#1E2622) */
+  --md-sys-color-surface: #1E2622;
+  --md-sys-color-on-surface: #F5F2EA;
+
+  --md-sys-color-surface-variant: #2C3631;
+  --md-sys-color-on-surface-variant: #F5F2EA;
+
+  /* Surface containers: graduated dark tones */
+  --md-sys-color-surface-container-lowest: #121714;
+  --md-sys-color-surface-container-low: #161C19;
+  --md-sys-color-surface-container: #1E2622;
+  --md-sys-color-surface-container-high: #2C3631;
+  --md-sys-color-surface-container-highest: #3E4944;
+
+  --md-sys-color-secondary-container: #2C3631;
+  --md-sys-color-on-secondary-container: #F5F2EA;
+
+  /* Inverse: Light surface for dark mode overlays */
+  --md-sys-color-inverse-surface: #F5F2EA;
+  --md-sys-color-inverse-on-surface: #1E2622;
+
+  /* Outlines: Hunter Green for borders, subtle variant for dividers */
+  --md-sys-color-outline: #2D4E3C;
+  --md-sys-color-outline-variant: rgba(255, 255, 255, 0.1);
+  --md-sys-color-border-variant: rgba(255, 255, 255, 0.1);
+
+  /* Text: Warm Clay (#F5F2EA) for main, muted for secondary */
+  --md-sys-color-text-main: #F5F2EA;
+  --md-sys-color-text-muted: rgba(245, 242, 234, 0.7);
+  
+  /* Links Modal Specific Colors (dark mode) */
+  --wy-links-modal-text-muted: rgba(245, 242, 234, 0.7);
+  --wy-links-modal-chip-border: rgba(255, 255, 255, 0.1);
+  
+  /* Dropdown Component Colors (dark mode) */
+  --wy-dropdown-label-color: #A1A1AA;
+  --wy-dropdown-text-color: #E4E4E7;
+  --wy-dropdown-icon-color: #A1A1AA;
+  --wy-dropdown-bg: #18181B;
+  --wy-dropdown-border: #3F3F46;
+  --wy-dropdown-menu-bg: #27272A;
+  --wy-dropdown-item-hover-bg: #3F3F46;
+  
+  /* Info Panel Component Colors (dark mode) */
+  --wy-info-panel-bg: rgba(24, 24, 27, 0.5);
+  --wy-info-panel-border: #27272A;
+  --wy-info-panel-text-color: #A1A1AA;
 }

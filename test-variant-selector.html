@@ -6,6 +6,7 @@
     <title>Variant Selector Component Test</title>
     <link rel="stylesheet" href="/src/styles/tokens.css">
     <link rel="stylesheet" href="/src/styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <script type="module" src="/src/main.js"></script>
     <style>
         body {
@@ -32,6 +33,10 @@
         
         .component-spacing {
             margin-bottom: 16px;
+        }
+        
+        .variant-spacing {
+            margin-top: 16px;
         }
         
         .dark-mode-toggle {
@@ -88,11 +93,9 @@
                 value="formal"
             ></wy-dropdown>
             
-            <div class="component-spacing">
-                <wy-info-panel id="style-description">
-                    <p>Elevates language for business correspondence and academic settings. Uses sophisticated vocabulary and precise phrasing to maintain an authoritative yet accessible tone.</p>
-                </wy-info-panel>
-            </div>
+            <wy-info-panel id="style-description" class="variant-spacing">
+                <p>Elevates language for business correspondence and academic settings. Uses sophisticated vocabulary and precise phrasing to maintain an authoritative yet accessible tone.</p>
+            </wy-info-panel>
         </div>
         
         <div class="test-section">
