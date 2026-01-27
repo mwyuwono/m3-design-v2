@@ -2,6 +2,24 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Communication Preferences
+
+**Be concise.** Prefer brief, direct communication over verbose documentation.
+
+- **Do NOT create markdown documentation files** unless explicitly requested
+- **Do NOT write long summaries** after completing tasks
+- **Do communicate directly** with short status updates
+- **Do create documentation** only when user specifically asks for it
+- **Do focus on action** over commentary
+
+Example of preferred communication:
+```
+✅ "Component integrated. Tests passed. Deployed."
+✅ "Build successful. CDN purged. Ready to use."
+```
+
+**Exception:** When user explicitly requests documentation ("write a summary", "document this"), provide comprehensive documentation as requested.
+
 ## Project Overview
 
 M3 Design System v2 - A production-ready Web Component library built on Material Design 3 with Lit 3.x. The aesthetic is "Soft Modernism": organic M3 shapes (capsule buttons, rounded cards) paired with sharp editorial typography (Playfair Display) and a warm heritage color palette.
