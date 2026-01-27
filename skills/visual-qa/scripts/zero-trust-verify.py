@@ -663,19 +663,74 @@ def verify_prompts_library(url="https://p.weaver-yuwono.com", output_dir="/tmp/p
         page.screenshot(path=str(output_path / 'modal-verification.png'))
         print(f"\n📸 Screenshot saved: {output_path / 'modal-verification.png'}")
         
+        # TEST: Button Background Contrast with Modal
+        print("\n15. Button Background Contrast...")
+        contrast_check = page.evaluate("""
+            () => {
+                const dropdown = document.querySelector('wy-dropdown');
+                const modal = document.querySelector('.prompt-modal-content');
+                
+                if (!dropdown || !dropdown.shadowRoot) return {error: 'Dropdown not found'};
+                if (!modal) return {error: 'Modal not found'};
+                
+                const selector = dropdown.shadowRoot.querySelector('.selector');
+                const selectorBg = getComputedStyle(selector).backgroundColor;
+                const modalBg = getComputedStyle(modal).backgroundColor;
+                
+                // Parse RGB values
+                const parseRGB = (rgb) => {
+                    const match = rgb.match(/\\d+/g);
+                    return match ? match.map(Number) : null;
+                };
+                
+                const selectorRGB = parseRGB(selectorBg);
+                const modalRGB = parseRGB(modalBg);
+                
+                // Calculate distance
+                let distance = null;
+                if (selectorRGB && modalRGB) {
+                    distance = Math.sqrt(
+                        selectorRGB.reduce((sum, val, i) => sum + Math.pow(val - modalRGB[i], 2), 0)
+                    );
+                }
+                
+                return {
+                    selectorBg: selectorBg,
+                    modalBg: modalBg,
+                    distance: distance,
+                    identical: selectorBg === modalBg,
+                    visibleContrast: distance > 10  // Minimum perceptible difference
+                };
+            }
+        """)
+        
+        if contrast_check.get('error'):
+            results['failures'].append({'test': 'Button Background Contrast', 'reason': contrast_check['error']})
+            print(f"   ❌ FAIL: {contrast_check['error']}")
+        elif contrast_check.get('identical'):
+            results['failures'].append({
+                'test': 'Button Background Contrast',
+                'reason': 'Button background identical to modal - invisible',
+                'details': contrast_check
+            })
+            print(f"   ❌ FAIL: Button blends with modal")
+            print(f"      Both are: {contrast_check['selectorBg']}")
+        elif contrast_check['distance'] and contrast_check['distance'] < 10:
+            results['failures'].append({
+                'test': 'Button Background Contrast',
+                'reason': f'Insufficient contrast: {contrast_check["distance"]:.2f} RGB points',
+                'details': contrast_check
+            })
+            print(f"   ❌ FAIL: Contrast too low ({contrast_check['distance']:.2f} points)")
+        else:
+            results['tests'].append({'name': 'Button Background Contrast', 'status': 'PASS', 'details': contrast_check})
+            print(f"   ✅ PASS: Button has visible contrast with modal")
+            print(f"      Button: {contrast_check['selectorBg']}")
+            print(f"      Modal: {contrast_check['modalBg']}")
+            print(f"      Distance: {contrast_check['distance']:.2f} RGB points")
+        
         # Manual verification requirements
         results['manual_verification_needed'].extend([
-            {
-                'check': 'Dropdown Menu Background Color',
-                'instructions': [
-                    '1. Hard refresh https://p.weaver-yuwono.com (Cmd+Shift+R)',
-                    '2. Open "Character Portrait" prompt',
-                    '3. Click variation dropdown to open menu',
-                    '4. Verify menu background is #EBE5DE (warm beige Container High)',
-                    '5. Compare to page background #FDFBF7 (slightly lighter)',
-                    '6. Confirm visible contrast between menu and background'
-                ]
-            },
             {
                 'check': '16px Gap Between Dropdown and Info Panel',
                 'instructions': [
