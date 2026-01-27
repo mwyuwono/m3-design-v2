@@ -43,6 +43,8 @@ import './components/wy-prompt-modal.js';
 import './components/wy-tabs.js';
 import './components/wy-toast.js';
 import './components/wy-links-modal.js';
+import './components/wy-dropdown.js';
+import './components/wy-info-panel.js';
 
 // Data Imports
 import profiles from './data/profiles.json';

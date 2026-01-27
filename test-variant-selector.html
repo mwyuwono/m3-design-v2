@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variant Selector Component Test</title>
+    <link rel="stylesheet" href="/src/styles/tokens.css">
+    <link rel="stylesheet" href="/src/styles/main.css">
+    <script type="module" src="/src/main.js"></script>
+    <style>
+        body {
+            background-color: var(--md-sys-color-background);
+            padding: 48px;
+            font-family: var(--font-sans);
+            transition: background-color 0.3s;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            margin-bottom: 48px;
+        }
+        
+        .test-section h2 {
+            font-family: var(--font-serif);
+            color: var(--md-sys-color-on-background);
+            margin-bottom: 24px;
+        }
+        
+        .component-spacing {
+            margin-bottom: 16px;
+        }
+        
+        .dark-mode-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            padding: 12px 24px;
+            background: var(--md-sys-color-surface);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: var(--md-sys-shape-corner-full);
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            color: var(--md-sys-color-on-surface);
+            transition: all 0.2s;
+        }
+        
+        .dark-mode-toggle:hover {
+            background: var(--md-sys-color-surface-container-high);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            html:not(.light) body {
+                background-color: var(--md-sys-color-background);
+            }
+        }
+        
+        html.dark body {
+            background-color: var(--md-sys-color-background);
+        }
+        
+        .output {
+            margin-top: 24px;
+            padding: 16px;
+            background: var(--md-sys-color-surface-variant);
+            border-radius: var(--md-sys-shape-corner-medium);
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        Toggle Dark Mode
+    </button>
+    
+    <div class="container">
+        <div class="test-section">
+            <h2>Dropdown + Info Panel (Variant Selector Example)</h2>
+            <wy-dropdown 
+                id="style-dropdown"
+                label="STYLE"
+                value="formal"
+            ></wy-dropdown>
+            
+            <div class="component-spacing">
+                <wy-info-panel id="style-description">
+                    <p>Elevates language for business correspondence and academic settings. Uses sophisticated vocabulary and precise phrasing to maintain an authoritative yet accessible tone.</p>
+                </wy-info-panel>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Dropdown Variations</h2>
+            
+            <div class="component-spacing">
+                <wy-dropdown 
+                    label="CATEGORY"
+                    value="design"
+                    id="category-dropdown"
+                ></wy-dropdown>
+            </div>
+            
+            <div class="component-spacing">
+                <wy-dropdown 
+                    placeholder="Select an option..."
+                    id="placeholder-dropdown"
+                ></wy-dropdown>
+            </div>
+            
+            <div class="component-spacing">
+                <wy-dropdown 
+                    label="DISABLED"
+                    value="locked"
+                    disabled
+                    id="disabled-dropdown"
+                ></wy-dropdown>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Info Panel Variations</h2>
+            
+            <div class="component-spacing">
+                <wy-info-panel content="This is a simple info panel with text content passed as a property."></wy-info-panel>
+            </div>
+            
+            <div class="component-spacing">
+                <wy-info-panel>
+                    <p>This panel uses <strong>slot content</strong> for more flexibility.</p>
+                    <p>You can include multiple paragraphs and rich formatting.</p>
+                </wy-info-panel>
+            </div>
+        </div>
+        
+        <div class="output" id="output">
+            Selected value will appear here
+        </div>
+    </div>
+    
+    <script>
+        // Set up dropdown options
+        const styleDropdown = document.getElementById('style-dropdown');
+        const categoryDropdown = document.getElementById('category-dropdown');
+        const placeholderDropdown = document.getElementById('placeholder-dropdown');
+        const disabledDropdown = document.getElementById('disabled-dropdown');
+        const output = document.getElementById('output');
+        const styleDescription = document.getElementById('style-description');
+        
+        // Style options
+        const styleOptions = [
+            { value: 'formal', label: 'Formal & Professional' },
+            { value: 'casual', label: 'Casual & Friendly' },
+            { value: 'technical', label: 'Technical & Precise' },
+            { value: 'creative', label: 'Creative & Expressive' }
+        ];
+        
+        const styleDescriptions = {
+            formal: 'Elevates language for business correspondence and academic settings. Uses sophisticated vocabulary and precise phrasing to maintain an authoritative yet accessible tone.',
+            casual: 'Adopts a conversational, approachable style suitable for informal communications and social media. Emphasizes clarity and warmth over formality.',
+            technical: 'Focuses on accuracy, precision, and technical terminology. Ideal for documentation, specifications, and detailed explanations.',
+            creative: 'Embraces vivid language, metaphors, and storytelling techniques. Perfect for marketing content, narratives, and engaging presentations.'
+        };
+        
+        styleDropdown.options = styleOptions;
+        
+        // Category options
+        categoryDropdown.options = [
+            { value: 'design', label: 'Design' },
+            { value: 'development', label: 'Development' },
+            { value: 'marketing', label: 'Marketing' },
+            { value: 'research', label: 'Research' }
+        ];
+        
+        // Placeholder dropdown options
+        placeholderDropdown.options = [
+            { value: 'a', label: 'Option A' },
+            { value: 'b', label: 'Option B' },
+            { value: 'c', label: 'Option C' }
+        ];
+        
+        // Disabled dropdown options
+        disabledDropdown.options = [
+            { value: 'locked', label: 'This is locked' },
+            { value: 'unavailable', label: 'Unavailable' }
+        ];
+        
+        // Handle style change
+        styleDropdown.addEventListener('change', (e) => {
+            const value = e.detail.value;
+            output.textContent = `Style changed to: ${value}`;
+            
+            // Update description
+            if (styleDescriptions[value]) {
+                styleDescription.innerHTML = `<p>${styleDescriptions[value]}</p>`;
+            }
+        });
+        
+        // Handle category change
+        categoryDropdown.addEventListener('change', (e) => {
+            output.textContent = `Category changed to: ${e.detail.value}`;
+        });
+        
+        // Handle placeholder change
+        placeholderDropdown.addEventListener('change', (e) => {
+            output.textContent = `Placeholder dropdown changed to: ${e.detail.value}`;
+        });
+        
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            document.documentElement.classList.toggle('light');
+        }
+        
+        // Initialize - respect system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.add('light');
+        }
+    </script>
+</body>
+</html>

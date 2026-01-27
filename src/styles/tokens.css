@@ -64,6 +64,22 @@
   --wy-links-modal-chip-text-color: #44403C;    /* stone-700: rgb(68, 64, 60) */
   --wy-links-modal-close-color: #A8A29E;        /* stone-400: rgb(168, 162, 158) */
   --wy-links-modal-chip-border: #D9D4C7;        /* accent-taupe: rgb(217, 212, 199) */
+  
+  /* Dropdown Component Colors (exact match to Tailwind zinc palette from reference design) */
+  /* Reference uses zinc palette which has delta E > 2.0 from M3 semantic tokens, requiring component-specific tokens for perfect visual fidelity */
+  --wy-dropdown-label-color: #71717A;           /* zinc-500: rgb(113, 113, 122) - Δ 19.95 from --md-sys-color-text-muted */
+  --wy-dropdown-text-color: #52525B;            /* zinc-600: rgb(82, 82, 91) - Δ 20.47 from --md-sys-color-on-surface-variant */
+  --wy-dropdown-icon-color: #52525B;            /* zinc-600: rgb(82, 82, 91) - matches text for consistency */
+  --wy-dropdown-bg: var(--md-sys-color-surface); /* #F5F2EA - exact match */
+  --wy-dropdown-border: #E5E7EB;                /* zinc-200: rgb(229, 231, 235) - default transparent, visible on hover */
+  --wy-dropdown-border-hover: var(--md-sys-color-outline-variant); /* Use design system token for hover */
+  --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-low); /* Dropdown menu background */
+  --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container-high); /* Menu item hover */
+  
+  /* Info Panel Component Colors */
+  --wy-info-panel-bg: var(--md-sys-color-background); /* #FDFBF7 - exact match */
+  --wy-info-panel-border: var(--md-sys-color-surface-container-highest); /* #D7D3C8 - exact match */
+  --wy-info-panel-text-color: #52525B;          /* zinc-600: rgb(82, 82, 91) - Δ 20.47 from --md-sys-color-on-surface-variant */
 
   /* --- TYPOGRAPHY FAMILIES --- */
   --font-display: 'Playfair Display', serif;
@@ -235,5 +251,19 @@
     /* Links Modal Specific Colors (dark mode) */
     --wy-links-modal-text-muted: rgba(245, 242, 234, 0.7); /* Muted text in dark mode */
     --wy-links-modal-chip-border: rgba(255, 255, 255, 0.1); /* Subtle border in dark mode */
+    
+    /* Dropdown Component Colors (dark mode) */
+    --wy-dropdown-label-color: #A1A1AA;         /* zinc-400: lighter gray for dark mode labels */
+    --wy-dropdown-text-color: #E4E4E7;          /* zinc-200: high contrast text for dark mode */
+    --wy-dropdown-icon-color: #A1A1AA;          /* zinc-400: matches label color */
+    --wy-dropdown-bg: #18181B;                  /* zinc-900: dark background for dropdown */
+    --wy-dropdown-border: #3F3F46;              /* zinc-700: darker border for dark mode */
+    --wy-dropdown-menu-bg: #27272A;             /* zinc-800: slightly lighter for menu */
+    --wy-dropdown-item-hover-bg: #3F3F46;       /* zinc-700: hover state for menu items */
+    
+    /* Info Panel Component Colors (dark mode) */
+    --wy-info-panel-bg: rgba(24, 24, 27, 0.5);  /* zinc-900 with transparency */
+    --wy-info-panel-border: #27272A;            /* zinc-800: subtle border in dark mode */
+    --wy-info-panel-text-color: #A1A1AA;        /* zinc-400: muted text for dark mode */
   }
 }

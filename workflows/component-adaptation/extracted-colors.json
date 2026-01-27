@@ -1,0 +1,260 @@
+{
+  "colors": {
+    "label": {
+      "element": "Label \"STYLE\"",
+      "rgb_string": "rgb(113, 113, 122)",
+      "hex": "#71717A",
+      "rgb": [
+        113,
+        113,
+        122
+      ]
+    },
+    "button_text": {
+      "element": "Button text \"Formal & Professional\"",
+      "rgb_string": "rgb(82, 82, 91)",
+      "hex": "#52525B",
+      "rgb": [
+        82,
+        82,
+        91
+      ]
+    },
+    "button_bg": {
+      "element": "Button background",
+      "rgb_string": "rgb(245, 242, 234)",
+      "hex": "#F5F2EA",
+      "rgb": [
+        245,
+        242,
+        234
+      ]
+    },
+    "button_border": {
+      "element": "Button border (default)",
+      "rgb_string": "rgb(229, 231, 235)",
+      "hex": "#E5E7EB",
+      "rgb": [
+        229,
+        231,
+        235
+      ]
+    },
+    "chevron": {
+      "element": "Chevron icon",
+      "rgb_string": "rgb(82, 82, 91)",
+      "hex": "#52525B",
+      "rgb": [
+        82,
+        82,
+        91
+      ]
+    },
+    "panel_bg": {
+      "element": "Description panel background",
+      "rgb_string": "rgb(253, 251, 247)",
+      "hex": "#FDFBF7",
+      "rgb": [
+        253,
+        251,
+        247
+      ]
+    },
+    "panel_border": {
+      "element": "Description panel border",
+      "rgb_string": "rgb(215, 211, 200)",
+      "hex": "#D7D3C8",
+      "rgb": [
+        215,
+        211,
+        200
+      ]
+    },
+    "panel_text": {
+      "element": "Description panel text",
+      "rgb_string": "rgb(82, 82, 91)",
+      "hex": "#52525B",
+      "rgb": [
+        82,
+        82,
+        91
+      ]
+    }
+  },
+  "mapping": [
+    {
+      "element": "Label \"STYLE\"",
+      "reference_rgb": [
+        113,
+        113,
+        122
+      ],
+      "reference_hex": "#71717A",
+      "token_name": "--md-sys-color-text-muted",
+      "token_hex": "#667f71",
+      "token_rgb": [
+        102,
+        127,
+        113
+      ],
+      "delta_e": 19.949937343260004,
+      "exact_match": false,
+      "action": "Create component-specific token"
+    },
+    {
+      "element": "Button text \"Formal & Professional\"",
+      "reference_rgb": [
+        82,
+        82,
+        91
+      ],
+      "reference_hex": "#52525B",
+      "token_name": "--md-sys-color-on-surface-variant",
+      "token_hex": "#49454E",
+      "token_rgb": [
+        73,
+        69,
+        78
+      ],
+      "delta_e": 20.46948949045872,
+      "exact_match": false,
+      "action": "Create component-specific token"
+    },
+    {
+      "element": "Button background",
+      "reference_rgb": [
+        245,
+        242,
+        234
+      ],
+      "reference_hex": "#F5F2EA",
+      "token_name": "--md-sys-color-surface",
+      "token_hex": "#F5F2EA",
+      "token_rgb": [
+        245,
+        242,
+        234
+      ],
+      "delta_e": 0.0,
+      "exact_match": true,
+      "action": "Use token"
+    },
+    {
+      "element": "Button border (default)",
+      "reference_rgb": [
+        229,
+        231,
+        235
+      ],
+      "reference_hex": "#E5E7EB",
+      "token_name": "--md-sys-color-surface",
+      "token_hex": "#F5F2EA",
+      "token_rgb": [
+        245,
+        242,
+        234
+      ],
+      "delta_e": 19.44222209522358,
+      "exact_match": false,
+      "action": "Create component-specific token"
+    },
+    {
+      "element": "Chevron icon",
+      "reference_rgb": [
+        82,
+        82,
+        91
+      ],
+      "reference_hex": "#52525B",
+      "token_name": "--md-sys-color-on-surface-variant",
+      "token_hex": "#49454E",
+      "token_rgb": [
+        73,
+        69,
+        78
+      ],
+      "delta_e": 20.46948949045872,
+      "exact_match": false,
+      "action": "Create component-specific token"
+    },
+    {
+      "element": "Description panel background",
+      "reference_rgb": [
+        253,
+        251,
+        247
+      ],
+      "reference_hex": "#FDFBF7",
+      "token_name": "--md-sys-color-background",
+      "token_hex": "#FDFBF7",
+      "token_rgb": [
+        253,
+        251,
+        247
+      ],
+      "delta_e": 0.0,
+      "exact_match": true,
+      "action": "Use token"
+    },
+    {
+      "element": "Description panel border",
+      "reference_rgb": [
+        215,
+        211,
+        200
+      ],
+      "reference_hex": "#D7D3C8",
+      "token_name": "--md-sys-color-surface-container-highest",
+      "token_hex": "#D7D3C8",
+      "token_rgb": [
+        215,
+        211,
+        200
+      ],
+      "delta_e": 0.0,
+      "exact_match": true,
+      "action": "Use token"
+    },
+    {
+      "element": "Description panel text",
+      "reference_rgb": [
+        82,
+        82,
+        91
+      ],
+      "reference_hex": "#52525B",
+      "token_name": "--md-sys-color-on-surface-variant",
+      "token_hex": "#49454E",
+      "token_rgb": [
+        73,
+        69,
+        78
+      ],
+      "delta_e": 20.46948949045872,
+      "exact_match": false,
+      "action": "Create component-specific token"
+    }
+  ],
+  "component_tokens": {
+    "--wy-dropdown-label-color": {
+      "value": "#71717A",
+      "reason": "Reference uses #71717A, delta E = 19.95 from --md-sys-color-text-muted"
+    },
+    "--wy-dropdown-text-color": {
+      "value": "#52525B",
+      "reason": "Reference uses #52525B, delta E = 20.47 from --md-sys-color-on-surface-variant"
+    },
+    "--wy-dropdown-border": {
+      "value": "#E5E7EB",
+      "reason": "Reference uses #E5E7EB, delta E = 19.44 from --md-sys-color-surface"
+    },
+    "--wy-dropdown-icon-color": {
+      "value": "#52525B",
+      "reason": "Reference uses #52525B, delta E = 20.47 from --md-sys-color-on-surface-variant"
+    },
+    "--wy-info-panel-text-color": {
+      "value": "#52525B",
+      "reason": "Reference uses #52525B, delta E = 20.47 from --md-sys-color-on-surface-variant"
+    }
+  }
+}

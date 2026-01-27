@@ -899,6 +899,79 @@
       "events": [
         { "name": "dismiss", "description": "Fired when toast auto-dismisses" }
       ]
+    },
+    {
+      "name": "wy-dropdown",
+      "category": "form-input",
+      "title": "Dropdown",
+      "description": "Universal dropdown component with capsule button design",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-dropdown\n  label=\"STYLE\"\n  value=\"formal\"\n  .options=${JSON.stringify([{value: 'formal', label: 'Formal & Professional'}, {value: 'casual', label: 'Casual & Friendly'}, {value: 'technical', label: 'Technical & Precise'}])}\n></wy-dropdown>",
+          "props": { "label": "STYLE", "value": "formal" }
+        },
+        {
+          "name": "Without Label",
+          "code": "<wy-dropdown\n  value=\"option1\"\n  .options=${JSON.stringify([{value: 'option1', label: 'Option 1'}, {value: 'option2', label: 'Option 2'}])}\n></wy-dropdown>",
+          "props": { "value": "option1" }
+        },
+        {
+          "name": "With Placeholder",
+          "code": "<wy-dropdown\n  placeholder=\"Select an option...\"\n  .options=${JSON.stringify([{value: 'a', label: 'Option A'}, {value: 'b', label: 'Option B'}, {value: 'c', label: 'Option C'}])}\n></wy-dropdown>",
+          "props": { "placeholder": "Select an option..." }
+        },
+        {
+          "name": "Disabled",
+          "code": "<wy-dropdown\n  label=\"CATEGORY\"\n  value=\"tech\"\n  disabled\n  .options=${JSON.stringify([{value: 'tech', label: 'Technology'}, {value: 'design', label: 'Design'}])}\n></wy-dropdown>",
+          "props": { "label": "CATEGORY", "value": "tech", "disabled": true }
+        }
+      ],
+      "props": [
+        { "name": "label", "type": "String", "required": false, "description": "Optional label text (displayed uppercase above dropdown)" },
+        { "name": "value", "type": "String", "required": false, "description": "Selected value" },
+        { "name": "options", "type": "Array", "required": true, "description": "Array of {value, label} objects" },
+        { "name": "placeholder", "type": "String", "required": false, "description": "Placeholder text when no value selected" },
+        { "name": "searchable", "type": "Boolean", "required": false, "description": "Enable filtering (reserved for future)" },
+        { "name": "disabled", "type": "Boolean", "required": false, "description": "Disable the dropdown" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "change", "description": "Fired when selection changes, event.detail.value contains new value" }
+      ]
+    },
+    {
+      "name": "wy-info-panel",
+      "category": "cards-content",
+      "title": "Info Panel",
+      "description": "Reusable info/description panel for displaying informational content",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-info-panel\n  content=\"A polished, executive-level tone suitable for corporate communications, client proposals, and formal reports.\"\n></wy-info-panel>",
+          "props": { "content": "A polished, executive-level tone suitable for corporate communications, client proposals, and formal reports." }
+        },
+        {
+          "name": "With Slot Content",
+          "code": "<wy-info-panel>\n  <p>This is <strong>rich content</strong> using slots.</p>\n  <p>You can include multiple paragraphs and formatting.</p>\n</wy-info-panel>",
+          "props": {}
+        },
+        {
+          "name": "Multiple Panels",
+          "code": "<div style=\"display: flex; flex-direction: column; gap: 16px;\">\n  <wy-info-panel content=\"First informational panel with helpful context.\"></wy-info-panel>\n  <wy-info-panel content=\"Second panel with additional details.\"></wy-info-panel>\n</div>",
+          "props": {}
+        }
+      ],
+      "props": [
+        { "name": "content", "type": "String", "required": false, "description": "Panel text content" },
+        { "name": "variant", "type": "String", "required": false, "description": "Visual variant (reserved for future use)" }
+      ],
+      "slots": [
+        { "name": "default", "description": "Rich content (alternative to content property)" }
+      ],
+      "events": []
     }
   ],
   "categories": {
