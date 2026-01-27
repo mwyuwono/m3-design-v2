@@ -6,7 +6,9 @@ export class WyControlsBar extends LitElement {
         showDetails: { type: Boolean, attribute: 'show-details' },
         activeCategory: { type: String, attribute: 'active-category' },
         categories: { type: Array },
-        searchValue: { type: String, attribute: 'search-value' }
+        searchValue: { type: String, attribute: 'search-value' },
+        hideViewToggle: { type: Boolean, attribute: 'hide-view-toggle' },
+        hideDetailsToggle: { type: Boolean, attribute: 'hide-details-toggle' }
     };
 
     constructor() {
@@ -16,6 +18,8 @@ export class WyControlsBar extends LitElement {
         this.activeCategory = 'all';
         this.categories = ['Productivity', 'Expertise', 'Travel & Shopping'];
         this.searchValue = '';
+        this.hideViewToggle = false;
+        this.hideDetailsToggle = false;
     }
 
     static styles = css`
@@ -272,33 +276,39 @@ export class WyControlsBar extends LitElement {
           <span class="material-symbols-outlined search-icon">search</span>
         </div>
 
-        <div class="divider"></div>
+        ${!this.hideViewToggle || !this.hideDetailsToggle ? html`
+          <div class="divider"></div>
 
-        <div class="toggle-section">
-          <div class="view-toggle">
-            <button
-              class="view-btn ${this.viewMode === 'list' ? 'active' : ''}"
-              @click="${() => this._setViewMode('list')}"
-              aria-label="List view"
-            >
-              <span class="material-symbols-outlined">format_list_bulleted</span>
-            </button>
-            <button
-              class="view-btn ${this.viewMode === 'grid' ? 'active' : ''}"
-              @click="${() => this._setViewMode('grid')}"
-              aria-label="Grid view"
-            >
-              <span class="material-symbols-outlined">grid_view</span>
-            </button>
+          <div class="toggle-section">
+            ${!this.hideViewToggle ? html`
+              <div class="view-toggle">
+                <button
+                  class="view-btn ${this.viewMode === 'list' ? 'active' : ''}"
+                  @click="${() => this._setViewMode('list')}"
+                  aria-label="List view"
+                >
+                  <span class="material-symbols-outlined">format_list_bulleted</span>
+                </button>
+                <button
+                  class="view-btn ${this.viewMode === 'grid' ? 'active' : ''}"
+                  @click="${() => this._setViewMode('grid')}"
+                  aria-label="Grid view"
+                >
+                  <span class="material-symbols-outlined">grid_view</span>
+                </button>
+              </div>
+            ` : ''}
+
+            ${!this.hideDetailsToggle ? html`
+              <label class="details-toggle" @click="${this._toggleDetails}">
+                <div class="toggle-switch ${this.showDetails ? 'on' : ''}"></div>
+                <span class="toggle-label">Descriptions</span>
+              </label>
+            ` : ''}
           </div>
 
-          <label class="details-toggle" @click="${this._toggleDetails}">
-            <div class="toggle-switch ${this.showDetails ? 'on' : ''}"></div>
-            <span class="toggle-label">Descriptions</span>
-          </label>
-        </div>
-
-        <div class="divider"></div>
+          <div class="divider"></div>
+        ` : ''}
 
         <div class="category-section">
           <wy-filter-chip

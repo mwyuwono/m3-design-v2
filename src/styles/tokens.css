@@ -73,7 +73,7 @@
   --wy-dropdown-bg: var(--md-sys-color-surface); /* #F5F2EA - exact match */
   --wy-dropdown-border: #E5E7EB;                /* zinc-200: rgb(229, 231, 235) - default transparent, visible on hover */
   --wy-dropdown-border-hover: var(--md-sys-color-outline-variant); /* Use design system token for hover */
-  --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-low); /* Dropdown menu background */
+  --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-high); /* Dropdown menu background - changed to high for better contrast */
   --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container-high); /* Menu item hover */
   
   /* Info Panel Component Colors */
