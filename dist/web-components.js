@@ -340,7 +340,7 @@ T || (Vo = new MutationObserver((r) => {
   for (const e of r)
     e.target[Uo]?.hostConnected();
 }));
-class Ho {
+class qo {
   get htmlFor() {
     return this.host.getAttribute("for");
   }
@@ -385,7 +385,7 @@ class Ho {
 const Br = ["focusin", "focusout", "pointerdown"];
 class Jt extends b {
   constructor() {
-    super(...arguments), this.visible = !1, this.inward = !1, this.attachableController = new Ho(this, this.onControlChange.bind(this));
+    super(...arguments), this.visible = !1, this.inward = !1, this.attachableController = new qo(this, this.onControlChange.bind(this));
   }
   get htmlFor() {
     return this.attachableController.htmlFor;
@@ -449,9 +449,9 @@ ft.styles = [Nr];
 ft = a([
   _("md-focus-ring")
 ], ft);
-const Qt = globalThis, xo = (r) => r, Ze = Qt.trustedTypes, _o = Ze ? Ze.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, qo = "$lit$", ae = `lit$${Math.random().toFixed(9).slice(2)}$`, Wo = "?" + ae, Ur = `<${Wo}>`, he = document, Je = () => he.createComment(""), Ae = (r) => r === null || typeof r != "object" && typeof r != "function", eo = Array.isArray, Vr = (r) => eo(r) || typeof r?.[Symbol.iterator] == "function", nt = `[ 	
+const Qt = globalThis, xo = (r) => r, Ze = Qt.trustedTypes, _o = Ze ? Ze.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, Ho = "$lit$", ae = `lit$${Math.random().toFixed(9).slice(2)}$`, Wo = "?" + ae, Ur = `<${Wo}>`, he = document, Je = () => he.createComment(""), Ae = (r) => r === null || typeof r != "object" && typeof r != "function", eo = Array.isArray, Vr = (r) => eo(r) || typeof r?.[Symbol.iterator] == "function", nt = `[ 	
 \f\r]`, ke = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, wo = /-->/g, ko = />/g, ce = RegExp(`>|${nt}(?:([^\\s"'>=/]+)(${nt}*=${nt}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), $o = /'/g, Co = /"/g, jo = /^(?:script|style|textarea|title)$/i, Hr = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), qr = Hr(1), K = /* @__PURE__ */ Symbol.for("lit-noChange"), L = /* @__PURE__ */ Symbol.for("lit-nothing"), Eo = /* @__PURE__ */ new WeakMap(), pe = he.createTreeWalker(he, 129);
+\f\r"'\`<>=]|("|')|))|$)`, "g"), $o = /'/g, Co = /"/g, jo = /^(?:script|style|textarea|title)$/i, qr = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), Hr = qr(1), K = /* @__PURE__ */ Symbol.for("lit-noChange"), L = /* @__PURE__ */ Symbol.for("lit-nothing"), Eo = /* @__PURE__ */ new WeakMap(), pe = he.createTreeWalker(he, 129);
 function Ko(r, e) {
   if (!eo(r) || !r.hasOwnProperty("raw")) throw Error("invalid template strings array");
   return _o !== void 0 ? _o.createHTML(e) : e;
@@ -464,7 +464,7 @@ const Wr = (r, e) => {
     let m, v, f = -1, g = 0;
     for (; g < p.length && (n.lastIndex = g, v = n.exec(p), v !== null); ) g = n.lastIndex, n === ke ? v[1] === "!--" ? n = wo : v[1] !== void 0 ? n = ko : v[2] !== void 0 ? (jo.test(v[2]) && (i = RegExp("</" + v[2], "g")), n = ce) : v[3] !== void 0 && (n = ce) : n === ce ? v[0] === ">" ? (n = i ?? ke, f = -1) : v[1] === void 0 ? f = -2 : (f = n.lastIndex - v[2].length, m = v[1], n = v[3] === void 0 ? ce : v[3] === '"' ? Co : $o) : n === Co || n === $o ? n = ce : n === wo || n === ko ? n = ke : (n = ce, i = void 0);
     const x = n === ce && r[c + 1].startsWith("/>") ? " " : "";
-    s += n === ke ? p + Ur : f >= 0 ? (o.push(m), p.slice(0, f) + qo + p.slice(f) + ae + x) : p + ae + (f === -2 ? c : x);
+    s += n === ke ? p + Ur : f >= 0 ? (o.push(m), p.slice(0, f) + Ho + p.slice(f) + ae + x) : p + ae + (f === -2 ? c : x);
   }
   return [Ko(r, s + (r[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), o];
 };
@@ -480,7 +480,7 @@ class Se {
     }
     for (; (i = pe.nextNode()) !== null && p.length < c; ) {
       if (i.nodeType === 1) {
-        if (i.hasAttributes()) for (const f of i.getAttributeNames()) if (f.endsWith(qo)) {
+        if (i.hasAttributes()) for (const f of i.getAttributeNames()) if (f.endsWith(Ho)) {
           const g = v[n++], x = i.getAttribute(f).split(ae), E = /([.?@])?(.*)/.exec(g);
           p.push({ type: 1, index: s, name: E[2], strings: x, ctor: E[1] === "." ? Kr : E[1] === "?" ? Yr : E[1] === "@" ? Gr : rt }), i.removeAttribute(f);
         } else f.startsWith(ae) && (p.push({ type: 6, index: s }), i.removeAttribute(f));
@@ -682,7 +682,7 @@ let oo = class {
     return this.render(...t);
   }
 };
-const H = to(class extends oo {
+const q = to(class extends oo {
   constructor(r) {
     if (super(r), r.type !== ie.ATTRIBUTE || r.name !== "class" || r.strings?.length > 2) throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.");
   }
@@ -736,7 +736,7 @@ const si = [
 ], ni = 150, li = T ? null : window.matchMedia("(forced-colors: active)");
 class ze extends b {
   constructor() {
-    super(...arguments), this.disabled = !1, this.hovered = !1, this.pressed = !1, this.rippleSize = "", this.rippleScale = "", this.initialSize = 0, this.state = U.INACTIVE, this.attachableController = new Ho(this, this.onControlChange.bind(this));
+    super(...arguments), this.disabled = !1, this.hovered = !1, this.pressed = !1, this.rippleSize = "", this.rippleScale = "", this.initialSize = 0, this.state = U.INACTIVE, this.attachableController = new qo(this, this.onControlChange.bind(this));
   }
   get htmlFor() {
     return this.attachableController.htmlFor;
@@ -764,7 +764,7 @@ class ze extends b {
       hovered: this.hovered,
       pressed: this.pressed
     };
-    return l`<div class="surface ${H(e)}"></div>`;
+    return l`<div class="surface ${q(e)}"></div>`;
   }
   update(e) {
     e.has("disabled") && this.disabled && (this.hovered = !1, this.pressed = !1), super.update(e);
@@ -1295,7 +1295,7 @@ class ne extends bi {
   }
   render() {
     return l`
-      <div class="switch ${H(this.getRenderClasses())}">
+      <div class="switch ${q(this.getRenderClasses())}">
         <input
           id="switch"
           class="touch"
@@ -1328,7 +1328,7 @@ class ne extends bi {
       ${this.renderTouchTarget()}
       <span class="handle-container">
         <md-ripple for="switch" ?disabled="${this.disabled}"></md-ripple>
-        <span class="handle ${H(e)}">
+        <span class="handle ${q(e)}">
           ${this.shouldShowIcons() ? this.renderIcons() : l``}
         </span>
       </span>
@@ -1662,7 +1662,7 @@ const er = /* @__PURE__ */ Symbol.for(""), Ti = (r) => {
     (e = To.get(f)) === void 0 && (n.raw = n, To.set(f, e = n)), t = c;
   }
   return r(e, ...t);
-}, no = Ii(qr);
+}, no = Ii(Hr);
 function Io(r, e = !0) {
   return e && getComputedStyle(r).getPropertyValue("direction").trim() === "rtl";
 }
@@ -1696,7 +1696,7 @@ class N extends zi {
     const e = this.href ? se`div` : se`button`, { ariaLabel: t, ariaHasPopup: o, ariaExpanded: i } = this, s = t && this.ariaLabelSelected, n = this.toggle ? this.selected : h;
     let c = h;
     return this.href || (c = s && this.selected ? this.ariaLabelSelected : t), no`<${e}
-        class="icon-button ${H(this.getRenderClasses())}"
+        class="icon-button ${q(this.getRenderClasses())}"
         id="button"
         aria-label="${c || h}"
         aria-haspopup="${!this.href && o || h}"
@@ -1877,7 +1877,7 @@ class S extends b {
       "no-label": !this.label
     };
     return l`
-      <div class="field ${H(i)}">
+      <div class="field ${q(i)}">
         <div class="container-overflow">
           ${this.renderBackground?.()}
           <slot name="container"></slot>
@@ -1937,7 +1937,7 @@ class S extends b {
       resting: !e
     }, i = `${this.label}${this.required && !this.noAsterisk ? "*" : ""}`;
     return l`
-      <span class="label ${H(o)}" aria-hidden=${!t}
+      <span class="label ${q(o)}" aria-hidden=${!t}
         >${i}</span
       >
     `;
@@ -2138,7 +2138,7 @@ function rr(r) {
     }
     [(e = Fe, t = Be, o = Ne, Ue)](n) {
       const c = n?.defaultPrevented;
-      c || (this[Qe](n), !(!c && n?.defaultPrevented)) || (this[Ne] || qi(this[V].form, this)) && this.focus();
+      c || (this[Qe](n), !(!c && n?.defaultPrevented)) || (this[Ne] || Hi(this[V].form, this)) && this.focus();
     }
     [Qe](n) {
       throw new Error("Implement [onReportValidity]");
@@ -2152,7 +2152,7 @@ function rr(r) {
   return i;
 }
 function Vi(r, e, t, o) {
-  const i = Hi(e);
+  const i = qi(e);
   let s = !1, n, c = !1;
   i.addEventListener("before", () => {
     c = !0, n = new AbortController(), s = !1, r.addEventListener("invalid", () => {
@@ -2169,7 +2169,7 @@ function Vi(r, e, t, o) {
   });
 }
 const pt = /* @__PURE__ */ new WeakMap();
-function Hi(r) {
+function qi(r) {
   if (!pt.has(r)) {
     const e = new EventTarget();
     pt.set(r, e);
@@ -2184,7 +2184,7 @@ function Hi(r) {
   }
   return pt.get(r);
 }
-function qi(r, e) {
+function Hi(r, e) {
   if (!r)
     return !0;
   let t;
@@ -2376,7 +2376,7 @@ class y extends ji {
       "no-spinner": this.noSpinner
     };
     return l`
-      <span class="text-field ${H(e)}">
+      <span class="text-field ${q(e)}">
         ${this.renderField()}
       </span>
     `;
@@ -2501,7 +2501,7 @@ class y extends ji {
     );
   }
   renderAffix(e, t) {
-    return e ? l`<span class="${H({
+    return e ? l`<span class="${q({
       suffix: t,
       prefix: !t
     })}">${e}</span>` : h;
@@ -3083,7 +3083,7 @@ class ia {
     e?.popover && e?.isConnected && e.hidePopover();
   }
 }
-const q = {
+const H = {
   INDEX: 0,
   ITEM: 1,
   TEXT: 2
@@ -3120,7 +3120,7 @@ class aa {
       o,
       t,
       t.typeaheadText.trim().toLowerCase()
-    ]), this.lastActiveRecord = this.typeaheadRecords.find((t) => t[q.ITEM].tabIndex === 0) ?? null, this.lastActiveRecord && (this.lastActiveRecord[q.ITEM].tabIndex = -1), this.typeahead(e)));
+    ]), this.lastActiveRecord = this.typeaheadRecords.find((t) => t[H.ITEM].tabIndex === 0) ?? null, this.lastActiveRecord && (this.lastActiveRecord[H.ITEM].tabIndex = -1), this.typeahead(e)));
   }
   /**
    * Performs the typeahead. Based on the normalized items and the current text
@@ -3162,18 +3162,18 @@ class aa {
     if (e.defaultPrevented)
       return;
     if (clearTimeout(this.cancelTypeaheadTimeout), e.code === "Enter" || e.code.startsWith("Arrow") || e.code === "Escape") {
-      this.endTypeahead(), this.lastActiveRecord && (this.lastActiveRecord[q.ITEM].tabIndex = -1);
+      this.endTypeahead(), this.lastActiveRecord && (this.lastActiveRecord[H.ITEM].tabIndex = -1);
       return;
     }
     e.code === "Space" && e.preventDefault(), this.cancelTypeaheadTimeout = setTimeout(this.endTypeahead, this.getProperties().typeaheadBufferTime), this.typaheadBuffer += e.key.toLowerCase();
-    const t = this.lastActiveRecord ? this.lastActiveRecord[q.INDEX] : -1, o = this.typeaheadRecords.length, i = (p) => (p[q.INDEX] + o - t) % o, s = this.typeaheadRecords.filter((p) => !p[q.ITEM].disabled && p[q.TEXT].startsWith(this.typaheadBuffer)).sort((p, m) => i(p) - i(m));
+    const t = this.lastActiveRecord ? this.lastActiveRecord[H.INDEX] : -1, o = this.typeaheadRecords.length, i = (p) => (p[H.INDEX] + o - t) % o, s = this.typeaheadRecords.filter((p) => !p[H.ITEM].disabled && p[H.TEXT].startsWith(this.typaheadBuffer)).sort((p, m) => i(p) - i(m));
     if (s.length === 0) {
-      clearTimeout(this.cancelTypeaheadTimeout), this.lastActiveRecord && (this.lastActiveRecord[q.ITEM].tabIndex = -1), this.endTypeahead();
+      clearTimeout(this.cancelTypeaheadTimeout), this.lastActiveRecord && (this.lastActiveRecord[H.ITEM].tabIndex = -1), this.endTypeahead();
       return;
     }
     const n = this.typaheadBuffer.length === 1;
     let c;
-    this.lastActiveRecord === s[0] && n ? c = s[1] ?? s[0] : c = s[0], this.lastActiveRecord && (this.lastActiveRecord[q.ITEM].tabIndex = -1), this.lastActiveRecord = c, c[q.ITEM].tabIndex = 0, c[q.ITEM].focus();
+    this.lastActiveRecord === s[0] && n ? c = s[1] ?? s[0] : c = s[0], this.lastActiveRecord && (this.lastActiveRecord[H.ITEM].tabIndex = -1), this.lastActiveRecord = c, c[H.ITEM].tabIndex = 0, c[H.ITEM].focus();
   }
 }
 const dr = 200, cr = /* @__PURE__ */ new Set([
@@ -3343,7 +3343,7 @@ class z extends b {
   renderSurface() {
     return l`
       <div
-        class="menu ${H(this.getSurfaceClasses())}"
+        class="menu ${q(this.getSurfaceClasses())}"
         style=${ye(this.menuPositionController.surfaceStyles)}
         popover=${this.positioning === "popover" ? "manual" : h}>
         ${this.renderElevation()}
@@ -3721,7 +3721,7 @@ class C extends pa {
   render() {
     return l`
       <span
-        class="select ${H(this.getRenderClasses())}"
+        class="select ${q(this.getRenderClasses())}"
         @focusout=${this.handleFocusout}>
         ${this.renderField()} ${this.renderMenu()}
       </span>
@@ -3875,7 +3875,7 @@ class C extends pa {
       const { lastActiveRecord: s } = t;
       if (!s)
         return;
-      this.labelEl?.setAttribute?.("aria-live", "polite"), this.selectItem(s[q.ITEM]) && this.dispatchInteractionEvents();
+      this.labelEl?.setAttribute?.("aria-live", "polite"), this.selectItem(s[H.ITEM]) && this.dispatchInteractionEvents();
     }
   }
   handleClick() {
@@ -4369,7 +4369,7 @@ class W extends ka {
         aria-checked=${this.ariaChecked || h}
         aria-expanded=${this.ariaExpanded || h}
         aria-haspopup=${this.ariaHasPopup || h}
-        class="list-item ${H(this.getRenderClasses())}"
+        class="list-item ${q(this.getRenderClasses())}"
         @click=${this.selectOptionController.onClick}
         @keydown=${this.selectOptionController.onKeydown}
         >${e}</li
@@ -4478,7 +4478,7 @@ class le extends $a {
   }
   render() {
     return l`
-      <div class="container ${H(this.getContainerClasses())}">
+      <div class="container ${q(this.getContainerClasses())}">
         ${this.renderContainerContent()}
       </div>
     `;
@@ -4619,17 +4619,17 @@ Mt = a([
 ], Mt);
 const Ea = u`.elevated{--md-elevation-level: var(--_elevated-container-elevation);--md-elevation-shadow-color: var(--_elevated-container-shadow-color)}.elevated::before{background:var(--_elevated-container-color)}.elevated:hover{--md-elevation-level: var(--_elevated-hover-container-elevation)}.elevated:focus-within{--md-elevation-level: var(--_elevated-focus-container-elevation)}.elevated:active{--md-elevation-level: var(--_elevated-pressed-container-elevation)}.elevated.disabled{--md-elevation-level: var(--_elevated-disabled-container-elevation)}.elevated.disabled::before{background:var(--_elevated-disabled-container-color);opacity:var(--_elevated-disabled-container-opacity)}@media(forced-colors: active){.elevated md-elevation{border:1px solid CanvasText}.elevated.disabled md-elevation{border-color:GrayText}}
 `;
-const He = "aria-label-remove";
+const qe = "aria-label-remove";
 class ur extends le {
   get ariaLabelRemove() {
-    if (this.hasAttribute(He))
-      return this.getAttribute(He);
+    if (this.hasAttribute(qe))
+      return this.getAttribute(qe);
     const { ariaLabel: e } = this;
     return e || this.label ? `Remove ${e || this.label}` : null;
   }
   set ariaLabelRemove(e) {
     const t = this.ariaLabelRemove;
-    e !== t && (e === null ? this.removeAttribute(He) : this.setAttribute(He, e), this.requestUpdate());
+    e !== t && (e === null ? this.removeAttribute(qe) : this.setAttribute(qe, e), this.requestUpdate());
   }
   constructor() {
     super(), this.handleTrailingActionFocus = this.handleTrailingActionFocus.bind(this), T || this.addEventListener("keydown", this.handleKeyDown.bind(this));
@@ -4902,18 +4902,18 @@ Nt.styles = [Ia];
 Nt = a([
   _("md-divider")
 ], Nt);
-const qe = /* @__PURE__ */ Symbol("isFocusable"), ht = /* @__PURE__ */ Symbol("privateIsFocusable"), We = /* @__PURE__ */ Symbol("externalTabIndex"), je = /* @__PURE__ */ Symbol("isUpdatingTabIndex"), Ke = /* @__PURE__ */ Symbol("updateTabIndex");
+const He = /* @__PURE__ */ Symbol("isFocusable"), ht = /* @__PURE__ */ Symbol("privateIsFocusable"), We = /* @__PURE__ */ Symbol("externalTabIndex"), je = /* @__PURE__ */ Symbol("isUpdatingTabIndex"), Ke = /* @__PURE__ */ Symbol("updateTabIndex");
 function za(r) {
   var e, t, o;
   class i extends r {
     constructor() {
       super(...arguments), this[e] = !0, this[t] = null, this[o] = !1;
     }
-    get [qe]() {
+    get [He]() {
       return this[ht];
     }
-    set [qe](n) {
-      this[qe] !== n && (this[ht] = n, this[Ke]());
+    set [He](n) {
+      this[He] !== n && (this[ht] = n, this[Ke]());
     }
     connectedCallback() {
       super.connectedCallback(), this[Ke]();
@@ -4932,7 +4932,7 @@ function za(r) {
       }
     }
     [(e = ht, t = We, o = je, Ke)]() {
-      const n = this[qe] ? 0 : -1, c = this[We] ?? n;
+      const n = this[He] ? 0 : -1, c = this[We] ?? n;
       this[je] = !0, this.tabIndex = c, this[je] = !1;
     }
   }
@@ -4965,7 +4965,7 @@ class X extends Oa {
       <md-elevation part="elevation"></md-elevation>
       <md-ripple .control=${this}></md-ripple>
       <div
-        class="content ${H(this.getContentClasses())}"
+        class="content ${q(this.getContentClasses())}"
         role="presentation">
         <slot name="icon" @slotchange=${this.handleIconSlotChange}></slot>
         <slot @slotchange=${this.handleSlotChange}></slot>
@@ -5238,12 +5238,12 @@ class Ma extends X {
 }
 const Fa = u`:host{--_active-indicator-color: var(--md-secondary-tab-active-indicator-color, var(--md-sys-color-primary, #6750a4));--_active-indicator-height: var(--md-secondary-tab-active-indicator-height, 2px);--_active-label-text-color: var(--md-secondary-tab-active-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_container-color: var(--md-secondary-tab-container-color, var(--md-sys-color-surface, #fef7ff));--_container-elevation: var(--md-secondary-tab-container-elevation, 0);--_container-height: var(--md-secondary-tab-container-height, 48px);--_focus-label-text-color: var(--md-secondary-tab-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-secondary-tab-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-color: var(--md-secondary-tab-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-secondary-tab-hover-state-layer-opacity, 0.08);--_label-text-font: var(--md-secondary-tab-label-text-font, var(--md-sys-typescale-title-small-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-secondary-tab-label-text-line-height, var(--md-sys-typescale-title-small-line-height, 1.25rem));--_label-text-size: var(--md-secondary-tab-label-text-size, var(--md-sys-typescale-title-small-size, 0.875rem));--_label-text-weight: var(--md-secondary-tab-label-text-weight, var(--md-sys-typescale-title-small-weight, var(--md-ref-typeface-weight-medium, 500)));--_pressed-label-text-color: var(--md-secondary-tab-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-color: var(--md-secondary-tab-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-opacity: var(--md-secondary-tab-pressed-state-layer-opacity, 0.12);--_active-focus-icon-color: var(--md-secondary-tab-active-focus-icon-color, );--_active-focus-label-text-color: var(--md-secondary-tab-active-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-icon-color: var(--md-secondary-tab-active-hover-icon-color, );--_active-hover-label-text-color: var(--md-secondary-tab-active-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-color: var(--md-secondary-tab-active-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-opacity: var(--md-secondary-tab-active-hover-state-layer-opacity, 0.08);--_active-icon-color: var(--md-secondary-tab-active-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_active-indicator-shape: var(--md-secondary-tab-active-indicator-shape, 0);--_active-pressed-icon-color: var(--md-secondary-tab-active-pressed-icon-color, );--_active-pressed-label-text-color: var(--md-secondary-tab-active-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-color: var(--md-secondary-tab-active-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-opacity: var(--md-secondary-tab-active-pressed-state-layer-opacity, 0.12);--_label-text-color: var(--md-secondary-tab-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-icon-color: var(--md-secondary-tab-focus-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-icon-color: var(--md-secondary-tab-hover-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_icon-size: var(--md-secondary-tab-icon-size, 24px);--_icon-color: var(--md-secondary-tab-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-secondary-tab-pressed-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_container-shape-start-start: var(--md-secondary-tab-container-shape-start-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-start-end: var(--md-secondary-tab-container-shape-start-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-end: var(--md-secondary-tab-container-shape-end-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-start: var(--md-secondary-tab-container-shape-end-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)))}
 `;
-let Ht = class extends Ma {
+let qt = class extends Ma {
 };
-Ht.styles = [xr, Fa];
-Ht = a([
+qt.styles = [xr, Fa];
+qt = a([
   _("md-secondary-tab")
-], Ht);
+], qt);
 const Ba = {
   dialog: [
     [
@@ -5441,7 +5441,7 @@ class O extends Ua {
     return l`
       <div class="scrim"></div>
       <dialog
-        class=${H(t)}
+        class=${q(t)}
         aria-label=${s || h}
         aria-labelledby=${this.hasHeadline ? "headline" : h}
         role=${this.type === "alert" ? "alertdialog" : h}
@@ -5650,16 +5650,16 @@ function Va(r) {
   const e = ":is(button,input,select,textarea,object,:is(a,area)[href],[tabindex],[contenteditable=true])", t = ":not(:disabled,[disabled])";
   return r.matches(e + t + ':not([tabindex^="-"])') ? !0 : !r.localName.includes("-") || !r.matches(t) ? !1 : r.shadowRoot?.delegatesFocus ?? !1;
 }
-const Ha = u`:host{border-start-start-radius:var(--md-dialog-container-shape-start-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-start-end-radius:var(--md-dialog-container-shape-start-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-end-radius:var(--md-dialog-container-shape-end-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-start-radius:var(--md-dialog-container-shape-end-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));display:contents;margin:auto;max-height:min(560px,100% - 48px);max-width:min(560px,100% - 48px);min-height:140px;min-width:280px;position:fixed;height:fit-content;width:fit-content}dialog{background:rgba(0,0,0,0);border:none;border-radius:inherit;flex-direction:column;height:inherit;margin:inherit;max-height:inherit;max-width:inherit;min-height:inherit;min-width:inherit;outline:none;overflow:visible;padding:0;width:inherit}dialog[open]{display:flex}::backdrop{background:none}.scrim{background:var(--md-sys-color-scrim, #000);display:none;inset:0;opacity:32%;pointer-events:none;position:fixed;z-index:1}:host([open]) .scrim{display:flex}h2{all:unset;align-self:stretch}.headline{align-items:center;color:var(--md-dialog-headline-color, var(--md-sys-color-on-surface, #1d1b20));display:flex;flex-direction:column;font-family:var(--md-dialog-headline-font, var(--md-sys-typescale-headline-small-font, var(--md-ref-typeface-brand, Roboto)));font-size:var(--md-dialog-headline-size, var(--md-sys-typescale-headline-small-size, 1.5rem));line-height:var(--md-dialog-headline-line-height, var(--md-sys-typescale-headline-small-line-height, 2rem));font-weight:var(--md-dialog-headline-weight, var(--md-sys-typescale-headline-small-weight, var(--md-ref-typeface-weight-regular, 400)));position:relative}slot[name=headline]::slotted(*){align-items:center;align-self:stretch;box-sizing:border-box;display:flex;gap:8px;padding:24px 24px 0}.icon{display:flex}slot[name=icon]::slotted(*){color:var(--md-dialog-icon-color, var(--md-sys-color-secondary, #625b71));fill:currentColor;font-size:var(--md-dialog-icon-size, 24px);margin-top:24px;height:var(--md-dialog-icon-size, 24px);width:var(--md-dialog-icon-size, 24px)}.has-icon slot[name=headline]::slotted(*){justify-content:center;padding-top:16px}.scrollable slot[name=headline]::slotted(*){padding-bottom:16px}.scrollable.has-headline slot[name=content]::slotted(*){padding-top:8px}.container{border-radius:inherit;display:flex;flex-direction:column;flex-grow:1;overflow:hidden;position:relative;transform-origin:top}.container::before{background:var(--md-dialog-container-color, var(--md-sys-color-surface-container-high, #ece6f0));border-radius:inherit;content:"";inset:0;position:absolute}.scroller{display:flex;flex:1;flex-direction:column;overflow:hidden;z-index:1}.scrollable .scroller{overflow-y:scroll}.content{color:var(--md-dialog-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-dialog-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-dialog-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-dialog-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));flex:1;font-weight:var(--md-dialog-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)));height:min-content;position:relative}slot[name=content]::slotted(*){box-sizing:border-box;padding:24px}.anchor{position:absolute}.top.anchor{top:0}.bottom.anchor{bottom:0}.actions{position:relative}slot[name=actions]::slotted(*){box-sizing:border-box;display:flex;gap:8px;justify-content:flex-end;padding:16px 24px 24px}.has-actions slot[name=content]::slotted(*){padding-bottom:8px}md-divider{display:none;position:absolute}.has-headline.show-top-divider .headline md-divider,.has-actions.show-bottom-divider .actions md-divider{display:flex}.headline md-divider{bottom:0}.actions md-divider{top:0}@media(forced-colors: active){dialog{outline:2px solid WindowText}}
+const qa = u`:host{border-start-start-radius:var(--md-dialog-container-shape-start-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-start-end-radius:var(--md-dialog-container-shape-start-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-end-radius:var(--md-dialog-container-shape-end-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-start-radius:var(--md-dialog-container-shape-end-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));display:contents;margin:auto;max-height:min(560px,100% - 48px);max-width:min(560px,100% - 48px);min-height:140px;min-width:280px;position:fixed;height:fit-content;width:fit-content}dialog{background:rgba(0,0,0,0);border:none;border-radius:inherit;flex-direction:column;height:inherit;margin:inherit;max-height:inherit;max-width:inherit;min-height:inherit;min-width:inherit;outline:none;overflow:visible;padding:0;width:inherit}dialog[open]{display:flex}::backdrop{background:none}.scrim{background:var(--md-sys-color-scrim, #000);display:none;inset:0;opacity:32%;pointer-events:none;position:fixed;z-index:1}:host([open]) .scrim{display:flex}h2{all:unset;align-self:stretch}.headline{align-items:center;color:var(--md-dialog-headline-color, var(--md-sys-color-on-surface, #1d1b20));display:flex;flex-direction:column;font-family:var(--md-dialog-headline-font, var(--md-sys-typescale-headline-small-font, var(--md-ref-typeface-brand, Roboto)));font-size:var(--md-dialog-headline-size, var(--md-sys-typescale-headline-small-size, 1.5rem));line-height:var(--md-dialog-headline-line-height, var(--md-sys-typescale-headline-small-line-height, 2rem));font-weight:var(--md-dialog-headline-weight, var(--md-sys-typescale-headline-small-weight, var(--md-ref-typeface-weight-regular, 400)));position:relative}slot[name=headline]::slotted(*){align-items:center;align-self:stretch;box-sizing:border-box;display:flex;gap:8px;padding:24px 24px 0}.icon{display:flex}slot[name=icon]::slotted(*){color:var(--md-dialog-icon-color, var(--md-sys-color-secondary, #625b71));fill:currentColor;font-size:var(--md-dialog-icon-size, 24px);margin-top:24px;height:var(--md-dialog-icon-size, 24px);width:var(--md-dialog-icon-size, 24px)}.has-icon slot[name=headline]::slotted(*){justify-content:center;padding-top:16px}.scrollable slot[name=headline]::slotted(*){padding-bottom:16px}.scrollable.has-headline slot[name=content]::slotted(*){padding-top:8px}.container{border-radius:inherit;display:flex;flex-direction:column;flex-grow:1;overflow:hidden;position:relative;transform-origin:top}.container::before{background:var(--md-dialog-container-color, var(--md-sys-color-surface-container-high, #ece6f0));border-radius:inherit;content:"";inset:0;position:absolute}.scroller{display:flex;flex:1;flex-direction:column;overflow:hidden;z-index:1}.scrollable .scroller{overflow-y:scroll}.content{color:var(--md-dialog-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-dialog-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-dialog-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-dialog-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));flex:1;font-weight:var(--md-dialog-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)));height:min-content;position:relative}slot[name=content]::slotted(*){box-sizing:border-box;padding:24px}.anchor{position:absolute}.top.anchor{top:0}.bottom.anchor{bottom:0}.actions{position:relative}slot[name=actions]::slotted(*){box-sizing:border-box;display:flex;gap:8px;justify-content:flex-end;padding:16px 24px 24px}.has-actions slot[name=content]::slotted(*){padding-bottom:8px}md-divider{display:none;position:absolute}.has-headline.show-top-divider .headline md-divider,.has-actions.show-bottom-divider .actions md-divider{display:flex}.headline md-divider{bottom:0}.actions md-divider{top:0}@media(forced-colors: active){dialog{outline:2px solid WindowText}}
 `;
-let qt = class extends O {
+let Ht = class extends O {
 };
-qt.styles = [Ha];
-qt = a([
+Ht.styles = [qa];
+Ht = a([
   _("md-dialog")
-], qt);
-const qa = ee(b);
-class _e extends qa {
+], Ht);
+const Ha = ee(b);
+class _e extends Ha {
   constructor() {
     super(...arguments), this.value = 0, this.max = 1, this.indeterminate = !1, this.fourColor = !1;
   }
@@ -5667,7 +5667,7 @@ class _e extends qa {
     const { ariaLabel: e } = this;
     return l`
       <div
-        class="progress ${H(this.getRenderClasses())}"
+        class="progress ${q(this.getRenderClasses())}"
         role="progressbar"
         aria-label="${e || h}"
         aria-valuemin="0"
@@ -5893,7 +5893,9 @@ class Ja extends b {
     super(), this.viewMode = "grid", this.showDetails = !1, this.activeCategory = "all", this.categories = ["Productivity", "Expertise", "Travel & Shopping"], this.searchValue = "";
   }
   static styles = u`
-    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+    /* Required fonts - load in page <head>:
+       <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    */
 
     :host {
       display: block;
@@ -6225,7 +6227,9 @@ class Qa extends b {
     super(), this.open = !1, this.heading = "", this.maxWidth = "560px", this.fullScreen = !1;
   }
   static styles = u`
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    /* Required fonts - load in page <head>:
+       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    */
 
     :host {
       display: block;
@@ -7640,7 +7644,9 @@ class cs extends b {
     super(), this.open = !1, this.title = "", this.category = "", this.description = "", this.template = "", this.variables = [], this.variations = [], this.activeVariationIndex = 0, this.mode = "locked", this.activeTab = "variables", this._values = {};
   }
   static styles = u`
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    /* Required fonts - load in page <head>:
+       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,899&display=swap" rel="stylesheet">
+    */
 
     :host {
       display: block;
@@ -8144,7 +8150,9 @@ class ps extends b {
     super(), this.open = !1, this.workTitle = "Untitled Work", this.previewImage = "";
   }
   static styles = u`
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    /* Required fonts - load in page <head>:
+       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    */
 
     :host {
       display: block;
