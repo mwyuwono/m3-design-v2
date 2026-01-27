@@ -1,4 +1,4 @@
-import { LitElement as b, html as l, css as u, isServer as T, nothing as h, render as Po } from "lit";
+import { LitElement as g, html as l, css as u, isServer as T, nothing as h, render as Mo } from "lit";
 function a(r, e, t, o) {
   var i = arguments.length, s = i < 3 ? e : o === null ? o = Object.getOwnPropertyDescriptor(e, t) : o, n;
   if (typeof Reflect == "object" && typeof Reflect.decorate == "function") s = Reflect.decorate(r, e, t, o);
@@ -40,7 +40,7 @@ const kr = (r) => new wr(typeof r == "string" ? r : r + "", void 0, Bo), Cr = (r
   for (const o of e.cssRules) t += o.cssText;
   return kr(t);
 })(r) : r;
-const { is: $r, defineProperty: Er, getOwnPropertyDescriptor: Sr, getOwnPropertyNames: Ar, getOwnPropertySymbols: Tr, getPrototypeOf: Ir } = Object, et = globalThis, bo = et.trustedTypes, zr = bo ? bo.emptyScript : "", Or = et.reactiveElementPolyfillSupport, $e = (r, e) => r, Xe = { toAttribute(r, e) {
+const { is: $r, defineProperty: Er, getOwnPropertyDescriptor: Sr, getOwnPropertyNames: Ar, getOwnPropertySymbols: Tr, getPrototypeOf: Ir } = Object, et = globalThis, go = et.trustedTypes, zr = go ? go.emptyScript : "", Or = et.reactiveElementPolyfillSupport, $e = (r, e) => r, Xe = { toAttribute(r, e) {
   switch (e) {
     case Boolean:
       r = r ? zr : null;
@@ -68,7 +68,7 @@ const { is: $r, defineProperty: Er, getOwnPropertyDescriptor: Sr, getOwnProperty
       }
   }
   return t;
-} }, Zt = (r, e) => !$r(r, e), go = { attribute: !0, type: String, converter: Xe, reflect: !1, useDefault: !1, hasChanged: Zt };
+} }, Zt = (r, e) => !$r(r, e), bo = { attribute: !0, type: String, converter: Xe, reflect: !1, useDefault: !1, hasChanged: Zt };
 Symbol.metadata ??= /* @__PURE__ */ Symbol("metadata"), et.litPropertyMetadata ??= /* @__PURE__ */ new WeakMap();
 let we = class extends HTMLElement {
   static addInitializer(e) {
@@ -77,7 +77,7 @@ let we = class extends HTMLElement {
   static get observedAttributes() {
     return this.finalize(), this._$Eh && [...this._$Eh.keys()];
   }
-  static createProperty(e, t = go) {
+  static createProperty(e, t = bo) {
     if (t.state && (t.attribute = !1), this._$Ei(), this.prototype.hasOwnProperty(e) && ((t = Object.create(t)).wrapped = !0), this.elementProperties.set(e, t), !t.noAccessor) {
       const o = /* @__PURE__ */ Symbol(), i = this.getPropertyDescriptor(e, o, t);
       i !== void 0 && Er(this.prototype, e, i);
@@ -95,7 +95,7 @@ let we = class extends HTMLElement {
     }, configurable: !0, enumerable: !0 };
   }
   static getPropertyOptions(e) {
-    return this.elementProperties.get(e) ?? go;
+    return this.elementProperties.get(e) ?? bo;
   }
   static _$Ei() {
     if (this.hasOwnProperty($e("elementProperties"))) return;
@@ -314,7 +314,7 @@ function No(r) {
     } });
   };
 }
-class Mr extends b {
+class Pr extends g {
   render() {
     return l`<slot></slot>`;
   }
@@ -326,11 +326,11 @@ class Mr extends b {
     this.setAttribute("aria-hidden", "true");
   }
 }
-const Pr = u`:host{font-size:var(--md-icon-size, 24px);width:var(--md-icon-size, 24px);height:var(--md-icon-size, 24px);color:inherit;font-variation-settings:inherit;font-weight:400;font-family:var(--md-icon-font, Material Symbols Outlined);display:inline-flex;font-style:normal;place-items:center;place-content:center;line-height:1;overflow:hidden;letter-spacing:normal;text-transform:none;user-select:none;white-space:nowrap;word-wrap:normal;flex-shrink:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale}::slotted(svg){fill:currentColor}::slotted(*){height:100%;width:100%}
+const Mr = u`:host{font-size:var(--md-icon-size, 24px);width:var(--md-icon-size, 24px);height:var(--md-icon-size, 24px);color:inherit;font-variation-settings:inherit;font-weight:400;font-family:var(--md-icon-font, Material Symbols Outlined);display:inline-flex;font-style:normal;place-items:center;place-content:center;line-height:1;overflow:hidden;letter-spacing:normal;text-transform:none;user-select:none;white-space:nowrap;word-wrap:normal;flex-shrink:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale}::slotted(svg){fill:currentColor}::slotted(*){height:100%;width:100%}
 `;
-let ut = class extends Mr {
+let ut = class extends Pr {
 };
-ut.styles = [Pr];
+ut.styles = [Mr];
 ut = a([
   _("md-icon")
 ], ut);
@@ -383,7 +383,7 @@ class Ho {
   }
 }
 const Br = ["focusin", "focusout", "pointerdown"];
-class Qt extends b {
+class Qt extends g {
   constructor() {
     super(...arguments), this.visible = !1, this.inward = !1, this.attachableController = new Ho(this, this.onControlChange.bind(this));
   }
@@ -461,8 +461,8 @@ const Wr = (r, e) => {
   let i, s = e === 2 ? "<svg>" : e === 3 ? "<math>" : "", n = ke;
   for (let c = 0; c < t; c++) {
     const p = r[c];
-    let m, v, f = -1, g = 0;
-    for (; g < p.length && (n.lastIndex = g, v = n.exec(p), v !== null); ) g = n.lastIndex, n === ke ? v[1] === "!--" ? n = wo : v[1] !== void 0 ? n = ko : v[2] !== void 0 ? (jo.test(v[2]) && (i = RegExp("</" + v[2], "g")), n = ce) : v[3] !== void 0 && (n = ce) : n === ce ? v[0] === ">" ? (n = i ?? ke, f = -1) : v[1] === void 0 ? f = -2 : (f = n.lastIndex - v[2].length, m = v[1], n = v[3] === void 0 ? ce : v[3] === '"' ? $o : Co) : n === $o || n === Co ? n = ce : n === wo || n === ko ? n = ke : (n = ce, i = void 0);
+    let m, v, f = -1, b = 0;
+    for (; b < p.length && (n.lastIndex = b, v = n.exec(p), v !== null); ) b = n.lastIndex, n === ke ? v[1] === "!--" ? n = wo : v[1] !== void 0 ? n = ko : v[2] !== void 0 ? (jo.test(v[2]) && (i = RegExp("</" + v[2], "g")), n = ce) : v[3] !== void 0 && (n = ce) : n === ce ? v[0] === ">" ? (n = i ?? ke, f = -1) : v[1] === void 0 ? f = -2 : (f = n.lastIndex - v[2].length, m = v[1], n = v[3] === void 0 ? ce : v[3] === '"' ? $o : Co) : n === $o || n === Co ? n = ce : n === wo || n === ko ? n = ke : (n = ce, i = void 0);
     const x = n === ce && r[c + 1].startsWith("/>") ? " " : "";
     s += n === ke ? p + Ur : f >= 0 ? (o.push(m), p.slice(0, f) + qo + p.slice(f) + ae + x) : p + ae + (f === -2 ? c : x);
   }
@@ -481,15 +481,15 @@ class Ae {
     for (; (i = pe.nextNode()) !== null && p.length < c; ) {
       if (i.nodeType === 1) {
         if (i.hasAttributes()) for (const f of i.getAttributeNames()) if (f.endsWith(qo)) {
-          const g = v[n++], x = i.getAttribute(f).split(ae), E = /([.?@])?(.*)/.exec(g);
+          const b = v[n++], x = i.getAttribute(f).split(ae), E = /([.?@])?(.*)/.exec(b);
           p.push({ type: 1, index: s, name: E[2], strings: x, ctor: E[1] === "." ? Kr : E[1] === "?" ? Yr : E[1] === "@" ? Gr : rt }), i.removeAttribute(f);
         } else f.startsWith(ae) && (p.push({ type: 6, index: s }), i.removeAttribute(f));
         if (jo.test(i.tagName)) {
-          const f = i.textContent.split(ae), g = f.length - 1;
-          if (g > 0) {
+          const f = i.textContent.split(ae), b = f.length - 1;
+          if (b > 0) {
             i.textContent = Ze ? Ze.emptyScript : "";
-            for (let x = 0; x < g; x++) i.append(f[x], Qe()), pe.nextNode(), p.push({ type: 2, index: ++s });
-            i.append(f[g], Qe());
+            for (let x = 0; x < b; x++) i.append(f[x], Qe()), pe.nextNode(), p.push({ type: 2, index: ++s });
+            i.append(f[b], Qe());
           }
         }
       } else if (i.nodeType === 8) if (i.data === Wo) p.push({ type: 2, index: s });
@@ -505,11 +505,11 @@ class Ae {
     return o.innerHTML = e, o;
   }
 }
-function ge(r, e, t = r, o) {
+function be(r, e, t = r, o) {
   if (e === K) return e;
   let i = o !== void 0 ? t._$Co?.[o] : t._$Cl;
   const s = Se(e) ? void 0 : e._$litDirective$;
-  return i?.constructor !== s && (i?._$AO?.(!1), s === void 0 ? i = void 0 : (i = new s(r), i._$AT(r, t, o)), o !== void 0 ? (t._$Co ??= [])[o] = i : t._$Cl = i), i !== void 0 && (e = ge(r, i._$AS(r, e.values), i, o)), e;
+  return i?.constructor !== s && (i?._$AO?.(!1), s === void 0 ? i = void 0 : (i = new s(r), i._$AT(r, t, o)), o !== void 0 ? (t._$Co ??= [])[o] = i : t._$Cl = i), i !== void 0 && (e = be(r, i._$AS(r, e.values), i, o)), e;
 }
 class jr {
   constructor(e, t) {
@@ -558,7 +558,7 @@ class ot {
     return this._$AB;
   }
   _$AI(e, t = this) {
-    e = ge(this, e, t), Se(e) ? e === L || e == null || e === "" ? (this._$AH !== L && this._$AR(), this._$AH = L) : e !== this._$AH && e !== K && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Vr(e) ? this.k(e) : this._(e);
+    e = be(this, e, t), Se(e) ? e === L || e == null || e === "" ? (this._$AH !== L && this._$AR(), this._$AH = L) : e !== this._$AH && e !== K && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Vr(e) ? this.k(e) : this._(e);
   }
   O(e) {
     return this._$AA.parentNode.insertBefore(e, this._$AB);
@@ -611,11 +611,11 @@ class rt {
   _$AI(e, t = this, o, i) {
     const s = this.strings;
     let n = !1;
-    if (s === void 0) e = ge(this, e, t, 0), n = !Se(e) || e !== this._$AH && e !== K, n && (this._$AH = e);
+    if (s === void 0) e = be(this, e, t, 0), n = !Se(e) || e !== this._$AH && e !== K, n && (this._$AH = e);
     else {
       const c = e;
       let p, m;
-      for (e = s[0], p = 0; p < s.length - 1; p++) m = ge(this, c[o + p], t, p), m === K && (m = this._$AH[p]), n ||= !Se(m) || m !== this._$AH[p], m === L ? e = L : e !== L && (e += (m ?? "") + s[p + 1]), this._$AH[p] = m;
+      for (e = s[0], p = 0; p < s.length - 1; p++) m = be(this, c[o + p], t, p), m === K && (m = this._$AH[p]), n ||= !Se(m) || m !== this._$AH[p], m === L ? e = L : e !== L && (e += (m ?? "") + s[p + 1]), this._$AH[p] = m;
     }
     n && !i && this.j(e);
   }
@@ -644,7 +644,7 @@ class Gr extends rt {
     super(e, t, o, i, s), this.type = 5;
   }
   _$AI(e, t = this) {
-    if ((e = ge(this, e, t, 0) ?? L) === K) return;
+    if ((e = be(this, e, t, 0) ?? L) === K) return;
     const o = this._$AH, i = e === L && o !== L || e.capture !== o.capture || e.once !== o.once || e.passive !== o.passive, s = e !== L && (o === L || i);
     i && this.element.removeEventListener(this.name, this, o), s && this.element.addEventListener(this.name, this, e), this._$AH = e;
   }
@@ -660,7 +660,7 @@ class Xr {
     return this._$AM._$AU;
   }
   _$AI(e) {
-    ge(this, e);
+    be(this, e);
   }
 }
 const Zr = Jt.litHtmlPolyfillSupport;
@@ -734,7 +734,7 @@ const si = [
   "pointerleave",
   "pointerup"
 ], ni = 150, li = T ? null : window.matchMedia("(forced-colors: active)");
-class ze extends b {
+class ze extends g {
   constructor() {
     super(...arguments), this.disabled = !1, this.hovered = !1, this.pressed = !1, this.rippleSize = "", this.rippleScale = "", this.initialSize = 0, this.state = U.INACTIVE, this.attachableController = new Ho(this, this.onControlChange.bind(this));
   }
@@ -1017,8 +1017,8 @@ function ee(r) {
       if (this[Fe].has(i))
         return;
       this[Fe].add(i), this.removeAttribute(i), this[Fe].delete(i);
-      const c = bt(i);
-      n === null ? delete this.dataset[c] : this.dataset[c] = n, this.requestUpdate(bt(i), s);
+      const c = gt(i);
+      n === null ? delete this.dataset[c] : this.dataset[c] = n, this.requestUpdate(gt(i), s);
     }
     getAttribute(i) {
       return lt(i) ? super.getAttribute(mt(i)) : super.getAttribute(i);
@@ -1031,7 +1031,7 @@ function ee(r) {
 }
 function pi(r) {
   for (const e of Yo) {
-    const t = Go(e), o = mt(t), i = bt(t);
+    const t = Go(e), o = mt(t), i = gt(t);
     r.createProperty(e, {
       attribute: t,
       noAccessor: !0
@@ -1054,7 +1054,7 @@ function pi(r) {
 function mt(r) {
   return `data-${r}`;
 }
-function bt(r) {
+function gt(r) {
   return r.replace(/-\w/, (e) => e[1].toUpperCase());
 }
 const Xo = /* @__PURE__ */ Symbol("dispatchHooks");
@@ -1099,12 +1099,12 @@ function Qo(r) {
   return r.currentTarget !== r.target || r.composedPath()[0] !== r.target || r.target.disabled ? !1 : !fi(r);
 }
 function fi(r) {
-  const e = gt;
+  const e = bt;
   return e && (r.preventDefault(), r.stopImmediatePropagation()), vi(), e;
 }
-let gt = !1;
+let bt = !1;
 async function vi() {
-  gt = !0, await null, gt = !1;
+  bt = !0, await null, bt = !1;
 }
 function Oe(r, e) {
   e.bubbles && (!r.shadowRoot || e.composed) && e.stopPropagation();
@@ -1120,7 +1120,7 @@ function Re(r) {
   }
   return e;
 }
-const Te = /* @__PURE__ */ Symbol("createValidator"), Ie = /* @__PURE__ */ Symbol("getValidityAnchor"), ct = /* @__PURE__ */ Symbol("privateValidator"), J = /* @__PURE__ */ Symbol("privateSyncValidity"), Me = /* @__PURE__ */ Symbol("privateCustomValidationMessage");
+const Te = /* @__PURE__ */ Symbol("createValidator"), Ie = /* @__PURE__ */ Symbol("getValidityAnchor"), ct = /* @__PURE__ */ Symbol("privateValidator"), J = /* @__PURE__ */ Symbol("privateSyncValidity"), Pe = /* @__PURE__ */ Symbol("privateCustomValidationMessage");
 function ro(r) {
   var e;
   class t extends r {
@@ -1143,7 +1143,7 @@ function ro(r) {
       return this[J](), this[V].reportValidity();
     }
     setCustomValidity(i) {
-      this[Me] = i, this[J]();
+      this[Pe] = i, this[J]();
     }
     requestUpdate(i, s, n) {
       super.requestUpdate(i, s, n), this[J]();
@@ -1151,11 +1151,11 @@ function ro(r) {
     firstUpdated(i) {
       super.firstUpdated(i), this[J]();
     }
-    [(e = Me, J)]() {
+    [(e = Pe, J)]() {
       if (T)
         return;
       this[ct] || (this[ct] = this[Te]());
-      const { validity: i, validationMessage: s } = this[ct].getValidity(), n = !!this[Me], c = this[Me] || s;
+      const { validity: i, validationMessage: s } = this[ct].getValidity(), n = !!this[Pe], c = this[Pe] || s;
       this[V].setValidity({ ...i, customError: n }, c, this[Ie]() ?? void 0);
     }
     [Te]() {
@@ -1167,7 +1167,7 @@ function ro(r) {
   }
   return t;
 }
-const be = /* @__PURE__ */ Symbol("getFormValue"), yt = /* @__PURE__ */ Symbol("getFormState");
+const ge = /* @__PURE__ */ Symbol("getFormValue"), yt = /* @__PURE__ */ Symbol("getFormState");
 function io(r) {
   class e extends r {
     get form() {
@@ -1203,13 +1203,13 @@ function io(r) {
       super.attributeChangedCallback(o, i, s);
     }
     requestUpdate(o, i, s) {
-      super.requestUpdate(o, i, s), this[V].setFormValue(this[be](), this[yt]());
+      super.requestUpdate(o, i, s), this[V].setFormValue(this[ge](), this[yt]());
     }
-    [be]() {
+    [ge]() {
       throw new Error("Implement [getFormValue]");
     }
     [yt]() {
-      return this[be]();
+      return this[ge]();
     }
     formDisabledCallback(o) {
       this.disabled = o;
@@ -1282,8 +1282,8 @@ class mi extends ao {
     return { checked: e, required: t };
   }
 }
-const bi = ee(ro(io(Re(b))));
-class ne extends bi {
+const gi = ee(ro(io(Re(g))));
+class ne extends gi {
   constructor() {
     super(), this.selected = !1, this.icons = !1, this.showOnlySelectedIcon = !1, this.required = !1, this.value = "on", !T && (this.addEventListener("click", (e) => {
       !Qo(e) || !this.input || (this.focus(), Zo(this.input));
@@ -1381,7 +1381,7 @@ class ne extends bi {
   handleChange(e) {
     Oe(this, e);
   }
-  [be]() {
+  [ge]() {
     return this.selected ? this.value : null;
   }
   [yt]() {
@@ -1425,15 +1425,15 @@ a([
 a([
   w("input")
 ], ne.prototype, "input", void 0);
-const gi = u`@layer styles, hcm;@layer styles{:host{display:inline-flex;outline:none;vertical-align:top;-webkit-tap-highlight-color:rgba(0,0,0,0);cursor:pointer}:host([disabled]){cursor:default}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--md-switch-track-height, 32px))/2) 0px}md-focus-ring{--md-focus-ring-shape-start-start: var(--md-switch-track-shape-start-start, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));--md-focus-ring-shape-start-end: var(--md-switch-track-shape-start-end, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));--md-focus-ring-shape-end-end: var(--md-switch-track-shape-end-end, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));--md-focus-ring-shape-end-start: var(--md-switch-track-shape-end-start, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)))}.switch{align-items:center;display:inline-flex;flex-shrink:0;position:relative;width:var(--md-switch-track-width, 52px);height:var(--md-switch-track-height, 32px);border-start-start-radius:var(--md-switch-track-shape-start-start, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));border-start-end-radius:var(--md-switch-track-shape-start-end, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));border-end-end-radius:var(--md-switch-track-shape-end-end, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));border-end-start-radius:var(--md-switch-track-shape-end-start, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)))}input{appearance:none;height:max(100%,var(--md-switch-touch-target-size, 48px));outline:none;margin:0;position:absolute;width:max(100%,var(--md-switch-touch-target-size, 48px));z-index:1;cursor:inherit;top:50%;left:50%;transform:translate(-50%, -50%)}:host([touch-target=none]) input{display:none}}@layer styles{.track{position:absolute;width:100%;height:100%;box-sizing:border-box;border-radius:inherit;display:flex;justify-content:center;align-items:center}.track::before{content:"";display:flex;position:absolute;height:100%;width:100%;border-radius:inherit;box-sizing:border-box;transition-property:opacity,background-color;transition-timing-function:linear;transition-duration:67ms}.disabled .track{background-color:rgba(0,0,0,0);border-color:rgba(0,0,0,0)}.disabled .track::before,.disabled .track::after{transition:none;opacity:var(--md-switch-disabled-track-opacity, 0.12)}.disabled .track::before{background-clip:content-box}.selected .track::before{background-color:var(--md-switch-selected-track-color, var(--md-sys-color-primary, #6750a4))}.selected:hover .track::before{background-color:var(--md-switch-selected-hover-track-color, var(--md-sys-color-primary, #6750a4))}.selected:focus-within .track::before{background-color:var(--md-switch-selected-focus-track-color, var(--md-sys-color-primary, #6750a4))}.selected:active .track::before{background-color:var(--md-switch-selected-pressed-track-color, var(--md-sys-color-primary, #6750a4))}.selected.disabled .track{background-clip:border-box}.selected.disabled .track::before{background-color:var(--md-switch-disabled-selected-track-color, var(--md-sys-color-on-surface, #1d1b20))}.unselected .track::before{background-color:var(--md-switch-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-track-outline-color, var(--md-sys-color-outline, #79747e));border-style:solid;border-width:var(--md-switch-track-outline-width, 2px)}.unselected:hover .track::before{background-color:var(--md-switch-hover-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-hover-track-outline-color, var(--md-sys-color-outline, #79747e))}.unselected:focus-visible .track::before{background-color:var(--md-switch-focus-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-focus-track-outline-color, var(--md-sys-color-outline, #79747e))}.unselected:active .track::before{background-color:var(--md-switch-pressed-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-pressed-track-outline-color, var(--md-sys-color-outline, #79747e))}.unselected.disabled .track::before{background-color:var(--md-switch-disabled-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-disabled-track-outline-color, var(--md-sys-color-on-surface, #1d1b20))}}@layer hcm{@media(forced-colors: active){.selected .track::before{background:ButtonText;border-color:ButtonText}.disabled .track::before{border-color:GrayText;opacity:1}.disabled.selected .track::before{background:GrayText}}}@layer styles{.handle-container{display:flex;place-content:center;place-items:center;position:relative;transition:margin 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275)}.selected .handle-container{margin-inline-start:calc(var(--md-switch-track-width, 52px) - var(--md-switch-track-height, 32px))}.unselected .handle-container{margin-inline-end:calc(var(--md-switch-track-width, 52px) - var(--md-switch-track-height, 32px))}.disabled .handle-container{transition:none}.handle{border-start-start-radius:var(--md-switch-handle-shape-start-start, var(--md-switch-handle-shape, var(--md-sys-shape-corner-full, 9999px)));border-start-end-radius:var(--md-switch-handle-shape-start-end, var(--md-switch-handle-shape, var(--md-sys-shape-corner-full, 9999px)));border-end-end-radius:var(--md-switch-handle-shape-end-end, var(--md-switch-handle-shape, var(--md-sys-shape-corner-full, 9999px)));border-end-start-radius:var(--md-switch-handle-shape-end-start, var(--md-switch-handle-shape, var(--md-sys-shape-corner-full, 9999px)));height:var(--md-switch-handle-height, 16px);width:var(--md-switch-handle-width, 16px);transform-origin:center;transition-property:height,width;transition-duration:250ms,250ms;transition-timing-function:cubic-bezier(0.2, 0, 0, 1),cubic-bezier(0.2, 0, 0, 1);z-index:0}.handle::before{content:"";display:flex;inset:0;position:absolute;border-radius:inherit;box-sizing:border-box;transition:background-color 67ms linear}.disabled .handle,.disabled .handle::before{transition:none}.selected .handle{height:var(--md-switch-selected-handle-height, 24px);width:var(--md-switch-selected-handle-width, 24px)}.handle.with-icon{height:var(--md-switch-with-icon-handle-height, 24px);width:var(--md-switch-with-icon-handle-width, 24px)}.selected:not(.disabled):active .handle,.unselected:not(.disabled):active .handle{height:var(--md-switch-pressed-handle-height, 28px);width:var(--md-switch-pressed-handle-width, 28px);transition-timing-function:linear;transition-duration:100ms}.selected .handle::before{background-color:var(--md-switch-selected-handle-color, var(--md-sys-color-on-primary, #fff))}.selected:hover .handle::before{background-color:var(--md-switch-selected-hover-handle-color, var(--md-sys-color-primary-container, #eaddff))}.selected:focus-within .handle::before{background-color:var(--md-switch-selected-focus-handle-color, var(--md-sys-color-primary-container, #eaddff))}.selected:active .handle::before{background-color:var(--md-switch-selected-pressed-handle-color, var(--md-sys-color-primary-container, #eaddff))}.selected.disabled .handle::before{background-color:var(--md-switch-disabled-selected-handle-color, var(--md-sys-color-surface, #fef7ff));opacity:var(--md-switch-disabled-selected-handle-opacity, 1)}.unselected .handle::before{background-color:var(--md-switch-handle-color, var(--md-sys-color-outline, #79747e))}.unselected:hover .handle::before{background-color:var(--md-switch-hover-handle-color, var(--md-sys-color-on-surface-variant, #49454f))}.unselected:focus-within .handle::before{background-color:var(--md-switch-focus-handle-color, var(--md-sys-color-on-surface-variant, #49454f))}.unselected:active .handle::before{background-color:var(--md-switch-pressed-handle-color, var(--md-sys-color-on-surface-variant, #49454f))}.unselected.disabled .handle::before{background-color:var(--md-switch-disabled-handle-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-switch-disabled-handle-opacity, 0.38)}md-ripple{border-radius:var(--md-switch-state-layer-shape, var(--md-sys-shape-corner-full, 9999px));height:var(--md-switch-state-layer-size, 40px);inset:unset;width:var(--md-switch-state-layer-size, 40px)}.selected md-ripple{--md-ripple-hover-color: var(--md-switch-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--md-ripple-pressed-color: var(--md-switch-selected-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--md-ripple-hover-opacity: var(--md-switch-selected-hover-state-layer-opacity, 0.08);--md-ripple-pressed-opacity: var(--md-switch-selected-pressed-state-layer-opacity, 0.12)}.unselected md-ripple{--md-ripple-hover-color: var(--md-switch-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-pressed-color: var(--md-switch-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-hover-opacity: var(--md-switch-hover-state-layer-opacity, 0.08);--md-ripple-pressed-opacity: var(--md-switch-pressed-state-layer-opacity, 0.12)}}@layer hcm{@media(forced-colors: active){.unselected .handle::before{background:ButtonText}.disabled .handle::before{opacity:1}.disabled.unselected .handle::before{background:GrayText}}}@layer styles{.icons{position:relative;height:100%;width:100%}.icon{position:absolute;inset:0;margin:auto;display:flex;align-items:center;justify-content:center;fill:currentColor;transition:fill 67ms linear,opacity 33ms linear,transform 167ms cubic-bezier(0.2, 0, 0, 1);opacity:0}.disabled .icon{transition:none}.selected .icon--on,.unselected .icon--off{opacity:1}.unselected .handle:not(.with-icon) .icon--on{transform:rotate(-45deg)}.icon--off{width:var(--md-switch-icon-size, 16px);height:var(--md-switch-icon-size, 16px);color:var(--md-switch-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9))}.unselected:hover .icon--off{color:var(--md-switch-hover-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9))}.unselected:focus-within .icon--off{color:var(--md-switch-focus-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9))}.unselected:active .icon--off{color:var(--md-switch-pressed-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9))}.unselected.disabled .icon--off{color:var(--md-switch-disabled-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9));opacity:var(--md-switch-disabled-icon-opacity, 0.38)}.icon--on{width:var(--md-switch-selected-icon-size, 16px);height:var(--md-switch-selected-icon-size, 16px);color:var(--md-switch-selected-icon-color, var(--md-sys-color-on-primary-container, #21005d))}.selected:hover .icon--on{color:var(--md-switch-selected-hover-icon-color, var(--md-sys-color-on-primary-container, #21005d))}.selected:focus-within .icon--on{color:var(--md-switch-selected-focus-icon-color, var(--md-sys-color-on-primary-container, #21005d))}.selected:active .icon--on{color:var(--md-switch-selected-pressed-icon-color, var(--md-sys-color-on-primary-container, #21005d))}.selected.disabled .icon--on{color:var(--md-switch-disabled-selected-icon-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-switch-disabled-selected-icon-opacity, 0.38)}}@layer hcm{@media(forced-colors: active){.icon--off{fill:Canvas}.icon--on{fill:ButtonText}.disabled.unselected .icon--off,.disabled.selected .icon--on{opacity:1}.disabled .icon--on{fill:GrayText}}}
+const bi = u`@layer styles, hcm;@layer styles{:host{display:inline-flex;outline:none;vertical-align:top;-webkit-tap-highlight-color:rgba(0,0,0,0);cursor:pointer}:host([disabled]){cursor:default}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--md-switch-track-height, 32px))/2) 0px}md-focus-ring{--md-focus-ring-shape-start-start: var(--md-switch-track-shape-start-start, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));--md-focus-ring-shape-start-end: var(--md-switch-track-shape-start-end, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));--md-focus-ring-shape-end-end: var(--md-switch-track-shape-end-end, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));--md-focus-ring-shape-end-start: var(--md-switch-track-shape-end-start, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)))}.switch{align-items:center;display:inline-flex;flex-shrink:0;position:relative;width:var(--md-switch-track-width, 52px);height:var(--md-switch-track-height, 32px);border-start-start-radius:var(--md-switch-track-shape-start-start, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));border-start-end-radius:var(--md-switch-track-shape-start-end, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));border-end-end-radius:var(--md-switch-track-shape-end-end, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)));border-end-start-radius:var(--md-switch-track-shape-end-start, var(--md-switch-track-shape, var(--md-sys-shape-corner-full, 9999px)))}input{appearance:none;height:max(100%,var(--md-switch-touch-target-size, 48px));outline:none;margin:0;position:absolute;width:max(100%,var(--md-switch-touch-target-size, 48px));z-index:1;cursor:inherit;top:50%;left:50%;transform:translate(-50%, -50%)}:host([touch-target=none]) input{display:none}}@layer styles{.track{position:absolute;width:100%;height:100%;box-sizing:border-box;border-radius:inherit;display:flex;justify-content:center;align-items:center}.track::before{content:"";display:flex;position:absolute;height:100%;width:100%;border-radius:inherit;box-sizing:border-box;transition-property:opacity,background-color;transition-timing-function:linear;transition-duration:67ms}.disabled .track{background-color:rgba(0,0,0,0);border-color:rgba(0,0,0,0)}.disabled .track::before,.disabled .track::after{transition:none;opacity:var(--md-switch-disabled-track-opacity, 0.12)}.disabled .track::before{background-clip:content-box}.selected .track::before{background-color:var(--md-switch-selected-track-color, var(--md-sys-color-primary, #6750a4))}.selected:hover .track::before{background-color:var(--md-switch-selected-hover-track-color, var(--md-sys-color-primary, #6750a4))}.selected:focus-within .track::before{background-color:var(--md-switch-selected-focus-track-color, var(--md-sys-color-primary, #6750a4))}.selected:active .track::before{background-color:var(--md-switch-selected-pressed-track-color, var(--md-sys-color-primary, #6750a4))}.selected.disabled .track{background-clip:border-box}.selected.disabled .track::before{background-color:var(--md-switch-disabled-selected-track-color, var(--md-sys-color-on-surface, #1d1b20))}.unselected .track::before{background-color:var(--md-switch-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-track-outline-color, var(--md-sys-color-outline, #79747e));border-style:solid;border-width:var(--md-switch-track-outline-width, 2px)}.unselected:hover .track::before{background-color:var(--md-switch-hover-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-hover-track-outline-color, var(--md-sys-color-outline, #79747e))}.unselected:focus-visible .track::before{background-color:var(--md-switch-focus-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-focus-track-outline-color, var(--md-sys-color-outline, #79747e))}.unselected:active .track::before{background-color:var(--md-switch-pressed-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-pressed-track-outline-color, var(--md-sys-color-outline, #79747e))}.unselected.disabled .track::before{background-color:var(--md-switch-disabled-track-color, var(--md-sys-color-surface-container-highest, #e6e0e9));border-color:var(--md-switch-disabled-track-outline-color, var(--md-sys-color-on-surface, #1d1b20))}}@layer hcm{@media(forced-colors: active){.selected .track::before{background:ButtonText;border-color:ButtonText}.disabled .track::before{border-color:GrayText;opacity:1}.disabled.selected .track::before{background:GrayText}}}@layer styles{.handle-container{display:flex;place-content:center;place-items:center;position:relative;transition:margin 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275)}.selected .handle-container{margin-inline-start:calc(var(--md-switch-track-width, 52px) - var(--md-switch-track-height, 32px))}.unselected .handle-container{margin-inline-end:calc(var(--md-switch-track-width, 52px) - var(--md-switch-track-height, 32px))}.disabled .handle-container{transition:none}.handle{border-start-start-radius:var(--md-switch-handle-shape-start-start, var(--md-switch-handle-shape, var(--md-sys-shape-corner-full, 9999px)));border-start-end-radius:var(--md-switch-handle-shape-start-end, var(--md-switch-handle-shape, var(--md-sys-shape-corner-full, 9999px)));border-end-end-radius:var(--md-switch-handle-shape-end-end, var(--md-switch-handle-shape, var(--md-sys-shape-corner-full, 9999px)));border-end-start-radius:var(--md-switch-handle-shape-end-start, var(--md-switch-handle-shape, var(--md-sys-shape-corner-full, 9999px)));height:var(--md-switch-handle-height, 16px);width:var(--md-switch-handle-width, 16px);transform-origin:center;transition-property:height,width;transition-duration:250ms,250ms;transition-timing-function:cubic-bezier(0.2, 0, 0, 1),cubic-bezier(0.2, 0, 0, 1);z-index:0}.handle::before{content:"";display:flex;inset:0;position:absolute;border-radius:inherit;box-sizing:border-box;transition:background-color 67ms linear}.disabled .handle,.disabled .handle::before{transition:none}.selected .handle{height:var(--md-switch-selected-handle-height, 24px);width:var(--md-switch-selected-handle-width, 24px)}.handle.with-icon{height:var(--md-switch-with-icon-handle-height, 24px);width:var(--md-switch-with-icon-handle-width, 24px)}.selected:not(.disabled):active .handle,.unselected:not(.disabled):active .handle{height:var(--md-switch-pressed-handle-height, 28px);width:var(--md-switch-pressed-handle-width, 28px);transition-timing-function:linear;transition-duration:100ms}.selected .handle::before{background-color:var(--md-switch-selected-handle-color, var(--md-sys-color-on-primary, #fff))}.selected:hover .handle::before{background-color:var(--md-switch-selected-hover-handle-color, var(--md-sys-color-primary-container, #eaddff))}.selected:focus-within .handle::before{background-color:var(--md-switch-selected-focus-handle-color, var(--md-sys-color-primary-container, #eaddff))}.selected:active .handle::before{background-color:var(--md-switch-selected-pressed-handle-color, var(--md-sys-color-primary-container, #eaddff))}.selected.disabled .handle::before{background-color:var(--md-switch-disabled-selected-handle-color, var(--md-sys-color-surface, #fef7ff));opacity:var(--md-switch-disabled-selected-handle-opacity, 1)}.unselected .handle::before{background-color:var(--md-switch-handle-color, var(--md-sys-color-outline, #79747e))}.unselected:hover .handle::before{background-color:var(--md-switch-hover-handle-color, var(--md-sys-color-on-surface-variant, #49454f))}.unselected:focus-within .handle::before{background-color:var(--md-switch-focus-handle-color, var(--md-sys-color-on-surface-variant, #49454f))}.unselected:active .handle::before{background-color:var(--md-switch-pressed-handle-color, var(--md-sys-color-on-surface-variant, #49454f))}.unselected.disabled .handle::before{background-color:var(--md-switch-disabled-handle-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-switch-disabled-handle-opacity, 0.38)}md-ripple{border-radius:var(--md-switch-state-layer-shape, var(--md-sys-shape-corner-full, 9999px));height:var(--md-switch-state-layer-size, 40px);inset:unset;width:var(--md-switch-state-layer-size, 40px)}.selected md-ripple{--md-ripple-hover-color: var(--md-switch-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--md-ripple-pressed-color: var(--md-switch-selected-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--md-ripple-hover-opacity: var(--md-switch-selected-hover-state-layer-opacity, 0.08);--md-ripple-pressed-opacity: var(--md-switch-selected-pressed-state-layer-opacity, 0.12)}.unselected md-ripple{--md-ripple-hover-color: var(--md-switch-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-pressed-color: var(--md-switch-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-hover-opacity: var(--md-switch-hover-state-layer-opacity, 0.08);--md-ripple-pressed-opacity: var(--md-switch-pressed-state-layer-opacity, 0.12)}}@layer hcm{@media(forced-colors: active){.unselected .handle::before{background:ButtonText}.disabled .handle::before{opacity:1}.disabled.unselected .handle::before{background:GrayText}}}@layer styles{.icons{position:relative;height:100%;width:100%}.icon{position:absolute;inset:0;margin:auto;display:flex;align-items:center;justify-content:center;fill:currentColor;transition:fill 67ms linear,opacity 33ms linear,transform 167ms cubic-bezier(0.2, 0, 0, 1);opacity:0}.disabled .icon{transition:none}.selected .icon--on,.unselected .icon--off{opacity:1}.unselected .handle:not(.with-icon) .icon--on{transform:rotate(-45deg)}.icon--off{width:var(--md-switch-icon-size, 16px);height:var(--md-switch-icon-size, 16px);color:var(--md-switch-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9))}.unselected:hover .icon--off{color:var(--md-switch-hover-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9))}.unselected:focus-within .icon--off{color:var(--md-switch-focus-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9))}.unselected:active .icon--off{color:var(--md-switch-pressed-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9))}.unselected.disabled .icon--off{color:var(--md-switch-disabled-icon-color, var(--md-sys-color-surface-container-highest, #e6e0e9));opacity:var(--md-switch-disabled-icon-opacity, 0.38)}.icon--on{width:var(--md-switch-selected-icon-size, 16px);height:var(--md-switch-selected-icon-size, 16px);color:var(--md-switch-selected-icon-color, var(--md-sys-color-on-primary-container, #21005d))}.selected:hover .icon--on{color:var(--md-switch-selected-hover-icon-color, var(--md-sys-color-on-primary-container, #21005d))}.selected:focus-within .icon--on{color:var(--md-switch-selected-focus-icon-color, var(--md-sys-color-on-primary-container, #21005d))}.selected:active .icon--on{color:var(--md-switch-selected-pressed-icon-color, var(--md-sys-color-on-primary-container, #21005d))}.selected.disabled .icon--on{color:var(--md-switch-disabled-selected-icon-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-switch-disabled-selected-icon-opacity, 0.38)}}@layer hcm{@media(forced-colors: active){.icon--off{fill:Canvas}.icon--on{fill:ButtonText}.disabled.unselected .icon--off,.disabled.selected .icon--on{opacity:1}.disabled .icon--on{fill:GrayText}}}
 `;
 let xt = class extends ne {
 };
-xt.styles = [gi];
+xt.styles = [bi];
 xt = a([
   _("md-switch")
 ], xt);
-class yi extends b {
+class yi extends g {
   connectedCallback() {
     super.connectedCallback(), this.setAttribute("aria-hidden", "true");
   }
@@ -1472,8 +1472,8 @@ function Jo(r) {
     });
   });
 }
-const _i = ee(Re(b));
-class M extends _i {
+const _i = ee(Re(g));
+class P extends _i {
   get name() {
     return this.getAttribute("name") ?? "";
   }
@@ -1559,46 +1559,46 @@ class M extends _i {
     this.hasIcon = this.assignedIcons.length > 0;
   }
 }
-Jo(M);
-M.formAssociated = !0;
-M.shadowRootOptions = {
+Jo(P);
+P.formAssociated = !0;
+P.shadowRootOptions = {
   mode: "open",
   delegatesFocus: !0
 };
 a([
   d({ type: Boolean, reflect: !0 })
-], M.prototype, "disabled", void 0);
+], P.prototype, "disabled", void 0);
 a([
   d({ type: Boolean, attribute: "soft-disabled", reflect: !0 })
-], M.prototype, "softDisabled", void 0);
+], P.prototype, "softDisabled", void 0);
 a([
   d()
-], M.prototype, "href", void 0);
+], P.prototype, "href", void 0);
 a([
   d()
-], M.prototype, "download", void 0);
+], P.prototype, "download", void 0);
 a([
   d()
-], M.prototype, "target", void 0);
+], P.prototype, "target", void 0);
 a([
   d({ type: Boolean, attribute: "trailing-icon", reflect: !0 })
-], M.prototype, "trailingIcon", void 0);
+], P.prototype, "trailingIcon", void 0);
 a([
   d({ type: Boolean, attribute: "has-icon", reflect: !0 })
-], M.prototype, "hasIcon", void 0);
+], P.prototype, "hasIcon", void 0);
 a([
   d()
-], M.prototype, "type", void 0);
+], P.prototype, "type", void 0);
 a([
   d({ reflect: !0 })
-], M.prototype, "value", void 0);
+], P.prototype, "value", void 0);
 a([
   w(".button")
-], M.prototype, "buttonElement", void 0);
+], P.prototype, "buttonElement", void 0);
 a([
   G({ slot: "icon", flatten: !0 })
-], M.prototype, "assignedIcons", void 0);
-class wi extends M {
+], P.prototype, "assignedIcons", void 0);
+class wi extends P {
   renderElevationOrOutline() {
     return l`<md-elevation part="elevation"></md-elevation>`;
   }
@@ -1619,7 +1619,7 @@ wt.styles = [
 wt = a([
   _("md-filled-button")
 ], wt);
-class $i extends M {
+class $i extends P {
   renderElevationOrOutline() {
     return l`<div class="outline"></div>`;
   }
@@ -1632,7 +1632,7 @@ kt.styles = [so, Ei];
 kt = a([
   _("md-outlined-button")
 ], kt);
-class Si extends M {
+class Si extends P {
 }
 const Ai = u`:host{--_container-height: var(--md-text-button-container-height, 40px);--_disabled-label-text-color: var(--md-text-button-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-text-button-disabled-label-text-opacity, 0.38);--_focus-label-text-color: var(--md-text-button-focus-label-text-color, var(--md-sys-color-primary, #6750a4));--_hover-label-text-color: var(--md-text-button-hover-label-text-color, var(--md-sys-color-primary, #6750a4));--_hover-state-layer-color: var(--md-text-button-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_hover-state-layer-opacity: var(--md-text-button-hover-state-layer-opacity, 0.08);--_label-text-color: var(--md-text-button-label-text-color, var(--md-sys-color-primary, #6750a4));--_label-text-font: var(--md-text-button-label-text-font, var(--md-sys-typescale-label-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-text-button-label-text-line-height, var(--md-sys-typescale-label-large-line-height, 1.25rem));--_label-text-size: var(--md-text-button-label-text-size, var(--md-sys-typescale-label-large-size, 0.875rem));--_label-text-weight: var(--md-text-button-label-text-weight, var(--md-sys-typescale-label-large-weight, var(--md-ref-typeface-weight-medium, 500)));--_pressed-label-text-color: var(--md-text-button-pressed-label-text-color, var(--md-sys-color-primary, #6750a4));--_pressed-state-layer-color: var(--md-text-button-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_pressed-state-layer-opacity: var(--md-text-button-pressed-state-layer-opacity, 0.12);--_disabled-icon-color: var(--md-text-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-text-button-disabled-icon-opacity, 0.38);--_focus-icon-color: var(--md-text-button-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_hover-icon-color: var(--md-text-button-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_icon-color: var(--md-text-button-icon-color, var(--md-sys-color-primary, #6750a4));--_icon-size: var(--md-text-button-icon-size, 18px);--_pressed-icon-color: var(--md-text-button-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_container-shape-start-start: var(--md-text-button-container-shape-start-start, var(--md-text-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-start-end: var(--md-text-button-container-shape-start-end, var(--md-text-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-end: var(--md-text-button-container-shape-end-end, var(--md-text-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-start: var(--md-text-button-container-shape-end-start, var(--md-text-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_leading-space: var(--md-text-button-leading-space, 12px);--_trailing-space: var(--md-text-button-trailing-space, 12px);--_with-leading-icon-leading-space: var(--md-text-button-with-leading-icon-leading-space, 12px);--_with-leading-icon-trailing-space: var(--md-text-button-with-leading-icon-trailing-space, 16px);--_with-trailing-icon-leading-space: var(--md-text-button-with-trailing-icon-leading-space, 16px);--_with-trailing-icon-trailing-space: var(--md-text-button-with-trailing-icon-trailing-space, 12px);--_container-color: none;--_disabled-container-color: none;--_disabled-container-opacity: 0}
 `;
@@ -1666,7 +1666,7 @@ const er = /* @__PURE__ */ Symbol.for(""), Ti = (r) => {
 function Io(r, e = !0) {
   return e && getComputedStyle(r).getPropertyValue("direction").trim() === "rtl";
 }
-const zi = ee(Re(b));
+const zi = ee(Re(g));
 class N extends zi {
   get name() {
     return this.getAttribute("name") ?? "";
@@ -1830,7 +1830,7 @@ $t.styles = [Oi, Ri];
 $t = a([
   _("md-icon-button")
 ], $t);
-class A extends b {
+class A extends g {
   constructor() {
     super(...arguments), this.disabled = !1, this.error = !1, this.focused = !1, this.label = "", this.noAsterisk = !1, this.populated = !1, this.required = !1, this.resizable = !1, this.supportingText = "", this.errorText = "", this.count = -1, this.max = -1, this.hasStart = !1, this.hasEnd = !1, this.isAnimating = !1, this.refreshErrorAlert = !1, this.disableTransitions = !1;
   }
@@ -1924,7 +1924,7 @@ class A extends b {
   }
   updateSlottedAriaDescribedBy() {
     for (const e of this.slottedAriaDescribedBy)
-      Po(l`${this.supportingOrErrorText} ${this.counterText}`, e), e.setAttribute("hidden", "");
+      Mo(l`${this.supportingOrErrorText} ${this.counterText}`, e), e.setAttribute("hidden", "");
   }
   renderLabel(e) {
     if (!this.label)
@@ -1955,7 +1955,7 @@ class A extends b {
     const { floatingLabelEl: e, restingLabelEl: t } = this;
     if (!e || !t)
       return [];
-    const { x: o, y: i, height: s } = e.getBoundingClientRect(), { x: n, y: c, height: p } = t.getBoundingClientRect(), m = e.scrollWidth, v = t.scrollWidth, f = v / m, g = n - o, x = c - i + Math.round((p - s * f) / 2), E = `translateX(${g}px) translateY(${x}px) scale(${f})`, k = "translateX(0) translateY(0) scale(1)", S = t.clientWidth, C = v > S ? `${S / f}px` : "";
+    const { x: o, y: i, height: s } = e.getBoundingClientRect(), { x: n, y: c, height: p } = t.getBoundingClientRect(), m = e.scrollWidth, v = t.scrollWidth, f = v / m, b = n - o, x = c - i + Math.round((p - s * f) / 2), E = `translateX(${b}px) translateY(${x}px) scale(${f})`, k = "translateX(0) translateY(0) scale(1)", S = t.clientWidth, C = v > S ? `${S / f}px` : "";
     return this.focused || this.populated ? [
       { transform: E, width: C },
       { transform: k, width: C }
@@ -2054,11 +2054,11 @@ Et = a([
 ], Et);
 const Fi = u`:host{--_active-indicator-color: var(--md-filled-text-field-active-indicator-color, var(--md-sys-color-on-surface-variant, #49454f));--_active-indicator-height: var(--md-filled-text-field-active-indicator-height, 1px);--_caret-color: var(--md-filled-text-field-caret-color, var(--md-sys-color-primary, #6750a4));--_container-color: var(--md-filled-text-field-container-color, var(--md-sys-color-surface-container-highest, #e6e0e9));--_disabled-active-indicator-color: var(--md-filled-text-field-disabled-active-indicator-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-active-indicator-height: var(--md-filled-text-field-disabled-active-indicator-height, 1px);--_disabled-active-indicator-opacity: var(--md-filled-text-field-disabled-active-indicator-opacity, 0.38);--_disabled-container-color: var(--md-filled-text-field-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-container-opacity: var(--md-filled-text-field-disabled-container-opacity, 0.04);--_disabled-input-text-color: var(--md-filled-text-field-disabled-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-input-text-opacity: var(--md-filled-text-field-disabled-input-text-opacity, 0.38);--_disabled-label-text-color: var(--md-filled-text-field-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-filled-text-field-disabled-label-text-opacity, 0.38);--_disabled-leading-icon-color: var(--md-filled-text-field-disabled-leading-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-leading-icon-opacity: var(--md-filled-text-field-disabled-leading-icon-opacity, 0.38);--_disabled-supporting-text-color: var(--md-filled-text-field-disabled-supporting-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-supporting-text-opacity: var(--md-filled-text-field-disabled-supporting-text-opacity, 0.38);--_disabled-trailing-icon-color: var(--md-filled-text-field-disabled-trailing-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-trailing-icon-opacity: var(--md-filled-text-field-disabled-trailing-icon-opacity, 0.38);--_error-active-indicator-color: var(--md-filled-text-field-error-active-indicator-color, var(--md-sys-color-error, #b3261e));--_error-focus-active-indicator-color: var(--md-filled-text-field-error-focus-active-indicator-color, var(--md-sys-color-error, #b3261e));--_error-focus-caret-color: var(--md-filled-text-field-error-focus-caret-color, var(--md-sys-color-error, #b3261e));--_error-focus-input-text-color: var(--md-filled-text-field-error-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-label-text-color: var(--md-filled-text-field-error-focus-label-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-leading-icon-color: var(--md-filled-text-field-error-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-focus-supporting-text-color: var(--md-filled-text-field-error-focus-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-trailing-icon-color: var(--md-filled-text-field-error-focus-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_error-hover-active-indicator-color: var(--md-filled-text-field-error-hover-active-indicator-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-input-text-color: var(--md-filled-text-field-error-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-label-text-color: var(--md-filled-text-field-error-hover-label-text-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-leading-icon-color: var(--md-filled-text-field-error-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-hover-state-layer-color: var(--md-filled-text-field-error-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-state-layer-opacity: var(--md-filled-text-field-error-hover-state-layer-opacity, 0.08);--_error-hover-supporting-text-color: var(--md-filled-text-field-error-hover-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-hover-trailing-icon-color: var(--md-filled-text-field-error-hover-trailing-icon-color, var(--md-sys-color-on-error-container, #410e0b));--_error-input-text-color: var(--md-filled-text-field-error-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-label-text-color: var(--md-filled-text-field-error-label-text-color, var(--md-sys-color-error, #b3261e));--_error-leading-icon-color: var(--md-filled-text-field-error-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-supporting-text-color: var(--md-filled-text-field-error-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-trailing-icon-color: var(--md-filled-text-field-error-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_focus-active-indicator-color: var(--md-filled-text-field-focus-active-indicator-color, var(--md-sys-color-primary, #6750a4));--_focus-active-indicator-height: var(--md-filled-text-field-focus-active-indicator-height, 3px);--_focus-input-text-color: var(--md-filled-text-field-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-label-text-color: var(--md-filled-text-field-focus-label-text-color, var(--md-sys-color-primary, #6750a4));--_focus-leading-icon-color: var(--md-filled-text-field-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-supporting-text-color: var(--md-filled-text-field-focus-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-trailing-icon-color: var(--md-filled-text-field-focus-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-active-indicator-color: var(--md-filled-text-field-hover-active-indicator-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-active-indicator-height: var(--md-filled-text-field-hover-active-indicator-height, 1px);--_hover-input-text-color: var(--md-filled-text-field-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-filled-text-field-hover-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-leading-icon-color: var(--md-filled-text-field-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-color: var(--md-filled-text-field-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-filled-text-field-hover-state-layer-opacity, 0.08);--_hover-supporting-text-color: var(--md-filled-text-field-hover-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-trailing-icon-color: var(--md-filled-text-field-hover-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-color: var(--md-filled-text-field-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_input-text-font: var(--md-filled-text-field-input-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_input-text-line-height: var(--md-filled-text-field-input-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_input-text-placeholder-color: var(--md-filled-text-field-input-text-placeholder-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-prefix-color: var(--md-filled-text-field-input-text-prefix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-size: var(--md-filled-text-field-input-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_input-text-suffix-color: var(--md-filled-text-field-input-text-suffix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-weight: var(--md-filled-text-field-input-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_label-text-color: var(--md-filled-text-field-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-font: var(--md-filled-text-field-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-filled-text-field-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_label-text-populated-line-height: var(--md-filled-text-field-label-text-populated-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_label-text-populated-size: var(--md-filled-text-field-label-text-populated-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_label-text-size: var(--md-filled-text-field-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_label-text-weight: var(--md-filled-text-field-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_leading-icon-color: var(--md-filled-text-field-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_leading-icon-size: var(--md-filled-text-field-leading-icon-size, 24px);--_supporting-text-color: var(--md-filled-text-field-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_supporting-text-font: var(--md-filled-text-field-supporting-text-font, var(--md-sys-typescale-body-small-font, var(--md-ref-typeface-plain, Roboto)));--_supporting-text-line-height: var(--md-filled-text-field-supporting-text-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_supporting-text-size: var(--md-filled-text-field-supporting-text-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_supporting-text-weight: var(--md-filled-text-field-supporting-text-weight, var(--md-sys-typescale-body-small-weight, var(--md-ref-typeface-weight-regular, 400)));--_trailing-icon-color: var(--md-filled-text-field-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_trailing-icon-size: var(--md-filled-text-field-trailing-icon-size, 24px);--_container-shape-start-start: var(--md-filled-text-field-container-shape-start-start, var(--md-filled-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-start-end: var(--md-filled-text-field-container-shape-start-end, var(--md-filled-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-end: var(--md-filled-text-field-container-shape-end-end, var(--md-filled-text-field-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-start: var(--md-filled-text-field-container-shape-end-start, var(--md-filled-text-field-container-shape, var(--md-sys-shape-corner-none, 0px)));--_icon-input-space: var(--md-filled-text-field-icon-input-space, 16px);--_leading-space: var(--md-filled-text-field-leading-space, 16px);--_trailing-space: var(--md-filled-text-field-trailing-space, 16px);--_top-space: var(--md-filled-text-field-top-space, 16px);--_bottom-space: var(--md-filled-text-field-bottom-space, 16px);--_input-text-prefix-trailing-space: var(--md-filled-text-field-input-text-prefix-trailing-space, 2px);--_input-text-suffix-leading-space: var(--md-filled-text-field-input-text-suffix-leading-space, 2px);--_with-label-top-space: var(--md-filled-text-field-with-label-top-space, 8px);--_with-label-bottom-space: var(--md-filled-text-field-with-label-bottom-space, 8px);--_focus-caret-color: var(--md-filled-text-field-focus-caret-color, var(--md-sys-color-primary, #6750a4));--_with-leading-icon-leading-space: var(--md-filled-text-field-with-leading-icon-leading-space, 12px);--_with-trailing-icon-trailing-space: var(--md-filled-text-field-with-trailing-icon-trailing-space, 12px);--md-filled-field-active-indicator-color: var(--_active-indicator-color);--md-filled-field-active-indicator-height: var(--_active-indicator-height);--md-filled-field-bottom-space: var(--_bottom-space);--md-filled-field-container-color: var(--_container-color);--md-filled-field-container-shape-end-end: var(--_container-shape-end-end);--md-filled-field-container-shape-end-start: var(--_container-shape-end-start);--md-filled-field-container-shape-start-end: var(--_container-shape-start-end);--md-filled-field-container-shape-start-start: var(--_container-shape-start-start);--md-filled-field-content-color: var(--_input-text-color);--md-filled-field-content-font: var(--_input-text-font);--md-filled-field-content-line-height: var(--_input-text-line-height);--md-filled-field-content-size: var(--_input-text-size);--md-filled-field-content-space: var(--_icon-input-space);--md-filled-field-content-weight: var(--_input-text-weight);--md-filled-field-disabled-active-indicator-color: var(--_disabled-active-indicator-color);--md-filled-field-disabled-active-indicator-height: var(--_disabled-active-indicator-height);--md-filled-field-disabled-active-indicator-opacity: var(--_disabled-active-indicator-opacity);--md-filled-field-disabled-container-color: var(--_disabled-container-color);--md-filled-field-disabled-container-opacity: var(--_disabled-container-opacity);--md-filled-field-disabled-content-color: var(--_disabled-input-text-color);--md-filled-field-disabled-content-opacity: var(--_disabled-input-text-opacity);--md-filled-field-disabled-label-text-color: var(--_disabled-label-text-color);--md-filled-field-disabled-label-text-opacity: var(--_disabled-label-text-opacity);--md-filled-field-disabled-leading-content-color: var(--_disabled-leading-icon-color);--md-filled-field-disabled-leading-content-opacity: var(--_disabled-leading-icon-opacity);--md-filled-field-disabled-supporting-text-color: var(--_disabled-supporting-text-color);--md-filled-field-disabled-supporting-text-opacity: var(--_disabled-supporting-text-opacity);--md-filled-field-disabled-trailing-content-color: var(--_disabled-trailing-icon-color);--md-filled-field-disabled-trailing-content-opacity: var(--_disabled-trailing-icon-opacity);--md-filled-field-error-active-indicator-color: var(--_error-active-indicator-color);--md-filled-field-error-content-color: var(--_error-input-text-color);--md-filled-field-error-focus-active-indicator-color: var(--_error-focus-active-indicator-color);--md-filled-field-error-focus-content-color: var(--_error-focus-input-text-color);--md-filled-field-error-focus-label-text-color: var(--_error-focus-label-text-color);--md-filled-field-error-focus-leading-content-color: var(--_error-focus-leading-icon-color);--md-filled-field-error-focus-supporting-text-color: var(--_error-focus-supporting-text-color);--md-filled-field-error-focus-trailing-content-color: var(--_error-focus-trailing-icon-color);--md-filled-field-error-hover-active-indicator-color: var(--_error-hover-active-indicator-color);--md-filled-field-error-hover-content-color: var(--_error-hover-input-text-color);--md-filled-field-error-hover-label-text-color: var(--_error-hover-label-text-color);--md-filled-field-error-hover-leading-content-color: var(--_error-hover-leading-icon-color);--md-filled-field-error-hover-state-layer-color: var(--_error-hover-state-layer-color);--md-filled-field-error-hover-state-layer-opacity: var(--_error-hover-state-layer-opacity);--md-filled-field-error-hover-supporting-text-color: var(--_error-hover-supporting-text-color);--md-filled-field-error-hover-trailing-content-color: var(--_error-hover-trailing-icon-color);--md-filled-field-error-label-text-color: var(--_error-label-text-color);--md-filled-field-error-leading-content-color: var(--_error-leading-icon-color);--md-filled-field-error-supporting-text-color: var(--_error-supporting-text-color);--md-filled-field-error-trailing-content-color: var(--_error-trailing-icon-color);--md-filled-field-focus-active-indicator-color: var(--_focus-active-indicator-color);--md-filled-field-focus-active-indicator-height: var(--_focus-active-indicator-height);--md-filled-field-focus-content-color: var(--_focus-input-text-color);--md-filled-field-focus-label-text-color: var(--_focus-label-text-color);--md-filled-field-focus-leading-content-color: var(--_focus-leading-icon-color);--md-filled-field-focus-supporting-text-color: var(--_focus-supporting-text-color);--md-filled-field-focus-trailing-content-color: var(--_focus-trailing-icon-color);--md-filled-field-hover-active-indicator-color: var(--_hover-active-indicator-color);--md-filled-field-hover-active-indicator-height: var(--_hover-active-indicator-height);--md-filled-field-hover-content-color: var(--_hover-input-text-color);--md-filled-field-hover-label-text-color: var(--_hover-label-text-color);--md-filled-field-hover-leading-content-color: var(--_hover-leading-icon-color);--md-filled-field-hover-state-layer-color: var(--_hover-state-layer-color);--md-filled-field-hover-state-layer-opacity: var(--_hover-state-layer-opacity);--md-filled-field-hover-supporting-text-color: var(--_hover-supporting-text-color);--md-filled-field-hover-trailing-content-color: var(--_hover-trailing-icon-color);--md-filled-field-label-text-color: var(--_label-text-color);--md-filled-field-label-text-font: var(--_label-text-font);--md-filled-field-label-text-line-height: var(--_label-text-line-height);--md-filled-field-label-text-populated-line-height: var(--_label-text-populated-line-height);--md-filled-field-label-text-populated-size: var(--_label-text-populated-size);--md-filled-field-label-text-size: var(--_label-text-size);--md-filled-field-label-text-weight: var(--_label-text-weight);--md-filled-field-leading-content-color: var(--_leading-icon-color);--md-filled-field-leading-space: var(--_leading-space);--md-filled-field-supporting-text-color: var(--_supporting-text-color);--md-filled-field-supporting-text-font: var(--_supporting-text-font);--md-filled-field-supporting-text-line-height: var(--_supporting-text-line-height);--md-filled-field-supporting-text-size: var(--_supporting-text-size);--md-filled-field-supporting-text-weight: var(--_supporting-text-weight);--md-filled-field-top-space: var(--_top-space);--md-filled-field-trailing-content-color: var(--_trailing-icon-color);--md-filled-field-trailing-space: var(--_trailing-space);--md-filled-field-with-label-bottom-space: var(--_with-label-bottom-space);--md-filled-field-with-label-top-space: var(--_with-label-top-space);--md-filled-field-with-leading-content-leading-space: var(--_with-leading-icon-leading-space);--md-filled-field-with-trailing-content-trailing-space: var(--_with-trailing-icon-trailing-space)}
 `;
-const Mi = (r) => r.strings === void 0, Pi = {}, Bi = (r, e = Pi) => r._$AH = e;
+const Pi = (r) => r.strings === void 0, Mi = {}, Bi = (r, e = Mi) => r._$AH = e;
 const zo = to(class extends oo {
   constructor(r) {
     if (super(r), r.type !== ie.PROPERTY && r.type !== ie.ATTRIBUTE && r.type !== ie.BOOLEAN_ATTRIBUTE) throw Error("The `live` directive is not allowed on child or event bindings");
-    if (!Mi(r)) throw Error("`live` bindings can only contain a single expression");
+    if (!Pi(r)) throw Error("`live` bindings can only contain a single expression");
   }
   render(r) {
     return r;
@@ -2107,7 +2107,7 @@ const Ui = {
     return r || null;
   }
 };
-const Je = /* @__PURE__ */ Symbol("onReportValidity"), Pe = /* @__PURE__ */ Symbol("privateCleanupFormListeners"), Be = /* @__PURE__ */ Symbol("privateDoNotReportInvalid"), Ne = /* @__PURE__ */ Symbol("privateIsSelfReportingValidity"), Ue = /* @__PURE__ */ Symbol("privateCallOnReportValidity");
+const Je = /* @__PURE__ */ Symbol("onReportValidity"), Me = /* @__PURE__ */ Symbol("privateCleanupFormListeners"), Be = /* @__PURE__ */ Symbol("privateDoNotReportInvalid"), Ne = /* @__PURE__ */ Symbol("privateIsSelfReportingValidity"), Ue = /* @__PURE__ */ Symbol("privateCallOnReportValidity");
 function rr(r) {
   var e, t, o;
   class i extends r {
@@ -2136,7 +2136,7 @@ function rr(r) {
       const n = super.reportValidity();
       return n && this[Ue](null), this[Ne] = !1, n;
     }
-    [(e = Pe, t = Be, o = Ne, Ue)](n) {
+    [(e = Me, t = Be, o = Ne, Ue)](n) {
       const c = n?.defaultPrevented;
       c || (this[Je](n), !(!c && n?.defaultPrevented)) || (this[Ne] || qi(this[V].form, this)) && this.focus();
     }
@@ -2144,9 +2144,9 @@ function rr(r) {
       throw new Error("Implement [onReportValidity]");
     }
     formAssociatedCallback(n) {
-      super.formAssociatedCallback && super.formAssociatedCallback(n), this[Pe].abort(), n && (this[Pe] = new AbortController(), Vi(this, n, () => {
+      super.formAssociatedCallback && super.formAssociatedCallback(n), this[Me].abort(), n && (this[Me] = new AbortController(), Vi(this, n, () => {
         this[Ue](null);
-      }, this[Pe].signal));
+      }, this[Me].signal));
     }
   }
   return i;
@@ -2243,7 +2243,7 @@ class Wi extends ao {
 function Ce(r) {
   return r.type !== "textarea";
 }
-const ji = ee(rr(ro(io(Re(b)))));
+const ji = ee(rr(ro(io(Re(g)))));
 class y extends ji {
   constructor() {
     super(...arguments), this.error = !1, this.errorText = "", this.label = "", this.noAsterisk = !1, this.required = !1, this.value = "", this.prefixText = "", this.suffixText = "", this.hasLeadingIcon = !1, this.hasTrailingIcon = !1, this.supportingText = "", this.textDirection = "", this.rows = 2, this.cols = 20, this.inputMode = "", this.max = "", this.maxLength = -1, this.min = "", this.minLength = -1, this.noSpinner = !1, this.pattern = "", this.placeholder = "", this.readOnly = !1, this.multiple = !1, this.step = "", this.type = "text", this.autocomplete = "", this.dirty = !1, this.focused = !1, this.nativeError = !1, this.nativeErrorText = "";
@@ -2527,7 +2527,7 @@ class y extends ji {
   handleIconChange() {
     this.hasLeadingIcon = this.leadingIcons.length > 0, this.hasTrailingIcon = this.trailingIcons.length > 0;
   }
-  [be]() {
+  [ge]() {
     return this.value;
   }
   formResetCallback() {
@@ -2555,7 +2555,7 @@ class y extends ji {
   }
 }
 y.shadowRootOptions = {
-  ...b.shadowRootOptions,
+  ...g.shadowRootOptions,
   delegatesFocus: !0
 };
 a([
@@ -2804,10 +2804,10 @@ class ea {
       const f = v.key;
       if (v.defaultPrevented || !this.isNavigableKey(f))
         return;
-      const g = this.items;
-      if (!g.length)
+      const b = this.items;
+      if (!b.length)
         return;
-      const x = Ee(g, this.isActivatable);
+      const x = Ee(b, this.isActivatable);
       v.preventDefault();
       const E = this.isRtl(), k = E ? B.ArrowRight : B.ArrowLeft, S = E ? B.ArrowLeft : B.ArrowRight;
       let R = null;
@@ -2815,20 +2815,20 @@ class ea {
         // Activate the next item
         case B.ArrowDown:
         case S:
-          R = Oo(g, x, this.isActivatable, this.wrapNavigation());
+          R = Oo(b, x, this.isActivatable, this.wrapNavigation());
           break;
         // Activate the previous item
         case B.ArrowUp:
         case k:
-          R = Ro(g, x, this.isActivatable, this.wrapNavigation());
+          R = Ro(b, x, this.isActivatable, this.wrapNavigation());
           break;
         // Activate the first item
         case B.Home:
-          R = ar(g, this.isActivatable);
+          R = ar(b, this.isActivatable);
           break;
         // Activate the last item
         case B.End:
-          R = sr(g, this.isActivatable);
+          R = sr(b, this.isActivatable);
           break;
       }
       R && x && x.item !== R && (x.item.tabIndex = -1);
@@ -2852,8 +2852,8 @@ class ea {
       }
       if (f)
         return;
-      const g = lo(v, this.isActivatable);
-      g && (g.tabIndex = 0);
+      const b = lo(v, this.isActivatable);
+      b && (b.tabIndex = 0);
     };
     const { isItem: t, getPossibleItems: o, isRtl: i, deactivateItem: s, activateItem: n, isNavigableKey: c, isActivatable: p, wrapNavigation: m } = e;
     this.isItem = t, this.getPossibleItems = o, this.isRtl = i, this.deactivateItem = s, this.activateItem = n, this.isNavigableKey = c, this.isActivatable = p, this.wrapNavigation = m ?? (() => !0);
@@ -2963,7 +2963,7 @@ class ia {
    * checking `getComputedStyle()` on the surface element.
    */
   async position() {
-    const { surfaceEl: e, anchorEl: t, anchorCorner: o, surfaceCorner: i, positioning: s, xOffset: n, yOffset: c, disableBlockFlip: p, disableInlineFlip: m, repositionStrategy: v } = this.getProperties(), f = o.toLowerCase().trim(), g = i.toLowerCase().trim();
+    const { surfaceEl: e, anchorEl: t, anchorCorner: o, surfaceCorner: i, positioning: s, xOffset: n, yOffset: c, disableBlockFlip: p, disableInlineFlip: m, repositionStrategy: v } = this.getProperties(), f = o.toLowerCase().trim(), b = i.toLowerCase().trim();
     if (!e || !t)
       return;
     const x = window.innerWidth, E = window.innerHeight, k = document.createElement("div");
@@ -2975,10 +2975,10 @@ class ia {
       display: "block",
       opacity: "0"
     }, this.host.requestUpdate(), await this.host.updateComplete, e.popover && e.isConnected && e.showPopover();
-    const F = e.getSurfacePositionClientRect ? e.getSurfacePositionClientRect() : e.getBoundingClientRect(), P = t.getSurfacePositionClientRect ? t.getSurfacePositionClientRect() : t.getBoundingClientRect(), [D, oe] = g.split("-"), [re, de] = f.split("-"), De = getComputedStyle(e).direction === "ltr";
+    const F = e.getSurfacePositionClientRect ? e.getSurfacePositionClientRect() : e.getBoundingClientRect(), M = t.getSurfacePositionClientRect ? t.getSurfacePositionClientRect() : t.getBoundingClientRect(), [D, oe] = b.split("-"), [re, de] = f.split("-"), De = getComputedStyle(e).direction === "ltr";
     let { blockInset: ve, blockOutOfBoundsCorrection: Z, surfaceBlockProperty: uo } = this.calculateBlock({
       surfaceRect: F,
-      anchorRect: P,
+      anchorRect: M,
       anchorBlock: re,
       surfaceBlock: D,
       yOffset: c,
@@ -2989,7 +2989,7 @@ class ia {
     if (Z && !p) {
       const at = D === "start" ? "end" : "start", st = re === "start" ? "end" : "start", Q = this.calculateBlock({
         surfaceRect: F,
-        anchorRect: P,
+        anchorRect: M,
         anchorBlock: st,
         surfaceBlock: at,
         yOffset: c,
@@ -3001,7 +3001,7 @@ class ia {
     }
     let { inlineInset: Le, inlineOutOfBoundsCorrection: me, surfaceInlineProperty: fo } = this.calculateInline({
       surfaceRect: F,
-      anchorRect: P,
+      anchorRect: M,
       anchorInline: de,
       surfaceInline: oe,
       xOffset: n,
@@ -3013,7 +3013,7 @@ class ia {
     if (me && !m) {
       const at = oe === "start" ? "end" : "start", st = de === "start" ? "end" : "start", Q = this.calculateInline({
         surfaceRect: F,
-        anchorRect: P,
+        anchorRect: M,
         anchorInline: st,
         surfaceInline: at,
         xOffset: n,
@@ -3036,7 +3036,7 @@ class ia {
    * for the surface in the block direction.
    */
   calculateBlock(e) {
-    const { surfaceRect: t, anchorRect: o, anchorBlock: i, surfaceBlock: s, yOffset: n, positioning: c, windowInnerHeight: p, blockScrollbarHeight: m } = e, v = c === "fixed" || c === "document" ? 1 : 0, f = c === "document" ? 1 : 0, g = s === "start" ? 1 : 0, x = s === "end" ? 1 : 0, k = (i !== s ? 1 : 0) * o.height + n, S = g * o.top + x * (p - o.bottom - m), R = g * window.scrollY - x * window.scrollY, C = Math.abs(Math.min(0, p - S - k - t.height));
+    const { surfaceRect: t, anchorRect: o, anchorBlock: i, surfaceBlock: s, yOffset: n, positioning: c, windowInnerHeight: p, blockScrollbarHeight: m } = e, v = c === "fixed" || c === "document" ? 1 : 0, f = c === "document" ? 1 : 0, b = s === "start" ? 1 : 0, x = s === "end" ? 1 : 0, k = (i !== s ? 1 : 0) * o.height + n, S = b * o.top + x * (p - o.bottom - m), R = b * window.scrollY - x * window.scrollY, C = Math.abs(Math.min(0, p - S - k - t.height));
     return { blockInset: v * S + f * R + k, blockOutOfBoundsCorrection: C, surfaceBlockProperty: s === "start" ? "inset-block-start" : "inset-block-end" };
   }
   /**
@@ -3044,7 +3044,7 @@ class ia {
    * for the surface in the inline direction.
    */
   calculateInline(e) {
-    const { isLTR: t, surfaceInline: o, anchorInline: i, anchorRect: s, surfaceRect: n, xOffset: c, positioning: p, windowInnerWidth: m, inlineScrollbarWidth: v } = e, f = p === "fixed" || p === "document" ? 1 : 0, g = p === "document" ? 1 : 0, x = t ? 1 : 0, E = t ? 0 : 1, k = o === "start" ? 1 : 0, S = o === "end" ? 1 : 0, C = (i !== o ? 1 : 0) * s.width + c, F = k * s.left + S * (m - s.right - v), P = k * (m - s.right - v) + S * s.left, D = x * F + E * P, oe = k * window.scrollX - S * window.scrollX, re = S * window.scrollX - k * window.scrollX, de = x * oe + E * re, De = Math.abs(Math.min(0, m - D - C - n.width)), ve = f * D + C + g * de;
+    const { isLTR: t, surfaceInline: o, anchorInline: i, anchorRect: s, surfaceRect: n, xOffset: c, positioning: p, windowInnerWidth: m, inlineScrollbarWidth: v } = e, f = p === "fixed" || p === "document" ? 1 : 0, b = p === "document" ? 1 : 0, x = t ? 1 : 0, E = t ? 0 : 1, k = o === "start" ? 1 : 0, S = o === "end" ? 1 : 0, C = (i !== o ? 1 : 0) * s.width + c, F = k * s.left + S * (m - s.right - v), M = k * (m - s.right - v) + S * s.left, D = x * F + E * M, oe = k * window.scrollX - S * window.scrollX, re = S * window.scrollX - k * window.scrollX, de = x * oe + E * re, De = Math.abs(Math.min(0, m - D - C - n.width)), ve = f * D + C + b * de;
     let Z = o === "start" ? "inset-inline-start" : "inset-inline-end";
     return (p === "document" || p === "fixed") && (o === "start" && t || o === "end" && !t ? Z = "left" : Z = "right"), {
       inlineInset: ve,
@@ -3192,7 +3192,7 @@ function na(r = document) {
     e = e.shadowRoot.activeElement;
   return e;
 }
-class z extends b {
+class z extends g {
   /**
    * Whether the menu is animating upwards or downwards when opening. This is
    * helpful for calculating some animation calculations.
@@ -3397,7 +3397,7 @@ class z extends b {
       return !0;
     const o = this.openDirection;
     this.dispatchEvent(new Event("opening")), e.classList.toggle("animating", !0);
-    const i = this.openCloseAnimationSignal.start(), s = e.offsetHeight, n = o === "UP", c = this.items, p = 500, m = 50, v = 250, f = (p - v) / c.length, g = e.animate([{ height: "0px" }, { height: `${s}px` }], {
+    const i = this.openCloseAnimationSignal.start(), s = e.offsetHeight, n = o === "UP", c = this.items, p = 500, m = 50, v = 250, f = (p - v) / c.length, b = e.animate([{ height: "0px" }, { height: `${s}px` }], {
       duration: p,
       easing: Y.EMPHASIZED
     }), x = t.animate([
@@ -3405,13 +3405,13 @@ class z extends b {
       { transform: "" }
     ], { duration: p, easing: Y.EMPHASIZED }), E = e.animate([{ opacity: 0 }, { opacity: 1 }], m), k = [];
     for (let C = 0; C < c.length; C++) {
-      const F = n ? c.length - 1 - C : C, P = c[F], D = P.animate([{ opacity: 0 }, { opacity: 1 }], {
+      const F = n ? c.length - 1 - C : C, M = c[F], D = M.animate([{ opacity: 0 }, { opacity: 1 }], {
         duration: v,
         delay: f * C
       });
-      P.classList.toggle("md-menu-hidden", !0), D.addEventListener("finish", () => {
-        P.classList.toggle("md-menu-hidden", !1);
-      }), k.push([P, D]);
+      M.classList.toggle("md-menu-hidden", !0), D.addEventListener("finish", () => {
+        M.classList.toggle("md-menu-hidden", !1);
+      }), k.push([M, D]);
     }
     let S = (C) => {
     };
@@ -3419,10 +3419,10 @@ class z extends b {
       S = C;
     });
     return i.addEventListener("abort", () => {
-      g.cancel(), x.cancel(), E.cancel(), k.forEach(([C, F]) => {
+      b.cancel(), x.cancel(), E.cancel(), k.forEach(([C, F]) => {
         C.classList.toggle("md-menu-hidden", !1), F.cancel();
       }), S(!0);
-    }), g.addEventListener("finish", () => {
+    }), b.addEventListener("finish", () => {
       e.classList.toggle("animating", !1), this.openCloseAnimationSignal.finish(), S(!1);
     }), await R;
   }
@@ -3440,7 +3440,7 @@ class z extends b {
       return e(!1), t;
     const n = this.openDirection === "UP";
     this.dispatchEvent(new Event("closing")), o.classList.toggle("animating", !0);
-    const c = this.openCloseAnimationSignal.start(), p = o.offsetHeight, m = this.items, v = 150, f = 50, g = v - f, x = 50, E = 50, k = 0.35, S = (v - E - x) / m.length, R = o.animate([
+    const c = this.openCloseAnimationSignal.start(), p = o.offsetHeight, m = this.items, v = 150, f = 50, b = v - f, x = 50, E = 50, k = 0.35, S = (v - E - x) / m.length, R = o.animate([
       { height: `${p}px` },
       { height: `${p * k}px` }
     ], {
@@ -3451,7 +3451,7 @@ class z extends b {
       {
         transform: n ? `translateY(-${p * (1 - k)}px)` : ""
       }
-    ], { duration: v, easing: Y.EMPHASIZED_ACCELERATE }), F = o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: f, delay: g }), P = [];
+    ], { duration: v, easing: Y.EMPHASIZED_ACCELERATE }), F = o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: f, delay: b }), M = [];
     for (let D = 0; D < m.length; D++) {
       const oe = n ? D : m.length - 1 - D, re = m[oe], de = re.animate([{ opacity: 1 }, { opacity: 0 }], {
         duration: x,
@@ -3459,14 +3459,14 @@ class z extends b {
       });
       de.addEventListener("finish", () => {
         re.classList.toggle("md-menu-hidden", !0);
-      }), P.push([re, de]);
+      }), M.push([re, de]);
     }
     return c.addEventListener("abort", () => {
-      R.cancel(), C.cancel(), F.cancel(), P.forEach(([D, oe]) => {
+      R.cancel(), C.cancel(), F.cancel(), M.forEach(([D, oe]) => {
         oe.cancel(), D.classList.toggle("md-menu-hidden", !1);
       }), e(!1);
     }), R.addEventListener("finish", () => {
-      o.classList.toggle("animating", !1), P.forEach(([D]) => {
+      o.classList.toggle("animating", !1), M.forEach(([D]) => {
         D.classList.toggle("md-menu-hidden", !1);
       }), this.openCloseAnimationSignal.finish(), this.dispatchEvent(new Event("closed")), e(!0);
     }), t;
@@ -3612,7 +3612,7 @@ Ot = a([
 ], Ot);
 class da extends ao {
   computeValidity(e) {
-    return this.selectControl || (this.selectControl = document.createElement("select")), Po(l`<option value=${e.value}></option>`, this.selectControl), this.selectControl.value = e.value, this.selectControl.required = e.required, {
+    return this.selectControl || (this.selectControl = document.createElement("select")), Mo(l`<option value=${e.value}></option>`, this.selectControl), this.selectControl.value = e.value, this.selectControl.required = e.required, {
       validity: this.selectControl.validity,
       validationMessage: this.selectControl.validationMessage
     };
@@ -3632,8 +3632,8 @@ function ca(r) {
   }
   return e;
 }
-var Mo;
-const Ve = /* @__PURE__ */ Symbol("value"), pa = ee(rr(ro(io(Re(b)))));
+var Po;
+const Ve = /* @__PURE__ */ Symbol("value"), pa = ee(rr(ro(io(Re(g)))));
 class $ extends pa {
   /**
    * The value of the currently selected option.
@@ -3676,7 +3676,7 @@ class $ extends pa {
     return this.error || this.nativeError;
   }
   constructor() {
-    super(), this.quick = !1, this.required = !1, this.errorText = "", this.label = "", this.noAsterisk = !1, this.supportingText = "", this.error = !1, this.menuPositioning = "popover", this.clampMenuWidth = !1, this.typeaheadDelay = dr, this.hasLeadingIcon = !1, this.displayText = "", this.menuAlign = "start", this[Mo] = "", this.lastUserSetValue = null, this.lastUserSetSelectedIndex = null, this.lastSelectedOption = null, this.lastSelectedOptionRecords = [], this.nativeError = !1, this.nativeErrorText = "", this.focused = !1, this.open = !1, this.defaultFocus = j.NONE, this.prevOpen = this.open, this.selectWidth = 0, !T && (this.addEventListener("focus", this.handleFocus.bind(this)), this.addEventListener("blur", this.handleBlur.bind(this)));
+    super(), this.quick = !1, this.required = !1, this.errorText = "", this.label = "", this.noAsterisk = !1, this.supportingText = "", this.error = !1, this.menuPositioning = "popover", this.clampMenuWidth = !1, this.typeaheadDelay = dr, this.hasLeadingIcon = !1, this.displayText = "", this.menuAlign = "start", this[Po] = "", this.lastUserSetValue = null, this.lastUserSetSelectedIndex = null, this.lastSelectedOption = null, this.lastSelectedOptionRecords = [], this.nativeError = !1, this.nativeErrorText = "", this.focused = !1, this.open = !1, this.defaultFocus = j.NONE, this.prevOpen = this.open, this.selectWidth = 0, !T && (this.addEventListener("focus", this.handleFocus.bind(this)), this.addEventListener("blur", this.handleBlur.bind(this)));
   }
   /**
    * Selects an option given the value of the option, and updates MdSelect's
@@ -3706,7 +3706,7 @@ class $ extends pa {
   showPicker() {
     this.open = !0;
   }
-  [(Mo = Ve, Je)](e) {
+  [(Po = Ve, Je)](e) {
     e?.preventDefault();
     const t = this.getErrorText();
     this.nativeError = !!e, this.nativeErrorText = this.validationMessage, t === this.getErrorText() && this.field?.reannounceError();
@@ -3994,7 +3994,7 @@ class $ extends pa {
   getErrorText() {
     return this.error ? this.errorText : this.nativeErrorText;
   }
-  [be]() {
+  [ge]() {
     return this.value;
   }
   formResetCallback() {
@@ -4014,7 +4014,7 @@ class $ extends pa {
   }
 }
 $.shadowRootOptions = {
-  ...b.shadowRootOptions,
+  ...g.shadowRootOptions,
   delegatesFocus: !0
 };
 a([
@@ -4119,7 +4119,7 @@ Dt = a([
 ], Dt);
 const ma = u`:host{display:flex;--md-ripple-hover-color: var(--md-menu-item-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-hover-opacity: var(--md-menu-item-hover-state-layer-opacity, 0.08);--md-ripple-pressed-color: var(--md-menu-item-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-pressed-opacity: var(--md-menu-item-pressed-state-layer-opacity, 0.12)}:host([disabled]){opacity:var(--md-menu-item-disabled-opacity, 0.3);pointer-events:none}md-focus-ring{z-index:1;--md-focus-ring-shape: 8px}a,button,li{background:none;border:none;padding:0;margin:0;text-align:unset;text-decoration:none}.list-item{border-radius:inherit;display:flex;flex:1;max-width:inherit;min-width:inherit;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.list-item:not(.disabled){cursor:pointer}[slot=container]{pointer-events:none}md-ripple{border-radius:inherit}md-item{border-radius:inherit;flex:1;color:var(--md-menu-item-label-text-color, var(--md-sys-color-on-surface, #1d1b20));font-family:var(--md-menu-item-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-menu-item-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));line-height:var(--md-menu-item-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));font-weight:var(--md-menu-item-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));min-height:var(--md-menu-item-one-line-container-height, 56px);padding-top:var(--md-menu-item-top-space, 12px);padding-bottom:var(--md-menu-item-bottom-space, 12px);padding-inline-start:var(--md-menu-item-leading-space, 16px);padding-inline-end:var(--md-menu-item-trailing-space, 16px)}md-item[multiline]{min-height:var(--md-menu-item-two-line-container-height, 72px)}[slot=supporting-text]{color:var(--md-menu-item-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-menu-item-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-menu-item-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-menu-item-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));font-weight:var(--md-menu-item-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)))}[slot=trailing-supporting-text]{color:var(--md-menu-item-trailing-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-menu-item-trailing-supporting-text-font, var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-menu-item-trailing-supporting-text-size, var(--md-sys-typescale-label-small-size, 0.6875rem));line-height:var(--md-menu-item-trailing-supporting-text-line-height, var(--md-sys-typescale-label-small-line-height, 1rem));font-weight:var(--md-menu-item-trailing-supporting-text-weight, var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500)))}:is([slot=start],[slot=end])::slotted(*){fill:currentColor}[slot=start]{color:var(--md-menu-item-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}[slot=end]{color:var(--md-menu-item-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}.list-item{background-color:var(--md-menu-item-container-color, transparent)}.list-item.selected{background-color:var(--md-menu-item-selected-container-color, var(--md-sys-color-secondary-container, #e8def8))}.selected:not(.disabled) ::slotted(*){color:var(--md-menu-item-selected-label-text-color, var(--md-sys-color-on-secondary-container, #1d192b))}@media(forced-colors: active){:host([disabled]),:host([disabled]) slot{color:GrayText;opacity:1}.list-item{position:relative}.list-item.selected::before{content:"";position:absolute;inset:0;box-sizing:border-box;border-radius:inherit;pointer-events:none;border:3px double CanvasText}}
 `;
-class co extends b {
+class co extends g {
   constructor() {
     super(...arguments), this.multiline = !1;
   }
@@ -4144,7 +4144,7 @@ class co extends b {
   handleTextSlotChange() {
     let e = !1, t = 0;
     for (const o of this.textSlots)
-      if (ba(o) && (t += 1), t > 1) {
+      if (ga(o) && (t += 1), t > 1) {
         e = !0;
         break;
       }
@@ -4157,7 +4157,7 @@ a([
 a([
   Fr(".text slot")
 ], co.prototype, "textSlots", void 0);
-function ba(r) {
+function ga(r) {
   for (const e of r.assignedNodes({ flatten: !0 })) {
     const t = e.nodeType === Node.ELEMENT_NODE, o = e.nodeType === Node.TEXT_NODE && e.textContent?.match(/\S/);
     if (t || o)
@@ -4165,11 +4165,11 @@ function ba(r) {
   }
   return !1;
 }
-const ga = u`:host{color:var(--md-sys-color-on-surface, #1d1b20);font-family:var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-large-size, 1rem);font-weight:var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-large-line-height, 1.5rem);align-items:center;box-sizing:border-box;display:flex;gap:16px;min-height:56px;overflow:hidden;padding:12px 16px;position:relative;text-overflow:ellipsis}:host([multiline]){min-height:72px}[name=overline]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-medium-size, 0.875rem);font-weight:var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-medium-line-height, 1.25rem)}[name=trailing-supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=container]::slotted(*){inset:0;position:absolute}.default-slot{display:inline}.default-slot,.text ::slotted(*){overflow:hidden;text-overflow:ellipsis}.text{display:flex;flex:1;flex-direction:column;overflow:hidden}
+const ba = u`:host{color:var(--md-sys-color-on-surface, #1d1b20);font-family:var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-large-size, 1rem);font-weight:var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-large-line-height, 1.5rem);align-items:center;box-sizing:border-box;display:flex;gap:16px;min-height:56px;overflow:hidden;padding:12px 16px;position:relative;text-overflow:ellipsis}:host([multiline]){min-height:72px}[name=overline]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-medium-size, 0.875rem);font-weight:var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-medium-line-height, 1.25rem)}[name=trailing-supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=container]::slotted(*){inset:0;position:absolute}.default-slot{display:inline}.default-slot,.text ::slotted(*){overflow:hidden;text-overflow:ellipsis}.text{display:flex;flex:1;flex-direction:column;overflow:hidden}
 `;
 let Lt = class extends co {
 };
-Lt.styles = [ga];
+Lt.styles = [ba];
 Lt = a([
   _("md-item")
 ], Lt);
@@ -4311,7 +4311,7 @@ class wa {
     this.lastSelected !== this.host.selected && !this.firstUpdate && (this.host.selected ? this.host.dispatchEvent(xa()) : this.host.dispatchEvent(_a())), this.lastSelected = this.host.selected, this.firstUpdate = !1;
   }
 }
-const ka = ee(b);
+const ka = ee(g);
 class W extends ka {
   constructor() {
     super(...arguments), this.disabled = !1, this.isMenuItem = !0, this.selected = !1, this.value = "", this.type = "option", this.selectOptionController = new wa(this, {
@@ -4422,7 +4422,7 @@ class W extends ka {
   }
 }
 W.shadowRootOptions = {
-  ...b.shadowRootOptions,
+  ...g.shadowRootOptions,
   delegatesFocus: !0
 };
 a([
@@ -4461,7 +4461,7 @@ Ft.styles = [ma];
 Ft = a([
   _("md-select-option")
 ], Ft);
-const Ca = ee(b);
+const Ca = ee(g);
 class le extends Ca {
   /**
    * Whether or not the primary ripple is disabled (defaults to `disabled`).
@@ -4533,7 +4533,7 @@ class le extends Ca {
   }
 }
 le.shadowRootOptions = {
-  ...b.shadowRootOptions,
+  ...g.shadowRootOptions,
   delegatesFocus: !0
 };
 a([
@@ -4551,7 +4551,7 @@ a([
 a([
   d({ type: Boolean, reflect: !0, attribute: "has-icon" })
 ], le.prototype, "hasIcon", void 0);
-class hr extends b {
+class hr extends g {
   get chips() {
     return this.childElements.filter((e) => e instanceof le);
   }
@@ -4570,11 +4570,11 @@ class hr extends b {
     if (n.length < 2)
       return;
     if (e.preventDefault(), i || s) {
-      const g = i ? 0 : n.length - 1;
-      n[g].focus({ trailing: s }), this.updateTabIndices();
+      const b = i ? 0 : n.length - 1;
+      n[b].focus({ trailing: s }), this.updateTabIndices();
       return;
     }
-    const p = getComputedStyle(this).direction === "rtl" ? t : o, m = n.find((g) => g.matches(":focus-within"));
+    const p = getComputedStyle(this).direction === "rtl" ? t : o, m = n.find((b) => b.matches(":focus-within"));
     if (!m) {
       (p ? n[0] : n[n.length - 1]).focus({ trailing: !p }), this.updateTabIndices();
       return;
@@ -4583,12 +4583,12 @@ class hr extends b {
     let f = p ? v + 1 : v - 1;
     for (; f !== v; ) {
       f >= n.length ? f = 0 : f < 0 && (f = n.length - 1);
-      const g = n[f];
-      if (g.disabled && !g.alwaysFocusable) {
+      const b = n[f];
+      if (b.disabled && !b.alwaysFocusable) {
         p ? f++ : f--;
         continue;
       }
-      g.focus({ trailing: !p }), this.updateTabIndices();
+      b.focus({ trailing: !p }), this.updateTabIndices();
       break;
     }
   }
@@ -4611,12 +4611,12 @@ a([
 ], hr.prototype, "childElements", void 0);
 const $a = u`:host{display:flex;flex-wrap:wrap;gap:8px}
 `;
-let Mt = class extends hr {
+let Pt = class extends hr {
 };
-Mt.styles = [$a];
-Mt = a([
+Pt.styles = [$a];
+Pt = a([
   _("md-chip-set")
-], Mt);
+], Pt);
 const Ea = u`.elevated{--md-elevation-level: var(--_elevated-container-elevation);--md-elevation-shadow-color: var(--_elevated-container-shadow-color)}.elevated::before{background:var(--_elevated-container-color)}.elevated:hover{--md-elevation-level: var(--_elevated-hover-container-elevation)}.elevated:focus-within{--md-elevation-level: var(--_elevated-focus-container-elevation)}.elevated:active{--md-elevation-level: var(--_elevated-pressed-container-elevation)}.elevated.disabled{--md-elevation-level: var(--_elevated-disabled-container-elevation)}.elevated.disabled::before{background:var(--_elevated-disabled-container-color);opacity:var(--_elevated-disabled-container-opacity)}@media(forced-colors: active){.elevated md-elevation{border:1px solid CanvasText}.elevated.disabled md-elevation{border-color:GrayText}}
 `;
 const He = "aria-label-remove";
@@ -4775,20 +4775,20 @@ const vr = u`.selected{--md-ripple-hover-color: var(--_selected-hover-state-laye
 `;
 const mr = u`:host{border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end);display:inline-flex;height:var(--_container-height);cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}:host(:is([disabled],[soft-disabled])){pointer-events:none}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) 0}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}.container{border-radius:inherit;box-sizing:border-box;display:flex;height:100%;position:relative;width:100%}.container::before{border-radius:inherit;content:"";inset:0;pointer-events:none;position:absolute}.container:not(.disabled){cursor:pointer}.container.disabled{pointer-events:none}.cell{display:flex}.action{align-items:baseline;appearance:none;background:none;border:none;border-radius:inherit;display:flex;outline:none;padding:0;position:relative;text-decoration:none}.primary.action{min-width:0;padding-inline-start:var(--_leading-space);padding-inline-end:var(--_trailing-space)}.has-icon .primary.action{padding-inline-start:var(--_with-leading-icon-leading-space)}.touch{height:48px;inset:50% 0 0;position:absolute;transform:translateY(-50%);width:100%}:host([touch-target=none]) .touch{display:none}.outline{border:var(--_outline-width) solid var(--_outline-color);border-radius:inherit;inset:0;pointer-events:none;position:absolute}:where(:focus) .outline{border-color:var(--_focus-outline-color)}:where(.disabled) .outline{border-color:var(--_disabled-outline-color);opacity:var(--_disabled-outline-opacity)}md-ripple{border-radius:inherit}.label,.icon,.touch{z-index:1}.label{align-items:center;color:var(--_label-text-color);display:flex;font-family:var(--_label-text-font);font-size:var(--_label-text-size);font-weight:var(--_label-text-weight);height:100%;line-height:var(--_label-text-line-height);overflow:hidden;user-select:none}.label-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}:where(:hover) .label{color:var(--_hover-label-text-color)}:where(:focus) .label{color:var(--_focus-label-text-color)}:where(:active) .label{color:var(--_pressed-label-text-color)}:where(.disabled) .label{color:var(--_disabled-label-text-color);opacity:var(--_disabled-label-text-opacity)}.icon{align-self:center;display:flex;fill:currentColor;position:relative}.icon ::slotted(:first-child){font-size:var(--_icon-size);height:var(--_icon-size);width:var(--_icon-size)}.leading.icon{color:var(--_leading-icon-color)}.leading.icon ::slotted(*),.leading.icon svg{margin-inline-end:var(--_icon-label-space)}:where(:hover) .leading.icon{color:var(--_hover-leading-icon-color)}:where(:focus) .leading.icon{color:var(--_focus-leading-icon-color)}:where(:active) .leading.icon{color:var(--_pressed-leading-icon-color)}:where(.disabled) .leading.icon{color:var(--_disabled-leading-icon-color);opacity:var(--_disabled-leading-icon-opacity)}@media(forced-colors: active){:where(.disabled) :is(.label,.outline,.leading.icon){color:GrayText;opacity:1}}a,button{text-transform:inherit}a,button:not(:disabled,[aria-disabled=true]){cursor:inherit}
 `;
-const br = u`.trailing.action{align-items:center;justify-content:center;padding-inline-start:var(--_icon-label-space);padding-inline-end:var(--_with-trailing-icon-trailing-space)}.trailing.action :is(md-ripple,md-focus-ring){border-radius:50%;height:calc(1.3333333333*var(--_icon-size));width:calc(1.3333333333*var(--_icon-size))}.trailing.action md-focus-ring{inset:unset}.has-trailing .primary.action{padding-inline-end:0}.trailing.icon{color:var(--_trailing-icon-color);height:var(--_icon-size);width:var(--_icon-size)}:where(:hover) .trailing.icon{color:var(--_hover-trailing-icon-color)}:where(:focus) .trailing.icon{color:var(--_focus-trailing-icon-color)}:where(:active) .trailing.icon{color:var(--_pressed-trailing-icon-color)}:where(.disabled) .trailing.icon{color:var(--_disabled-trailing-icon-color);opacity:var(--_disabled-trailing-icon-opacity)}:where(.selected) .trailing.icon{color:var(--_selected-trailing-icon-color)}:where(.selected:hover) .trailing.icon{color:var(--_selected-hover-trailing-icon-color)}:where(.selected:focus) .trailing.icon{color:var(--_selected-focus-trailing-icon-color)}:where(.selected:active) .trailing.icon{color:var(--_selected-pressed-trailing-icon-color)}@media(forced-colors: active){.trailing.icon{color:ButtonText}:where(.disabled) .trailing.icon{color:GrayText;opacity:1}}
+const gr = u`.trailing.action{align-items:center;justify-content:center;padding-inline-start:var(--_icon-label-space);padding-inline-end:var(--_with-trailing-icon-trailing-space)}.trailing.action :is(md-ripple,md-focus-ring){border-radius:50%;height:calc(1.3333333333*var(--_icon-size));width:calc(1.3333333333*var(--_icon-size))}.trailing.action md-focus-ring{inset:unset}.has-trailing .primary.action{padding-inline-end:0}.trailing.icon{color:var(--_trailing-icon-color);height:var(--_icon-size);width:var(--_icon-size)}:where(:hover) .trailing.icon{color:var(--_hover-trailing-icon-color)}:where(:focus) .trailing.icon{color:var(--_focus-trailing-icon-color)}:where(:active) .trailing.icon{color:var(--_pressed-trailing-icon-color)}:where(.disabled) .trailing.icon{color:var(--_disabled-trailing-icon-color);opacity:var(--_disabled-trailing-icon-opacity)}:where(.selected) .trailing.icon{color:var(--_selected-trailing-icon-color)}:where(.selected:hover) .trailing.icon{color:var(--_selected-hover-trailing-icon-color)}:where(.selected:focus) .trailing.icon{color:var(--_selected-focus-trailing-icon-color)}:where(.selected:active) .trailing.icon{color:var(--_selected-pressed-trailing-icon-color)}@media(forced-colors: active){.trailing.icon{color:ButtonText}:where(.disabled) .trailing.icon{color:GrayText;opacity:1}}
 `;
-let Pt = class extends ue {
+let Mt = class extends ue {
 };
-Pt.styles = [
+Mt.styles = [
   mr,
   Ea,
-  br,
+  gr,
   vr,
   Aa
 ];
-Pt = a([
+Mt = a([
   _("md-filter-chip")
-], Pt);
+], Mt);
 class fe extends ur {
   constructor() {
     super(...arguments), this.avatar = !1, this.href = "", this.target = "", this.removeOnly = !1, this.selected = !1;
@@ -4873,14 +4873,14 @@ let Bt = class extends fe {
 };
 Bt.styles = [
   mr,
-  br,
+  gr,
   vr,
   Ta
 ];
 Bt = a([
   _("md-input-chip")
 ], Bt);
-class it extends b {
+class it extends g {
   constructor() {
     super(...arguments), this.inset = !1, this.insetStart = !1, this.insetEnd = !1;
   }
@@ -4940,7 +4940,7 @@ function za(r) {
     d({ noAccessor: !0 })
   ], i.prototype, "tabIndex", void 0), i;
 }
-const gr = /* @__PURE__ */ Symbol("animateIndicator"), Oa = za(b);
+const br = /* @__PURE__ */ Symbol("animateIndicator"), Oa = za(g);
 class X extends Oa {
   /**
    * @deprecated use `active`
@@ -4989,7 +4989,7 @@ class X extends Oa {
   handleContentClick(e) {
     e.stopPropagation(), this.click();
   }
-  [gr](e) {
+  [br](e) {
     if (!this.indicator)
       return;
     this.indicator.getAnimations().forEach((o) => {
@@ -5051,7 +5051,7 @@ a([
 function Ra() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
-class xe extends b {
+class xe extends g {
   /**
    * The currently selected tab, `null` only when there are no tab children.
    *
@@ -5102,8 +5102,8 @@ class xe extends b {
     const { tabs: t } = this;
     if (e ??= this.activeTab, !e || !t.includes(e) || !this.tabsScrollerElement)
       return;
-    for (const g of this.tabs)
-      await g.updateComplete;
+    for (const b of this.tabs)
+      await b.updateComplete;
     const o = e.offsetLeft, i = e.offsetWidth, s = this.scrollLeft, n = this.offsetWidth, c = 48, p = o - c, m = o + i - n + c, v = Math.min(p, Math.max(m, s)), f = this.focusedTab ? "auto" : "instant";
     this.tabsScrollerElement.scrollTo({ behavior: f, top: 0, left: v });
   }
@@ -5132,7 +5132,7 @@ class xe extends b {
             s.active = s === o;
           return;
         }
-        e[gr](o);
+        e[br](o);
       }
       this.updateFocusableTab(e), this.scrollToTab(e);
     }
@@ -5159,8 +5159,8 @@ class xe extends b {
       if (!f)
         c = v ? 0 : n.length - 1;
       else {
-        const g = this.tabs.indexOf(f);
-        c = v ? g + 1 : g - 1, c >= n.length ? c = 0 : c < 0 && (c = n.length - 1);
+        const b = this.tabs.indexOf(f);
+        c = v ? b + 1 : b - 1, c >= n.length ? c = 0 : c < 0 && (c = n.length - 1);
       }
     }
     const p = n[c];
@@ -5231,16 +5231,16 @@ Vt.styles = [xr, Fa];
 Vt = a([
   _("md-primary-tab")
 ], Vt);
-class Ma extends X {
+class Pa extends X {
   constructor() {
     super(...arguments), this.fullWidthIndicator = !0;
   }
 }
-const Pa = u`:host{--_active-indicator-color: var(--md-secondary-tab-active-indicator-color, var(--md-sys-color-primary, #6750a4));--_active-indicator-height: var(--md-secondary-tab-active-indicator-height, 2px);--_active-label-text-color: var(--md-secondary-tab-active-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_container-color: var(--md-secondary-tab-container-color, var(--md-sys-color-surface, #fef7ff));--_container-elevation: var(--md-secondary-tab-container-elevation, 0);--_container-height: var(--md-secondary-tab-container-height, 48px);--_focus-label-text-color: var(--md-secondary-tab-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-secondary-tab-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-color: var(--md-secondary-tab-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-secondary-tab-hover-state-layer-opacity, 0.08);--_label-text-font: var(--md-secondary-tab-label-text-font, var(--md-sys-typescale-title-small-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-secondary-tab-label-text-line-height, var(--md-sys-typescale-title-small-line-height, 1.25rem));--_label-text-size: var(--md-secondary-tab-label-text-size, var(--md-sys-typescale-title-small-size, 0.875rem));--_label-text-weight: var(--md-secondary-tab-label-text-weight, var(--md-sys-typescale-title-small-weight, var(--md-ref-typeface-weight-medium, 500)));--_pressed-label-text-color: var(--md-secondary-tab-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-color: var(--md-secondary-tab-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-opacity: var(--md-secondary-tab-pressed-state-layer-opacity, 0.12);--_active-focus-icon-color: var(--md-secondary-tab-active-focus-icon-color, );--_active-focus-label-text-color: var(--md-secondary-tab-active-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-icon-color: var(--md-secondary-tab-active-hover-icon-color, );--_active-hover-label-text-color: var(--md-secondary-tab-active-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-color: var(--md-secondary-tab-active-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-opacity: var(--md-secondary-tab-active-hover-state-layer-opacity, 0.08);--_active-icon-color: var(--md-secondary-tab-active-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_active-indicator-shape: var(--md-secondary-tab-active-indicator-shape, 0);--_active-pressed-icon-color: var(--md-secondary-tab-active-pressed-icon-color, );--_active-pressed-label-text-color: var(--md-secondary-tab-active-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-color: var(--md-secondary-tab-active-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-opacity: var(--md-secondary-tab-active-pressed-state-layer-opacity, 0.12);--_label-text-color: var(--md-secondary-tab-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-icon-color: var(--md-secondary-tab-focus-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-icon-color: var(--md-secondary-tab-hover-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_icon-size: var(--md-secondary-tab-icon-size, 24px);--_icon-color: var(--md-secondary-tab-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-secondary-tab-pressed-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_container-shape-start-start: var(--md-secondary-tab-container-shape-start-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-start-end: var(--md-secondary-tab-container-shape-start-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-end: var(--md-secondary-tab-container-shape-end-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-start: var(--md-secondary-tab-container-shape-end-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)))}
+const Ma = u`:host{--_active-indicator-color: var(--md-secondary-tab-active-indicator-color, var(--md-sys-color-primary, #6750a4));--_active-indicator-height: var(--md-secondary-tab-active-indicator-height, 2px);--_active-label-text-color: var(--md-secondary-tab-active-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_container-color: var(--md-secondary-tab-container-color, var(--md-sys-color-surface, #fef7ff));--_container-elevation: var(--md-secondary-tab-container-elevation, 0);--_container-height: var(--md-secondary-tab-container-height, 48px);--_focus-label-text-color: var(--md-secondary-tab-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-secondary-tab-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-color: var(--md-secondary-tab-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-secondary-tab-hover-state-layer-opacity, 0.08);--_label-text-font: var(--md-secondary-tab-label-text-font, var(--md-sys-typescale-title-small-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-secondary-tab-label-text-line-height, var(--md-sys-typescale-title-small-line-height, 1.25rem));--_label-text-size: var(--md-secondary-tab-label-text-size, var(--md-sys-typescale-title-small-size, 0.875rem));--_label-text-weight: var(--md-secondary-tab-label-text-weight, var(--md-sys-typescale-title-small-weight, var(--md-ref-typeface-weight-medium, 500)));--_pressed-label-text-color: var(--md-secondary-tab-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-color: var(--md-secondary-tab-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-opacity: var(--md-secondary-tab-pressed-state-layer-opacity, 0.12);--_active-focus-icon-color: var(--md-secondary-tab-active-focus-icon-color, );--_active-focus-label-text-color: var(--md-secondary-tab-active-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-icon-color: var(--md-secondary-tab-active-hover-icon-color, );--_active-hover-label-text-color: var(--md-secondary-tab-active-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-color: var(--md-secondary-tab-active-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-opacity: var(--md-secondary-tab-active-hover-state-layer-opacity, 0.08);--_active-icon-color: var(--md-secondary-tab-active-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_active-indicator-shape: var(--md-secondary-tab-active-indicator-shape, 0);--_active-pressed-icon-color: var(--md-secondary-tab-active-pressed-icon-color, );--_active-pressed-label-text-color: var(--md-secondary-tab-active-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-color: var(--md-secondary-tab-active-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-opacity: var(--md-secondary-tab-active-pressed-state-layer-opacity, 0.12);--_label-text-color: var(--md-secondary-tab-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-icon-color: var(--md-secondary-tab-focus-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-icon-color: var(--md-secondary-tab-hover-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_icon-size: var(--md-secondary-tab-icon-size, 24px);--_icon-color: var(--md-secondary-tab-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-secondary-tab-pressed-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_container-shape-start-start: var(--md-secondary-tab-container-shape-start-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-start-end: var(--md-secondary-tab-container-shape-start-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-end: var(--md-secondary-tab-container-shape-end-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-start: var(--md-secondary-tab-container-shape-end-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)))}
 `;
-let Ht = class extends Ma {
+let Ht = class extends Pa {
 };
-Ht.styles = [xr, Pa];
+Ht.styles = [xr, Ma];
 Ht = a([
   _("md-secondary-tab")
 ], Ht);
@@ -5349,7 +5349,7 @@ const Ba = {
     ]
   ]
 };
-const Ua = ee(b);
+const Ua = ee(g);
 class O extends Ua {
   // We do not use `delegatesFocus: true` due to a Chromium bug with
   // selecting text.
@@ -5520,12 +5520,12 @@ class O extends Ua {
     const { dialog: t, scrim: o, container: i, headline: s, content: n, actions: c } = this;
     if (!t || !o || !i || !s || !n || !c)
       return;
-    const { container: p, dialog: m, scrim: v, headline: f, content: g, actions: x } = e, E = [
+    const { container: p, dialog: m, scrim: v, headline: f, content: b, actions: x } = e, E = [
       [t, m ?? []],
       [o, v ?? []],
       [i, p ?? []],
       [s, f ?? []],
-      [n, g ?? []],
+      [n, b ?? []],
       [c, x ?? []]
     ], k = [];
     for (const [S, R] of E)
@@ -5658,7 +5658,7 @@ qt.styles = [Ha];
 qt = a([
   _("md-dialog")
 ], qt);
-const qa = ee(b);
+const qa = ee(g);
 class _e extends qa {
   constructor() {
     super(...arguments), this.value = 0, this.max = 1, this.indeterminate = !1, this.fourColor = !1;
@@ -5774,7 +5774,7 @@ jt.styles = [Ka];
 jt = a([
   _("md-linear-progress")
 ], jt);
-class po extends b {
+class po extends g {
   render() {
     return l`
       <md-elevation part="elevation"></md-elevation>
@@ -5810,7 +5810,7 @@ Gt.styles = [ho, Xa];
 Gt = a([
   _("md-outlined-card")
 ], Gt);
-class Za extends b {
+class Za extends g {
   static properties = {
     label: { type: String },
     active: { type: Boolean, reflect: !0 },
@@ -5881,7 +5881,7 @@ class Za extends b {
   }
 }
 customElements.define("wy-filter-chip", Za);
-class Qa extends b {
+class Qa extends g {
   static properties = {
     viewMode: { type: String, attribute: "view-mode" },
     showDetails: { type: Boolean, attribute: "show-details" },
@@ -6224,7 +6224,7 @@ class Qa extends b {
   }
 }
 customElements.define("wy-controls-bar", Qa);
-class Ja extends b {
+class Ja extends g {
   static properties = {
     open: { type: Boolean, reflect: !0 },
     heading: { type: String },
@@ -6356,7 +6356,7 @@ class Ja extends b {
   }
 }
 customElements.define("wy-modal", Ja);
-class es extends b {
+class es extends g {
   static properties = {
     activeTab: { type: String, attribute: "active-tab" }
   };
@@ -6435,7 +6435,7 @@ class es extends b {
   }
 }
 customElements.define("wy-tabs", es);
-class ts extends b {
+class ts extends g {
   static properties = {
     label: { type: String },
     variant: { type: String },
@@ -6510,7 +6510,7 @@ class ts extends b {
   }
 }
 customElements.define("wy-tag-chip", ts);
-class os extends b {
+class os extends g {
   static properties = {
     tags: { type: Array },
     suggestions: { type: Array },
@@ -6670,7 +6670,7 @@ class os extends b {
   }
 }
 customElements.define("wy-tag-input", os);
-class rs extends b {
+class rs extends g {
   static properties = {
     label: { type: String },
     id: { type: String },
@@ -6761,7 +6761,7 @@ class rs extends b {
   }
 }
 customElements.define("wy-form-field", rs);
-class is extends b {
+class is extends g {
   static properties = {
     label: { type: String },
     value: { type: String },
@@ -7055,7 +7055,7 @@ class is extends b {
   }
 }
 customElements.define("wy-dropdown", is);
-class as extends b {
+class as extends g {
   static properties = {
     content: { type: String },
     variant: { type: String }
@@ -7118,7 +7118,7 @@ class as extends b {
   }
 }
 customElements.define("wy-info-panel", as);
-class ss extends b {
+class ss extends g {
   static properties = {
     label: { type: String },
     description: { type: String },
@@ -7263,7 +7263,7 @@ class ss extends b {
   }
 }
 customElements.define("wy-selection-card", ss);
-class ns extends b {
+class ns extends g {
   static properties = {
     title: { type: String },
     category: { type: String },
@@ -7376,7 +7376,7 @@ class ns extends b {
     `;
   }
 }
-class ls extends b {
+class ls extends g {
   static properties = {
     title: { type: String },
     category: { type: String },
@@ -7494,7 +7494,7 @@ class ls extends b {
 }
 customElements.define("wy-prompt-card", ns);
 customElements.define("wy-prompt-row", ls);
-class ds extends b {
+class ds extends g {
   static properties = {
     open: { type: Boolean, reflect: !0 },
     title: { type: String },
@@ -8009,7 +8009,7 @@ class ds extends b {
   }
 }
 customElements.define("wy-prompt-modal", ds);
-class cs extends b {
+class cs extends g {
   static properties = {
     open: { type: Boolean, reflect: !0 },
     workTitle: { type: String, attribute: "work-title" },
@@ -8145,7 +8145,7 @@ class cs extends b {
   }
 }
 customElements.define("wy-export-modal", cs);
-class Ge extends b {
+class Ge extends g {
   static properties = {
     open: { type: Boolean, reflect: !0 },
     title: { type: String },
@@ -8557,7 +8557,7 @@ try {
 } catch (r) {
   throw console.error("[wy-links-modal] Failed to register component:", r), console.error("[wy-links-modal] Error stack:", r.stack), console.error("[wy-links-modal] WyLinksModal type:", typeof Ge), console.error("[wy-links-modal] WyLinksModal value:", Ge), r;
 }
-class ps extends b {
+class ps extends g {
   static properties = {
     size: { type: Number }
   };
@@ -8605,7 +8605,7 @@ class ps extends b {
   }
 }
 customElements.define("wy-logo", ps);
-class hs extends b {
+class hs extends g {
   static properties = {
     title: { type: String },
     hideMenu: { type: Boolean, attribute: "hide-menu" }
@@ -8734,16 +8734,18 @@ class hs extends b {
   }
 }
 customElements.define("wy-app-bar", hs);
-class us extends b {
+class us extends g {
   static properties = {
     showFilters: { type: Boolean, attribute: "show-filters" },
     activeFilterCount: { type: Number, attribute: "active-filter-count" },
     searchQuery: { type: String, attribute: "search-query" },
     isScrolled: { type: Boolean, attribute: "is-scrolled" },
-    scrollingUp: { type: Boolean, attribute: "scrolling-up" }
+    scrollingUp: { type: Boolean, attribute: "scrolling-up" },
+    searchSize: { type: String, attribute: "search-size" },
+    showSearch: { type: Boolean, attribute: "show-search" }
   };
   constructor() {
-    super(), this.showFilters = !1, this.activeFilterCount = 0, this.searchQuery = "", this.isScrolled = !1, this.scrollingUp = !1, this._searchTimeout = null;
+    super(), this.showFilters = !1, this.activeFilterCount = 0, this.searchQuery = "", this.isScrolled = !1, this.scrollingUp = !1, this.searchSize = "large", this.showSearch = !1, this._searchTimeout = null;
   }
   static styles = u`
     /* Note: Fonts loaded in light DOM (globals.css) and cascade into Shadow DOM */
@@ -8760,6 +8762,12 @@ class us extends b {
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 var(--spacing-xl);
+      transition: max-width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+    }
+
+    .container.headerScrolledContainer {
+      max-width: fit-content;
+      width: auto;
     }
 
     .header {
@@ -8769,12 +8777,16 @@ class us extends b {
       justify-content: space-between;
       gap: var(--spacing-lg);
       background-color: transparent;
-      transition: padding var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
-        gap var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+      min-height: 80px;
+      will-change: padding, gap;
+      transition: padding 0.3s ease-in-out,
+        gap 0.3s ease-in-out,
+        justify-content 0.3s ease-in-out;
     }
 
     .headerScrolled {
       padding: 1rem 0;
+      justify-content: flex-start;
     }
 
     .header h1 {
@@ -8785,13 +8797,29 @@ class us extends b {
       line-height: 1.1;
       letter-spacing: 0.02em;
       color: var(--md-sys-color-on-surface);
+      transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        visibility var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        max-width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        margin var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        padding var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+    }
+
+    .header h1.h1Hidden {
+      opacity: 0;
+      visibility: hidden;
+      max-width: 0;
+      overflow: hidden;
+      transform: scale(0.95);
+      margin: 0;
+      padding: 0;
     }
 
     /* LEFT SECTION */
     .leftSection {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: var(--spacing-sm);
       flex: 1;
       flex-wrap: wrap;
       min-width: 0;
@@ -8799,86 +8827,29 @@ class us extends b {
       background-color: transparent;
       backdrop-filter: none;
       border-radius: var(--md-sys-shape-corner-full);
-      transition: flex-basis var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
-        padding var(--md-sys-motion-duration-short3) ease,
-        background-color var(--md-sys-motion-duration-short3) ease,
-        backdrop-filter var(--md-sys-motion-duration-short3) ease;
+      will-change: padding, background-color, backdrop-filter;
+      transition: flex-basis 0.3s ease-in-out,
+        padding 0.3s ease-in-out,
+        background-color 0.3s ease-in-out,
+        backdrop-filter 0.3s ease-in-out,
+        flex 0.3s ease-in-out;
     }
 
     .leftSectionScrolled {
       padding: 0.7rem 1.5rem;
       background-color: var(--wy-library-header-scrolled-bg);
       backdrop-filter: blur(var(--wy-library-header-scrolled-blur));
+      -webkit-backdrop-filter: blur(var(--wy-library-header-scrolled-blur));
       margin-left: auto;
       margin-right: auto;
       max-width: 700px;
+      flex: 0 1 auto;
     }
 
-    /* FILTER BUTTON */
-    .filtersButton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      border-radius: 50%;
-      border: 1px solid transparent;
-      background: var(--md-sys-color-surface);
-      color: var(--md-sys-color-on-surface);
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
+    /* FILTER BUTTON WRAPPER */
+    .filterButtonWrapper {
       position: relative;
-      overflow: hidden;
-      flex-shrink: 0;
-      transition: background-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
-        border-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
-        color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
-    }
-
-    .filtersButton::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: var(--md-sys-color-on-surface);
-      opacity: 0;
-      transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
-      pointer-events: none;
-      border-radius: 50%;
-    }
-
-    .filtersButton:hover:not(.filtersButtonActive) {
-      border-color: var(--md-sys-color-outline-variant);
-    }
-
-    .filtersButton:hover:not(.filtersButtonActive)::before {
-      opacity: var(--md-sys-state-hover-opacity);
-    }
-
-    .filtersButton:focus-visible {
-      outline: 3px solid var(--md-sys-color-primary);
-      outline-offset: 2px;
-    }
-
-    .filtersButtonActive {
-      background: var(--md-sys-color-on-surface);
-      color: var(--md-sys-color-background);
-      border-color: var(--md-sys-color-on-surface);
-    }
-
-    .filtersButtonActive::before {
-      background-color: var(--md-sys-color-background);
-    }
-
-    .filtersButtonActive:hover::before {
-      opacity: var(--md-sys-state-hover-opacity);
-    }
-
-    .filtersButton .material-symbols-outlined {
-      font-size: 24px;
-      line-height: 1;
-      color: inherit;
+      display: inline-block;
     }
 
     .filterBadge {
@@ -8900,6 +8871,7 @@ class us extends b {
       border: 2px solid var(--md-sys-color-background);
       pointer-events: none;
       font-family: var(--font-sans);
+      z-index: 10;
     }
 
     .leftSectionScrolled .filterBadge {
@@ -8915,6 +8887,15 @@ class us extends b {
       max-width: 672px;
       min-width: 200px;
       margin-right: auto;
+      transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+        visibility var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+        max-width 0.3s ease-in-out,
+        width 0.3s ease-in-out,
+        transform 0.3s ease-in-out;
+    }
+
+    .searchContainerHidden {
+      display: none;
     }
 
     .searchIcon {
@@ -8932,7 +8913,7 @@ class us extends b {
     .searchInput {
       width: 100%;
       height: 56px;
-      padding: 0 2.5rem;
+      padding: 0 3rem 0 2.5rem;
       border-radius: var(--md-sys-shape-corner-full);
       border: 1px solid var(--md-sys-color-outline-variant);
       background: var(--md-sys-color-background);
@@ -8942,7 +8923,22 @@ class us extends b {
       line-height: 1.5;
       box-shadow: 0 1px 2px rgba(26, 22, 20, 0.02);
       transition: border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
-        box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+        box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+        transform 0.3s ease-in-out;
+    }
+
+    /* Medium search size (44px height) */
+    .searchInput.size-medium {
+      height: 44px;
+      padding: 0 2.5rem 0 2rem;
+    }
+
+    .searchContainer.size-medium .searchIcon {
+      font-size: 1rem;
+    }
+
+    .searchContainer.size-medium .searchClear .material-symbols-outlined {
+      font-size: 18px;
     }
 
     .searchInput::placeholder {
@@ -8954,6 +8950,7 @@ class us extends b {
       outline: none;
       border-color: var(--md-sys-color-primary);
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+      transform: scale(1.02);
     }
 
     .searchInput:focus ~ .searchIcon {
@@ -8963,6 +8960,8 @@ class us extends b {
     .searchClear {
       position: absolute;
       right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -8973,8 +8972,8 @@ class us extends b {
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 2;
       transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-      position: relative;
       overflow: hidden;
     }
 
@@ -8987,6 +8986,7 @@ class us extends b {
       transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
       pointer-events: none;
       border-radius: 50%;
+      z-index: -1;
     }
 
     .searchClear:hover {
@@ -9006,53 +9006,6 @@ class us extends b {
       font-size: 20px;
     }
 
-    /* ADD WORK BUTTON */
-    .addWorkButton {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      height: 56px;
-      padding: 0 var(--spacing-xl);
-      border-radius: var(--md-sys-shape-corner-full);
-      border: none;
-      background: var(--md-sys-color-primary);
-      color: var(--md-sys-color-on-primary);
-      font-family: var(--font-sans);
-      font-size: 0.9375rem;
-      font-weight: 500;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      flex-shrink: 0;
-      transition: transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-    }
-
-    .addWorkButton::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: var(--md-sys-color-on-primary);
-      opacity: 0;
-      transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-      pointer-events: none;
-    }
-
-    .addWorkButton:hover::before {
-      opacity: var(--md-sys-state-hover-opacity);
-    }
-
-    .addWorkButton:active {
-      transform: scale(0.98);
-    }
-
-    .addWorkButton:focus-visible {
-      outline: 3px solid var(--md-sys-color-primary);
-      outline-offset: 2px;
-    }
-
-    .addWorkButton .material-symbols-outlined {
-      font-size: 20px;
-    }
 
     /* RIGHT SECTION */
     .rightSection {
@@ -9060,7 +9013,7 @@ class us extends b {
       padding-top: 4px;
       padding-bottom: 4px;
       align-items: center;
-      gap: var(--spacing-lg);
+      gap: var(--spacing-sm);
       flex-wrap: nowrap;
       flex-shrink: 0;
       position: relative;
@@ -9118,7 +9071,7 @@ class us extends b {
       .leftSection {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm);
         flex: 1;
         min-width: 0;
       }
@@ -9150,28 +9103,37 @@ class us extends b {
   `;
   render() {
     return l`
-      <div class="container">
+      <div class="container ${this.isScrolled ? "headerScrolledContainer" : ""}">
         <header class="header ${this.isScrolled ? "headerScrolled" : ""}">
           <div class="leftSection ${this.isScrolled ? "leftSectionScrolled" : ""}">
-            <h1>Artworks</h1>
+            <h1 class="${this.showSearch ? "h1Hidden" : ""}">Artworks</h1>
           
-          <button
-            type="button"
-            class="filtersButton ${this.showFilters || this.activeFilterCount > 0 ? "filtersButtonActive" : ""}"
-            @click="${this._handleFilterToggle}"
-            aria-label="${this.showFilters ? "Hide" : "Show"} filters${this.activeFilterCount > 0 ? ` (${this.activeFilterCount} active)` : ""}"
-            title="${this.showFilters ? "Hide" : "Show"} filters${this.activeFilterCount > 0 ? ` (${this.activeFilterCount} active)` : ""}">
-            <span class="material-symbols-outlined">tune</span>
+          <div class="filterButtonWrapper">
+            <wy-icon-button
+              variant="${this.showFilters || this.activeFilterCount > 0 ? "filled" : "outlined"}"
+              size="small"
+              icon="tune"
+              label="${this.showFilters ? "Hide" : "Show"} filters${this.activeFilterCount > 0 ? ` (${this.activeFilterCount} active)` : ""}"
+              @click="${this._handleFilterToggle}">
+            </wy-icon-button>
             ${this.activeFilterCount > 0 ? l`
               <span class="filterBadge">${this.activeFilterCount}</span>
             ` : ""}
-          </button>
+          </div>
 
-          <div class="searchContainer">
+          <wy-icon-button
+            variant="outlined"
+            size="small"
+            icon="${this.showSearch ? "close" : "search"}"
+            label="${this.showSearch ? "Hide search" : "Show search"}"
+            @click="${this._handleSearchToggle}">
+          </wy-icon-button>
+
+          <div class="searchContainer ${this.searchSize === "medium" ? "size-medium" : ""} ${this.showSearch ? "" : "searchContainerHidden"}">
             <span class="material-symbols-outlined searchIcon">search</span>
             <input
               type="search"
-              class="searchInput"
+              class="searchInput ${this.searchSize === "medium" ? "size-medium" : ""}"
               placeholder="Search works..."
               .value="${this.searchQuery}"
               @input="${this._handleSearchInput}"
@@ -9188,13 +9150,13 @@ class us extends b {
             ` : ""}
           </div>
 
-          <button
-            type="button"
-            class="addWorkButton"
+          <wy-icon-button
+            variant="filled"
+            size="small"
+            icon="add"
+            label="Add work"
             @click="${this._handleAddWork}">
-            <span class="material-symbols-outlined">add</span>
-            <span>Add work</span>
-          </button>
+          </wy-icon-button>
           </div>
 
           <div class="rightSection 
@@ -9230,6 +9192,13 @@ class us extends b {
       composed: !0
     }));
   }
+  _handleSearchToggle() {
+    this.showSearch = !this.showSearch, this.dispatchEvent(new CustomEvent("toggle-search", {
+      detail: { showing: this.showSearch },
+      bubbles: !0,
+      composed: !0
+    }));
+  }
   _handleAddWork() {
     this.dispatchEvent(new CustomEvent("add-work", {
       detail: {},
@@ -9242,7 +9211,7 @@ class us extends b {
   }
 }
 customElements.define("wy-library-header", us);
-class fs extends b {
+class fs extends g {
   static properties = {
     name: { type: String },
     role: { type: String },
@@ -9323,7 +9292,7 @@ class fs extends b {
   }
 }
 customElements.define("wy-profile-card", fs);
-class vs extends b {
+class vs extends g {
   static properties = {
     name: { type: String },
     role: { type: String },
@@ -9430,7 +9399,7 @@ const ms = [
     summary: "Strategic stake in next-gen computing infrastructure."
   }
 ];
-class bs extends b {
+class gs extends g {
   static properties = {
     filter: { type: String },
     title: { type: String }
@@ -9509,8 +9478,8 @@ class bs extends b {
     `;
   }
 }
-customElements.define("wy-project-list", bs);
-class gs extends b {
+customElements.define("wy-project-list", gs);
+class bs extends g {
   static properties = {
     title: { type: String },
     value: { type: String },
@@ -9596,8 +9565,8 @@ class gs extends b {
     `;
   }
 }
-customElements.define("wy-metric-card", gs);
-class ys extends b {
+customElements.define("wy-metric-card", bs);
+class ys extends g {
   static properties = {
     title: { type: String },
     items: { type: Array }
@@ -9735,7 +9704,7 @@ class ys extends b {
   }
 }
 customElements.define("wy-allocation-card", ys);
-class xs extends b {
+class xs extends g {
   static properties = {
     image: { type: String },
     category: { type: String },
@@ -9822,7 +9791,7 @@ class xs extends b {
   }
 }
 customElements.define("wy-insight-card", xs);
-class _s extends b {
+class _s extends g {
   static properties = {
     title: { type: String },
     artist: { type: String },
@@ -9987,7 +9956,7 @@ class _s extends b {
   }
 }
 customElements.define("wy-work-card", _s);
-class ws extends b {
+class ws extends g {
   static properties = {
     density: { type: String },
     // 'spacious', 'compact'
@@ -10067,7 +10036,7 @@ class ws extends b {
   }
 }
 customElements.define("wy-works-grid", ws);
-class ks extends b {
+class ks extends g {
   static properties = {
     title: { type: String },
     paperSize: { type: String, attribute: "paper-size" },
@@ -10225,7 +10194,7 @@ class ks extends b {
   }
 }
 customElements.define("wy-plot-card", ks);
-class Cs extends b {
+class Cs extends g {
   static properties = {
     status: { type: String },
     // 'synced', 'syncing', 'error'

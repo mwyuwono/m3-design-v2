@@ -53,9 +53,11 @@ export class WyLibraryHeader extends LitElement {
       justify-content: space-between;
       gap: var(--spacing-lg);
       background-color: transparent;
-      transition: padding var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
-        gap var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
-        justify-content var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+      min-height: 80px;
+      will-change: padding, gap;
+      transition: padding 0.3s ease-in-out,
+        gap 0.3s ease-in-out,
+        justify-content 0.3s ease-in-out;
     }
 
     .headerScrolled {
@@ -101,11 +103,12 @@ export class WyLibraryHeader extends LitElement {
       background-color: transparent;
       backdrop-filter: none;
       border-radius: var(--md-sys-shape-corner-full);
-      transition: flex-basis var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
-        padding var(--md-sys-motion-duration-short3) ease,
-        background-color var(--md-sys-motion-duration-short3) ease,
-        backdrop-filter var(--md-sys-motion-duration-short3) ease,
-        flex var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+      will-change: padding, background-color, backdrop-filter;
+      transition: flex-basis 0.3s ease-in-out,
+        padding 0.3s ease-in-out,
+        background-color 0.3s ease-in-out,
+        backdrop-filter 0.3s ease-in-out,
+        flex 0.3s ease-in-out;
     }
 
     .leftSectionScrolled {
@@ -162,7 +165,9 @@ export class WyLibraryHeader extends LitElement {
       margin-right: auto;
       transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
         visibility var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
-        max-width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+        max-width 0.3s ease-in-out,
+        width 0.3s ease-in-out,
+        transform 0.3s ease-in-out;
     }
 
     .searchContainerHidden {
@@ -184,7 +189,7 @@ export class WyLibraryHeader extends LitElement {
     .searchInput {
       width: 100%;
       height: 56px;
-      padding: 0 2.5rem;
+      padding: 0 3rem 0 2.5rem;
       border-radius: var(--md-sys-shape-corner-full);
       border: 1px solid var(--md-sys-color-outline-variant);
       background: var(--md-sys-color-background);
@@ -194,13 +199,14 @@ export class WyLibraryHeader extends LitElement {
       line-height: 1.5;
       box-shadow: 0 1px 2px rgba(26, 22, 20, 0.02);
       transition: border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
-        box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+        box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+        transform 0.3s ease-in-out;
     }
 
     /* Medium search size (44px height) */
     .searchInput.size-medium {
       height: 44px;
-      padding: 0 2rem;
+      padding: 0 2.5rem 0 2rem;
     }
 
     .searchContainer.size-medium .searchIcon {
@@ -220,6 +226,7 @@ export class WyLibraryHeader extends LitElement {
       outline: none;
       border-color: var(--md-sys-color-primary);
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+      transform: scale(1.02);
     }
 
     .searchInput:focus ~ .searchIcon {
@@ -229,6 +236,8 @@ export class WyLibraryHeader extends LitElement {
     .searchClear {
       position: absolute;
       right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -239,8 +248,8 @@ export class WyLibraryHeader extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 2;
       transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-      position: relative;
       overflow: hidden;
     }
 
@@ -253,6 +262,7 @@ export class WyLibraryHeader extends LitElement {
       transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
       pointer-events: none;
       border-radius: 50%;
+      z-index: -1;
     }
 
     .searchClear:hover {
