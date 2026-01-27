@@ -8756,12 +8756,18 @@ class us extends b {
       background-color: transparent;
     }
 
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-xl);
+    }
+
     .header {
       padding: var(--spacing-lg) 0 var(--spacing-xl) 0;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: var(--spacing-md);
+      gap: var(--spacing-lg);
       background-color: transparent;
       transition: padding var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
         gap var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
@@ -8906,7 +8912,7 @@ class us extends b {
       display: flex;
       align-items: center;
       flex: 1;
-      max-width: 400px;
+      max-width: 672px;
       min-width: 200px;
       margin-right: auto;
     }
@@ -8925,7 +8931,7 @@ class us extends b {
 
     .searchInput {
       width: 100%;
-      height: 48px;
+      height: 56px;
       padding: 0 2.5rem;
       border-radius: var(--md-sys-shape-corner-full);
       border: 1px solid var(--md-sys-color-outline-variant);
@@ -9005,8 +9011,8 @@ class us extends b {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      height: 48px;
-      padding: 0 var(--spacing-lg);
+      height: 56px;
+      padding: 0 var(--spacing-xl);
       border-radius: var(--md-sys-shape-corner-full);
       border: none;
       background: var(--md-sys-color-primary);
@@ -9054,7 +9060,7 @@ class us extends b {
       padding-top: 4px;
       padding-bottom: 4px;
       align-items: center;
-      gap: 0.5rem;
+      gap: var(--spacing-lg);
       flex-wrap: nowrap;
       flex-shrink: 0;
       position: relative;
@@ -9144,8 +9150,9 @@ class us extends b {
   `;
   render() {
     return l`
-      <header class="header ${this.isScrolled ? "headerScrolled" : ""}">
-        <div class="leftSection ${this.isScrolled ? "leftSectionScrolled" : ""}">
+      <div class="container">
+        <header class="header ${this.isScrolled ? "headerScrolled" : ""}">
+          <div class="leftSection ${this.isScrolled ? "leftSectionScrolled" : ""}"
           <h1>Artworks</h1>
           
           <button
@@ -9196,7 +9203,8 @@ class us extends b {
           <slot name="view-controls"></slot>
           <slot name="backup-status"></slot>
         </div>
-      </header>
+        </header>
+      </div>
     `;
   }
   _handleFilterToggle() {
