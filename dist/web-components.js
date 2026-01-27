@@ -6792,10 +6792,11 @@ class is extends b {
             --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container-high, #EBE5DE);
         }
         
-        /* Subtle variant - lighter menu background for modal integration */
+        /* Subtle variant - lighter backgrounds for modal integration */
         :host([variant="subtle"]) {
-            --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-low, #FDFBF7);
-            --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container, #F5F2EA);
+            --wy-dropdown-bg: var(--md-sys-color-surface-container-low, #FDFBF7);  /* Button bg - lighter than modal */
+            --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-low, #FDFBF7);  /* Menu bg */
+            --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container, #F5F2EA);  /* Item hover */
         }
         
         /* Material Symbols font configuration */
