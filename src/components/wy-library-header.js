@@ -104,7 +104,7 @@ export class WyLibraryHeader extends LitElement {
       font-weight: 500;
       cursor: pointer;
       position: relative;
-      overflow: visible;
+      overflow: hidden;
       flex-shrink: 0;
       transition: background-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
         border-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
@@ -427,8 +427,8 @@ export class WyLibraryHeader extends LitElement {
     return html`
       <div class="container">
         <header class="header ${this.isScrolled ? 'headerScrolled' : ''}">
-          <div class="leftSection ${this.isScrolled ? 'leftSectionScrolled' : ''}"
-          <h1>Artworks</h1>
+          <div class="leftSection ${this.isScrolled ? 'leftSectionScrolled' : ''}">
+            <h1>Artworks</h1>
           
           <button
             type="button"
@@ -470,14 +470,14 @@ export class WyLibraryHeader extends LitElement {
             <span class="material-symbols-outlined">add</span>
             <span>Add work</span>
           </button>
-        </div>
+          </div>
 
-        <div class="rightSection 
+          <div class="rightSection 
           ${this.isScrolled ? 'rightSectionHidden' : ''}
           ${this.scrollingUp && !this.isScrolled ? 'rightSectionReturning' : ''}">
-          <slot name="view-controls"></slot>
-          <slot name="backup-status"></slot>
-        </div>
+            <slot name="view-controls"></slot>
+            <slot name="backup-status"></slot>
+          </div>
         </header>
       </div>
     `;
