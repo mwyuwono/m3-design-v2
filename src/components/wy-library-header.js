@@ -1,212 +1,527 @@
 import { LitElement, html, css } from 'lit';
-import './wy-logo.js';
 
 export class WyLibraryHeader extends LitElement {
   static properties = {
-    userName: { type: String, attribute: 'user-name' },
-    userAvatar: { type: String, attribute: 'user-avatar' },
-    breadcrumb: { type: String },
-    searchValue: { type: String, attribute: 'search-value' }
+    showFilters: { type: Boolean, attribute: 'show-filters' },
+    activeFilterCount: { type: Number, attribute: 'active-filter-count' },
+    searchQuery: { type: String, attribute: 'search-query' },
+    isScrolled: { type: Boolean, attribute: 'is-scrolled' },
+    scrollingUp: { type: Boolean, attribute: 'scrolling-up' }
   };
 
   constructor() {
     super();
-    this.userName = 'M. Yuwono';
-    this.userAvatar = '';
-    this.breadcrumb = 'Plotter Library';
-    this.searchValue = '';
+    this.showFilters = false;
+    this.activeFilterCount = 0;
+    this.searchQuery = '';
+    this.isScrolled = false;
+    this.scrollingUp = false;
+    this._searchTimeout = null;
   }
 
   static styles = css`
+    /* CRITICAL: Import fonts for Shadow DOM */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+
     :host {
       display: block;
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: var(--md-sys-color-surface-container-low);
-      border-bottom: 1px solid var(--md-sys-color-outline-variant);
-      padding: 12px 32px;
+      background-color: transparent;
     }
 
-    .header-container {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-      align-items: center;
-      gap: 32px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .left-section {
+    .header {
+      padding: var(--spacing-lg) 0 var(--spacing-xl) 0;
       display: flex;
-      align-items: center;
-      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--spacing-md);
+      background-color: transparent;
+      transition: padding var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        gap var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
     }
 
-    .logo-container {
-      display: flex;
-      align-items: center;
+    .headerScrolled {
+      padding: 1rem 0;
     }
 
-    .breadcrumb {
+    .header h1 {
+      margin: 0;
       font-family: var(--font-serif);
-      font-size: 1.25rem;
-      color: var(--md-sys-color-primary);
-      white-space: nowrap;
+      font-weight: 500;
+      font-size: 2rem;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      color: var(--md-sys-color-on-surface);
     }
 
-    .search-container {
+    /* LEFT SECTION */
+    .leftSection {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
       flex: 1;
-      max-width: 600px;
-      position: relative;
+      flex-wrap: wrap;
+      min-width: 0;
+      padding: 0;
+      background-color: transparent;
+      backdrop-filter: none;
+      border-radius: var(--md-sys-shape-corner-full);
+      transition: flex-basis var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        padding var(--md-sys-motion-duration-short3) ease,
+        background-color var(--md-sys-motion-duration-short3) ease,
+        backdrop-filter var(--md-sys-motion-duration-short3) ease;
     }
 
-    .search-pill {
-      width: 100%;
-      height: 48px;
-      background-color: var(--md-sys-color-surface-container-high);
-      border-radius: 24px;
-      border: 1px solid transparent;
-      padding: 0 48px 0 20px;
-      font-family: var(--font-body);
-      font-size: 0.875rem;
-      color: var(--md-sys-color-on-surface);
-      box-sizing: border-box;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    .leftSectionScrolled {
+      padding: 0.7rem 1.5rem;
+      background-color: var(--wy-library-header-scrolled-bg);
+      backdrop-filter: blur(var(--wy-library-header-scrolled-blur));
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 700px;
     }
 
-    .search-pill:focus {
-      outline: none;
-      background-color: var(--md-sys-color-surface);
-      border-color: var(--md-sys-color-primary);
-      box-shadow: 0 0 0 4px rgba(45, 78, 60, 0.1);
-    }
-
-    .search-icon {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--md-sys-color-on-surface-variant);
-      pointer-events: none;
-    }
-
-    .right-section {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 20px;
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-left: 20px;
-      border-left: 1px solid var(--md-sys-color-outline-variant);
-    }
-
-    .user-info {
-      text-align: right;
-    }
-
-    .user-name {
-      font-family: var(--font-body);
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--md-sys-color-on-surface);
-      display: block;
-    }
-
-    .user-role {
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      color: var(--md-sys-color-on-surface-variant);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background-color: var(--md-sys-color-primary-container);
-      color: var(--md-sys-color-on-primary-container);
+    /* FILTER BUTTON */
+    .filtersButton {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-display);
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      background: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+      overflow: visible;
+      flex-shrink: 0;
+      transition: background-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+        border-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+        color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+    }
+
+    .filtersButton::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--md-sys-color-on-surface);
+      opacity: 0;
+      transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .filtersButton:hover:not(.filtersButtonActive) {
+      border-color: var(--md-sys-color-outline-variant);
+    }
+
+    .filtersButton:hover:not(.filtersButtonActive)::before {
+      opacity: var(--md-sys-state-hover-opacity);
+    }
+
+    .filtersButton:focus-visible {
+      outline: 3px solid var(--md-sys-color-primary);
+      outline-offset: 2px;
+    }
+
+    .filtersButtonActive {
+      background: var(--md-sys-color-on-surface);
+      color: var(--md-sys-color-background);
+      border-color: var(--md-sys-color-on-surface);
+    }
+
+    .filtersButtonActive::before {
+      background-color: var(--md-sys-color-background);
+    }
+
+    .filtersButtonActive:hover::before {
+      opacity: var(--md-sys-state-hover-opacity);
+    }
+
+    .filtersButton .material-symbols-outlined {
+      font-size: 24px;
+      line-height: 1;
+      color: inherit;
+    }
+
+    .filterBadge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--md-sys-color-primary);
+      color: white;
+      border-radius: var(--md-sys-shape-corner-full);
+      font-size: 11px;
       font-weight: 600;
+      line-height: 1;
+      border: 2px solid var(--md-sys-color-background);
+      pointer-events: none;
+      font-family: var(--font-sans);
+    }
+
+    .leftSectionScrolled .filterBadge {
+      border-color: var(--wy-library-header-scrolled-bg);
+    }
+
+    /* SEARCH CONTAINER */
+    .searchContainer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex: 1;
+      max-width: 400px;
+      min-width: 200px;
+      margin-right: auto;
+    }
+
+    .searchIcon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      color: var(--md-sys-color-on-surface-variant);
+      pointer-events: none;
+      transition: color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+      z-index: 1;
+    }
+
+    .searchInput {
+      width: 100%;
+      height: 48px;
+      padding: 0 2.5rem;
+      border-radius: var(--md-sys-shape-corner-full);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      background: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-surface);
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      box-shadow: 0 1px 2px rgba(26, 22, 20, 0.02);
+      transition: border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+        box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+    }
+
+    .searchInput::placeholder {
+      color: var(--md-sys-color-on-surface-variant);
+      opacity: 0.6;
+    }
+
+    .searchInput:focus {
+      outline: none;
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+    }
+
+    .searchInput:focus ~ .searchIcon {
+      color: var(--md-sys-color-primary);
+    }
+
+    .searchClear {
+      position: absolute;
+      right: 0.5rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--md-sys-color-on-surface-variant);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+      position: relative;
       overflow: hidden;
     }
 
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .searchClear::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--md-sys-color-on-surface);
+      opacity: 0;
+      transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+      pointer-events: none;
+      border-radius: 50%;
     }
 
-    @media (max-width: 800px) {
-      .breadcrumb {
-        display: none;
+    .searchClear:hover {
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .searchClear:hover::before {
+      opacity: var(--md-sys-state-hover-opacity);
+    }
+
+    .searchClear:focus-visible {
+      outline: 2px solid var(--md-sys-color-primary);
+      outline-offset: 2px;
+    }
+
+    .searchClear .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    /* ADD WORK BUTTON */
+    .addWorkButton {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      height: 48px;
+      padding: 0 var(--spacing-lg);
+      border-radius: var(--md-sys-shape-corner-full);
+      border: none;
+      background: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+    }
+
+    .addWorkButton::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--md-sys-color-on-primary);
+      opacity: 0;
+      transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+      pointer-events: none;
+    }
+
+    .addWorkButton:hover::before {
+      opacity: var(--md-sys-state-hover-opacity);
+    }
+
+    .addWorkButton:active {
+      transform: scale(0.98);
+    }
+
+    .addWorkButton:focus-visible {
+      outline: 3px solid var(--md-sys-color-primary);
+      outline-offset: 2px;
+    }
+
+    .addWorkButton .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    /* RIGHT SECTION */
+    .rightSection {
+      display: flex;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+      position: relative;
+      opacity: 1;
+      transform: translateX(0);
+      max-width: 100%;
+      transition: opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized),
+        transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        max-width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+    }
+
+    .rightSectionHidden {
+      opacity: 0;
+      transform: translateX(2rem);
+      pointer-events: none;
+      max-width: 0;
+      overflow: hidden;
+    }
+
+    .rightSectionReturning {
+      transition: opacity 0.5s var(--md-sys-motion-easing-emphasized-decelerate),
+        transform 0.5s var(--md-sys-motion-easing-emphasized-decelerate),
+        max-width 0.5s var(--md-sys-motion-easing-emphasized-decelerate);
+    }
+
+    /* MATERIAL SYMBOLS OUTLINED */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: 'liga';
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 767px) {
+      .header {
+        align-items: flex-start;
       }
-      .user-info {
-        display: none;
+
+      .headerScrolled {
+        padding: 0.75rem 0;
       }
-      padding: 12px 16px;
+
+      .leftSection {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-md);
+        flex: 1;
+        min-width: 0;
+      }
+
+      .leftSectionScrolled {
+        padding: 1rem;
+      }
+
+      .searchContainer {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin-top: var(--spacing-xs);
+      }
+
+      .rightSection {
+        position: absolute;
+        top: var(--spacing-2xl);
+        right: 0;
+      }
+
+      .rightSectionHidden {
+        opacity: 0;
+        transform: translateY(-1rem);
+        max-width: 0;
+        overflow: hidden;
+      }
     }
   `;
 
   render() {
     return html`
-      <div class="header-container">
-        <div class="left-section">
-          <md-icon-button>
-            <md-icon>menu</md-icon>
-          </md-icon-button>
-          <slot name="logo">
-            <wy-logo class="logo-container" size="28"></wy-logo>
-          </slot>
-          <div class="breadcrumb">${this.breadcrumb}</div>
-        </div>
-
-        <div class="search-container">
-          <input 
-            type="text" 
-            class="search-pill" 
-            placeholder="Search collections, tags, or artists..."
-            .value="${this.searchValue}"
-            @input="${this._handleSearch}"
-          >
-          <md-icon class="search-icon">search</md-icon>
-        </div>
-
-        <div class="right-section">
-          <md-icon-button>
-            <md-icon>notifications</md-icon>
-          </md-icon-button>
+      <header class="header ${this.isScrolled ? 'headerScrolled' : ''}">
+        <div class="leftSection ${this.isScrolled ? 'leftSectionScrolled' : ''}">
+          <h1>Artworks</h1>
           
-          <div class="user-profile">
-            <div class="user-info">
-              <span class="user-name">${this.userName}</span>
-              <span class="user-role">Administrator</span>
-            </div>
-            <div class="avatar">
-              ${this.userAvatar ? html`<img src="${this.userAvatar}" alt="${this.userName}">` : html`<span>${this.userName.charAt(0)}</span>`}
-            </div>
+          <button
+            type="button"
+            class="filtersButton ${this.showFilters || this.activeFilterCount > 0 ? 'filtersButtonActive' : ''}"
+            @click="${this._handleFilterToggle}"
+            aria-label="${this.showFilters ? 'Hide' : 'Show'} filters${this.activeFilterCount > 0 ? ` (${this.activeFilterCount} active)` : ''}"
+            title="${this.showFilters ? 'Hide' : 'Show'} filters${this.activeFilterCount > 0 ? ` (${this.activeFilterCount} active)` : ''}">
+            <span class="material-symbols-outlined">tune</span>
+            ${this.activeFilterCount > 0 ? html`
+              <span class="filterBadge">${this.activeFilterCount}</span>
+            ` : ''}
+          </button>
+
+          <div class="searchContainer">
+            <span class="material-symbols-outlined searchIcon">search</span>
+            <input
+              type="search"
+              class="searchInput"
+              placeholder="Search works..."
+              .value="${this.searchQuery}"
+              @input="${this._handleSearchInput}"
+              aria-label="Search works by title, description, or source"
+            />
+            ${this.searchQuery ? html`
+              <button
+                type="button"
+                class="searchClear"
+                @click="${this._handleSearchClear}"
+                aria-label="Clear search">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            ` : ''}
           </div>
+
+          <button
+            type="button"
+            class="addWorkButton"
+            @click="${this._handleAddWork}">
+            <span class="material-symbols-outlined">add</span>
+            <span>Add work</span>
+          </button>
         </div>
-      </div>
+
+        <div class="rightSection 
+          ${this.isScrolled ? 'rightSectionHidden' : ''}
+          ${this.scrollingUp && !this.isScrolled ? 'rightSectionReturning' : ''}">
+          <slot name="view-controls"></slot>
+          <slot name="backup-status"></slot>
+        </div>
+      </header>
     `;
   }
 
-  _handleSearch(e) {
-    this.searchValue = e.target.value;
-    this.dispatchEvent(new CustomEvent('search', {
-      detail: { value: this.searchValue },
+  _handleFilterToggle() {
+    this.showFilters = !this.showFilters;
+    this.dispatchEvent(new CustomEvent('toggle-filters', {
+      detail: { showing: this.showFilters },
       bubbles: true,
       composed: true
     }));
+  }
+
+  _handleSearchInput(e) {
+    this.searchQuery = e.target.value;
+    
+    if (this._searchTimeout) clearTimeout(this._searchTimeout);
+    
+    this._searchTimeout = setTimeout(() => {
+      this.dispatchEvent(new CustomEvent('search-change', {
+        detail: { value: this.searchQuery },
+        bubbles: true,
+        composed: true
+      }));
+    }, 300);
+  }
+
+  _handleSearchClear() {
+    this.searchQuery = '';
+    if (this._searchTimeout) clearTimeout(this._searchTimeout);
+    
+    this.dispatchEvent(new CustomEvent('search-change', {
+      detail: { value: '' },
+      bubbles: true,
+      composed: true
+    }));
+  }
+
+  _handleAddWork() {
+    this.dispatchEvent(new CustomEvent('add-work', {
+      detail: {},
+      bubbles: true,
+      composed: true
+    }));
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._searchTimeout) clearTimeout(this._searchTimeout);
   }
 }
 

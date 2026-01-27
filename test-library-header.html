@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Header Test - M3 Design System</title>
+  <link rel="stylesheet" href="/src/styles/tokens.css">
+  <script type="module" src="/src/main.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: var(--md-sys-color-background);
+      padding: 0;
+      font-family: var(--font-sans);
+    }
+    
+    .test-container {
+      padding: 0 var(--spacing-xl);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .test-content {
+      height: 2000px;
+      padding: var(--spacing-2xl) 0;
+    }
+    
+    .test-info {
+      background: var(--md-sys-color-surface);
+      padding: var(--spacing-lg);
+      border-radius: var(--md-sys-shape-corner-medium);
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .test-info h2 {
+      margin: 0 0 var(--spacing-md) 0;
+      font-family: var(--font-serif);
+      color: var(--md-sys-color-on-surface);
+    }
+    
+    .test-info p {
+      margin: var(--spacing-sm) 0;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+    
+    .event-log {
+      background: var(--md-sys-color-surface-container);
+      padding: var(--spacing-md);
+      border-radius: var(--md-sys-shape-corner-small);
+      font-family: monospace;
+      font-size: 0.875rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .event-log div {
+      padding: var(--spacing-xs) 0;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    }
+    
+    .event-log div:last-child {
+      border-bottom: none;
+    }
+    
+    /* Mock view controls styling */
+    .view-controls-mock {
+      display: flex;
+      gap: 8px;
+      background: var(--md-sys-color-surface-container);
+      padding: 4px;
+      border-radius: var(--md-sys-shape-corner-full);
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+    
+    .view-controls-mock button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--md-sys-color-background);
+      border: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--md-sys-color-on-surface);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .view-controls-mock button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--md-sys-color-on-surface);
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      border-radius: 50%;
+    }
+    
+    .view-controls-mock button:hover::before {
+      opacity: 0.08;
+    }
+    
+    .view-controls-mock .material-symbols-outlined {
+      font-size: 20px;
+    }
+    
+    /* Mock backup status styling */
+    .backup-status-mock {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 var(--spacing-lg);
+      height: 56px;
+      border-radius: var(--md-sys-shape-corner-full);
+      background: var(--md-sys-color-surface);
+      border: 1px solid transparent;
+      transition: border-color 0.2s;
+      cursor: pointer;
+    }
+    
+    .backup-status-mock:hover {
+      border-color: var(--md-sys-color-outline-variant);
+    }
+    
+    .backup-status-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--wy-status-success-color);
+    }
+    
+    .backup-status-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .backup-status-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--wy-status-success-color);
+      line-height: 1;
+    }
+    
+    .backup-status-time {
+      font-size: 11px;
+      color: var(--md-sys-color-on-surface-variant);
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <wy-library-header 
+      id="testHeader"
+      active-filter-count="0"
+      search-query="">
+      
+      <!-- View controls slot -->
+      <div slot="view-controls" class="view-controls-mock">
+        <button title="Grid view">
+          <span class="material-symbols-outlined">grid_view</span>
+        </button>
+        <button title="Module view" style="background: white;">
+          <span class="material-symbols-outlined">view_module</span>
+        </button>
+        <button title="List view">
+          <span class="material-symbols-outlined">grid_on</span>
+        </button>
+      </div>
+      
+      <!-- Backup status slot -->
+      <div slot="backup-status" class="backup-status-mock">
+        <div class="backup-status-icon">
+          <span class="material-symbols-outlined" style="font-size: 24px;">cloud_done</span>
+        </div>
+        <div class="backup-status-text">
+          <span class="backup-status-label">IN SYNC</span>
+          <span class="backup-status-time">1/27 at 12:27 AM</span>
+        </div>
+        <span class="material-symbols-outlined" style="color: var(--md-sys-color-on-surface-variant);">expand_more</span>
+      </div>
+    </wy-library-header>
+
+    <div class="test-content">
+      <div class="test-info">
+        <h2>Library Header Component Test</h2>
+        <p><strong>Instructions:</strong></p>
+        <ul>
+          <li>Scroll down to test sticky header transitions and glass morphism effect</li>
+          <li>Click the filter button (tune icon) to toggle active state</li>
+          <li>Type in the search box to test debounced search (300ms delay)</li>
+          <li>Click "Add work" button to test event dispatching</li>
+          <li>Toggle filter count using buttons below to test badge display</li>
+        </ul>
+        
+        <div style="display: flex; gap: var(--spacing-md); margin-top: var(--spacing-md);">
+          <button onclick="incrementFilters()" style="padding: 8px 16px; background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; border-radius: var(--md-sys-shape-corner-small); cursor: pointer;">
+            Increment Filter Count
+          </button>
+          <button onclick="decrementFilters()" style="padding: 8px 16px; background: var(--md-sys-color-secondary); color: var(--md-sys-color-on-secondary); border: none; border-radius: var(--md-sys-shape-corner-small); cursor: pointer;">
+            Decrement Filter Count
+          </button>
+          <button onclick="resetFilters()" style="padding: 8px 16px; background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-small); cursor: pointer;">
+            Reset Filters
+          </button>
+        </div>
+      </div>
+
+      <div class="test-info">
+        <h2>Event Log</h2>
+        <div class="event-log" id="eventLog">
+          <div style="color: var(--md-sys-color-on-surface-variant); font-style: italic;">Waiting for events...</div>
+        </div>
+      </div>
+
+      <div style="padding: var(--spacing-2xl); text-align: center; color: var(--md-sys-color-on-surface-variant);">
+        <p>Scroll to test sticky header behavior</p>
+        <p style="margin-top: 200px;">↓</p>
+        <p style="margin-top: 200px;">↓</p>
+        <p style="margin-top: 200px;">Keep scrolling</p>
+        <p style="margin-top: 200px;">↓</p>
+        <p style="margin-top: 200px;">↓</p>
+        <p style="margin-top: 200px;">Watch the header transition</p>
+        <p style="margin-top: 200px;">↓</p>
+        <p style="margin-top: 200px;">Scroll back up to see the reverse</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const header = document.getElementById('testHeader');
+    const eventLog = document.getElementById('eventLog');
+    
+    function logEvent(eventName, detail) {
+      const timestamp = new Date().toLocaleTimeString();
+      const entry = document.createElement('div');
+      entry.innerHTML = `<strong>${timestamp}</strong> - ${eventName}: ${JSON.stringify(detail)}`;
+      eventLog.insertBefore(entry, eventLog.firstChild);
+      
+      // Keep only last 20 events
+      while (eventLog.children.length > 20) {
+        eventLog.removeChild(eventLog.lastChild);
+      }
+    }
+    
+    // Event listeners
+    header.addEventListener('toggle-filters', e => {
+      logEvent('toggle-filters', e.detail);
+      console.log('Filters toggled:', e.detail);
+    });
+    
+    header.addEventListener('search-change', e => {
+      logEvent('search-change', e.detail);
+      console.log('Search changed:', e.detail);
+    });
+    
+    header.addEventListener('add-work', e => {
+      logEvent('add-work', e.detail);
+      console.log('Add work clicked:', e.detail);
+    });
+    
+    // Filter count controls
+    let filterCount = 0;
+    
+    window.incrementFilters = function() {
+      filterCount++;
+      header.setAttribute('active-filter-count', filterCount);
+      logEvent('manual-action', { action: 'increment', count: filterCount });
+    };
+    
+    window.decrementFilters = function() {
+      if (filterCount > 0) {
+        filterCount--;
+        header.setAttribute('active-filter-count', filterCount);
+        logEvent('manual-action', { action: 'decrement', count: filterCount });
+      }
+    };
+    
+    window.resetFilters = function() {
+      filterCount = 0;
+      header.setAttribute('active-filter-count', filterCount);
+      header.setAttribute('show-filters', 'false');
+      logEvent('manual-action', { action: 'reset', count: 0 });
+    };
+    
+    // Scroll behavior
+    let lastScrollY = 0;
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY > 50;
+      const scrollingUp = window.scrollY < lastScrollY;
+      
+      header.setAttribute('is-scrolled', scrolled);
+      header.setAttribute('scrolling-up', scrollingUp);
+      
+      lastScrollY = window.scrollY;
+    });
+    
+    console.log('Library Header test page loaded. Check console for event logs.');
+  </script>
+</body>
+</html>

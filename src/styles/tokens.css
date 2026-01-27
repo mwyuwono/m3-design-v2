@@ -81,6 +81,16 @@
   --wy-info-panel-border: var(--md-sys-color-surface-container-highest); /* #D7D3C8 - exact match */
   --wy-info-panel-text-color: #52525B;          /* zinc-600: rgb(82, 82, 91) - Δ 20.47 from --md-sys-color-on-surface-variant */
 
+  /* Library Header Component Colors */
+  /* Status color for backup sync indicator - Tailwind status-green from reference design */
+  /* This is a semantic success color that doesn't exist in M3 palette */
+  --wy-status-success-color: #438E64;           /* rgb(67, 142, 100) - Tailwind custom status-green */
+  
+  /* Glass morphism effect for scrolled header state */
+  /* Semi-transparent background with backdrop blur for sticky header */
+  --wy-library-header-scrolled-bg: rgba(248, 247, 244, 0.8);  /* Alabaster with 80% opacity */
+  --wy-library-header-scrolled-blur: 14px;
+
   /* --- TYPOGRAPHY FAMILIES --- */
   --font-display: 'Playfair Display', serif;
   /* Display Serif */
@@ -266,6 +276,10 @@
     --wy-info-panel-bg: rgba(24, 24, 27, 0.5);  /* zinc-900 with transparency */
     --wy-info-panel-border: #27272A;            /* zinc-800: subtle border in dark mode */
     --wy-info-panel-text-color: #A1A1AA;        /* zinc-400: muted text for dark mode */
+    
+    /* Library Header Component Colors (dark mode) */
+    --wy-status-success-color: #66BB8A;         /* Lighter green for better contrast in dark mode */
+    --wy-library-header-scrolled-bg: rgba(18, 18, 18, 0.3);  /* Dark with 30% opacity for glass morphism */
   }
 }
 
@@ -328,4 +342,8 @@ html.dark :root {
   --wy-info-panel-bg: rgba(24, 24, 27, 0.5);
   --wy-info-panel-border: #27272A;
   --wy-info-panel-text-color: #A1A1AA;
+  
+  /* Library Header Component Colors (dark mode) */
+  --wy-status-success-color: #66BB8A;
+  --wy-library-header-scrolled-bg: rgba(18, 18, 18, 0.3);
 }
