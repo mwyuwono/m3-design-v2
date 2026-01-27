@@ -122,6 +122,65 @@
   --md-sys-typescale-label-medium-font: var(--font-sans);
   --md-sys-typescale-label-small-font: var(--font-sans);
 
+  /* --- TYPOGRAPHY SCALE TOKENS --- */
+  /* Display Tier */
+  --md-sys-typescale-display-large-size: 4.5rem; /* 72px */
+  --md-sys-typescale-display-large-line-height: 1.1;
+  --md-sys-typescale-display-large-letter-spacing: -0.02em;
+  --md-sys-typescale-display-large-weight: 600;
+
+  --md-sys-typescale-display-medium-size: 3.5rem; /* 56px */
+  --md-sys-typescale-display-medium-line-height: 1.1;
+  --md-sys-typescale-display-medium-weight: 600;
+
+  --md-sys-typescale-display-small-size: 2.5rem; /* 40px */
+  --md-sys-typescale-display-small-line-height: 1.2;
+  --md-sys-typescale-display-small-weight: 600;
+
+  /* Headline Tier */
+  --md-sys-typescale-headline-large-size: 2rem; /* 32px */
+  --md-sys-typescale-headline-large-weight: 600;
+
+  --md-sys-typescale-headline-medium-size: 1.75rem; /* 28px */
+  --md-sys-typescale-headline-medium-weight: 600;
+
+  --md-sys-typescale-headline-small-size: 1.5rem; /* 24px */
+  --md-sys-typescale-headline-small-weight: 600;
+
+  /* Title Tier */
+  --md-sys-typescale-title-large-size: 1.25rem; /* 20px */
+  --md-sys-typescale-title-large-weight: 600;
+
+  --md-sys-typescale-title-medium-size: 1.125rem; /* 18px */
+  --md-sys-typescale-title-medium-weight: 500;
+  --md-sys-typescale-title-medium-letter-spacing: 0.015em;
+
+  --md-sys-typescale-title-small-size: 1rem; /* 16px */
+  --md-sys-typescale-title-small-weight: 500;
+  --md-sys-typescale-title-small-letter-spacing: 0.01em;
+
+  /* Body Tier */
+  --md-sys-typescale-body-large-size: 1.125rem; /* 18px */
+  --md-sys-typescale-body-large-line-height: 1.6;
+  --md-sys-typescale-body-large-weight: 400;
+
+  --md-sys-typescale-body-medium-size: 1rem; /* 16px */
+  --md-sys-typescale-body-medium-line-height: 1.6;
+  --md-sys-typescale-body-medium-weight: 400;
+
+  --md-sys-typescale-body-small-size: 0.875rem; /* 14px */
+  --md-sys-typescale-body-small-line-height: 1.6;
+  --md-sys-typescale-body-small-weight: 400;
+
+  /* Label Tier */
+  --md-sys-typescale-label-large-size: 0.875rem; /* 14px */
+  --md-sys-typescale-label-large-weight: 500;
+  --md-sys-typescale-label-large-letter-spacing: 0.15em;
+  --md-sys-typescale-label-large-text-transform: uppercase;
+
+  --md-sys-typescale-label-medium-size: 0.75rem; /* 12px */
+  --md-sys-typescale-label-medium-weight: 400;
+
   /* --- SPACING & SHAPE --- */
   
   /* Layout Spacing (for page-level margins and section gaps) */

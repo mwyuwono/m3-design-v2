@@ -6,7 +6,9 @@ export class WyLibraryHeader extends LitElement {
     activeFilterCount: { type: Number, attribute: 'active-filter-count' },
     searchQuery: { type: String, attribute: 'search-query' },
     isScrolled: { type: Boolean, attribute: 'is-scrolled' },
-    scrollingUp: { type: Boolean, attribute: 'scrolling-up' }
+    scrollingUp: { type: Boolean, attribute: 'scrolling-up' },
+    searchSize: { type: String, attribute: 'search-size' },
+    showSearch: { type: Boolean, attribute: 'show-search' }
   };
 
   constructor() {
@@ -16,6 +18,8 @@ export class WyLibraryHeader extends LitElement {
     this.searchQuery = '';
     this.isScrolled = false;
     this.scrollingUp = false;
+    this.searchSize = 'large';
+    this.showSearch = false;
     this._searchTimeout = null;
   }
 
@@ -34,6 +38,12 @@ export class WyLibraryHeader extends LitElement {
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 var(--spacing-xl);
+      transition: max-width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+    }
+
+    .container.headerScrolledContainer {
+      max-width: fit-content;
+      width: auto;
     }
 
     .header {
@@ -44,11 +54,13 @@ export class WyLibraryHeader extends LitElement {
       gap: var(--spacing-lg);
       background-color: transparent;
       transition: padding var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
-        gap var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+        gap var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        justify-content var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
     }
 
     .headerScrolled {
       padding: 1rem 0;
+      justify-content: flex-start;
     }
 
     .header h1 {
@@ -59,13 +71,29 @@ export class WyLibraryHeader extends LitElement {
       line-height: 1.1;
       letter-spacing: 0.02em;
       color: var(--md-sys-color-on-surface);
+      transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        visibility var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        max-width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        margin var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
+        padding var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+    }
+
+    .header h1.h1Hidden {
+      opacity: 0;
+      visibility: hidden;
+      max-width: 0;
+      overflow: hidden;
+      transform: scale(0.95);
+      margin: 0;
+      padding: 0;
     }
 
     /* LEFT SECTION */
     .leftSection {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: var(--spacing-sm);
       flex: 1;
       flex-wrap: wrap;
       min-width: 0;
@@ -76,83 +104,25 @@ export class WyLibraryHeader extends LitElement {
       transition: flex-basis var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
         padding var(--md-sys-motion-duration-short3) ease,
         background-color var(--md-sys-motion-duration-short3) ease,
-        backdrop-filter var(--md-sys-motion-duration-short3) ease;
+        backdrop-filter var(--md-sys-motion-duration-short3) ease,
+        flex var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
     }
 
     .leftSectionScrolled {
       padding: 0.7rem 1.5rem;
       background-color: var(--wy-library-header-scrolled-bg);
       backdrop-filter: blur(var(--wy-library-header-scrolled-blur));
+      -webkit-backdrop-filter: blur(var(--wy-library-header-scrolled-blur));
       margin-left: auto;
       margin-right: auto;
       max-width: 700px;
+      flex: 0 1 auto;
     }
 
-    /* FILTER BUTTON */
-    .filtersButton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      border-radius: 50%;
-      border: 1px solid transparent;
-      background: var(--md-sys-color-surface);
-      color: var(--md-sys-color-on-surface);
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
+    /* FILTER BUTTON WRAPPER */
+    .filterButtonWrapper {
       position: relative;
-      overflow: hidden;
-      flex-shrink: 0;
-      transition: background-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
-        border-color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
-        color var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
-    }
-
-    .filtersButton::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: var(--md-sys-color-on-surface);
-      opacity: 0;
-      transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
-      pointer-events: none;
-      border-radius: 50%;
-    }
-
-    .filtersButton:hover:not(.filtersButtonActive) {
-      border-color: var(--md-sys-color-outline-variant);
-    }
-
-    .filtersButton:hover:not(.filtersButtonActive)::before {
-      opacity: var(--md-sys-state-hover-opacity);
-    }
-
-    .filtersButton:focus-visible {
-      outline: 3px solid var(--md-sys-color-primary);
-      outline-offset: 2px;
-    }
-
-    .filtersButtonActive {
-      background: var(--md-sys-color-on-surface);
-      color: var(--md-sys-color-background);
-      border-color: var(--md-sys-color-on-surface);
-    }
-
-    .filtersButtonActive::before {
-      background-color: var(--md-sys-color-background);
-    }
-
-    .filtersButtonActive:hover::before {
-      opacity: var(--md-sys-state-hover-opacity);
-    }
-
-    .filtersButton .material-symbols-outlined {
-      font-size: 24px;
-      line-height: 1;
-      color: inherit;
+      display: inline-block;
     }
 
     .filterBadge {
@@ -174,6 +144,7 @@ export class WyLibraryHeader extends LitElement {
       border: 2px solid var(--md-sys-color-background);
       pointer-events: none;
       font-family: var(--font-sans);
+      z-index: 10;
     }
 
     .leftSectionScrolled .filterBadge {
@@ -189,6 +160,13 @@ export class WyLibraryHeader extends LitElement {
       max-width: 672px;
       min-width: 200px;
       margin-right: auto;
+      transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+        visibility var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+        max-width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+    }
+
+    .searchContainerHidden {
+      display: none;
     }
 
     .searchIcon {
@@ -217,6 +195,20 @@ export class WyLibraryHeader extends LitElement {
       box-shadow: 0 1px 2px rgba(26, 22, 20, 0.02);
       transition: border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
         box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+    }
+
+    /* Medium search size (44px height) */
+    .searchInput.size-medium {
+      height: 44px;
+      padding: 0 2rem;
+    }
+
+    .searchContainer.size-medium .searchIcon {
+      font-size: 1rem;
+    }
+
+    .searchContainer.size-medium .searchClear .material-symbols-outlined {
+      font-size: 18px;
     }
 
     .searchInput::placeholder {
@@ -280,53 +272,6 @@ export class WyLibraryHeader extends LitElement {
       font-size: 20px;
     }
 
-    /* ADD WORK BUTTON */
-    .addWorkButton {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      height: 56px;
-      padding: 0 var(--spacing-xl);
-      border-radius: var(--md-sys-shape-corner-full);
-      border: none;
-      background: var(--md-sys-color-primary);
-      color: var(--md-sys-color-on-primary);
-      font-family: var(--font-sans);
-      font-size: 0.9375rem;
-      font-weight: 500;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      flex-shrink: 0;
-      transition: transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-    }
-
-    .addWorkButton::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: var(--md-sys-color-on-primary);
-      opacity: 0;
-      transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-      pointer-events: none;
-    }
-
-    .addWorkButton:hover::before {
-      opacity: var(--md-sys-state-hover-opacity);
-    }
-
-    .addWorkButton:active {
-      transform: scale(0.98);
-    }
-
-    .addWorkButton:focus-visible {
-      outline: 3px solid var(--md-sys-color-primary);
-      outline-offset: 2px;
-    }
-
-    .addWorkButton .material-symbols-outlined {
-      font-size: 20px;
-    }
 
     /* RIGHT SECTION */
     .rightSection {
@@ -334,7 +279,7 @@ export class WyLibraryHeader extends LitElement {
       padding-top: 4px;
       padding-bottom: 4px;
       align-items: center;
-      gap: var(--spacing-lg);
+      gap: var(--spacing-sm);
       flex-wrap: nowrap;
       flex-shrink: 0;
       position: relative;
@@ -392,7 +337,7 @@ export class WyLibraryHeader extends LitElement {
       .leftSection {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm);
         flex: 1;
         min-width: 0;
       }
@@ -425,28 +370,37 @@ export class WyLibraryHeader extends LitElement {
 
   render() {
     return html`
-      <div class="container">
+      <div class="container ${this.isScrolled ? 'headerScrolledContainer' : ''}">
         <header class="header ${this.isScrolled ? 'headerScrolled' : ''}">
           <div class="leftSection ${this.isScrolled ? 'leftSectionScrolled' : ''}">
-            <h1>Artworks</h1>
+            <h1 class="${this.showSearch ? 'h1Hidden' : ''}">Artworks</h1>
           
-          <button
-            type="button"
-            class="filtersButton ${this.showFilters || this.activeFilterCount > 0 ? 'filtersButtonActive' : ''}"
-            @click="${this._handleFilterToggle}"
-            aria-label="${this.showFilters ? 'Hide' : 'Show'} filters${this.activeFilterCount > 0 ? ` (${this.activeFilterCount} active)` : ''}"
-            title="${this.showFilters ? 'Hide' : 'Show'} filters${this.activeFilterCount > 0 ? ` (${this.activeFilterCount} active)` : ''}">
-            <span class="material-symbols-outlined">tune</span>
+          <div class="filterButtonWrapper">
+            <wy-icon-button
+              variant="${this.showFilters || this.activeFilterCount > 0 ? 'filled' : 'outlined'}"
+              size="small"
+              icon="tune"
+              label="${this.showFilters ? 'Hide' : 'Show'} filters${this.activeFilterCount > 0 ? ` (${this.activeFilterCount} active)` : ''}"
+              @click="${this._handleFilterToggle}">
+            </wy-icon-button>
             ${this.activeFilterCount > 0 ? html`
               <span class="filterBadge">${this.activeFilterCount}</span>
             ` : ''}
-          </button>
+          </div>
 
-          <div class="searchContainer">
+          <wy-icon-button
+            variant="outlined"
+            size="small"
+            icon="${this.showSearch ? 'close' : 'search'}"
+            label="${this.showSearch ? 'Hide search' : 'Show search'}"
+            @click="${this._handleSearchToggle}">
+          </wy-icon-button>
+
+          <div class="searchContainer ${this.searchSize === 'medium' ? 'size-medium' : ''} ${!this.showSearch ? 'searchContainerHidden' : ''}">
             <span class="material-symbols-outlined searchIcon">search</span>
             <input
               type="search"
-              class="searchInput"
+              class="searchInput ${this.searchSize === 'medium' ? 'size-medium' : ''}"
               placeholder="Search works..."
               .value="${this.searchQuery}"
               @input="${this._handleSearchInput}"
@@ -463,13 +417,13 @@ export class WyLibraryHeader extends LitElement {
             ` : ''}
           </div>
 
-          <button
-            type="button"
-            class="addWorkButton"
+          <wy-icon-button
+            variant="filled"
+            size="small"
+            icon="add"
+            label="Add work"
             @click="${this._handleAddWork}">
-            <span class="material-symbols-outlined">add</span>
-            <span>Add work</span>
-          </button>
+          </wy-icon-button>
           </div>
 
           <div class="rightSection 
@@ -512,6 +466,15 @@ export class WyLibraryHeader extends LitElement {
     
     this.dispatchEvent(new CustomEvent('search-change', {
       detail: { value: '' },
+      bubbles: true,
+      composed: true
+    }));
+  }
+
+  _handleSearchToggle() {
+    this.showSearch = !this.showSearch;
+    this.dispatchEvent(new CustomEvent('toggle-search', {
+      detail: { showing: this.showSearch },
       bubbles: true,
       composed: true
     }));

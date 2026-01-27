@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weaver-Yuwono Button System - Utility &amp; Icons</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2d4e3c", // Hunter Green
+                        "secondary": "#F5F2EA", // Warm Clay
+                        "alabaster": "#FDFBF7",
+                        "background-light": "#FDFBF7",
+                        "background-dark": "#161c19",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                        "sans": ["DM Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "2rem", 
+                        "xl": "3rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'DM Sans', sans-serif;
+        }
+        .tracking-architectural {
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#121714] dark:text-[#F5F2EA] min-h-screen overflow-x-hidden">
+<nav class="w-full px-8 py-6 flex justify-between items-center max-w-[1440px] mx-auto">
+<div class="flex items-center gap-3">
+<div class="bg-primary text-white p-2 rounded-full">
+<span class="material-symbols-outlined text-xl">spa</span>
+</div>
+<span class="font-serif font-bold text-xl tracking-tight text-primary dark:text-white">Weaver-Yuwono</span>
+</div>
+<div class="hidden md:flex gap-8 font-sans text-xs font-bold uppercase tracking-widest text-primary/60 dark:text-white/60">
+<a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Core Components</a>
+<a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Button System</a>
+<a class="text-primary dark:text-white underline underline-offset-8" href="#">Variant 3: Utility</a>
+</div>
+</nav>
+<main class="w-full max-w-[1440px] mx-auto px-8 py-12">
+<header class="mb-20">
+<div class="text-xs font-bold font-sans uppercase tracking-[0.2em] text-primary/40 dark:text-white/40 mb-4">Design System — v1.0</div>
+<h1 class="text-5xl md:text-6xl font-serif text-primary dark:text-white mb-6">Button System: <br/><span class="italic">Utility &amp; Icons</span></h1>
+<p class="max-w-2xl text-lg text-primary/70 dark:text-white/70 font-sans leading-relaxed">
+            Variant 3 of the Weaver-Yuwono family office design system focuses on 'Disciplined Contrast'. This module defines secondary interaction patterns, metadata tagging, and icon-led navigation.
+        </p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<aside class="lg:col-span-3 space-y-12">
+<div class="border-t border-primary/10 pt-6">
+<h3 class="font-serif text-xl text-primary mb-4">The Logic</h3>
+<ul class="space-y-4 text-sm font-sans text-primary/60 leading-relaxed">
+<li><strong class="text-primary font-bold uppercase text-[10px] tracking-widest block mb-1">Architecture</strong> Wide-tracked ALL CAPS for text-only buttons to create a structured, high-end editorial feel.</li>
+<li><strong class="text-primary font-bold uppercase text-[10px] tracking-widest block mb-1">Consistency</strong> Fixed 32px horizontal padding and capsule geometry maintained across all utility scales.</li>
+<li><strong class="text-primary font-bold uppercase text-[10px] tracking-widest block mb-1">Contrast</strong> Hunter Green vs Alabaster for immediate hierarchy in functional elements.</li>
+</ul>
+</div>
+</aside>
+<div class="lg:col-span-9 bg-secondary/30 dark:bg-white/5 p-12 rounded-[2.5rem] space-y-24">
+<section>
+<div class="flex items-center gap-4 mb-10">
+<span class="text-[10px] font-bold font-sans uppercase tracking-[0.3em] text-primary/40">01 / Text-Only Utility</span>
+<div class="h-px flex-1 bg-primary/10"></div>
+</div>
+<div class="flex flex-wrap items-center gap-8 bg-alabaster dark:bg-[#1E2622] p-10 rounded-3xl border border-primary/5">
+<button class="text-primary dark:text-white font-sans font-bold text-xs uppercase tracking-architectural px-8 py-3.5 hover:bg-primary/5 transition-all rounded-full border border-transparent">
+                        View Portfolio
+                    </button>
+<button class="text-primary/60 dark:text-white/60 font-sans font-bold text-xs uppercase tracking-architectural px-8 py-3.5 hover:text-primary transition-all rounded-full">
+                        Legal Notice
+                    </button>
+<button class="text-primary dark:text-white font-sans font-bold text-xs uppercase tracking-architectural px-8 py-3.5 hover:bg-primary/5 transition-all rounded-full flex items-center gap-3">
+<span class="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+                        Investor Relations
+                    </button>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-4 mb-10">
+<span class="text-[10px] font-bold font-sans uppercase tracking-[0.3em] text-primary/40">02 / Iconic Navigation</span>
+<div class="h-px flex-1 bg-primary/10"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="p-8 border border-primary/10 rounded-2xl flex flex-col items-center gap-6">
+<span class="text-[9px] font-sans font-bold uppercase tracking-widest text-primary/40">Hunter Green (Filled)</span>
+<div class="flex gap-4">
+<button class="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">north_east</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="p-8 border border-primary/10 rounded-2xl flex flex-col items-center gap-6">
+<span class="text-[9px] font-sans font-bold uppercase tracking-widest text-primary/40">Alabaster (Outlined)</span>
+<div class="flex gap-4">
+<button class="w-14 h-14 rounded-full bg-alabaster border border-primary/20 text-primary flex items-center justify-center hover:border-primary transition-all">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-alabaster border border-primary/20 text-primary flex items-center justify-center hover:border-primary transition-all">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-4 mb-10">
+<span class="text-[10px] font-bold font-sans uppercase tracking-[0.3em] text-primary/40">03 / Utility Tags</span>
+<div class="h-px flex-1 bg-primary/10"></div>
+</div>
+<div class="flex flex-wrap items-center gap-4">
+<span class="bg-primary/5 text-primary text-[10px] font-bold font-sans uppercase tracking-architectural px-6 py-2 rounded-full border border-primary/10">
+                        Quarterly
+                    </span>
+<span class="bg-primary/5 text-primary text-[10px] font-bold font-sans uppercase tracking-architectural px-6 py-2 rounded-full border border-primary/10">
+                        ESG Focus
+                    </span>
+<span class="bg-primary/5 text-primary text-[10px] font-bold font-sans uppercase tracking-architectural px-6 py-2 rounded-full border border-primary/10">
+                        Confidential
+                    </span>
+<button class="bg-transparent border border-dashed border-primary/30 text-primary/40 text-[10px] font-bold font-sans uppercase tracking-architectural px-6 py-2 rounded-full hover:border-primary/60 hover:text-primary transition-all">
+                        + Add Tag
+                    </button>
+</div>
+</section>
+</div>
+</div>
+<section class="mt-32 border-t border-primary/10 pt-20">
+<h2 class="text-3xl font-serif text-primary mb-12">System in Practice</h2>
+<div class="bg-white p-12 rounded-[2rem] border border-primary/5 shadow-sm max-w-4xl mx-auto">
+<div class="flex flex-col md:flex-row gap-12 items-start">
+<div class="flex-1">
+<div class="flex gap-2 mb-6">
+<span class="text-[10px] font-bold font-sans uppercase tracking-widest text-primary/50">Market Analysis</span>
+<span class="text-[10px] font-bold font-sans uppercase tracking-widest text-primary/50">•</span>
+<span class="text-[10px] font-bold font-sans uppercase tracking-widest text-primary/50">2024</span>
+</div>
+<h3 class="text-4xl font-serif text-primary mb-6">Sustainable Growth &amp; Intergenerational Wealth</h3>
+<p class="text-primary/70 font-sans leading-relaxed mb-8">
+                        The utility system allows for quiet but precise interaction, ensuring that the typography remains the focal point of the Weaver-Yuwono brand experience.
+                    </p>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-white font-sans font-bold text-xs uppercase tracking-architectural px-8 py-4 rounded-full">
+                            Read Insight
+                        </button>
+<button class="text-primary font-sans font-bold text-xs uppercase tracking-architectural px-8 py-4 rounded-full hover:bg-primary/5 transition-all">
+                            Archive
+                        </button>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="w-14 h-14 rounded-full bg-alabaster border border-primary/20 text-primary flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">print</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-alabaster border border-primary/20 text-primary flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">mail</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full border-t border-primary/10 mt-32 bg-alabaster">
+<div class="max-w-[1440px] mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
+<div>
+<p class="text-primary/50 font-sans text-[11px] font-bold uppercase tracking-widest">© 2024 Weaver-Yuwono Family Office. Component Sheet 03-3.</p>
+</div>
+<div class="flex gap-6">
+<button class="text-primary/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">keyboard_arrow_left</span>
+</button>
+<span class="font-sans text-xs font-bold text-primary">03 / 03</span>
+<button class="text-primary/20 cursor-not-allowed">
+<span class="material-symbols-outlined">keyboard_arrow_right</span>
+</button>
+</div>
+</div>
+</footer>
+
+</body></html>

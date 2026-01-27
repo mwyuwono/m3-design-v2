@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weaver-Yuwono Visual Identity Guide</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2d4e3c", // Hunter Green
+                        "secondary": "#F5F2EA", // Warm Clay
+                        "border-clay": "#D7D3C8",
+                        "alabaster": "#FDFBF7",
+                        "background-light": "#FDFBF7", 
+                        "background-dark": "#161c19",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                        "sans": ["DM Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "2rem", 
+                        "xl": "3rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'DM Sans', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-manrope {
+            font-family: 'Manrope', sans-serif;
+        }
+        .btn-tonal-filled {
+            @apply bg-secondary text-primary font-serif rounded-full px-10 py-4 transition-all hover:brightness-95 flex items-center gap-3;
+        }
+        .btn-tonal-outlined {
+            @apply border border-border-clay text-primary font-serif rounded-full px-10 py-4 transition-all hover:bg-secondary/30 flex items-center gap-3;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#121714] dark:text-[#F5F2EA] overflow-x-hidden">
+<nav class="w-full px-8 py-6 flex justify-between items-center max-w-[1440px] mx-auto">
+<div class="flex items-center gap-3">
+<div class="bg-primary text-white p-2 rounded-full">
+<span class="material-symbols-outlined text-xl leading-none">spa</span>
+</div>
+<span class="font-serif font-bold text-xl tracking-tight text-primary dark:text-white">Weaver-Yuwono</span>
+</div>
+<div class="hidden md:flex gap-8 font-sans text-sm font-medium tracking-wide text-primary/80 dark:text-white/80">
+<a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Philosophy</a>
+<a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Typography</a>
+<a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Palette</a>
+<a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Components</a>
+</div>
+</nav>
+<main class="flex flex-col items-center w-full">
+<section class="w-full max-w-[1440px] px-8 py-20 md:py-32 flex flex-col items-center text-center">
+<div class="bg-primary/5 text-primary dark:text-white dark:bg-white/10 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.15em] mb-8 font-sans">
+            Visual Identity System v1.0
+        </div>
+<h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-primary dark:text-white leading-[1.1] tracking-tight mb-6">
+            Weaver-Yuwono<br/>Family Office
+        </h1>
+<p class="max-w-2xl text-lg md:text-xl text-primary/70 dark:text-white/70 font-sans font-light leading-relaxed">
+            A design system blending organic shapes with disciplined editorial clarity.
+        </p>
+</section>
+<section class="w-full max-w-[1440px] px-8 mb-32">
+<div class="bg-white dark:bg-white/5 border border-primary/5 rounded-[2.5rem] p-12 shadow-sm">
+<div class="flex flex-col md:flex-row gap-16">
+<div class="md:w-1/3">
+<div class="text-[10px] font-bold font-sans uppercase tracking-[0.2em] text-primary/40 mb-4">Component Library</div>
+<h2 class="text-4xl font-serif text-primary dark:text-white mb-6 leading-tight">Button System —<br/>Secondary &amp; Editorial</h2>
+<p class="text-primary/70 dark:text-white/70 font-sans text-sm leading-relaxed mb-8">
+                        Variant 2: Secondary &amp; Tonal. This subset focuses on "Disciplined Contrast" where 'Sharp Serif' typography (Playfair Display) is juxtaposed against the soft, organic 'Warm Clay' (#F5F2EA) capsule.
+                    </p>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 rounded-full bg-secondary"></div>
+<span class="text-xs font-sans text-primary/60">Warm Clay #F5F2EA</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 rounded-full border border-border-clay"></div>
+<span class="text-xs font-sans text-primary/60">Border #D7D3C8</span>
+</div>
+</div>
+</div>
+<div class="md:w-2/3">
+<div class="grid grid-cols-1 gap-12">
+<div class="space-y-6">
+<span class="text-xs font-sans font-bold uppercase tracking-widest text-primary/30">2.1 Filled Warm Clay</span>
+<div class="flex flex-wrap items-center gap-6">
+<button class="btn-tonal-filled text-lg">
+                                    Enquire Privately
+                                </button>
+<button class="btn-tonal-filled">
+<span>View Portfolio</span>
+<span class="material-symbols-outlined text-base">north_east</span>
+</button>
+</div>
+</div>
+<div class="space-y-6">
+<span class="text-xs font-sans font-bold uppercase tracking-widest text-primary/30">2.2 Editorial Outlined</span>
+<div class="flex flex-wrap items-center gap-6">
+<button class="btn-tonal-outlined text-lg">
+                                    Legacy Planning
+                                </button>
+<button class="btn-tonal-outlined">
+<span>Download Charter</span>
+<span class="material-symbols-outlined text-base">download</span>
+</button>
+</div>
+</div>
+<div class="mt-8 p-8 bg-secondary/20 rounded-2xl border border-secondary">
+<h4 class="text-primary font-serif text-xl mb-3 uppercase tracking-tight">Sharp Serif Contrast</h4>
+<p class="text-primary/70 text-sm font-sans leading-relaxed">
+                                By utilizing <strong>Playfair Display</strong> for button text, we elevate functional elements into editorial statements. The 1px #D7D3C8 border provides just enough structure without disrupting the airy aesthetic.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="w-full max-w-[1080px] px-8 mb-32">
+<div class="flex flex-col md:flex-row gap-12">
+<div class="md:w-1/3">
+<h2 class="text-3xl font-serif text-primary dark:text-white mb-4">Typography</h2>
+<p class="text-primary/70 dark:text-white/70 font-sans text-sm leading-relaxed mb-6">
+                    Editorial elegance meets high readability.
+                </p>
+</div>
+<div class="md:w-2/3 flex flex-col gap-10">
+<div class="group border-b border-primary/10 dark:border-white/10 pb-8 hover:pl-4 transition-all duration-300">
+<span class="block text-xs font-sans text-primary/40 dark:text-white/40 mb-2 uppercase tracking-wide">Display Large — Playfair Display</span>
+<p class="text-5xl md:text-6xl font-serif text-primary dark:text-white leading-tight">The Quick Brown Fox</p>
+</div>
+<div class="group border-b border-primary/10 dark:border-white/10 pb-8 hover:pl-4 transition-all duration-300">
+<span class="block text-xs font-sans text-primary/40 dark:text-white/40 mb-2 uppercase tracking-wide">Label Small — DM Sans, Tracking 0.15em</span>
+<p class="text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-primary dark:text-white">PORTFOLIO ALLOCATION</p>
+</div>
+</div>
+</div>
+</section>
+<section class="w-full max-w-[1440px] px-8 mb-32 bg-secondary/30 dark:bg-white/5 py-20 rounded-xl">
+<div class="max-w-[1080px] mx-auto">
+<div class="mb-12 text-center md:text-left">
+<h2 class="text-3xl font-serif text-primary dark:text-white mb-2">Color Palette</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
+<div class="flex flex-col items-center gap-4 group cursor-pointer">
+<div class="w-48 h-48 rounded-full bg-[#2d4e3c] shadow-xl shadow-primary/20 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+<span class="text-white opacity-0 group-hover:opacity-100 transition-opacity font-manrope">Primary</span>
+</div>
+<div class="text-center">
+<p class="font-serif text-xl text-primary dark:text-white">Hunter Green</p>
+<p class="font-sans text-sm text-primary/50 uppercase tracking-widest">#2D4E3C</p>
+</div>
+</div>
+<div class="flex flex-col items-center gap-4 group cursor-pointer">
+<div class="w-48 h-48 rounded-full bg-[#F5F2EA] border border-primary/5 shadow-xl shadow-primary/5 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+<span class="text-primary opacity-0 group-hover:opacity-100 transition-opacity font-manrope">Surface</span>
+</div>
+<div class="text-center">
+<p class="font-serif text-xl text-primary dark:text-white">Warm Clay</p>
+<p class="font-sans text-sm text-primary/50 uppercase tracking-widest">#F5F2EA</p>
+</div>
+</div>
+<div class="flex flex-col items-center gap-4 group cursor-pointer">
+<div class="w-48 h-48 rounded-full bg-[#FDFBF7] border border-primary/10 shadow-xl shadow-primary/5 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+<span class="text-primary opacity-0 group-hover:opacity-100 transition-opacity font-manrope">Background</span>
+</div>
+<div class="text-center">
+<p class="font-serif text-xl text-primary dark:text-white">Alabaster</p>
+<p class="font-sans text-sm text-primary/50 uppercase tracking-widest">#FDFBF7</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="w-full max-w-[1080px] px-8 mb-32">
+<div class="flex flex-col md:flex-row gap-16">
+<div class="md:w-1/4">
+<h2 class="text-3xl font-serif text-primary dark:text-white mb-4">Disciplined Contrast</h2>
+<p class="text-primary/70 dark:text-white/70 font-sans text-sm leading-relaxed">
+                    Cards with 32px internal padding and 16px corner radius, showcasing the 'Paper and Ink' look.
+                </p>
+</div>
+<div class="md:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-secondary dark:bg-white/10 p-8 rounded-[2rem] flex flex-col gap-6 shadow-sm">
+<div class="w-full h-48 rounded-2xl overflow-hidden relative">
+<img alt="Modern architectural detail" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-rJfR2fST3WAVIXKnm-rafHICK-VK_apda-QuyM3oeTdLPid_3Abg47Iakxm5tbRsYchSc6G3g4pJfhjjQ44n4dRPnrmbkQmAV0azocwlu14suTn9zsT0dR6xcVKbofm0VH7282rfmzMbhc-HrpTTWTNW-Aech_Ex68cr2v-R_jAzOcbadvur0aeL2l-6MPgNJH9jK8nPWYtsbOLModXVnM7k9xi9mZpWsCyfTKBpwFgN454Z5UNtDsWQJNqeCNOunbcrtrmZynQ"/>
+</div>
+<div>
+<span class="text-[10px] font-bold font-sans uppercase tracking-[0.2em] text-primary/60 dark:text-white/60 mb-2 block">Real Estate</span>
+<h3 class="text-2xl font-serif text-primary dark:text-white mb-2">The Architectural Fund</h3>
+<p class="text-primary/70 dark:text-white/70 font-sans text-sm leading-relaxed">
+                            Sustainable urban development and architectural heritage.
+                        </p>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1E2622] p-8 rounded-[2rem] flex flex-col justify-between shadow-sm border border-primary/5">
+<div>
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-6 text-primary dark:text-white">
+<span class="material-symbols-outlined">pie_chart</span>
+</div>
+<h3 class="text-2xl font-serif text-primary dark:text-white mb-3">Quarterly Report</h3>
+<div class="flex flex-col gap-3 my-6">
+<div class="flex justify-between items-center border-b border-primary/10 pb-2">
+<span class="text-sm font-sans text-primary/60">Equities</span>
+<span class="text-sm font-sans font-bold text-primary">42%</span>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center gap-2 text-xs font-bold font-sans uppercase tracking-widest text-primary dark:text-white hover:opacity-70 transition-opacity" href="#">
+                        View Full Report 
+                        <span class="material-symbols-outlined text-sm">arrow_outward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<section class="w-full max-w-[1440px] px-4 md:px-8 mb-32">
+<div class="grid grid-cols-12 gap-4 h-auto md:h-[600px]">
+<div class="col-span-12 md:col-span-8 bg-secondary dark:bg-white/5 rounded-3xl overflow-hidden relative group">
+<img alt="Minimalist beige interior" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDP-tuy_lI7EI0aJ98OHsxBD8T-BDURlYBTtwT8gftP_q2eo2Bi6W0tSPpjoQDHIWqN0mqqFKoKkMdfX4ZGeET6n3xclCSizHQxMlDHnxja40-4TPc6HgZdtbKpAaXrQpcVEsIHyH5xZ3_JiR8sxMVvAV0jtDBVHFUxQumWKmbTyrlDBsW1zQwqh5OXbrAkf_nqLTGB6mTnKDqLRMxz9zhSIW6eVwaVC4Zh5Md9Z5U3icWss1W92cgOQJkmqf4ZIZABQ9FS7fACP8"/>
+<div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/60 to-transparent">
+<h3 class="text-white font-serif text-3xl md:text-4xl">Interior Harmony</h3>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 flex flex-col gap-4">
+<div class="flex-1 bg-primary rounded-3xl p-8 flex flex-col justify-center items-center text-center relative overflow-hidden">
+<span class="material-symbols-outlined text-white text-5xl mb-4 relative z-10">balance</span>
+<h4 class="text-white font-serif text-2xl mb-2 relative z-10">Stewardship</h4>
+</div>
+<div class="flex-1 bg-[#dcdad4] dark:bg-white/20 rounded-3xl overflow-hidden">
+<img alt="Green fern leaves" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtKtzQQ69WIPUJKshyPPbyDYOKBgByW8kQI2JJ1j1W_d_JHIXWI8XjUADfiB8Xvc2HwutE9_YTX1mKrPxPsKhOHO7_D84EwBtXQeQL8PJOGpq4Ym2QJrMVQ-JJhANQsLVhzqSojbItJqWBaL5CvO9y6QLIpdJiEvK9t77k8yX4HzDMpDV6nIe0CfF5FkSQ4mDvLW7czp6VGkAAgHnrLrSe8-Xyd1Ay77JXIvHplbJpUadqG8VBU41Yxz7wiBEPAP9gdHN74cIi_1M"/>
+</div>
+</div>
+</div>
+</section>
+<footer class="w-full border-t border-primary/10 dark:border-white/10 mt-auto bg-white dark:bg-[#121714]">
+<div class="max-w-[1440px] mx-auto px-8 py-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+<div>
+<h2 class="font-serif text-2xl text-primary dark:text-white mb-2">Weaver-Yuwono</h2>
+<p class="text-primary/50 dark:text-white/50 font-sans text-sm">© 2024 Family Office. Confidential.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-primary/70 dark:text-white/70 hover:text-primary transition-colors font-sans text-sm font-medium" href="#">Portal</a>
+<a class="text-primary/70 dark:text-white/70 hover:text-primary transition-colors font-sans text-sm font-medium" href="#">Guidelines</a>
+</div>
+</div>
+</footer>
+</main>
+
+</body></html>

@@ -1136,6 +1136,53 @@
       "events": [
         { "name": "click", "detail": "{ label: String }", "description": "Fired when interactive tag is clicked" }
       ]
+    },
+    {
+      "name": "icon-sizes",
+      "category": "guidelines",
+      "title": "Standard Icon Sizes",
+      "description": "Standard Material Symbols icon sizes used throughout the design system",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Small (14px)",
+          "code": "<span class=\"material-symbols-outlined\" style=\"font-size: 14px;\">arrow_forward</span>",
+          "props": {},
+          "description": "Used in small buttons (32px height)"
+        },
+        {
+          "name": "Base (16px)",
+          "code": "<span class=\"material-symbols-outlined\" style=\"font-size: 16px;\">arrow_forward</span>",
+          "props": {},
+          "description": "Used in medium buttons (44px height) and medium search bars"
+        },
+        {
+          "name": "Standard (18px)",
+          "code": "<span class=\"material-symbols-outlined\" style=\"font-size: 18px;\">close</span>",
+          "props": {},
+          "description": "Used in clear buttons and medium-sized UI elements"
+        },
+        {
+          "name": "Large (20px)",
+          "code": "<span class=\"material-symbols-outlined\" style=\"font-size: 20px;\">add</span>",
+          "props": {},
+          "description": "Used in large buttons (56px height) and large search bars"
+        },
+        {
+          "name": "Extra Large (24px)",
+          "code": "<span class=\"material-symbols-outlined\" style=\"font-size: 24px;\">tune</span>",
+          "props": {},
+          "description": "Used in icon buttons (56px default) and filter buttons"
+        },
+        {
+          "name": "Size Comparison",
+          "code": "<div style=\"display: flex; align-items: center; gap: 24px;\">\n  <div style=\"display: flex; flex-direction: column; align-items: center; gap: 8px;\">\n    <span class=\"material-symbols-outlined\" style=\"font-size: 14px;\">arrow_forward</span>\n    <span style=\"font-size: 10px; color: var(--md-sys-color-on-surface-variant);\">14px</span>\n  </div>\n  <div style=\"display: flex; flex-direction: column; align-items: center; gap: 8px;\">\n    <span class=\"material-symbols-outlined\" style=\"font-size: 16px;\">arrow_forward</span>\n    <span style=\"font-size: 10px; color: var(--md-sys-color-on-surface-variant);\">16px</span>\n  </div>\n  <div style=\"display: flex; flex-direction: column; align-items: center; gap: 8px;\">\n    <span class=\"material-symbols-outlined\" style=\"font-size: 18px;\">close</span>\n    <span style=\"font-size: 10px; color: var(--md-sys-color-on-surface-variant);\">18px</span>\n  </div>\n  <div style=\"display: flex; flex-direction: column; align-items: center; gap: 8px;\">\n    <span class=\"material-symbols-outlined\" style=\"font-size: 20px;\">add</span>\n    <span style=\"font-size: 10px; color: var(--md-sys-color-on-surface-variant);\">20px</span>\n  </div>\n  <div style=\"display: flex; flex-direction: column; align-items: center; gap: 8px;\">\n    <span class=\"material-symbols-outlined\" style=\"font-size: 24px;\">tune</span>\n    <span style=\"font-size: 10px; color: var(--md-sys-color-on-surface-variant);\">24px</span>\n  </div>\n</div>",
+          "props": {}
+        }
+      ],
+      "props": [],
+      "slots": [],
+      "events": []
     }
   ],
   "categories": {
@@ -1168,6 +1215,11 @@
       "name": "Specialized Components",
       "description": "Domain-specific components",
       "order": 5
+    },
+    "guidelines": {
+      "name": "Guidelines & Standards",
+      "description": "Design system guidelines and standards",
+      "order": 6
     }
   }
 }

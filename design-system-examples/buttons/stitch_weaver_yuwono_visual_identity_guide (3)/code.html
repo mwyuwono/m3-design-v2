@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weaver-Yuwono Button System - Primary Actions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2C4C3B", // Hunter Green
+                        "warm-clay": "#F5F2EA",
+                        "alabaster": "#FDFBF7",
+                    },
+                    fontFamily: {
+                        "serif": ["Playfair Display", "serif"],
+                        "sans": ["DM Sans", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        :root {
+            --hunter-green: #2C4C3B;
+            --warm-clay: #F5F2EA;
+            --alabaster: #FDFBF7;
+        }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--alabaster);
+        }
+        .btn-shadow-hover {
+            box-shadow: 0 10px 25px -5px rgba(44, 76, 59, 0.25);
+        }
+    </style>
+</head>
+<body class="text-[#121714] min-h-screen">
+<header class="w-full bg-white border-b border-primary/10">
+<div class="max-w-[1440px] mx-auto px-12 py-8 flex justify-between items-end">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<div class="bg-primary text-white p-1.5 rounded-full">
+<span class="material-symbols-outlined text-sm">spa</span>
+</div>
+<span class="font-serif font-bold text-lg tracking-tight text-primary uppercase">Weaver-Yuwono</span>
+</div>
+<h1 class="text-4xl font-serif text-primary">Button System - Primary Actions</h1>
+<p class="text-primary/60 mt-2 font-sans tracking-wide uppercase text-xs font-bold">Variant 1 of 3 • Disciplined Contrast</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/40">Visual Identity Guide</p>
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/40">v1.0 / 2024</p>
+</div>
+</div>
+</header>
+<main class="max-w-[1440px] mx-auto px-12 py-16">
+<div class="grid grid-cols-12 gap-12">
+<div class="col-span-12 lg:col-span-3">
+<div class="sticky top-12">
+<h2 class="text-xl font-serif text-primary mb-4">Functional Spec</h2>
+<p class="text-sm text-primary/70 leading-relaxed mb-8">
+                        Primary buttons are designed for the most critical user paths. They utilize "Hunter Green" to establish authority and weight against the "Alabaster" and "Warm Clay" surfaces.
+                    </p>
+<div class="space-y-6">
+<div>
+<span class="block text-[10px] font-bold uppercase tracking-widest text-primary/40 mb-2">Corner Radius</span>
+<p class="text-sm font-sans font-medium">9999px (Capsule)</p>
+</div>
+<div>
+<span class="block text-[10px] font-bold uppercase tracking-widest text-primary/40 mb-2">Typography</span>
+<p class="text-sm font-sans font-medium">DM Sans Medium</p>
+</div>
+<div>
+<span class="block text-[10px] font-bold uppercase tracking-widest text-primary/40 mb-2">Shadow Strategy</span>
+<p class="text-sm font-sans font-medium">Subtle elevation on hover only</p>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-9">
+<section class="bg-white rounded-3xl p-10 mb-8 border border-primary/5">
+<div class="flex items-center justify-between mb-10 border-b border-primary/5 pb-6">
+<h3 class="text-lg font-serif text-primary">Large Actions</h3>
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary/30">Height: 56px</span>
+</div>
+<div class="grid grid-cols-3 gap-8 items-center">
+<div class="space-y-4">
+<span class="text-[10px] font-bold uppercase tracking-[0.15em] text-primary/40 block">Standard</span>
+<button class="w-full bg-primary text-white font-sans font-medium px-10 py-4 rounded-full transition-all flex justify-center items-center gap-2">
+                                Request Access
+                            </button>
+<button class="w-full bg-primary text-white font-sans font-medium px-10 py-4 rounded-full transition-all flex justify-center items-center gap-2">
+                                View Portfolio
+                                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<span class="text-[10px] font-bold uppercase tracking-[0.15em] text-primary/40 block">Hover State</span>
+<button class="w-full bg-[#1e3428] text-white font-sans font-medium px-10 py-4 rounded-full transition-all btn-shadow-hover -translate-y-0.5 flex justify-center items-center gap-2">
+                                Request Access
+                            </button>
+<button class="w-full bg-[#1e3428] text-white font-sans font-medium px-10 py-4 rounded-full transition-all btn-shadow-hover -translate-y-0.5 flex justify-center items-center gap-2">
+                                View Portfolio
+                                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<span class="text-[10px] font-bold uppercase tracking-[0.15em] text-primary/40 block">Disabled</span>
+<button class="w-full bg-primary/20 text-white/50 cursor-not-allowed font-sans font-medium px-10 py-4 rounded-full flex justify-center items-center gap-2" disabled="">
+                                Request Access
+                            </button>
+<button class="w-full bg-primary/20 text-white/50 cursor-not-allowed font-sans font-medium px-10 py-4 rounded-full flex justify-center items-center gap-2" disabled="">
+                                View Portfolio
+                                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-3xl p-10 mb-8 border border-primary/5">
+<div class="flex items-center justify-between mb-10 border-b border-primary/5 pb-6">
+<h3 class="text-lg font-serif text-primary">Medium Actions</h3>
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary/30">Height: 44px</span>
+</div>
+<div class="grid grid-cols-3 gap-8 items-center">
+<div class="space-y-4">
+<button class="bg-primary text-white font-sans font-medium px-8 py-2.5 rounded-full transition-all flex items-center gap-2">
+                                Contact Office
+                            </button>
+<button class="bg-primary text-white font-sans font-medium px-8 py-2.5 rounded-full transition-all flex items-center gap-2">
+                                Open Document
+                                <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<button class="bg-[#1e3428] text-white font-sans font-medium px-8 py-2.5 rounded-full transition-all btn-shadow-hover -translate-y-0.5 flex items-center gap-2">
+                                Contact Office
+                            </button>
+<button class="bg-[#1e3428] text-white font-sans font-medium px-8 py-2.5 rounded-full transition-all btn-shadow-hover -translate-y-0.5 flex items-center gap-2">
+                                Open Document
+                                <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<button class="bg-primary/20 text-white/50 cursor-not-allowed font-sans font-medium px-8 py-2.5 rounded-full flex items-center gap-2" disabled="">
+                                Contact Office
+                            </button>
+<button class="bg-primary/20 text-white/50 cursor-not-allowed font-sans font-medium px-8 py-2.5 rounded-full flex items-center gap-2" disabled="">
+                                Open Document
+                                <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<section class="bg-white rounded-3xl p-10 border border-primary/5">
+<div class="flex items-center justify-between mb-10 border-b border-primary/5 pb-6">
+<h3 class="text-lg font-serif text-primary">Small Actions</h3>
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary/30">Height: 32px</span>
+</div>
+<div class="grid grid-cols-3 gap-8 items-center">
+<div class="space-y-4">
+<button class="bg-primary text-white font-sans font-medium px-5 py-1.5 text-xs rounded-full transition-all flex items-center gap-1.5">
+                                Explore
+                            </button>
+<button class="bg-primary text-white font-sans font-medium px-5 py-1.5 text-xs rounded-full transition-all flex items-center gap-1.5">
+                                Details
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<button class="bg-[#1e3428] text-white font-sans font-medium px-5 py-1.5 text-xs rounded-full transition-all btn-shadow-hover -translate-y-0.5 flex items-center gap-1.5">
+                                Explore
+                            </button>
+<button class="bg-[#1e3428] text-white font-sans font-medium px-5 py-1.5 text-xs rounded-full transition-all btn-shadow-hover -translate-y-0.5 flex items-center gap-1.5">
+                                Details
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<button class="bg-primary/20 text-white/50 cursor-not-allowed font-sans font-medium px-5 py-1.5 text-xs rounded-full flex items-center gap-1.5" disabled="">
+                                Explore
+                            </button>
+<button class="bg-primary/20 text-white/50 cursor-not-allowed font-sans font-medium px-5 py-1.5 text-xs rounded-full flex items-center gap-1.5" disabled="">
+                                Details
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+<footer class="mt-20 pt-10 border-t border-primary/10 flex flex-col md:flex-row justify-between items-start gap-8">
+<div class="max-w-md">
+<h4 class="font-serif text-primary text-xl mb-3">Implementation Note</h4>
+<p class="text-sm text-primary/60 font-sans leading-relaxed">
+                    Always maintain a minimum touch target of 44px for accessibility, even with Small variants. Use trailing icons to indicate directional movement or navigation-heavy actions.
+                </p>
+</div>
+<div class="flex gap-4">
+<div class="bg-warm-clay px-6 py-4 rounded-2xl border border-primary/5">
+<span class="block text-[10px] font-bold uppercase tracking-widest text-primary/40 mb-1">Color Token</span>
+<span class="font-mono text-sm text-primary">var(--hunter-green)</span>
+</div>
+<div class="bg-warm-clay px-6 py-4 rounded-2xl border border-primary/5">
+<span class="block text-[10px] font-bold uppercase tracking-widest text-primary/40 mb-1">Text Token</span>
+<span class="font-mono text-sm text-primary">var(--alabaster)</span>
+</div>
+</div>
+</footer>
+</main>
+
+</body></html>

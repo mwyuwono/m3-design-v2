@@ -1,0 +1,280 @@
+<html class="light" lang="en"><head></head><body class="bg-background-light dark:bg-background-dark text-[#121714] dark:text-[#F5F2EA] overflow-x-hidden">```html
+
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weaver-Yuwono Typography Specification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2d4e3c",
+                        "secondary": "#F5F2EA",
+                        "alabaster": "#FDFBF7",
+                        "background-light": "#FDFBF7",
+                        "background-dark": "#161c19",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                        "sans": ["DM Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "2rem", 
+                        "xl": "3rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body { font-family: 'DM Sans', sans-serif; }
+            h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+        }.type-display-large { font-family: 'Playfair Display', serif; font-size: 4.5rem; letter-spacing: -0.02em; font-weight: 600; line-height: 1.1; }
+        .type-display-medium { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 600; line-height: 1.1; }
+        .type-display-small { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 600; line-height: 1.2; }.type-headline-large { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; }
+        .type-headline-medium { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 600; }
+        .type-headline-small { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; }.type-title-large { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600; }
+        .type-title-medium { font-family: 'DM Sans', sans-serif; font-size: 1.125rem; font-weight: 500; letter-spacing: 0.015em; }
+        .type-title-small { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; letter-spacing: 0.01em; }.type-body-large { font-family: 'DM Sans', sans-serif; font-size: 1.125rem; font-weight: 400; line-height: 1.6; }
+        .type-body-medium { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 400; line-height: 1.6; }
+        .type-body-small { font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 400; line-height: 1.6; }.type-label-large { font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; }
+        .type-label-medium { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; }
+    </style>
+
+
+<nav class="w-full px-8 py-6 flex justify-between items-center max-w-[1440px] mx-auto border-b border-primary/5">
+<div class="flex items-center gap-3">
+<div class="bg-primary text-white p-2 rounded-full">
+<span class="material-symbols-outlined text-xl">spa</span>
+</div>
+<span class="font-serif font-bold text-xl tracking-tight text-primary dark:text-white">Weaver-Yuwono</span>
+</div>
+<div class="hidden md:flex gap-8 font-sans text-sm font-medium tracking-wide text-primary/80 dark:text-white/80">
+<a class="hover:text-primary dark:hover:text-white transition-colors" href="#">System</a>
+<a class="text-primary dark:text-white border-b border-primary" href="#">Typography</a>
+<a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Palette</a>
+<a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Components</a>
+</div>
+</nav>
+<main class="w-full max-w-[1440px] mx-auto px-8 py-16">
+<header class="mb-20">
+<div class="bg-primary/5 inline-block text-primary px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
+            Design System Documentation
+        </div>
+<h1 class="text-6xl font-serif text-primary dark:text-white mb-6">Typography Specification</h1>
+<p class="max-w-2xl text-xl text-primary/60 dark:text-white/70 font-sans font-light leading-relaxed">
+            The Weaver-Yuwono type system balances high-end editorial elegance with functional utility. It utilizes a hierarchical scale designed for clarity across diverse digital environments.
+        </p>
+</header>
+<div class="flex flex-col lg:flex-row gap-16">
+<div class="lg:w-3/4 space-y-24">
+<section>
+<div class="border-b border-primary/10 pb-4 mb-10 flex items-center justify-between">
+<h2 class="text-sm font-bold font-sans uppercase tracking-[0.2em] text-primary/40">01. Display Tier</h2>
+<span class="text-xs font-sans text-primary/30">M3: Display</span>
+</div>
+<div class="space-y-16">
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+<span class="type-label-medium text-primary/50">Display Large — Playfair Display SemiBold</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">4.5rem (72px) / -0.02em tracking</span>
+</div>
+<p class="type-display-large text-primary dark:text-white">Architectural Legacy</p>
+</div>
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+<span class="type-label-medium text-primary/50">Display Medium — Playfair Display SemiBold</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">3.5rem (56px) / Default tracking</span>
+</div>
+<p class="type-display-medium text-primary dark:text-white">Preserving Value</p>
+</div>
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+<span class="type-label-medium text-primary/50">Display Small — Playfair Display SemiBold</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">2.5rem (40px)</span>
+</div>
+<p class="type-display-small text-primary dark:text-white">Generational Stewardship</p>
+</div>
+</div>
+</section>
+<section>
+<div class="border-b border-primary/10 pb-4 mb-10 flex items-center justify-between">
+<h2 class="text-sm font-bold font-sans uppercase tracking-[0.2em] text-primary/40">02. Headline Tier</h2>
+<span class="text-xs font-sans text-primary/30">M3: Headline</span>
+</div>
+<div class="space-y-12">
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+<span class="type-label-medium text-primary/50">Headline Large — Playfair Display SemiBold</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">2rem (32px)</span>
+</div>
+<p class="type-headline-large text-primary dark:text-white">Investment Philosophy</p>
+</div>
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+<span class="type-label-medium text-primary/50">Headline Medium — Playfair Display SemiBold</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">1.75rem (28px)</span>
+</div>
+<p class="type-headline-medium text-primary dark:text-white">Global Portfolio Allocation</p>
+</div>
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+<span class="type-label-medium text-primary/50">Headline Small — Playfair Display SemiBold</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">1.5rem (24px)</span>
+</div>
+<p class="type-headline-small text-primary dark:text-white">Quarterly Performance Analysis</p>
+</div>
+</div>
+</section>
+<section>
+<div class="border-b border-primary/10 pb-4 mb-10 flex items-center justify-between">
+<h2 class="text-sm font-bold font-sans uppercase tracking-[0.2em] text-primary/40">03. Title Tier</h2>
+<span class="text-xs font-sans text-primary/30">M3: Title</span>
+</div>
+<div class="space-y-10">
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+<span class="type-label-medium text-primary/50">Title Large — Playfair Display SemiBold</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">1.25rem (20px)</span>
+</div>
+<p class="type-title-large text-primary dark:text-white">Executive Summary</p>
+</div>
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+<span class="type-label-medium text-primary/50">Title Medium — DM Sans Medium</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">1.125rem (18px) / 0.015em tracking</span>
+</div>
+<p class="type-title-medium text-primary dark:text-white">Sustainable Energy Ventures</p>
+</div>
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+<span class="type-label-medium text-primary/50">Title Small — DM Sans Medium</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">1rem (16px) / 0.01em tracking</span>
+</div>
+<p class="type-title-small text-primary dark:text-white">Risk Mitigation Strategy</p>
+</div>
+</div>
+</section>
+<section>
+<div class="border-b border-primary/10 pb-4 mb-10 flex items-center justify-between">
+<h2 class="text-sm font-bold font-sans uppercase tracking-[0.2em] text-primary/40">04. Body Tier</h2>
+<span class="text-xs font-sans text-primary/30">M3: Body</span>
+</div>
+<div class="space-y-8">
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-2">
+<span class="type-label-medium text-primary/50">Body Large — DM Sans Regular</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">1.125rem (18px) / 1.6 line-height</span>
+</div>
+<p class="type-body-large text-primary/80 dark:text-white/80 max-w-2xl">
+                            Our approach to capital preservation is rooted in a deep understanding of historical market cycles and a forward-looking perspective on technological disruption. We seek to align our interests with the long-term prosperity of the families we serve.
+                        </p>
+</div>
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-2">
+<span class="type-label-medium text-primary/50">Body Medium — DM Sans Regular</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">1rem (16px) / 1.6 line-height</span>
+</div>
+<p class="type-body-medium text-primary/80 dark:text-white/80 max-w-2xl">
+                            The allocation reflects a balanced exposure to alternative assets, including private equity, real estate, and venture capital, complemented by a core portfolio of liquid high-grade securities.
+                        </p>
+</div>
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-2">
+<span class="type-label-medium text-primary/50">Body Small — DM Sans Regular</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">0.875rem (14px) / 1.6 line-height</span>
+</div>
+<p class="type-body-small text-primary/70 dark:text-white/70 max-w-2xl">
+                            *Past performance is not indicative of future results. All investments involve risk including the possible loss of principal. Please consult with your financial advisor before making any investment decisions.
+                        </p>
+</div>
+</div>
+</section>
+<section>
+<div class="border-b border-primary/10 pb-4 mb-10 flex items-center justify-between">
+<h2 class="text-sm font-bold font-sans uppercase tracking-[0.2em] text-primary/40">05. Label Tier</h2>
+<span class="text-xs font-sans text-primary/30">M3: Label</span>
+</div>
+<div class="space-y-8">
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-2">
+<span class="type-label-medium text-primary/50">Label Large ALL CAPS — DM Sans Medium</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">0.875rem (14px) / 0.15em tracking</span>
+</div>
+<p class="type-label-large text-primary dark:text-white">Active Portfolio Oversight</p>
+</div>
+<div class="group">
+<div class="flex flex-wrap items-baseline justify-between gap-4 mb-2">
+<span class="type-label-medium text-primary/50">Label Medium — DM Sans Regular</span>
+<span class="text-[10px] font-mono bg-primary/5 px-2 py-0.5 rounded text-primary/60">0.75rem (12px)</span>
+</div>
+<p class="type-label-medium text-primary/60 dark:text-white/60">Updated: Oct 2024</p>
+</div>
+</div>
+</section>
+</div>
+<aside class="lg:w-1/4">
+<div class="sticky top-8 space-y-8">
+<div class="bg-secondary p-8 rounded-[2rem] border border-primary/5">
+<h3 class="text-xl font-serif text-primary mb-4">Usage Notes</h3>
+<div class="space-y-6">
+<div>
+<h4 class="text-xs font-bold font-sans uppercase tracking-widest text-primary/40 mb-2">Serif (Playfair Display)</h4>
+<p class="text-sm text-primary/70 font-sans leading-relaxed">
+<strong>Voice &amp; Authority:</strong> Used for primary narratives, heritage-focused messaging, and high-level structure. Playfair evokes a sense of editorial prestige and institutional stability.
+                            </p>
+<ul class="mt-2 text-[11px] text-primary/50 font-sans space-y-1 italic">
+<li>• Hero Headers</li>
+<li>• Section Headlines</li>
+<li>• Brand Statements</li>
+</ul>
+</div>
+<div class="pt-6 border-t border-primary/10">
+<h4 class="text-xs font-bold font-sans uppercase tracking-widest text-primary/40 mb-2">Sans (DM Sans)</h4>
+<p class="text-sm text-primary/70 font-sans leading-relaxed">
+<strong>Utility &amp; Legibility:</strong> Employed for dense information, functional elements, and interactive components. DM Sans provides the geometric precision needed for modern digital interfaces.
+                            </p>
+<ul class="mt-2 text-[11px] text-primary/50 font-sans space-y-1 italic">
+<li>• Body Text &amp; Reports</li>
+<li>• UI Components &amp; Buttons</li>
+<li>• Data Visualizations</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="p-8 rounded-[2rem] border border-dashed border-primary/20">
+<h4 class="text-xs font-bold font-sans uppercase tracking-widest text-primary/40 mb-4">Architectural Feel</h4>
+<p class="text-xs text-primary/60 leading-relaxed italic">
+                        "The deliberate use of negative tracking in Display styles and generous tracking in Labels creates a rhythmic, structured appearance reminiscent of blueprint typography."
+                    </p>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<footer class="w-full border-t border-primary/10 mt-20 bg-white dark:bg-[#121714]">
+<div class="max-w-[1440px] mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
+<div>
+<h2 class="font-serif text-xl text-primary dark:text-white mb-1">Weaver-Yuwono</h2>
+<p class="text-primary/50 dark:text-white/50 font-sans text-[10px] uppercase tracking-widest font-bold">Confidential Design Documentation</p>
+</div>
+<div class="flex gap-8">
+<a class="text-primary/70 hover:text-primary font-sans text-xs font-medium uppercase tracking-widest" href="#">Brand Bible</a>
+<a class="text-primary/70 hover:text-primary font-sans text-xs font-medium uppercase tracking-widest" href="#">Support</a>
+</div>
+</div>
+</footer>
+
+```</body></html>
