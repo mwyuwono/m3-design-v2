@@ -6899,6 +6899,356 @@ customElements.define("wy-category-select", is);
 class as extends b {
   static properties = {
     label: { type: String },
+    value: { type: String },
+    options: { type: Array },
+    placeholder: { type: String },
+    searchable: { type: Boolean },
+    disabled: { type: Boolean },
+    _showDropdown: { type: Boolean, state: !0 },
+    _focusedIndex: { type: Number, state: !0 }
+  };
+  constructor() {
+    super(), this.label = "", this.value = "", this.options = [], this.placeholder = "Select option...", this.searchable = !1, this.disabled = !1, this._showDropdown = !1, this._focusedIndex = -1;
+  }
+  static styles = u`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+        
+        :host {
+            display: block;
+            /* Fallback values for component-specific tokens */
+            --wy-dropdown-label-color: #71717A;
+            --wy-dropdown-text-color: #52525B;
+            --wy-dropdown-icon-color: #52525B;
+            --wy-dropdown-bg: var(--md-sys-color-surface, #F5F2EA);
+            --wy-dropdown-border: #E5E7EB;
+            --wy-dropdown-border-hover: var(--md-sys-color-outline-variant, #D7D3C8);
+            --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-low, #FDFBF7);
+            --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container-high, #EBE5DE);
+        }
+        
+        /* Material Symbols font configuration */
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: 'liga';
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .label {
+            font-family: var(--font-sans, 'DM Sans', sans-serif);
+            font-size: var(--md-sys-typescale-label-small-size, 0.6875rem);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--wy-dropdown-label-color);
+            margin-bottom: var(--spacing-sm, 8px);
+            margin-left: var(--spacing-xs, 4px);
+        }
+        
+        .selector {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
+            background-color: var(--wy-dropdown-bg);
+            border: 1px solid transparent;
+            border-radius: var(--md-sys-shape-corner-full, 9999px);
+            cursor: pointer;
+            transition: border-color var(--md-sys-motion-duration-short4, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+            text-align: left;
+        }
+        
+        .selector:disabled {
+            cursor: not-allowed;
+            opacity: var(--md-sys-state-disabled-opacity, 0.38);
+        }
+        
+        /* MD3 State Layer for hover */
+        .selector::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--md-sys-color-on-surface, #121714);
+            opacity: 0;
+            transition: opacity var(--md-sys-motion-duration-short2, 150ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        
+        .selector:hover:not(:disabled) {
+            border-color: var(--wy-dropdown-border-hover);
+        }
+        
+        .selector:hover:not(:disabled)::before {
+            opacity: var(--md-sys-state-hover-opacity, 0.08);
+        }
+        
+        .selector:focus-visible {
+            outline: 3px solid var(--md-sys-color-primary, #2C4C3B);
+            outline-offset: 2px;
+        }
+        
+        .selector:active:not(:disabled)::before {
+            opacity: var(--md-sys-state-pressed-opacity, 0.12);
+        }
+        
+        .value {
+            flex: 1;
+            font-family: var(--font-sans, 'DM Sans', sans-serif);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--wy-dropdown-text-color);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .value.placeholder {
+            opacity: 0.6;
+        }
+        
+        .icon {
+            color: var(--wy-dropdown-icon-color);
+            transition: color var(--md-sys-motion-duration-short2, 150ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+                        transform var(--md-sys-motion-duration-short2, 150ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+            position: relative;
+            z-index: 1;
+            margin-left: var(--spacing-sm, 8px);
+        }
+        
+        .selector:hover:not(:disabled) .icon {
+            color: var(--wy-dropdown-text-color);
+        }
+        
+        .selector.open .icon {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown {
+            position: absolute;
+            top: calc(100% + var(--spacing-xs, 4px));
+            left: 0;
+            right: 0;
+            background-color: var(--wy-dropdown-menu-bg);
+            border: 1px solid var(--md-sys-color-outline-variant, #D7D3C8);
+            border-radius: var(--md-sys-shape-corner-medium, 16px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 100;
+            overflow: hidden;
+            max-height: 240px;
+            overflow-y: auto;
+            margin-top: var(--spacing-sm, 8px);
+        }
+        
+        .item {
+            position: relative;
+            overflow: hidden;
+            padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
+            font-family: var(--font-sans, 'DM Sans', sans-serif);
+            font-size: 0.875rem;
+            color: var(--wy-dropdown-text-color);
+            cursor: pointer;
+            transition: background-color var(--md-sys-motion-duration-short2, 150ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+        }
+        
+        /* State layer for menu items */
+        .item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--md-sys-color-on-surface, #121714);
+            opacity: 0;
+            transition: opacity var(--md-sys-motion-duration-short2, 150ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+            pointer-events: none;
+        }
+        
+        .item:hover::before,
+        .item.focused::before {
+            opacity: var(--md-sys-state-hover-opacity, 0.08);
+        }
+        
+        .item.selected {
+            color: var(--md-sys-color-primary, #2C4C3B);
+            font-weight: 600;
+            background-color: var(--md-sys-color-primary-container, #E8F5E9);
+        }
+        
+        .item.selected::before {
+            background-color: var(--md-sys-color-primary, #2C4C3B);
+        }
+        
+        .no-results {
+            padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
+            font-family: var(--font-sans, 'DM Sans', sans-serif);
+            font-size: 0.875rem;
+            color: var(--md-sys-color-on-surface-variant, #49454E);
+            opacity: 0.6;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        /* Scrollbar styling */
+        .dropdown::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .dropdown::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .dropdown::-webkit-scrollbar-thumb {
+            background: var(--md-sys-color-outline-variant, #D7D3C8);
+            border-radius: 4px;
+        }
+        
+        .dropdown::-webkit-scrollbar-thumb:hover {
+            background: var(--md-sys-color-outline, #2d4e3c);
+        }
+    `;
+  render() {
+    const e = this.options.find((i) => i.value === this.value), t = e ? e.label : this.placeholder, o = !e;
+    return n`
+            <div class="container">
+                ${this.label ? n`<div class="label">${this.label}</div>` : h}
+                <button 
+                    class="selector ${this._showDropdown ? "open" : ""}"
+                    @click="${this._toggleDropdown}"
+                    @blur="${this._handleBlur}"
+                    @keydown="${this._handleKeyDown}"
+                    ?disabled="${this.disabled}"
+                    aria-haspopup="listbox"
+                    aria-expanded="${this._showDropdown}"
+                >
+                    <span class="value ${o ? "placeholder" : ""}">${t}</span>
+                    <span class="material-symbols-outlined icon">expand_more</span>
+                </button>
+                ${this._showDropdown ? n`
+                    <div class="dropdown" role="listbox">
+                        ${this.options.length > 0 ? this.options.map((i, s) => n`
+                            <div 
+                                class="item ${i.value === this.value ? "selected" : ""} ${s === this._focusedIndex ? "focused" : ""}"
+                                role="option"
+                                aria-selected="${i.value === this.value}"
+                                @mousedown="${(l) => {
+      l.preventDefault(), this._select(i.value);
+    }}"
+                                @mouseenter="${() => this._focusedIndex = s}"
+                            >
+                                ${i.label}
+                            </div>
+                        `) : n`<div class="no-results">No options available</div>`}
+                    </div>
+                ` : h}
+            </div>
+        `;
+  }
+  _toggleDropdown() {
+    this.disabled || (this._showDropdown = !this._showDropdown, this._focusedIndex = this.options.findIndex((e) => e.value === this.value));
+  }
+  _handleBlur() {
+    setTimeout(() => {
+      this._showDropdown = !1;
+    }, 150);
+  }
+  _handleKeyDown(e) {
+    this.disabled || (e.key === "ArrowDown" ? (e.preventDefault(), this._showDropdown ? this._focusedIndex = Math.min(this._focusedIndex + 1, this.options.length - 1) : (this._showDropdown = !0, this._focusedIndex = this.options.findIndex((t) => t.value === this.value))) : e.key === "ArrowUp" ? (e.preventDefault(), this._showDropdown && (this._focusedIndex = Math.max(this._focusedIndex - 1, 0))) : e.key === "Enter" || e.key === " " ? (e.preventDefault(), this._showDropdown ? this._focusedIndex >= 0 && this.options[this._focusedIndex] && this._select(this.options[this._focusedIndex].value) : (this._showDropdown = !0, this._focusedIndex = this.options.findIndex((t) => t.value === this.value))) : e.key === "Escape" ? (e.preventDefault(), this._showDropdown = !1, this.renderRoot.querySelector(".selector")?.blur()) : e.key === "Home" ? (e.preventDefault(), this._showDropdown && (this._focusedIndex = 0)) : e.key === "End" && (e.preventDefault(), this._showDropdown && (this._focusedIndex = this.options.length - 1)));
+  }
+  _select(e) {
+    this.value !== e && (this.value = e, this.dispatchEvent(new CustomEvent("change", {
+      detail: { value: e },
+      bubbles: !0,
+      composed: !0
+    }))), this._showDropdown = !1;
+  }
+}
+customElements.define("wy-dropdown", as);
+class ss extends b {
+  static properties = {
+    content: { type: String },
+    variant: { type: String }
+  };
+  constructor() {
+    super(), this.content = "", this.variant = "default";
+  }
+  static styles = u`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+        
+        :host {
+            display: block;
+            /* Fallback values for component-specific tokens */
+            --wy-info-panel-bg: var(--md-sys-color-background, #FDFBF7);
+            --wy-info-panel-border: var(--md-sys-color-surface-container-highest, #D7D3C8);
+            --wy-info-panel-text-color: #52525B;
+        }
+        
+        .panel {
+            background-color: var(--wy-info-panel-bg);
+            border: 1px solid var(--wy-info-panel-border);
+            border-radius: var(--md-sys-shape-corner-medium, 16px);
+            padding: var(--spacing-lg, 24px);
+            color: var(--wy-info-panel-text-color);
+            font-family: var(--font-sans, 'DM Sans', sans-serif);
+            font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
+            line-height: 1.6;
+            transition: background-color var(--md-sys-motion-duration-short4, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+                        border-color var(--md-sys-motion-duration-short4, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+        }
+        
+        .panel p {
+            margin: 0;
+        }
+        
+        .panel p + p {
+            margin-top: var(--spacing-md, 16px);
+        }
+        
+        /* Support for slotted content */
+        ::slotted(*) {
+            color: var(--wy-info-panel-text-color);
+            font-family: var(--font-sans, 'DM Sans', sans-serif);
+        }
+        
+        ::slotted(p) {
+            margin: 0;
+        }
+        
+        ::slotted(p + p) {
+            margin-top: var(--spacing-md, 16px);
+        }
+    `;
+  render() {
+    return n`
+            <div class="panel">
+                ${this.content ? n`<p>${this.content}</p>` : n`<slot></slot>`}
+            </div>
+        `;
+  }
+}
+customElements.define("wy-info-panel", ss);
+class ls extends b {
+  static properties = {
+    label: { type: String },
     description: { type: String },
     icon: { type: String },
     value: { type: String },
@@ -7040,8 +7390,8 @@ class as extends b {
     }));
   }
 }
-customElements.define("wy-selection-card", as);
-class ss extends b {
+customElements.define("wy-selection-card", ls);
+class ns extends b {
   static properties = {
     title: { type: String },
     category: { type: String },
@@ -7154,7 +7504,7 @@ class ss extends b {
     `;
   }
 }
-class ls extends b {
+class ds extends b {
   static properties = {
     title: { type: String },
     category: { type: String },
@@ -7270,9 +7620,9 @@ class ls extends b {
     `;
   }
 }
-customElements.define("wy-prompt-card", ss);
-customElements.define("wy-prompt-row", ls);
-class ns extends b {
+customElements.define("wy-prompt-card", ns);
+customElements.define("wy-prompt-row", ds);
+class cs extends b {
   static properties = {
     open: { type: Boolean, reflect: !0 },
     title: { type: String },
@@ -7784,8 +8134,8 @@ class ns extends b {
   _handleDownload() {
   }
 }
-customElements.define("wy-prompt-modal", ns);
-class ds extends b {
+customElements.define("wy-prompt-modal", cs);
+class ps extends b {
   static properties = {
     open: { type: Boolean, reflect: !0 },
     workTitle: { type: String, attribute: "work-title" },
@@ -7918,7 +8268,7 @@ class ds extends b {
     })), this.close();
   }
 }
-customElements.define("wy-export-modal", ds);
+customElements.define("wy-export-modal", ps);
 class Ge extends b {
   static properties = {
     open: { type: Boolean, reflect: !0 },
@@ -8331,7 +8681,7 @@ try {
 } catch (r) {
   throw console.error("[wy-links-modal] Failed to register component:", r), console.error("[wy-links-modal] Error stack:", r.stack), console.error("[wy-links-modal] WyLinksModal type:", typeof Ge), console.error("[wy-links-modal] WyLinksModal value:", Ge), r;
 }
-class cs extends b {
+class hs extends b {
   static properties = {
     size: { type: Number }
   };
@@ -8378,8 +8728,8 @@ class cs extends b {
     e.has("size") && this.style.setProperty("--wy-logo-size", `${this.size}px`);
   }
 }
-customElements.define("wy-logo", cs);
-class ps extends b {
+customElements.define("wy-logo", hs);
+class us extends b {
   static properties = {
     title: { type: String },
     hideMenu: { type: Boolean, attribute: "hide-menu" }
@@ -8507,8 +8857,8 @@ class ps extends b {
     }));
   }
 }
-customElements.define("wy-app-bar", ps);
-class hs extends b {
+customElements.define("wy-app-bar", us);
+class fs extends b {
   static properties = {
     userName: { type: String, attribute: "user-name" },
     userAvatar: { type: String, attribute: "user-avatar" },
@@ -8707,8 +9057,8 @@ class hs extends b {
     }));
   }
 }
-customElements.define("wy-library-header", hs);
-class us extends b {
+customElements.define("wy-library-header", fs);
+class vs extends b {
   static properties = {
     name: { type: String },
     role: { type: String },
@@ -8788,8 +9138,8 @@ class us extends b {
     `;
   }
 }
-customElements.define("wy-profile-card", us);
-class fs extends b {
+customElements.define("wy-profile-card", vs);
+class ms extends b {
   static properties = {
     name: { type: String },
     role: { type: String },
@@ -8865,8 +9215,8 @@ class fs extends b {
     `;
   }
 }
-customElements.define("wy-bio-card", fs);
-const vs = [
+customElements.define("wy-bio-card", ms);
+const bs = [
   {
     id: "p1",
     title: "Hudson Yards Development",
@@ -8896,7 +9246,7 @@ const vs = [
     summary: "Strategic stake in next-gen computing infrastructure."
   }
 ];
-class ms extends b {
+class gs extends b {
   static properties = {
     filter: { type: String },
     title: { type: String }
@@ -8953,7 +9303,7 @@ class ms extends b {
     }
   `;
   render() {
-    const e = vs.filter((t) => t.category === this.filter);
+    const e = bs.filter((t) => t.category === this.filter);
     return n`
       <div>
         <h2>${this.title || "Projects"}</h2>
@@ -8975,8 +9325,8 @@ class ms extends b {
     `;
   }
 }
-customElements.define("wy-project-list", ms);
-class bs extends b {
+customElements.define("wy-project-list", gs);
+class ys extends b {
   static properties = {
     title: { type: String },
     value: { type: String },
@@ -9062,8 +9412,8 @@ class bs extends b {
     `;
   }
 }
-customElements.define("wy-metric-card", bs);
-class gs extends b {
+customElements.define("wy-metric-card", ys);
+class xs extends b {
   static properties = {
     title: { type: String },
     items: { type: Array }
@@ -9200,8 +9550,8 @@ class gs extends b {
     `;
   }
 }
-customElements.define("wy-allocation-card", gs);
-class ys extends b {
+customElements.define("wy-allocation-card", xs);
+class _s extends b {
   static properties = {
     image: { type: String },
     category: { type: String },
@@ -9287,8 +9637,8 @@ class ys extends b {
     `;
   }
 }
-customElements.define("wy-insight-card", ys);
-class xs extends b {
+customElements.define("wy-insight-card", _s);
+class ws extends b {
   static properties = {
     title: { type: String },
     artist: { type: String },
@@ -9452,8 +9802,8 @@ class xs extends b {
     e.stopPropagation(), this.favorite = !this.favorite, this.requestUpdate();
   }
 }
-customElements.define("wy-work-card", xs);
-class _s extends b {
+customElements.define("wy-work-card", ws);
+class ks extends b {
   static properties = {
     density: { type: String },
     // 'spacious', 'compact'
@@ -9532,8 +9882,8 @@ class _s extends b {
     `;
   }
 }
-customElements.define("wy-works-grid", _s);
-class ws extends b {
+customElements.define("wy-works-grid", ks);
+class $s extends b {
   static properties = {
     title: { type: String },
     paperSize: { type: String, attribute: "paper-size" },
@@ -9690,8 +10040,8 @@ class ws extends b {
     `;
   }
 }
-customElements.define("wy-plot-card", ws);
-class ks extends b {
+customElements.define("wy-plot-card", $s);
+class Cs extends b {
   static properties = {
     status: { type: String },
     // 'synced', 'syncing', 'error'
@@ -9788,6 +10138,6 @@ class ks extends b {
     `;
   }
 }
-customElements.define("wy-backup-status", ks);
+customElements.define("wy-backup-status", Cs);
 console.log("[m3-design-v2] Web components registered");
 //# sourceMappingURL=web-components.js.map
