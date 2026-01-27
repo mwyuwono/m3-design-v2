@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button System Test • M3 Design System v2</title>
+    <link rel="stylesheet" href="/src/styles/tokens.css">
+    <link rel="stylesheet" href="/src/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        rel="stylesheet">
+
+    <script type="module" src="/src/main.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-body);
+            color: var(--md-sys-color-on-background);
+            background-color: var(--md-sys-color-background);
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 48px;
+        }
+
+        header {
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+            padding-bottom: 24px;
+        }
+
+        header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--md-sys-color-primary);
+            margin: 0 0 8px 0;
+        }
+
+        header p {
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            color: var(--md-sys-color-on-surface-variant);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 0;
+        }
+
+        section {
+            margin-bottom: 48px;
+            background: var(--md-sys-color-surface-container-lowest);
+            border-radius: var(--md-sys-shape-corner-large);
+            padding: 32px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        section h2 {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--md-sys-color-primary);
+            margin: 0 0 24px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .section-label {
+            font-family: var(--font-sans);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--md-sys-color-on-surface-variant);
+            opacity: 0.6;
+            margin-bottom: 12px;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .button-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .button-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .button-column .section-label {
+            margin-bottom: 8px;
+        }
+
+        /* Icon button grid */
+        .icon-button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .icon-button-section {
+            padding: 24px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: var(--md-sys-shape-corner-medium);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .icon-button-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        /* Tags row */
+        .tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <wy-icon-button 
+            variant="outlined" 
+            icon="dark_mode" 
+            label="Toggle dark mode"
+            id="dark-mode-btn"
+        ></wy-icon-button>
+    </div>
+
+    <div class="container">
+        <header>
+            <p>Visual Identity Guide v1.0</p>
+            <h1>Button System Test Page</h1>
+        </header>
+
+        <!-- ===== WY-BUTTON: PRIMARY VARIANT ===== -->
+        <section id="primary-buttons">
+            <h2>Primary Buttons (Filled Hunter Green)</h2>
+            
+            <div class="button-grid">
+                <!-- Standard State -->
+                <div class="button-column">
+                    <span class="section-label">Standard</span>
+                    <wy-button size="large">Request Access</wy-button>
+                    <wy-button size="large" icon="arrow_forward">View Portfolio</wy-button>
+                    <wy-button size="medium">Contact Office</wy-button>
+                    <wy-button size="medium" icon="arrow_forward">Open Document</wy-button>
+                    <wy-button size="small">Explore</wy-button>
+                    <wy-button size="small" icon="arrow_forward">Details</wy-button>
+                </div>
+                
+                <!-- Hover State (simulated by adding a class) -->
+                <div class="button-column">
+                    <span class="section-label">Hover State (hover to test)</span>
+                    <wy-button size="large">Request Access</wy-button>
+                    <wy-button size="large" icon="arrow_forward">View Portfolio</wy-button>
+                    <wy-button size="medium">Contact Office</wy-button>
+                    <wy-button size="medium" icon="arrow_forward">Open Document</wy-button>
+                    <wy-button size="small">Explore</wy-button>
+                    <wy-button size="small" icon="arrow_forward">Details</wy-button>
+                </div>
+                
+                <!-- Disabled State -->
+                <div class="button-column">
+                    <span class="section-label">Disabled</span>
+                    <wy-button size="large" disabled>Request Access</wy-button>
+                    <wy-button size="large" icon="arrow_forward" disabled>View Portfolio</wy-button>
+                    <wy-button size="medium" disabled>Contact Office</wy-button>
+                    <wy-button size="medium" icon="arrow_forward" disabled>Open Document</wy-button>
+                    <wy-button size="small" disabled>Explore</wy-button>
+                    <wy-button size="small" icon="arrow_forward" disabled>Details</wy-button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WY-BUTTON: SECONDARY VARIANT ===== -->
+        <section id="secondary-buttons">
+            <h2>Secondary Buttons (Tonal - Warm Clay)</h2>
+            
+            <div class="button-row">
+                <wy-button variant="secondary" size="large">Enquire Privately</wy-button>
+                <wy-button variant="secondary" icon="north_east">View Portfolio</wy-button>
+                <wy-button variant="secondary" size="small">Learn More</wy-button>
+                <wy-button variant="secondary" disabled>Disabled</wy-button>
+            </div>
+        </section>
+
+        <!-- ===== WY-BUTTON: OUTLINED VARIANT ===== -->
+        <section id="outlined-buttons">
+            <h2>Outlined Buttons (Editorial)</h2>
+            
+            <div class="button-row">
+                <wy-button variant="outlined" size="large">Legacy Planning</wy-button>
+                <wy-button variant="outlined" icon="download">Download Charter</wy-button>
+                <wy-button variant="outlined" size="small">View Details</wy-button>
+                <wy-button variant="outlined" disabled>Disabled</wy-button>
+            </div>
+        </section>
+
+        <!-- ===== WY-BUTTON: TEXT VARIANT ===== -->
+        <section id="text-buttons">
+            <h2>Text Buttons (Utility - ALL CAPS)</h2>
+            
+            <div class="button-row">
+                <wy-button variant="text">View Portfolio</wy-button>
+                <wy-button variant="text">Legal Notice</wy-button>
+                <wy-button variant="text">Investor Relations</wy-button>
+                <wy-button variant="text" disabled>Disabled</wy-button>
+            </div>
+        </section>
+
+        <!-- ===== WY-ICON-BUTTON ===== -->
+        <section id="icon-buttons">
+            <h2>Icon Buttons</h2>
+            
+            <div class="icon-button-grid">
+                <div class="icon-button-section">
+                    <span class="section-label">Hunter Green (Filled)</span>
+                    <div class="icon-button-row">
+                        <wy-icon-button icon="north_east" label="Open link"></wy-icon-button>
+                        <wy-icon-button icon="download" label="Download"></wy-icon-button>
+                    </div>
+                    <div class="icon-button-row">
+                        <wy-icon-button size="small" icon="print" label="Print"></wy-icon-button>
+                        <wy-icon-button size="small" icon="mail" label="Email"></wy-icon-button>
+                    </div>
+                </div>
+                
+                <div class="icon-button-section">
+                    <span class="section-label">Alabaster (Outlined)</span>
+                    <div class="icon-button-row">
+                        <wy-icon-button variant="outlined" icon="share" label="Share"></wy-icon-button>
+                        <wy-icon-button variant="outlined" icon="bookmark" label="Bookmark"></wy-icon-button>
+                    </div>
+                    <div class="icon-button-row">
+                        <wy-icon-button variant="outlined" size="small" icon="print" label="Print"></wy-icon-button>
+                        <wy-icon-button variant="outlined" size="small" icon="mail" label="Email"></wy-icon-button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WY-UTILITY-TAG ===== -->
+        <section id="utility-tags">
+            <h2>Utility Tags</h2>
+            
+            <div class="tags-row">
+                <wy-utility-tag label="Quarterly"></wy-utility-tag>
+                <wy-utility-tag label="ESG Focus"></wy-utility-tag>
+                <wy-utility-tag label="Confidential"></wy-utility-tag>
+                <wy-utility-tag label="Add Tag" variant="add"></wy-utility-tag>
+            </div>
+        </section>
+
+        <!-- ===== COMBINED EXAMPLE ===== -->
+        <section id="combined-example">
+            <h2>System in Practice</h2>
+            
+            <div style="background: var(--md-sys-color-surface-container-lowest); padding: 48px; border-radius: var(--md-sys-shape-corner-large); border: 1px solid var(--md-sys-color-outline-variant); display: flex; gap: 48px;">
+                <div style="flex: 1;">
+                    <div style="display: flex; gap: 8px; margin-bottom: 24px;">
+                        <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--md-sys-color-on-surface-variant); opacity: 0.5;">Market Analysis</span>
+                        <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--md-sys-color-on-surface-variant); opacity: 0.5;">•</span>
+                        <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--md-sys-color-on-surface-variant); opacity: 0.5;">2024</span>
+                    </div>
+                    <h3 style="font-family: var(--font-serif); font-size: 2rem; color: var(--md-sys-color-primary); margin: 0 0 24px 0;">Sustainable Growth & Intergenerational Wealth</h3>
+                    <p style="color: var(--md-sys-color-on-surface-variant); line-height: 1.6; margin: 0 0 32px 0;">
+                        The utility system allows for quiet but precise interaction, ensuring that the typography remains the focal point of the Weaver-Yuwono brand experience.
+                    </p>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <wy-button>Read Insight</wy-button>
+                        <wy-button variant="text">Archive</wy-button>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <wy-icon-button variant="outlined" icon="print" label="Print"></wy-icon-button>
+                    <wy-icon-button variant="outlined" icon="mail" label="Email"></wy-icon-button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script type="module">
+        // Dark mode toggle functionality
+        const darkModeBtn = document.getElementById('dark-mode-btn');
+        darkModeBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            darkModeBtn.icon = isDark ? 'light_mode' : 'dark_mode';
+        });
+    </script>
+</body>
+
+</html>

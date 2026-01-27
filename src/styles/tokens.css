@@ -208,6 +208,50 @@
   --wy-filter-chip-font-weight-active: 600;
   --wy-filter-chip-font-style: normal;
   --wy-filter-chip-padding: 8px 16px;
+
+  /* --- BUTTON SYSTEM TOKENS --- */
+  /* Visual Identity Guide v1.0 - Button System */
+  
+  /* Primary Button (Filled Hunter Green) */
+  --wy-button-primary-bg: var(--md-sys-color-primary);
+  --wy-button-primary-fg: var(--md-sys-color-on-primary);
+  --wy-button-primary-hover-bg: #1e3428;
+  --wy-button-primary-shadow-hover: 0 10px 25px -5px rgba(44, 76, 59, 0.25);
+  
+  /* Secondary Button (Tonal - Warm Clay) */
+  --wy-button-secondary-bg: var(--md-sys-color-surface);
+  --wy-button-secondary-fg: var(--md-sys-color-primary);
+  --wy-button-secondary-hover-bg: color-mix(in srgb, var(--md-sys-color-surface) 95%, black);
+  
+  /* Outlined Button (Editorial) */
+  --wy-button-outlined-bg: transparent;
+  --wy-button-outlined-fg: var(--md-sys-color-primary);
+  --wy-button-outlined-border: var(--md-sys-color-surface-container-highest);
+  --wy-button-outlined-hover-bg: color-mix(in srgb, var(--md-sys-color-surface) 30%, transparent);
+  
+  /* Text Button (Utility) */
+  --wy-button-text-fg: var(--md-sys-color-primary);
+  --wy-button-text-fg-muted: color-mix(in srgb, var(--md-sys-color-primary) 60%, transparent);
+  --wy-button-text-hover-bg: color-mix(in srgb, var(--md-sys-color-primary) 5%, transparent);
+  
+  /* Icon Button */
+  --wy-icon-button-filled-bg: var(--md-sys-color-primary);
+  --wy-icon-button-filled-fg: var(--md-sys-color-on-primary);
+  --wy-icon-button-filled-shadow: 0 4px 12px rgba(44, 76, 59, 0.2);
+  --wy-icon-button-outlined-bg: var(--md-sys-color-background);
+  --wy-icon-button-outlined-fg: var(--md-sys-color-primary);
+  --wy-icon-button-outlined-border: color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
+  
+  /* Utility Tag */
+  --wy-utility-tag-bg: color-mix(in srgb, var(--md-sys-color-primary) 5%, transparent);
+  --wy-utility-tag-fg: var(--md-sys-color-primary);
+  --wy-utility-tag-border: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+  --wy-utility-tag-add-border: color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent);
+  --wy-utility-tag-add-fg: color-mix(in srgb, var(--md-sys-color-primary) 40%, transparent);
+  
+  /* Button Typography */
+  --wy-button-tracking-architectural: 0.1em;
+  --wy-button-font-weight: 500;
 }
 
 /* --- DARK MODE OVERRIDES --- */
@@ -280,6 +324,25 @@
     /* Library Header Component Colors (dark mode) */
     --wy-status-success-color: #66BB8A;         /* Lighter green for better contrast in dark mode */
     --wy-library-header-scrolled-bg: rgba(18, 18, 18, 0.3);  /* Dark with 30% opacity for glass morphism */
+    
+    /* Button System Tokens (dark mode) */
+    --wy-button-primary-hover-bg: #3A5F4A;      /* Lighter hover in dark mode */
+    --wy-button-primary-shadow-hover: 0 10px 25px -5px rgba(45, 78, 60, 0.4);
+    --wy-button-secondary-bg: var(--md-sys-color-surface-container);
+    --wy-button-secondary-hover-bg: var(--md-sys-color-surface-container-high);
+    --wy-button-outlined-border: rgba(255, 255, 255, 0.2);
+    --wy-button-outlined-hover-bg: rgba(255, 255, 255, 0.05);
+    --wy-button-text-fg: var(--md-sys-color-on-background);
+    --wy-button-text-fg-muted: rgba(245, 242, 234, 0.6);
+    --wy-button-text-hover-bg: rgba(255, 255, 255, 0.05);
+    --wy-icon-button-filled-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --wy-icon-button-outlined-bg: var(--md-sys-color-surface-container);
+    --wy-icon-button-outlined-border: rgba(255, 255, 255, 0.2);
+    --wy-utility-tag-bg: rgba(255, 255, 255, 0.05);
+    --wy-utility-tag-fg: var(--md-sys-color-on-background);
+    --wy-utility-tag-border: rgba(255, 255, 255, 0.1);
+    --wy-utility-tag-add-border: rgba(255, 255, 255, 0.2);
+    --wy-utility-tag-add-fg: rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -346,4 +409,23 @@ html.dark :root {
   /* Library Header Component Colors (dark mode) */
   --wy-status-success-color: #66BB8A;
   --wy-library-header-scrolled-bg: rgba(18, 18, 18, 0.3);
+  
+  /* Button System Tokens (dark mode) */
+  --wy-button-primary-hover-bg: #3A5F4A;
+  --wy-button-primary-shadow-hover: 0 10px 25px -5px rgba(45, 78, 60, 0.4);
+  --wy-button-secondary-bg: var(--md-sys-color-surface-container);
+  --wy-button-secondary-hover-bg: var(--md-sys-color-surface-container-high);
+  --wy-button-outlined-border: rgba(255, 255, 255, 0.2);
+  --wy-button-outlined-hover-bg: rgba(255, 255, 255, 0.05);
+  --wy-button-text-fg: var(--md-sys-color-on-background);
+  --wy-button-text-fg-muted: rgba(245, 242, 234, 0.6);
+  --wy-button-text-hover-bg: rgba(255, 255, 255, 0.05);
+  --wy-icon-button-filled-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --wy-icon-button-outlined-bg: var(--md-sys-color-surface-container);
+  --wy-icon-button-outlined-border: rgba(255, 255, 255, 0.2);
+  --wy-utility-tag-bg: rgba(255, 255, 255, 0.05);
+  --wy-utility-tag-fg: var(--md-sys-color-on-background);
+  --wy-utility-tag-border: rgba(255, 255, 255, 0.1);
+  --wy-utility-tag-add-border: rgba(255, 255, 255, 0.2);
+  --wy-utility-tag-add-fg: rgba(255, 255, 255, 0.4);
 }

@@ -45,6 +45,11 @@ import './components/wy-links-modal.js';
 import './components/wy-dropdown.js';
 import './components/wy-info-panel.js';
 
+// Button System Components (Visual Identity Guide v1.0)
+import './components/wy-button.js';
+import './components/wy-icon-button.js';
+import './components/wy-utility-tag.js';
+
 // Data Imports
 import profiles from './data/profiles.json';
 import projects from './data/projects.json';

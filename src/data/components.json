@@ -940,9 +940,210 @@
         { "name": "default", "description": "Rich content (alternative to content property)" }
       ],
       "events": []
+    },
+    {
+      "name": "wy-button",
+      "category": "buttons",
+      "title": "Button",
+      "description": "Versatile button component with multiple variants and sizes following the Visual Identity Guide",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Primary (Large)",
+          "code": "<wy-button size=\"large\">Request Access</wy-button>",
+          "props": { "size": "large" }
+        },
+        {
+          "name": "Primary with Icon",
+          "code": "<wy-button icon=\"arrow_forward\">View Portfolio</wy-button>",
+          "props": { "icon": "arrow_forward" }
+        },
+        {
+          "name": "Secondary (Tonal)",
+          "code": "<wy-button variant=\"secondary\">Enquire Privately</wy-button>",
+          "props": { "variant": "secondary" }
+        },
+        {
+          "name": "Secondary with Icon",
+          "code": "<wy-button variant=\"secondary\" icon=\"north_east\">View Portfolio</wy-button>",
+          "props": { "variant": "secondary", "icon": "north_east" }
+        },
+        {
+          "name": "Outlined (Editorial)",
+          "code": "<wy-button variant=\"outlined\" size=\"large\">Legacy Planning</wy-button>",
+          "props": { "variant": "outlined", "size": "large" }
+        },
+        {
+          "name": "Outlined with Icon",
+          "code": "<wy-button variant=\"outlined\" icon=\"download\">Download Charter</wy-button>",
+          "props": { "variant": "outlined", "icon": "download" }
+        },
+        {
+          "name": "Text (Utility)",
+          "code": "<wy-button variant=\"text\">View Portfolio</wy-button>",
+          "props": { "variant": "text" }
+        },
+        {
+          "name": "Small Size",
+          "code": "<wy-button size=\"small\">Explore</wy-button>",
+          "props": { "size": "small" }
+        },
+        {
+          "name": "Small with Icon",
+          "code": "<wy-button size=\"small\" icon=\"arrow_forward\">Details</wy-button>",
+          "props": { "size": "small", "icon": "arrow_forward" }
+        },
+        {
+          "name": "Disabled",
+          "code": "<wy-button disabled>Request Access</wy-button>",
+          "props": { "disabled": true }
+        },
+        {
+          "name": "Full Width",
+          "code": "<wy-button full-width>Submit Application</wy-button>",
+          "props": { "full-width": true }
+        },
+        {
+          "name": "All Sizes Comparison",
+          "code": "<div style=\"display: flex; align-items: center; gap: 16px; flex-wrap: wrap;\">\n  <wy-button size=\"large\">Large</wy-button>\n  <wy-button size=\"medium\">Medium</wy-button>\n  <wy-button size=\"small\">Small</wy-button>\n</div>",
+          "props": {}
+        },
+        {
+          "name": "All Variants Comparison",
+          "code": "<div style=\"display: flex; align-items: center; gap: 16px; flex-wrap: wrap;\">\n  <wy-button variant=\"primary\">Primary</wy-button>\n  <wy-button variant=\"secondary\">Secondary</wy-button>\n  <wy-button variant=\"outlined\">Outlined</wy-button>\n  <wy-button variant=\"text\">Text</wy-button>\n</div>",
+          "props": {}
+        }
+      ],
+      "props": [
+        { "name": "variant", "type": "String", "required": false, "description": "Button variant: 'primary' | 'secondary' | 'outlined' | 'text' (default: 'primary')" },
+        { "name": "size", "type": "String", "required": false, "description": "Button size: 'large' (56px) | 'medium' (44px) | 'small' (32px) (default: 'medium')" },
+        { "name": "icon", "type": "String", "required": false, "description": "Material icon name for trailing icon" },
+        { "name": "iconPosition", "type": "String", "required": false, "description": "Icon position: 'leading' | 'trailing' (attribute: icon-position, default: 'trailing')" },
+        { "name": "disabled", "type": "Boolean", "required": false, "description": "Disabled state" },
+        { "name": "fullWidth", "type": "Boolean", "required": false, "description": "Full width button (attribute: full-width)" }
+      ],
+      "slots": [
+        { "name": "default", "description": "Button label text" }
+      ],
+      "events": [
+        { "name": "click", "description": "Fired when button is clicked (unless disabled)" }
+      ]
+    },
+    {
+      "name": "wy-icon-button",
+      "category": "buttons",
+      "title": "Icon Button",
+      "description": "Circular icon-only button with filled or outlined variants",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Filled (Default)",
+          "code": "<wy-icon-button icon=\"north_east\" label=\"Open link\"></wy-icon-button>",
+          "props": { "icon": "north_east", "label": "Open link" }
+        },
+        {
+          "name": "Filled Download",
+          "code": "<wy-icon-button icon=\"download\" label=\"Download\"></wy-icon-button>",
+          "props": { "icon": "download", "label": "Download" }
+        },
+        {
+          "name": "Outlined Share",
+          "code": "<wy-icon-button variant=\"outlined\" icon=\"share\" label=\"Share\"></wy-icon-button>",
+          "props": { "variant": "outlined", "icon": "share", "label": "Share" }
+        },
+        {
+          "name": "Outlined Bookmark",
+          "code": "<wy-icon-button variant=\"outlined\" icon=\"bookmark\" label=\"Bookmark\"></wy-icon-button>",
+          "props": { "variant": "outlined", "icon": "bookmark", "label": "Bookmark" }
+        },
+        {
+          "name": "Small Size",
+          "code": "<wy-icon-button size=\"small\" icon=\"print\" label=\"Print\"></wy-icon-button>",
+          "props": { "size": "small", "icon": "print", "label": "Print" }
+        },
+        {
+          "name": "Filled Group",
+          "code": "<div style=\"display: flex; gap: 16px;\">\n  <wy-icon-button icon=\"north_east\" label=\"Open\"></wy-icon-button>\n  <wy-icon-button icon=\"download\" label=\"Download\"></wy-icon-button>\n</div>",
+          "props": {}
+        },
+        {
+          "name": "Outlined Group",
+          "code": "<div style=\"display: flex; gap: 16px;\">\n  <wy-icon-button variant=\"outlined\" icon=\"share\" label=\"Share\"></wy-icon-button>\n  <wy-icon-button variant=\"outlined\" icon=\"bookmark\" label=\"Bookmark\"></wy-icon-button>\n</div>",
+          "props": {}
+        },
+        {
+          "name": "Vertical Stack",
+          "code": "<div style=\"display: flex; flex-direction: column; gap: 12px;\">\n  <wy-icon-button variant=\"outlined\" icon=\"print\" label=\"Print\"></wy-icon-button>\n  <wy-icon-button variant=\"outlined\" icon=\"mail\" label=\"Email\"></wy-icon-button>\n</div>",
+          "props": {}
+        },
+        {
+          "name": "Disabled",
+          "code": "<wy-icon-button icon=\"edit\" label=\"Edit\" disabled></wy-icon-button>",
+          "props": { "icon": "edit", "label": "Edit", "disabled": true }
+        }
+      ],
+      "props": [
+        { "name": "variant", "type": "String", "required": false, "description": "Button variant: 'filled' | 'outlined' (default: 'filled')" },
+        { "name": "icon", "type": "String", "required": true, "description": "Material icon name" },
+        { "name": "label", "type": "String", "required": true, "description": "Accessibility label for the button" },
+        { "name": "size", "type": "String", "required": false, "description": "Button size: 'default' (56px) | 'small' (44px) (default: 'default')" },
+        { "name": "disabled", "type": "Boolean", "required": false, "description": "Disabled state" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "click", "description": "Fired when button is clicked (unless disabled)" }
+      ]
+    },
+    {
+      "name": "wy-utility-tag",
+      "category": "buttons",
+      "title": "Utility Tag",
+      "description": "Small utility tag/pill for metadata display and add actions",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Basic",
+          "code": "<wy-utility-tag label=\"Quarterly\"></wy-utility-tag>",
+          "props": { "label": "Quarterly" }
+        },
+        {
+          "name": "Multiple Tags",
+          "code": "<div style=\"display: flex; gap: 12px; flex-wrap: wrap;\">\n  <wy-utility-tag label=\"Quarterly\"></wy-utility-tag>\n  <wy-utility-tag label=\"ESG Focus\"></wy-utility-tag>\n  <wy-utility-tag label=\"Confidential\"></wy-utility-tag>\n</div>",
+          "props": {}
+        },
+        {
+          "name": "Add Tag",
+          "code": "<wy-utility-tag label=\"Add Tag\" variant=\"add\"></wy-utility-tag>",
+          "props": { "label": "Add Tag", "variant": "add" }
+        },
+        {
+          "name": "Tags with Add",
+          "code": "<div style=\"display: flex; gap: 12px; flex-wrap: wrap; align-items: center;\">\n  <wy-utility-tag label=\"Quarterly\"></wy-utility-tag>\n  <wy-utility-tag label=\"ESG Focus\"></wy-utility-tag>\n  <wy-utility-tag label=\"Add Tag\" variant=\"add\"></wy-utility-tag>\n</div>",
+          "props": {}
+        },
+        {
+          "name": "Interactive Tag",
+          "code": "<wy-utility-tag label=\"Click Me\" interactive></wy-utility-tag>",
+          "props": { "label": "Click Me", "interactive": true }
+        }
+      ],
+      "props": [
+        { "name": "label", "type": "String", "required": true, "description": "Tag label text" },
+        { "name": "variant", "type": "String", "required": false, "description": "Tag variant: 'default' | 'add' (default: 'default')" },
+        { "name": "interactive", "type": "Boolean", "required": false, "description": "Whether the tag is clickable (automatically true for 'add' variant)" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "click", "detail": "{ label: String }", "description": "Fired when interactive tag is clicked" }
+      ]
     }
   ],
   "categories": {
+    "buttons": {
+      "name": "Buttons",
+      "description": "Button components following the Visual Identity Guide v1.0",
+      "order": 0
+    },
     "form-input": {
       "name": "Form & Input",
       "description": "Form controls and input components",
