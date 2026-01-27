@@ -8756,6 +8756,8 @@ class us extends g {
       top: 0;
       z-index: 100;
       background-color: transparent;
+      min-height: 100px;
+      transition: min-height 0.3s ease-in-out;
     }
 
     .container {
@@ -8777,7 +8779,7 @@ class us extends g {
       justify-content: space-between;
       gap: var(--spacing-lg);
       background-color: transparent;
-      min-height: 80px;
+      min-height: 100px;
       will-change: padding, gap;
       transition: padding 0.3s ease-in-out,
         gap 0.3s ease-in-out,
@@ -8887,15 +8889,40 @@ class us extends g {
       max-width: 672px;
       min-width: 200px;
       margin-right: auto;
-      transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
-        visibility var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+      transform-origin: left center;
+      transition: opacity 0.3s ease-in-out,
+        visibility 0.3s ease-in-out,
         max-width 0.3s ease-in-out,
+        min-width 0.3s ease-in-out,
         width 0.3s ease-in-out,
-        transform 0.3s ease-in-out;
+        transform 0.3s ease-in-out,
+        margin 0.3s ease-in-out;
     }
 
     .searchContainerHidden {
-      display: none;
+      opacity: 0;
+      visibility: hidden;
+      max-width: 0;
+      min-width: 0;
+      transform: scaleX(0.8);
+      margin: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .searchContainer:not(.searchContainerHidden) {
+      animation: searchExpand 0.3s ease-in-out;
+    }
+
+    @keyframes searchExpand {
+      from {
+        opacity: 0;
+        transform: scaleX(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scaleX(1);
+      }
     }
 
     .searchIcon {
@@ -8972,7 +8999,7 @@ class us extends g {
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 2;
+      z-index: 3;
       transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
       overflow: hidden;
     }
