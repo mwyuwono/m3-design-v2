@@ -168,7 +168,7 @@ export class WyLibraryHeader extends LitElement {
       min-width: 200px;
       margin-right: auto;
       transform-origin: left center;
-      overflow: visible;
+      overflow: hidden;
       transition: opacity 0.3s ease-in-out,
         visibility 0.3s ease-in-out,
         max-width 0.3s ease-in-out,
@@ -176,6 +176,10 @@ export class WyLibraryHeader extends LitElement {
         width 0.3s ease-in-out,
         transform 0.3s ease-in-out,
         margin 0.3s ease-in-out;
+    }
+
+    .searchContainer:not(.searchContainerHidden) {
+      overflow: visible;
     }
 
     .searchContainerHidden {
@@ -191,6 +195,7 @@ export class WyLibraryHeader extends LitElement {
 
     .searchContainer:not(.searchContainerHidden) {
       animation: searchExpand 0.3s ease-in-out;
+      overflow: visible;
     }
 
     @keyframes searchExpand {
@@ -222,6 +227,8 @@ export class WyLibraryHeader extends LitElement {
       flex: 1;
       display: flex;
       align-items: center;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .searchInput {
