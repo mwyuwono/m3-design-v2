@@ -7,6 +7,57 @@ description: Automatically detect and fix visual issues in web applications. Use
 
 Detect and fix visual issues in web applications by capturing screenshots in light and dark mode, analyzing for common problems, and proposing fixes.
 
+## Zero-Trust QA Principles
+
+CRITICAL: Never report a test as "passing" based solely on DOM element presence. Every verification must check actual implementation quality.
+
+### Mandatory Verification Checklist
+
+**1. Visual Verification via Computed Styles:**
+- Do NOT just check if element exists
+- CHECK: `window.getComputedStyle()` for actual rendered values
+- VERIFY: Alignment using flex/grid computed properties
+- VERIFY: Visibility (opacity, display, z-index, dimensions > 0)
+- VERIFY: No elements obscured or clipped (scrollWidth vs clientWidth)
+
+**2. Design System Integrity:**
+- CHECK: Colors match specific design tokens (compare actual hex values)
+- CHECK: Fonts resolve to correct family (not fallback)
+- CHECK: Spacing uses design system values (24px = var(--space-lg), not 2rem)
+- VERIFY: No layout overflow (scrollWidth === clientWidth)
+
+**3. Infrastructure & State:**
+- IMPLEMENT: Cache-busting in verification URLs (add ?v=timestamp)
+- VERIFY: No console errors, warnings, or 404s
+- CHECK: Loading states if applicable
+
+**4. Failure Criteria:**
+- ANY console error/warning = FAIL
+- ANY 404 in network tab = FAIL  
+- Elements present but invisible (width/height = 0) = FAIL
+- Padding misalignment > 1px = FAIL
+- Wrong color token used = FAIL
+
+### Test Result Standards
+
+**PASS requires:**
+- All computed styles match expected values exactly
+- Alignment verified via pixel measurements
+- Zero console errors
+- All design tokens resolve correctly
+- No layout overflow
+
+**PARTIAL requires manual verification:**
+- Visual properties that can't be measured programmatically
+- Subjective quality assessments
+- Animation smoothness
+
+**FAIL includes:**
+- Element exists but not visible
+- Wrong styles applied
+- Console errors present
+- Padding/alignment off
+
 ## Prerequisites
 
 - Local development server running (e.g., `python3 -m http.server 8000`)
