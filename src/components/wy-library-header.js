@@ -59,12 +59,14 @@ export class WyLibraryHeader extends LitElement {
       will-change: padding, gap;
       transition: padding 0.3s ease-in-out,
         gap 0.3s ease-in-out,
-        justify-content 0.3s ease-in-out;
+        justify-content 0.3s ease-in-out,
+        min-height 0.3s ease-in-out;
     }
 
     .headerScrolled {
       padding: 1rem 0;
       justify-content: flex-start;
+      min-height: 80px;
     }
 
     .header h1 {
@@ -218,6 +220,8 @@ export class WyLibraryHeader extends LitElement {
       position: relative;
       width: 100%;
       flex: 1;
+      display: flex;
+      align-items: center;
     }
 
     .searchInput {
@@ -271,7 +275,7 @@ export class WyLibraryHeader extends LitElement {
       transform: scale(1.02);
     }
 
-    .searchContainer:has(.searchInput:focus) .searchIcon {
+    .searchInputWrapper:has(.searchInput:focus) .searchIcon {
       color: var(--md-sys-color-primary);
     }
 
@@ -450,8 +454,8 @@ export class WyLibraryHeader extends LitElement {
           </wy-icon-button>
 
           <div class="searchContainer ${this.searchSize === 'medium' ? 'size-medium' : ''} ${!this.showSearch ? 'searchContainerHidden' : ''}">
-            <span class="material-symbols-outlined searchIcon">search</span>
             <div class="searchInputWrapper">
+              <span class="material-symbols-outlined searchIcon">search</span>
               <input
                 type="search"
                 class="searchInput ${this.searchSize === 'medium' ? 'size-medium' : ''}"
