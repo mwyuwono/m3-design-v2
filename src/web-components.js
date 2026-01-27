@@ -47,7 +47,6 @@ import './components/wy-tabs.js';
 import './components/wy-tag-chip.js';
 import './components/wy-tag-input.js';
 import './components/wy-form-field.js';
-import './components/wy-category-select.js';
 import './components/wy-dropdown.js';
 import './components/wy-info-panel.js';
 import './components/wy-selection-card.js';

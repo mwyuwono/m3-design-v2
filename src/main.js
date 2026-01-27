@@ -26,7 +26,6 @@ import './components/wy-form-field.js';
 import './components/wy-tag-chip.js';
 import './components/wy-filter-chip.js';
 import './components/wy-tag-input.js';
-import './components/wy-category-select.js';
 import './components/wy-selection-card.js';
 import './components/wy-modal.js';
 import './components/wy-library-header.js';

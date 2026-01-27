@@ -169,44 +169,6 @@
       ]
     },
     {
-      "name": "wy-category-select",
-      "category": "form-input",
-      "title": "Category Select",
-      "description": "Searchable dropdown for category selection",
-      "status": "stable",
-      "examples": [
-        {
-          "name": "Basic",
-          "code": "<wy-category-select placeholder=\"Search categories...\"></wy-category-select>",
-          "props": { "placeholder": "Search categories..." }
-        },
-        {
-          "name": "With Categories",
-          "code": "<wy-category-select id=\"cat-select-1\" placeholder=\"Search categories...\"></wy-category-select>\n<script>\n  customElements.whenDefined('wy-category-select').then(() => {\n    const select = document.getElementById('cat-select-1');\n    select.categories = ['Private Equity', 'Real Estate', 'Venture Capital', 'Crypto Assets', 'Art Collections'];\n  });\n</script>",
-          "props": { "placeholder": "Search categories..." }
-        },
-        {
-          "name": "With Selected Value",
-          "code": "<wy-category-select id=\"cat-select-2\" placeholder=\"Search categories...\"></wy-category-select>\n<script>\n  customElements.whenDefined('wy-category-select').then(() => {\n    const select = document.getElementById('cat-select-2');\n    select.categories = ['Private Equity', 'Real Estate', 'Venture Capital'];\n    select.value = 'Real Estate';\n  });\n</script>",
-          "props": { "placeholder": "Search categories..." }
-        },
-        {
-          "name": "In Form Field",
-          "code": "<wy-form-field label=\"Advanced Category\" id=\"cat-field\" description=\"Searchable category list\">\n  <wy-category-select id=\"cat-specimen\" placeholder=\"Search categories...\"></wy-category-select>\n</wy-form-field>\n<script>\n  customElements.whenDefined('wy-category-select').then(() => {\n    const catSelect = document.getElementById('cat-specimen');\n    catSelect.categories = ['Private Equity', 'Real Estate', 'Venture Capital', 'Crypto Assets', 'Art Collections', 'Public Equities'];\n  });\n</script>",
-          "props": {}
-        }
-      ],
-      "props": [
-        { "name": "categories", "type": "Array", "required": false, "description": "Available categories: [String]" },
-        { "name": "value", "type": "String", "required": false, "description": "Currently selected category" },
-        { "name": "placeholder", "type": "String", "required": false, "description": "Placeholder text" }
-      ],
-      "slots": [],
-      "events": [
-        { "name": "change", "detail": "{ value: String }", "description": "Fired when selection changes" }
-      ]
-    },
-    {
       "name": "wy-selection-card",
       "category": "form-input",
       "title": "Selection Card",

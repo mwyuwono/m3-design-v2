@@ -1,5 +1,9 @@
 # Dropdown Migration Guide
 
+**DEPRECATION NOTICE (January 27, 2026):**  
+`wy-category-select` has been removed from the design system and replaced with `wy-dropdown`.  
+The old component is no longer available in the CDN bundle or npm package.
+
 ## Overview
 
 The new `wy-dropdown` component replaces the existing `wy-category-select` component with a refreshed visual design matching the variants-selector reference. This guide covers migration steps for all consuming projects.
