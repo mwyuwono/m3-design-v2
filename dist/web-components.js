@@ -8890,6 +8890,7 @@ class us extends g {
       min-width: 200px;
       margin-right: auto;
       transform-origin: left center;
+      overflow: visible;
       transition: opacity 0.3s ease-in-out,
         visibility 0.3s ease-in-out,
         max-width 0.3s ease-in-out,
@@ -8937,10 +8938,17 @@ class us extends g {
       z-index: 1;
     }
 
+    .searchInputWrapper {
+      position: relative;
+      width: 100%;
+      flex: 1;
+    }
+
     .searchInput {
+      position: relative;
       width: 100%;
       height: 56px;
-      padding: 0 3rem 0 2.5rem;
+      padding: 0 2.75rem 0 2.5rem;
       border-radius: var(--md-sys-shape-corner-full);
       border: 1px solid var(--md-sys-color-outline-variant);
       background: var(--md-sys-color-background);
@@ -8952,12 +8960,19 @@ class us extends g {
       transition: border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
         box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
         transform 0.3s ease-in-out;
+      box-sizing: border-box;
     }
 
     /* Medium search size (44px height) */
     .searchInput.size-medium {
       height: 44px;
-      padding: 0 2.5rem 0 2rem;
+      padding: 0 2.25rem 0 2rem;
+    }
+
+    .searchContainer.size-medium .searchClear {
+      right: 0.75rem;
+      width: 24px;
+      height: 24px;
     }
 
     .searchContainer.size-medium .searchIcon {
@@ -8980,17 +8995,17 @@ class us extends g {
       transform: scale(1.02);
     }
 
-    .searchInput:focus ~ .searchIcon {
+    .searchContainer:has(.searchInput:focus) .searchIcon {
       color: var(--md-sys-color-primary);
     }
 
     .searchClear {
       position: absolute;
-      right: 0.5rem;
+      right: 0.75rem;
       top: 50%;
       transform: translateY(-50%);
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: none;
       background: transparent;
@@ -9002,6 +9017,7 @@ class us extends g {
       z-index: 3;
       transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
       overflow: hidden;
+      pointer-events: auto;
     }
 
     .searchClear::before {
@@ -9158,23 +9174,25 @@ class us extends g {
 
           <div class="searchContainer ${this.searchSize === "medium" ? "size-medium" : ""} ${this.showSearch ? "" : "searchContainerHidden"}">
             <span class="material-symbols-outlined searchIcon">search</span>
-            <input
-              type="search"
-              class="searchInput ${this.searchSize === "medium" ? "size-medium" : ""}"
-              placeholder="Search works..."
-              .value="${this.searchQuery}"
-              @input="${this._handleSearchInput}"
-              aria-label="Search works by title, description, or source"
-            />
-            ${this.searchQuery ? l`
-              <button
-                type="button"
-                class="searchClear"
-                @click="${this._handleSearchClear}"
-                aria-label="Clear search">
-                <span class="material-symbols-outlined">close</span>
-              </button>
-            ` : ""}
+            <div class="searchInputWrapper">
+              <input
+                type="search"
+                class="searchInput ${this.searchSize === "medium" ? "size-medium" : ""}"
+                placeholder="Search works..."
+                .value="${this.searchQuery}"
+                @input="${this._handleSearchInput}"
+                aria-label="Search works by title, description, or source"
+              />
+              ${this.searchQuery ? l`
+                <button
+                  type="button"
+                  class="searchClear"
+                  @click="${this._handleSearchClear}"
+                  aria-label="Clear search">
+                  <span class="material-symbols-outlined">close</span>
+                </button>
+              ` : ""}
+            </div>
           </div>
 
           <wy-icon-button
