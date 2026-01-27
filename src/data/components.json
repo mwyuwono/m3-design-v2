@@ -888,6 +888,11 @@
           "name": "Disabled",
           "code": "<wy-dropdown\n  label=\"CATEGORY\"\n  value=\"tech\"\n  disabled\n  .options=${JSON.stringify([{value: 'tech', label: 'Technology'}, {value: 'design', label: 'Design'}])}\n></wy-dropdown>",
           "props": { "label": "CATEGORY", "value": "tech", "disabled": true }
+        },
+        {
+          "name": "Subtle Variant",
+          "code": "<wy-dropdown\n  label=\"STYLE\"\n  value=\"formal\"\n  variant=\"subtle\"\n  .options=${JSON.stringify([{value: 'formal', label: 'Formal'}, {value: 'casual', label: 'Casual'}])}\n></wy-dropdown>",
+          "props": { "label": "STYLE", "value": "formal", "variant": "subtle" }
         }
       ],
       "props": [
@@ -896,7 +901,8 @@
         { "name": "options", "type": "Array", "required": true, "description": "Array of {value, label} objects" },
         { "name": "placeholder", "type": "String", "required": false, "description": "Placeholder text when no value selected" },
         { "name": "searchable", "type": "Boolean", "required": false, "description": "Enable filtering (reserved for future)" },
-        { "name": "disabled", "type": "Boolean", "required": false, "description": "Disable the dropdown" }
+        { "name": "disabled", "type": "Boolean", "required": false, "description": "Disable the dropdown" },
+        { "name": "variant", "type": "String", "required": false, "description": "Visual variant: 'default' (Container High bg) or 'subtle' (Container Low bg)" }
       ],
       "slots": [],
       "events": [

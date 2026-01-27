@@ -334,12 +334,15 @@ def verify_prompts_library(url="https://p.weaver-yuwono.com", output_dir="/tmp/p
             }
         """)
         
-        # Verify tokens resolve to expected values
+        # Verify tokens resolve to expected values (accept both px and rem)
         issues = []
-        if token_check['spaceLg'] != '24px':
-            issues.append(f"--space-lg = {token_check['spaceLg']}, expected 24px")
-        if token_check['spaceMd'] != '16px':
-            issues.append(f"--space-md = {token_check['spaceMd']}, expected 16px")
+        space_lg_acceptable = token_check['spaceLg'] in ['24px', '1.5rem']
+        space_md_acceptable = token_check['spaceMd'] in ['16px', '1rem']
+        
+        if not space_lg_acceptable:
+            issues.append(f"--space-lg = {token_check['spaceLg']}, expected 24px or 1.5rem")
+        if not space_md_acceptable:
+            issues.append(f"--space-md = {token_check['spaceMd']}, expected 16px or 1rem")
         
         if issues:
             results['failures'].append({

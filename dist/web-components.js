@@ -6769,11 +6769,12 @@ class is extends b {
     placeholder: { type: String },
     searchable: { type: Boolean },
     disabled: { type: Boolean },
+    variant: { type: String },
     _showDropdown: { type: Boolean, state: !0 },
     _focusedIndex: { type: Number, state: !0 }
   };
   constructor() {
-    super(), this.label = "", this.value = "", this.options = [], this.placeholder = "Select option...", this.searchable = !1, this.disabled = !1, this._showDropdown = !1, this._focusedIndex = -1;
+    super(), this.label = "", this.value = "", this.options = [], this.placeholder = "Select option...", this.searchable = !1, this.disabled = !1, this.variant = "default", this._showDropdown = !1, this._focusedIndex = -1;
   }
   static styles = u`
         /* Note: Fonts (DM Sans, Material Symbols) should be loaded in consuming page <head> */
@@ -6787,8 +6788,14 @@ class is extends b {
             --wy-dropdown-bg: var(--md-sys-color-surface, #F5F2EA);
             --wy-dropdown-border: #E5E7EB;
             --wy-dropdown-border-hover: var(--md-sys-color-outline-variant, #D7D3C8);
-            --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-low, #FDFBF7);
+            --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-high, #EBE5DE);
             --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container-high, #EBE5DE);
+        }
+        
+        /* Subtle variant - lighter menu background for modal integration */
+        :host([variant="subtle"]) {
+            --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-low, #FDFBF7);
+            --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container, #F5F2EA);
         }
         
         /* Material Symbols font configuration */

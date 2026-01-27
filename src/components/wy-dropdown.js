@@ -21,6 +21,7 @@ export class WyDropdown extends LitElement {
         placeholder: { type: String },
         searchable: { type: Boolean },
         disabled: { type: Boolean },
+        variant: { type: String },
         _showDropdown: { type: Boolean, state: true },
         _focusedIndex: { type: Number, state: true }
     };
@@ -33,6 +34,7 @@ export class WyDropdown extends LitElement {
         this.placeholder = 'Select option...';
         this.searchable = false;
         this.disabled = false;
+        this.variant = 'default';
         this._showDropdown = false;
         this._focusedIndex = -1;
     }
@@ -49,8 +51,14 @@ export class WyDropdown extends LitElement {
             --wy-dropdown-bg: var(--md-sys-color-surface, #F5F2EA);
             --wy-dropdown-border: #E5E7EB;
             --wy-dropdown-border-hover: var(--md-sys-color-outline-variant, #D7D3C8);
-            --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-low, #FDFBF7);
+            --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-high, #EBE5DE);
             --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container-high, #EBE5DE);
+        }
+        
+        /* Subtle variant - lighter menu background for modal integration */
+        :host([variant="subtle"]) {
+            --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-low, #FDFBF7);
+            --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container, #F5F2EA);
         }
         
         /* Material Symbols font configuration */
