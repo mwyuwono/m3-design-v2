@@ -324,6 +324,87 @@ Map mockup values to design system tokens:
 
 **Rule:** If value cannot be matched exactly, create a new component-specific token.
 
+### 1.4 Color Extraction & Verification (CRITICAL - Added Jan 2026)
+
+**Purpose:** Extract exact color values from reference design and verify they match design system tokens to prevent visual mismatches.
+
+**Why This Step Is Critical:**
+- Generic semantic tokens (e.g., `--md-sys-color-on-surface`) may not match the specific colors used in the reference design
+- Tailwind palettes (stone, slate, etc.) don't align with Material Design 3 semantic colors
+- Using wrong tokens causes subtle but noticeable visual differences in hierarchy and warmth
+
+**Extract ALL Colors Using Automated Script:**
+
+```python
+# extract-colors.py
+from playwright.sync_api import sync_playwright
+
+def extract_reference_colors(mockup_path):
+    """Extract all computed color values from reference design"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto(mockup_path)
+        page.wait_for_timeout(2000)
+        
+        colors = page.evaluate('''() => {
+            const getColor = (selector, property = 'color') => {
+                const el = document.querySelector(selector);
+                if (!el) return null;
+                return getComputedStyle(el).getPropertyValue(property);
+            };
+            
+            return {
+                title: getColor('h1'),
+                section_header: getColor('h2'),
+                inactive_chip_text: getColor('button.border'),
+                inactive_chip_border: getColor('button.border', 'border-color'),
+                inactive_chip_bg: getColor('button.border', 'background-color'),
+                active_chip_text: getColor('button.bg-primary'),
+                active_chip_bg: getColor('button.bg-primary', 'background-color'),
+                close_button: getColor('button.absolute'),
+                container_bg: getColor('div', 'background-color')
+            };
+        }''')
+        
+        browser.close()
+        return colors
+```
+
+**Create Color Mapping Table:**
+
+| Element | Reference Color (RGB) | Hex Value | Design System Token | Match? | Action |
+|---------|----------------------|-----------|---------------------|--------|--------|
+| Title | rgb(28, 25, 23) | #1C1917 | `--md-sys-color-on-surface` (#121714) | ❌ | Create `--wy-component-title-color` |
+| Section header | rgb(41, 37, 36) | #292524 | `--md-sys-color-on-surface` (#121714) | ❌ | Create `--wy-component-header-color` |
+| Chip text | rgb(68, 64, 60) | #44403C | `--md-sys-color-on-surface` (#121714) | ❌ | Create `--wy-component-chip-text-color` |
+| Close button | rgb(168, 162, 158) | #A8A29E | `--wy-component-text-muted` (#6B685F) | ❌ | Update token value |
+
+**Decision Matrix:**
+
+```mermaid
+graph TD
+    Start[Extract Color from Reference] --> Compare{Exists in<br/>Design System?}
+    Compare -->|No| CreateNew[Create Component-Specific Token]
+    Compare -->|Yes| CheckMatch{Exact RGB Match?}
+    CheckMatch -->|Yes| UseToken[Use Design System Token]
+    CheckMatch -->|No| CreateNew
+    CreateNew --> Document[Document Why Semantic Token Doesn't Work]
+    UseToken --> VerifyColor[Verify Color Match with Test]
+    Document --> VerifyColor
+    VerifyColor --> Pass{ΔE < 2.0?}
+    Pass -->|Yes| Done[✅ Proceed]
+    Pass -->|No| FixToken[Update Token Value]
+    FixToken --> VerifyColor
+```
+
+**CRITICAL RULE: ALWAYS PRIORITIZE PERFECT VISUAL FIDELITY**
+
+- If design system token doesn't match reference color (ΔE ≥ 2.0), **always create component-specific tokens**
+- Never approximate or use "close enough" colors - exact match required
+- Document why semantic tokens don't work for this specific design
+- Component-specific tokens are preferred over compromising visual accuracy
+
 ### 2.4 Implementation Checklist
 
 Before coding:
@@ -549,6 +630,361 @@ def check_compliance(component_selector):
 ```
 
 **Success Criteria:** Zero hardcoded values, 100% token usage
+
+### 5.6 Color Accuracy Verification (MANDATORY - Added Jan 2026)
+
+**Purpose:** Verify that all computed colors match the reference design exactly, preventing subtle visual mismatches caused by incorrect token usage.
+
+**Create Color Accuracy Test:**
+
+```python
+#!/usr/bin/env python3
+"""
+Test Color Accuracy Against Reference Design
+
+Verifies that ALL computed colors match the reference design exactly.
+Uses color delta (ΔE) to measure perceptual difference.
+"""
+
+import sys
+from playwright.sync_api import sync_playwright
+
+# Extract these from reference design using extraction script (Phase 1.4)
+REFERENCE_COLORS = {
+    'title': (28, 25, 23),           # text-stone-900: #1C1917
+    'section_header': (41, 37, 36),  # text-stone-800: #292524
+    'chip_text': (68, 64, 60),       # text-stone-700: #44403C
+    'close_button': (168, 162, 158), # text-stone-400: #A8A29E
+    'chip_border': (217, 212, 199),  # border-accent-taupe: #D9D4C7
+}
+
+def rgb_to_tuple(rgb_string):
+    """Convert 'rgb(r, g, b)' to (r, g, b) tuple"""
+    values = rgb_string.replace('rgb(', '').replace(')', '').split(',')
+    return tuple(int(v.strip()) for v in values)
+
+def color_delta(color1, color2):
+    """
+    Calculate color difference (Euclidean distance in RGB space).
+    
+    ΔE < 2.0 = Imperceptible difference
+    ΔE 2.0-5.0 = Noticeable but minor
+    ΔE > 5.0 = Clearly visible difference
+    """
+    return sum((a - b) ** 2 for a, b in zip(color1, color2)) ** 0.5
+
+def test_color_accuracy():
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto('http://localhost:8000')
+        page.wait_for_timeout(2000)
+        
+        # Open component if needed
+        page.evaluate('document.getElementById("component").show()')
+        page.wait_for_timeout(500)
+        
+        # Extract computed colors from implementation
+        colors = page.evaluate('''() => {
+            const component = document.getElementById("component");
+            const sr = component.shadowRoot;
+            const getColor = (selector, property = 'color') => {
+                const el = sr.querySelector(selector);
+                if (!el) return null;
+                return getComputedStyle(el).getPropertyValue(property);
+            };
+            
+            return {
+                title: getColor('.title'),
+                section_header: getColor('.section-header'),
+                chip_text: getColor('.chip:not(.active)'),
+                close_button: getColor('.close-button'),
+                chip_border: getColor('.chip:not(.active)', 'border-color')
+            };
+        }''')
+        
+        browser.close()
+        
+        # Verify each color
+        all_passed = True
+        max_delta = 0.0
+        
+        print("\\nCOLOR ACCURACY TEST")
+        print("=" * 80)
+        print("Element".ljust(20) + "Actual".ljust(25) + "Expected".ljust(25) + "Delta")
+        print("-" * 80)
+        
+        for element, expected_rgb in REFERENCE_COLORS.items():
+            actual_str = colors[element]
+            if not actual_str:
+                print(f"❌ {element}: Element not found")
+                all_passed = False
+                continue
+                
+            actual_rgb = rgb_to_tuple(actual_str)
+            delta = color_delta(actual_rgb, expected_rgb)
+            max_delta = max(max_delta, delta)
+            
+            if delta < 2.0:
+                print(f"✅ {element.ljust(18)} rgb{actual_rgb} rgb{expected_rgb} Δ={delta:.2f}")
+            else:
+                print(f"❌ {element.ljust(18)} rgb{actual_rgb} rgb{expected_rgb} Δ={delta:.2f}")
+                all_passed = False
+        
+        print("-" * 80)
+        print(f"\\nMax Delta: {max_delta:.2f}")
+        print("Pass Threshold: ΔE < 2.0 (imperceptible difference)\\n")
+        
+        return all_passed
+
+if __name__ == '__main__':
+    success = test_color_accuracy()
+    sys.exit(0 if success else 1)
+```
+
+**Run Test:**
+
+```bash
+python3 test-color-accuracy.py
+```
+
+**Success Criteria:**
+- All color deltas < 2.0 (imperceptible difference)
+- No missing elements
+- Maximum delta reported
+
+**If Test Fails:**
+1. Check which colors have high delta values
+2. Verify component is using correct tokens (not generic semantic tokens)
+3. Ensure tokens are defined in `:host` block for Shadow DOM components
+4. Re-run extraction script to verify reference colors
+5. Update token values or create component-specific tokens
+
+**Common Failure Causes:**
+- Using `var(--md-sys-color-on-surface)` when reference uses Tailwind stone palette
+- Tokens not cascading into Shadow DOM (missing `:host` definitions)
+- Circular variable references (e.g., `--spacing-sm: var(--spacing-sm, ...)`)
+- CDN cache serving old bundle (use commit hash temporarily)
+
+### 5.7 Interactive State Testing (MANDATORY - Added Jan 2026)
+
+**Purpose:** Verify that ALL interactive states (hover, active, focus, disabled) match the reference design exactly.
+
+**Why This Step Is Critical:**
+- Default/rest state matching is insufficient - users interact with components
+- State transitions often use different colors/styles than default state
+- Missing state styling creates poor UX and breaks visual consistency
+
+**Extract State Colors from Reference:**
+
+```python
+# extract-state-colors.py
+from playwright.sync_api import sync_playwright
+
+def extract_state_colors(mockup_path):
+    """Extract colors for all interactive states from reference"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)  # Visual debugging
+        page = browser.new_page()
+        page.goto(mockup_path)
+        page.wait_for_timeout(2000)
+        
+        # Extract all state variations
+        states = {}
+        
+        # Get button/interactive element
+        button = page.query_selector('button.border')  # Adjust selector
+        
+        if button:
+            # Default state
+            states['default'] = {
+                'color': button.evaluate('el => getComputedStyle(el).color'),
+                'background': button.evaluate('el => getComputedStyle(el).backgroundColor'),
+                'border': button.evaluate('el => getComputedStyle(el).borderColor')
+            }
+            
+            # Hover state
+            button.hover()
+            page.wait_for_timeout(300)  # Wait for transition
+            states['hover'] = {
+                'color': button.evaluate('el => getComputedStyle(el).color'),
+                'background': button.evaluate('el => getComputedStyle(el).backgroundColor'),
+                'border': button.evaluate('el => getComputedStyle(el).borderColor')
+            }
+            
+            # Focus state (keyboard)
+            page.keyboard.press('Tab')
+            page.wait_for_timeout(300)
+            states['focus'] = {
+                'color': button.evaluate('el => getComputedStyle(el).color'),
+                'background': button.evaluate('el => getComputedStyle(el).backgroundColor'),
+                'border': button.evaluate('el => getComputedStyle(el).borderColor'),
+                'outline': button.evaluate('el => getComputedStyle(el).outline')
+            }
+            
+            # Active/pressed state
+            button.click()
+            states['active'] = {
+                'color': button.evaluate('el => getComputedStyle(el).color'),
+                'background': button.evaluate('el => getComputedStyle(el).backgroundColor'),
+                'border': button.evaluate('el => getComputedStyle(el).borderColor')
+            }
+        
+        browser.close()
+        return states
+```
+
+**State Testing Checklist:**
+
+For EACH interactive element, verify:
+
+- [ ] **Default/Rest State** - Colors match reference exactly (ΔE < 2.0)
+- [ ] **Hover State** - Border/background/color changes match reference
+- [ ] **Focus State** - Keyboard focus indicator matches (outline style, color, width, offset)
+- [ ] **Active/Pressed State** - Click/press appearance matches
+- [ ] **Disabled State** - Opacity, cursor, and colors match (if applicable)
+- [ ] **Loading State** - Loading indicators match (if applicable)
+- [ ] **Error State** - Error styling matches (if applicable)
+- [ ] **State Transitions** - Animation duration and easing match reference
+
+**Success Criteria:**
+- All state colors match reference (ΔE < 2.0)
+- State transitions occur (no static states when reference has transitions)
+- No states missing from implementation
+- Focus indicators meet WCAG accessibility requirements
+
+### 5.8 Pixel-Perfect Visual Comparison (MANDATORY - Added Jan 2026)
+
+**Purpose:** Automated pixel-by-pixel comparison to ensure 100% visual fidelity between reference and implementation.
+
+**Why This Step Is Critical:**
+- Human eyes miss subtle differences (1-2px offsets, slight color variations)
+- Automated comparison catches every visual discrepancy
+- Prevents "close enough" implementations that accumulate visual debt
+
+**Create Pixel-Perfect Comparison Script:**
+
+```python
+#!/usr/bin/env python3
+"""
+Pixel-Perfect Visual Comparison
+
+Compares implementation against reference design pixel-by-pixel.
+Generates visual diff heatmap and calculates match percentage.
+"""
+
+import sys
+from playwright.sync_api import sync_playwright
+from PIL import Image, ImageDraw, ImageFont
+import numpy as np
+
+def capture_screenshots(reference_url, implementation_url, output_dir):
+    """Capture screenshots from both reference and implementation"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        
+        # Use consistent viewport
+        viewport = {'width': 1200, 'height': 900}
+        
+        # Capture reference
+        ref_page = browser.new_page(viewport=viewport)
+        ref_page.goto(reference_url)
+        ref_page.wait_for_timeout(2000)
+        ref_page.screenshot(path=f'{output_dir}/reference.png')
+        
+        # Capture implementation
+        impl_page = browser.new_page(viewport=viewport)
+        impl_page.goto(implementation_url)
+        impl_page.wait_for_timeout(2000)
+        
+        # Open modal/component if needed
+        impl_page.evaluate('document.getElementById("component")?.show()')
+        impl_page.wait_for_timeout(500)
+        
+        impl_page.screenshot(path=f'{output_dir}/implementation.png')
+        
+        browser.close()
+
+def calculate_pixel_diff(ref_path, impl_path, output_dir, tolerance=2):
+    """Calculate pixel difference with visual diff heatmap"""
+    ref_img = Image.open(ref_path).convert('RGB')
+    impl_img = Image.open(impl_path).convert('RGB')
+    
+    # Ensure same size
+    if ref_img.size != impl_img.size:
+        impl_img = impl_img.resize(ref_img.size)
+    
+    # Convert to numpy arrays
+    ref_array = np.array(ref_img)
+    impl_array = np.array(impl_img)
+    
+    # Calculate per-pixel difference
+    diff_array = np.abs(ref_array.astype(int) - impl_array.astype(int))
+    
+    # Create diff heatmap
+    heatmap = np.zeros_like(ref_array)
+    match_mask = np.all(diff_array <= tolerance, axis=2)
+    
+    heatmap[match_mask] = [0, 255, 0]  # Green for matching
+    heatmap[~match_mask] = [255, 0, 0]  # Red for different
+    
+    # Create outputs
+    diff_img = Image.fromarray(heatmap)
+    diff_img.save(f'{output_dir}/diff-heatmap.png')
+    
+    # Side-by-side comparison
+    side_by_side = Image.new('RGB', (ref_img.width * 2, ref_img.height))
+    side_by_side.paste(ref_img, (0, 0))
+    side_by_side.paste(impl_img, (ref_img.width, 0))
+    side_by_side.save(f'{output_dir}/side-by-side.png')
+    
+    # Calculate statistics
+    total_pixels = ref_array.shape[0] * ref_array.shape[1]
+    matching_pixels = np.sum(match_mask)
+    match_percentage = (matching_pixels / total_pixels) * 100
+    
+    return {
+        'match_percentage': match_percentage,
+        'total_pixels': total_pixels,
+        'matching_pixels': matching_pixels,
+        'tolerance': tolerance
+    }
+
+def test_pixel_perfect_match():
+    """Run pixel-perfect comparison test"""
+    result = calculate_pixel_diff(
+        '/tmp/reference.png',
+        '/tmp/implementation.png',
+        '/tmp/visual-comparison',
+        tolerance=2
+    )
+    
+    success = result['match_percentage'] >= 99.9
+    
+    if success:
+        print(f"✅ PASS: {result['match_percentage']:.2f}% match (≥99.9% required)")
+    else:
+        print(f"❌ FAIL: {result['match_percentage']:.2f}% match (≥99.9% required)")
+    
+    return success
+```
+
+**Success Criteria:**
+- **Match percentage ≥ 99.9%** (allows ~0.1% for anti-aliasing differences)
+- No visible differences in side-by-side comparison
+- Diff heatmap shows only minor anti-aliasing differences (if any)
+
+**Acceptable Differences:**
+- Font rendering variations (1-2px) due to browser/OS differences
+- Anti-aliasing on rounded corners (within tolerance)
+- Sub-pixel rendering differences (< 2 points per RGB channel)
+
+**Unacceptable Differences:**
+- ❌ Wrong colors (different hue, saturation, or lightness)
+- ❌ Wrong spacing (margin, padding, gap offsets)
+- ❌ Wrong font sizes or weights
+- ❌ Wrong border radius or shapes
+- ❌ Missing elements or incorrect positioning
 
 ---
 
