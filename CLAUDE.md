@@ -20,6 +20,60 @@ Example of preferred communication:
 
 **Exception:** When user explicitly requests documentation ("write a summary", "document this"), provide comprehensive documentation as requested.
 
+## Zero-Trust Verification Protocol
+
+**Never announce success without verification.**
+
+When implementing features or making changes:
+
+1. **Verify Actual Rendered Values**
+   - Use getComputedStyle() for actual values, not just CSS presence
+   - Check dimensions > 0 (offsetWidth, offsetHeight)
+   - Verify visibility (display not none, opacity > 0)
+   - Measure alignment within 1px tolerance
+
+2. **Test Interactive States by Triggering Them**
+   - Don't assume hover works - trigger mouseenter and measure style changes
+   - Focus elements and verify outline appears
+   - Dispatch events and confirm handlers fire with correct detail
+   - Before/after measurements required
+
+3. **Console Hygiene**
+   - Zero tolerance for errors (except favicon 404)
+   - Any console error = FAIL immediately
+   - Check Network tab for failed requests
+   - Cache-bust verification URLs (?v=timestamp)
+
+4. **Component Registration (Web Components)**
+   - Verify customElements.get('wy-name') returns constructor (not undefined)
+   - If undefined, registration failed (check for @import errors)
+   - Test in consuming page, not just in isolation
+
+5. **Failure Criteria (ANY = FAIL)**
+   - Console errors or warnings
+   - Padding/alignment off by > 1px
+   - Element present but width/height = 0
+   - Design tokens resolve to wrong values
+   - Layout overflow (scrollWidth > clientWidth)
+   - Missing interactive state styling
+   - Events defined but don't fire
+
+6. **Report Honestly**
+   - Document failures immediately
+   - Provide specific manual verification steps for non-programmable checks
+   - Never claim PASS when tests actually FAIL
+   - If unsure, measure and verify before announcing
+
+Examples of premature announcements to avoid:
+- "Component integrated successfully" (did you test it loads?)
+- "All working" (did you verify events fire with correct detail?)
+- "Deployed and ready" (did you check for console errors?)
+
+Preferred verification-based communication:
+- "Component loads, tested events fire, zero console errors"
+- "Layout verified: alignment within 1px, no overflow"
+- "Tests passed: color ΔE=0.00, states trigger correctly"
+
 ## Project Overview
 
 M3 Design System v2 - A production-ready Web Component library built on Material Design 3 with Lit 3.x. The aesthetic is "Soft Modernism": organic M3 shapes (capsule buttons, rounded cards) paired with sharp editorial typography (Playfair Display) and a warm heritage color palette.
