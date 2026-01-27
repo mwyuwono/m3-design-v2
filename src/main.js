@@ -44,6 +44,7 @@ import './components/wy-toast.js';
 import './components/wy-links-modal.js';
 import './components/wy-dropdown.js';
 import './components/wy-info-panel.js';
+import './components/wy-code-example.js';
 
 // Button System Components (Visual Identity Guide v1.0)
 import './components/wy-button.js';
@@ -57,8 +58,12 @@ import projects from './data/projects.json';
 // Component Library Renderer
 import ComponentLibraryRenderer from './components-library.js';
 
-// Export globally for use in components-library.html
+// Design System Renderer
+import DesignSystemRenderer from './design-system-renderer.js';
+
+// Export globally for use in components-library.html and design-system.html
 window.ComponentLibraryRenderer = ComponentLibraryRenderer;
+window.DesignSystemRenderer = DesignSystemRenderer;
 
 document.addEventListener('DOMContentLoaded', () => {
 

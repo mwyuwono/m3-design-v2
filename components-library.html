@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Components Library • M3 Design System v2</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
     <link rel="stylesheet" href="/src/styles/tokens.css">
     <link rel="stylesheet" href="/src/styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -228,6 +229,122 @@
             max-width: 100%;
         }
 
+        /* Compact spacing classes */
+        .component-item-compact {
+            margin-bottom: 32px !important;
+            padding-bottom: 32px !important;
+        }
+
+        .component-category-compact {
+            margin-bottom: 48px !important;
+        }
+
+        .component-example-compact {
+            margin-bottom: 24px !important;
+            padding: 16px !important;
+        }
+
+        .component-preview-compact {
+            padding: 24px !important;
+        }
+
+        /* Grouped variants grid layout */
+        .grouped-variants {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .grouped-variant-item {
+            padding: 16px;
+            background: var(--md-sys-color-surface-container-lowest);
+            border-radius: 12px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        /* Pagination controls */
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 32px 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            background: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--md-sys-color-surface-variant);
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .pagination-btn.active {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.38;
+            cursor: not-allowed;
+        }
+
+        /* Quick navigation bar */
+        .quick-nav-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: var(--md-sys-color-surface-container-lowest);
+            border-radius: 12px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .quick-nav-chip {
+            padding: 6px 16px;
+            border-radius: 9999px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            background: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+        }
+
+        .quick-nav-chip:hover {
+            background: var(--md-sys-color-surface-variant);
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .quick-nav-chip.active {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border-color: var(--md-sys-color-primary);
+        }
+
+        /* Compact table padding */
+        .props-table-compact th,
+        .props-table-compact td {
+            padding: 8px 12px !important;
+        }
+
         /* Mobile responsive */
         @media (max-width: 768px) {
             .global-header {
@@ -276,7 +393,6 @@
     <!-- Sticky Global Header -->
     <header class="global-header">
         <div class="global-header-branding">
-            <p class="label-overline">Weaver-Yuwono</p>
             <h1>Components Library</h1>
         </div>
         <a href="design-system.html" class="global-header-back">← Back to Design System</a>

@@ -1183,6 +1183,37 @@
       "props": [],
       "slots": [],
       "events": []
+    },
+    {
+      "name": "wy-code-example",
+      "category": "guidelines",
+      "title": "Code Example",
+      "description": "Reusable code block component for displaying code examples with transparent or surface variant backgrounds",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Default (Transparent)",
+          "code": "<wy-code-example code=\"<wy-button>Click me</wy-button>\"></wy-code-example>",
+          "props": { "code": "<wy-button>Click me</wy-button>" }
+        },
+        {
+          "name": "Surface Variant",
+          "code": "<wy-code-example variant=\"surface-variant\" code=\"<wy-button variant=\"secondary\">View Portfolio</wy-button>\"></wy-code-example>",
+          "props": { "variant": "surface-variant", "code": "<wy-button variant=\"secondary\">View Portfolio</wy-button>" }
+        },
+        {
+          "name": "With Custom Max Height",
+          "code": "<wy-code-example variant=\"surface-variant\" max-height=\"200px\" code=\"const example = 'Long code example that needs scrolling...';\"></wy-code-example>",
+          "props": { "variant": "surface-variant", "max-height": "200px", "code": "const example = 'Long code example that needs scrolling...';" }
+        }
+      ],
+      "props": [
+        { "name": "variant", "type": "String", "required": false, "description": "Code block variant: 'default' (transparent) | 'surface-variant' (with background at 40% opacity)" },
+        { "name": "code", "type": "String", "required": true, "description": "The code content to display" },
+        { "name": "maxHeight", "type": "String", "required": false, "description": "Maximum height for scrolling (default: '300px', attribute: max-height)" }
+      ],
+      "slots": [],
+      "events": []
     }
   ],
   "categories": {

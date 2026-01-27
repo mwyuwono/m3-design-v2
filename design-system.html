@@ -144,7 +144,7 @@
 
         /* Components */
         .component-preview {
-            background-color: var(--md-sys-color-surface-variant);
+            background-color: transparent;
             padding: 64px;
             border-radius: 48px;
             display: flex;
@@ -613,7 +613,7 @@
             <h4 class="label-overline" style="margin-bottom: 24px;">Library Header</h4>
             <div class="component-preview"
                 style="padding: 0; overflow: hidden; border-radius: 16px; border: 1px solid var(--md-sys-color-outline-variant); display: flex; flex-direction: column; align-items: stretch;">
-                <wy-library-header breadcrumb="Design Preview"></wy-library-header>
+                <div data-component="wy-library-header" data-example="Basic"></div>
                 <div
                     style="padding: 80px 60px; background-color: var(--md-sys-color-surface-container); display: flex; flex-direction: column; align-items: center; justify-content: center;">
                     <span class="label-overline" style="opacity: 0.5; margin-bottom: 8px;">Workspace Preview Area</span>
@@ -684,16 +684,7 @@
             <h4 class="label-overline" style="margin-bottom: 24px;">Artwork Grid (Density: Spacious)</h4>
             <div class="component-preview"
                 style="background-color: var(--md-sys-color-surface-container-low); padding: 40px; border-radius: 24px;">
-                <wy-works-grid>
-                    <wy-work-card title="Ethereal Geometry I" artist="Yuwono" date="2024" status="READY"
-                        image="/src/assets/artwork/ethereal_geometry_i.png">
-                    </wy-work-card>
-                    <wy-work-card title="Heritage Landscape" artist="Weaver" date="2023" favorite status="EXPORTED"
-                        image="/src/assets/artwork/heritage_landscape.png">
-                    </wy-work-card>
-                    <wy-work-card title="Abstract Flow" artist="M. Wyuwono" date="2024" status="DRAFT">
-                    </wy-work-card>
-                </wy-works-grid>
+                <div data-component="wy-works-grid" data-example="Basic"></div>
             </div>
         </div>
 
@@ -725,8 +716,7 @@
                     <md-filled-button id="export-trigger">Open Export Configuration</md-filled-button>
                     <p class="label-overline" style="margin-top: 16px; opacity: 0.7;">Multi-pane SVG Processing</p>
                 </div>
-                <wy-export-modal id="specimen-export" work-title="Ethereal Geometry I"
-                    preview-image="/src/assets/artwork/ethereal_geometry_i.png"></wy-export-modal>
+                <div data-component="wy-export-modal" data-example="Basic" id="export-modal-container"></div>
             </div>
         </div>
 
@@ -735,23 +725,37 @@
             <div class="component-preview" style="gap: 40px; flex-wrap: wrap; justify-content: center; padding: 40px;">
                 <div class="d-flex flex-column align-items-center gap-2">
                     <span class="label-overline" style="font-size: 0.65rem; opacity: 0.5;">Idle State</span>
-                    <wy-backup-status status="synced" last-sync="Just now"></wy-backup-status>
+                    <div data-component="wy-backup-status" data-example="Synced"></div>
                 </div>
                 <div class="d-flex flex-column align-items-center gap-2">
                     <span class="label-overline" style="font-size: 0.65rem; opacity: 0.5;">Active Animation</span>
-                    <wy-backup-status status="syncing" last-sync="2m ago"></wy-backup-status>
+                    <div data-component="wy-backup-status" data-example="Syncing"></div>
                 </div>
                 <div class="d-flex flex-column align-items-center gap-2">
                     <span class="label-overline" style="font-size: 0.65rem; opacity: 0.5;">Error Alert</span>
-                    <wy-backup-status status="error" last-sync="Failed 1h ago"></wy-backup-status>
+                    <div data-component="wy-backup-status" data-example="Error"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <script>
-        document.getElementById('export-trigger').addEventListener('click', () => {
-            document.getElementById('specimen-export').open = true;
+        // Export modal trigger - find modal dynamically after render
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const exportTrigger = document.getElementById('export-trigger');
+                if (exportTrigger) {
+                    exportTrigger.addEventListener('click', () => {
+                        const exportContainer = document.getElementById('export-modal-container');
+                        if (exportContainer) {
+                            const modal = exportContainer.querySelector('wy-export-modal');
+                            if (modal) {
+                                modal.open = true;
+                            }
+                        }
+                    });
+                }
+            }, 500);
         });
     </script>
 
@@ -766,13 +770,9 @@
             <h4 class="label-overline" style="margin-bottom: 24px;">Portfolio Metrics</h4>
             <div
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; padding: 0;">
-                <wy-metric-card title="Total Asset Value" value="$2,410,000" trend="+12.4% YTD" icon="payments">
-                </wy-metric-card>
-                <wy-metric-card title="Top Performer" value="Private Equity IV" trend="+22.1% Return"
-                    icon="trending_up">
-                </wy-metric-card>
-                <wy-metric-card title="Active Projects" value="14" icon="account_balance">
-                </wy-metric-card>
+                <div data-component="wy-metric-card" data-example="With Trend"></div>
+                <div data-component="wy-metric-card" data-example="Top Performer"></div>
+                <div data-component="wy-metric-card" data-example="No Trend"></div>
             </div>
         </div>
 
@@ -780,24 +780,12 @@
             style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: stretch; margin-top: 40px;">
             <div>
                 <h4 class="label-overline" style="margin-bottom: 24px;">Asset Allocation</h4>
-                <wy-allocation-card title="Current Allocation" .items="${[
-                                { label: 'Public Equities', value: 45, color: 'var(--md-sys-color-primary)' },
-                                { label: 'Real Estate', value: 25, color: '#8FA397' },
-                                { label: 'Private Credit', value: 20, color: '#BCCBC3' },
-                                { label: 'Cash & Equiv.', value: 10, color: '#E0E5E2' }
-                            ]}">
-                    <span slot="analysis"><strong>Analysis:</strong> Portfolio remains within 2% variance of
-                        target allocation. Recommended rebalancing in Q4.</span>
-                </wy-allocation-card>
+                <div data-component="wy-allocation-card" data-example="With Items" id="allocation-card-container"></div>
             </div>
             <div>
                 <h4 class="label-overline" style="margin-bottom: 24px;">Strategic Insight</h4>
                 <div style="display: flex; flex-direction: column; gap: 24px;">
-                    <wy-insight-card
-                        image="https://images.unsplash.com/photo-1541462608141-adb61b1a7bac?q=80&w=2070&auto=format&fit=crop"
-                        category="Stewardship" title="London Estate acquisition finalized pending regulatory approval."
-                        icon="verified_user">
-                    </wy-insight-card>
+                    <div data-component="wy-insight-card" data-example="With Image"></div>
                     <div
                         style="background-color: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-outline-variant); padding: 24px; border-radius: var(--md-sys-shape-corner-medium);">
                         <h4
@@ -823,10 +811,8 @@
 
         <h4 class="label-overline" style="margin-bottom: 24px;">Application Shell & Controls</h4>
         <div class="component-preview" style="padding: 0; background: var(--md-sys-color-surface-container-lowest);">
-            <wy-app-bar title="Prompt Library Showcase">
-                <md-icon slot="logo" style="color: var(--wy-color-productivity)">Architecture</md-icon>
-            </wy-app-bar>
-            <wy-controls-bar id="demo-controls"></wy-controls-bar>
+            <div data-component="wy-app-bar" data-example="With Custom Logo"></div>
+            <div data-component="wy-controls-bar" data-example="Basic" id="demo-controls-container"></div>
         </div>
 
         <div style="margin-top: 60px;">
@@ -865,12 +851,17 @@
         </div>
     </section>
 
-    <wy-prompt-modal id="demo-modal"></wy-prompt-modal>
-    <wy-toast id="demo-toast"></wy-toast>
+    <div data-component="wy-prompt-modal" data-example="Basic" id="demo-modal-container"></div>
+    <div data-component="wy-toast" data-example="Basic" id="demo-toast-container"></div>
 
     <script>
         function showPromptDemo(id) {
-            const modal = document.getElementById('demo-modal');
+            // Find modal in dynamically rendered container
+            const modalContainer = document.getElementById('demo-modal-container');
+            const modal = modalContainer ? modalContainer.querySelector('wy-prompt-modal') : document.getElementById('demo-modal');
+            
+            if (!modal) return;
+            
             const data = {
                 minutes: {
                     title: 'Meeting Minutes Architect',
@@ -896,42 +887,95 @@
             };
 
             const p = data[id];
-            modal.title = p.title;
-            modal.category = p.category;
-            modal.description = p.description;
-            modal.template = p.template;
-            modal.variables = p.variables;
-            modal.open = true;
+            if (p) {
+                modal.title = p.title;
+                modal.category = p.category;
+                modal.description = p.description;
+                modal.template = p.template;
+                modal.variables = p.variables;
+                modal.open = true;
+            }
         }
 
         function showToastDemo() {
-            const toast = document.getElementById('demo-toast');
-            toast.message = 'System state synchronized successfully!';
-            toast.show = true;
+            // Find toast in dynamically rendered container
+            const toastContainer = document.getElementById('demo-toast-container');
+            const toast = toastContainer ? toastContainer.querySelector('wy-toast') : document.getElementById('demo-toast');
+            
+            if (toast) {
+                toast.message = 'System state synchronized successfully!';
+                toast.show = true;
+            }
         }
 
-        document.getElementById('demo-controls').addEventListener('filter-change', (e) => {
-            const { viewMode, search, category, showDetails } = e.detail;
+        // Attach controls bar listener after dynamic rendering
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const controlsContainer = document.getElementById('demo-controls-container');
+                const controlsBar = controlsContainer ? controlsContainer.querySelector('wy-controls-bar') : document.getElementById('demo-controls');
+                
+                if (controlsBar) {
+                    controlsBar.addEventListener('filter-change', (e) => {
+                        const { viewMode, search, category, showDetails } = e.detail;
 
-            // View Toggle
-            const grid = document.getElementById('grid-view');
-            const list = document.getElementById('list-view');
-            if (viewMode === 'grid') {
-                grid.style.display = 'grid';
-                list.style.display = 'none';
-            } else {
-                grid.style.display = 'none';
-                list.style.display = 'flex';
-            }
+                        // View Toggle
+                        const grid = document.getElementById('grid-view');
+                        const list = document.getElementById('list-view');
+                        if (viewMode === 'grid') {
+                            grid.style.display = 'grid';
+                            list.style.display = 'none';
+                        } else {
+                            grid.style.display = 'none';
+                            list.style.display = 'flex';
+                        }
 
-            // Sync show-details to cards/rows
-            document.querySelectorAll('wy-prompt-card, wy-prompt-row').forEach(el => {
-                el.showDetails = showDetails;
-            });
+                        // Sync show-details to cards/rows
+                        document.querySelectorAll('wy-prompt-card, wy-prompt-row').forEach(el => {
+                            el.showDetails = showDetails;
+                        });
+                    });
+                }
+            }, 500);
         });
     </script>
     </main>
     </div>
+
+    <!-- Design System Component Renderer Initialization -->
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait for components to be registered and DesignSystemRenderer to be available
+            setTimeout(() => {
+                if (window.DesignSystemRenderer) {
+                    const renderer = new window.DesignSystemRenderer();
+                    renderer.init().then(() => {
+                        // Attach onclick handlers to dynamically rendered prompt cards after rendering
+                        setTimeout(() => {
+                            document.querySelectorAll('[data-demo-id]').forEach(container => {
+                                const demoId = container.getAttribute('data-demo-id');
+                                const card = container.querySelector('wy-prompt-card');
+                                if (card && demoId) {
+                                    card.addEventListener('click', () => {
+                                        if (window.showPromptDemo) {
+                                            window.showPromptDemo(demoId);
+                                        }
+                                    });
+                                }
+                            });
+                        }, 200);
+                    });
+                } else {
+                    // Fallback: wait a bit longer if renderer not yet available
+                    setTimeout(() => {
+                        if (window.DesignSystemRenderer) {
+                            const renderer = new window.DesignSystemRenderer();
+                            renderer.init();
+                        }
+                    }, 200);
+                }
+            }, 200);
+        });
+    </script>
 
 </body>
 

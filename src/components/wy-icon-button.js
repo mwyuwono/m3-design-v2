@@ -30,8 +30,7 @@ export class WyIconButton extends LitElement {
   };
 
   static styles = css`
-    /* Import Material Symbols for icon support in Shadow DOM */
-    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+    /* Fonts are loaded globally via HTML link tags - no @import needed in Shadow DOM */
 
     :host {
       display: inline-block;
