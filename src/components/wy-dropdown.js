@@ -38,8 +38,7 @@ export class WyDropdown extends LitElement {
     }
 
     static styles = css`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+        /* Note: Fonts (DM Sans, Material Symbols) should be loaded in consuming page <head> */
         
         :host {
             display: block;

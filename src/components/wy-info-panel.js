@@ -20,7 +20,7 @@ export class WyInfoPanel extends LitElement {
     }
 
     static styles = css`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+        /* Note: DM Sans font should be loaded in consuming page <head> */
         
         :host {
             display: block;
