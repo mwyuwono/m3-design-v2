@@ -8915,6 +8915,14 @@ class us extends g {
       margin: 0;
       overflow: hidden;
       pointer-events: none;
+      /* Delay visibility: hidden until after opacity transition completes */
+      transition: opacity 0.3s ease-in-out,
+        visibility 0s ease-in-out 0.3s, /* Delay visibility until opacity completes */
+        max-width 0.3s ease-in-out,
+        min-width 0.3s ease-in-out,
+        width 0.3s ease-in-out,
+        transform 0.3s ease-in-out,
+        margin 0.3s ease-in-out;
     }
 
     .searchContainer:not(.searchContainerHidden) {
@@ -9001,6 +9009,13 @@ class us extends g {
 
     .searchInput:focus {
       outline: none;
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+      transform: scale(1.02);
+    }
+    
+    /* Ensure focus styles apply even when input is inside wrapper */
+    .searchInputWrapper .searchInput:focus {
       border-color: var(--md-sys-color-primary);
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
       transform: scale(1.02);
