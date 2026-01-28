@@ -314,6 +314,9 @@
                             <button onclick="copyDocumentationLink()" style="display: inline-block; padding: 12px 24px; background-color: transparent; color: var(--md-sys-color-primary); border: 2px solid var(--md-sys-color-primary); border-radius: 24px; font-weight: 500; cursor: pointer; transition: opacity 0.2s; font-family: var(--font-sans); font-size: 0.875rem;">
                                 Copy Link
                             </button>
+                            <button id="copy-troubleshooting-btn" onclick="copyTroubleshootingGuide()" style="display: inline-block; padding: 12px 24px; background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; border-radius: 24px; font-weight: 500; cursor: pointer; transition: opacity 0.2s; font-family: var(--font-sans); font-size: 0.875rem;">
+                                Copy Troubleshooting Guide
+                            </button>
                             <button id="copy-all-btn" onclick="copyAllDocumentation()" style="display: inline-block; padding: 12px 24px; background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; border-radius: 24px; font-weight: 500; cursor: pointer; transition: opacity 0.2s; font-family: var(--font-sans); font-size: 0.875rem;">
                                 Copy All Documentation
                             </button>
@@ -1070,6 +1073,54 @@
             }).catch(err => {
                 console.error('Failed to copy:', err);
             });
+        }
+
+        async function copyTroubleshootingGuide() {
+            const copyBtn = document.getElementById('copy-troubleshooting-btn');
+            if (!copyBtn) return;
+
+            try {
+                // If we haven't loaded the content yet, fetch it now
+                if (!documentationContent) {
+                    const response = await fetch('DESIGN-SYSTEM.md');
+                    if (!response.ok) {
+                        throw new Error(`Failed to load documentation: ${response.status} ${response.statusText}`);
+                    }
+                    documentationContent = await response.text();
+                }
+
+                // Extract troubleshooting section (from "## Troubleshooting" to next "##" or end of file)
+                const troubleshootingStart = documentationContent.indexOf('## Troubleshooting');
+                if (troubleshootingStart === -1) {
+                    throw new Error('Troubleshooting section not found');
+                }
+
+                // Find the next major section (##) or end of file
+                const nextSection = documentationContent.indexOf('\n## ', troubleshootingStart + 1);
+                const troubleshootingEnd = nextSection !== -1 ? nextSection : documentationContent.length;
+                
+                const troubleshootingSection = documentationContent.substring(troubleshootingStart, troubleshootingEnd).trim();
+
+                await navigator.clipboard.writeText(troubleshootingSection);
+                
+                // Show success feedback
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                copyBtn.style.opacity = '0.7';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.opacity = '1';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy troubleshooting guide:', err);
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Error - Try Again';
+                copyBtn.style.opacity = '0.7';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.opacity = '1';
+                }, 2000);
+            }
         }
 
         async function copyAllDocumentation() {

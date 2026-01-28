@@ -15,8 +15,8 @@ A production-ready, modular design system built on Material Design 3, featuring 
 **Example:**
 ```
 Light DOM
-└── wy-library-header (shadow DOM)
-    └── wy-icon-button (its own shadow DOM) ← variables from :root don't reach here directly
+\-- wy-library-header (shadow DOM)
+    \-- wy-icon-button (its own shadow DOM) <- variables from :root don't reach here directly
 ```
 
 **Solution:** Always provide fallback values in component styles:
@@ -219,20 +219,20 @@ Components are in `src/components/` and registered in `src/main.js`.
 
 ```
 m3-design-v2/
-├── src/
-│   ├── components/          # Custom Web Components (wy-*)
-│   │   ├── wy-modal.js
-│   │   ├── wy-prompt-modal.js
-│   │   ├── wy-form-field.js
-│   │   └── ...
-│   ├── styles/
-│   │   ├── tokens.css       # Design tokens (colors, fonts, spacing)
-│   │   └── main.css         # Global styles and utilities
-│   ├── data/                # Sample JSON data
-│   └── main.js              # Component registration
-├── design-system.html       # Living style guide
-├── index.html               # Landing page example
-└── docs/                    # Additional documentation
++-- src/
+|   +-- components/          # Custom Web Components (wy-*)
+|   |   +-- wy-modal.js
+|   |   +-- wy-prompt-modal.js
+|   |   +-- wy-form-field.js
+|   |   \-- ...
+|   +-- styles/
+|   |   +-- tokens.css       # Design tokens (colors, fonts, spacing)
+|   |   \-- main.css         # Global styles and utilities
+|   +-- data/                # Sample JSON data
+|   \-- main.js              # Component registration
++-- design-system.html       # Living style guide
++-- index.html               # Landing page example
+\-- docs/                    # Additional documentation
 ```
 
 ### Data Flow
@@ -670,46 +670,294 @@ See [COMPONENTS.md](COMPONENTS.md) for complete API documentation for all compon
 
 ## Troubleshooting
 
-### CSS Variables Not Resolving
+### For Coding Assistants
 
-**Symptoms:** Components render with wrong colors or default browser styles.
+**Context:** This design system uses Web Components (Lit 3.x) consumed via CDN or npm link. Common issues stem from CDN cache, shadow DOM variable inheritance, or editing wrong files.
 
-**Solutions:**
-1. Check if CSS variables are defined in `src/styles/tokens.css`
-2. Verify variables cascade into shadow DOM (see CSS Custom Property Inheritance section)
-3. For nested components, use fallback pattern: `var(--component-token, var(--system-token, #hex))`
-4. Check if consuming project has imported tokens correctly
+**Quick Diagnostic Checklist** (check in order):
+1. [ ] CDN cache purged? (90% of "changes not appearing" issues)
+2. [ ] Hard refresh browser? (Cmd+Shift+R)
+3. [ ] Editing correct file? (Design system `src/components/wy-*.js` vs local React wrapper)
+4. [ ] Component registered? (`customElements.get('wy-component-name')`)
+5. [ ] CSS variables cascading? (Check shadow DOM inheritance)
+6. [ ] Fonts imported in component? (Shadow DOM requires explicit imports)
 
-### Components Not Rendering
+---
 
-**Symptoms:** Components appear as empty elements or don't register.
+### Issue 1: Changes Not Appearing (CDN Cache Staleness)
 
-**Solutions:**
-1. Verify component is registered: `customElements.get('wy-component-name')`
-2. Check for JavaScript errors in console
-3. Ensure `src/main.js` imports the component
-4. Verify component file is in `src/components/` directory
+**Symptoms:** Changes made to design system don't appear in consuming projects, components show old styles/behavior.
 
-### Fonts Not Loading
+**Likely Cause:** jsDelivr CDN cache (most common issue - 90% of cases).
 
-**Symptoms:** Text renders in fallback fonts, icons show as text.
+**Diagnostic:**
+```bash
+# Check if CDN is serving latest version
+curl -s "https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js" | grep "expected-code-snippet"
+```
 
-**Solutions:**
-1. Check if component imports fonts in `static styles` (see Shadow DOM Font Loading section)
-2. Verify font URLs are accessible
-3. For Material Symbols, ensure `@import` includes full font URL with parameters
-4. Check browser console for font loading errors
+**Solution:**
+```bash
+# Full CDN purge (run after EVERY design system commit)
+for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
+  for v in @main "" @latest; do
+    curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
+  done
+done
+```
 
-### CDN Cache Staleness
+**Verification:**
+- Response contains `"status":"finished"`
+- Hard refresh browser (Cmd+Shift+R)
+- Wait 2-3 seconds for propagation
+- If still stale, temporarily pin to commit hash (see CDN Staleness Fallback section)
 
-**Symptoms:** Changes made to design system don't appear in consuming projects.
+---
 
-**Solutions:**
-1. Run full CDN purge commands (see CDN Cache Purging section)
-2. Hard refresh browser (Cmd+Shift+R)
-3. Verify purge succeeded (response contains `"status":"finished"`)
-4. Wait 2-3 seconds for propagation
-5. If still stale, temporarily pin to commit hash (see CDN Staleness Fallback)
+### Issue 2: CSS Variables Not Resolving
+
+**Symptoms:** Components render with wrong colors, default browser styles, or transparent backgrounds.
+
+**Likely Causes:**
+- Variables not cascading into shadow DOM (nested components)
+- Variables not imported in consuming project
+- Using `var()` that resolves to dark mode values in light-theme-only apps
+
+**Diagnostic:**
+```javascript
+// In browser console - check if variable resolves
+getComputedStyle(document.querySelector('wy-component-name')).getPropertyValue('--md-sys-color-primary')
+
+// Check if component has fallback values
+// Look in src/components/wy-*.js for pattern:
+// var(--component-token, var(--system-token, #hex-fallback))
+```
+
+**Solution:**
+1. **For nested shadow DOM components:** Use fallback pattern in component styles:
+```css
+/* In component's static styles */
+background-color: var(--wy-icon-button-filled-bg, var(--md-sys-color-primary, #2C4C3B));
+```
+
+2. **For consuming projects:** Set variables on parent component's host:
+```css
+/* In consuming project CSS */
+.controls-bar {
+  --wy-filter-chip-active-bg: #E8F5E9; /* Explicit hex for light-theme-only apps */
+}
+```
+
+3. **For light-theme-only apps:** Use explicit hex values instead of `var()` to avoid dark mode interference:
+```css
+/* Bad - may resolve to dark mode value */
+--wy-filter-chip-active-bg: var(--md-sys-color-primary-container);
+
+/* Good - explicit value */
+--wy-filter-chip-active-bg: #E8F5E9;
+```
+
+**Reference:** See "CSS Custom Property Inheritance in Nested Shadow DOM" section above.
+
+---
+
+### Issue 3: Editing Wrong File (Local vs Design System)
+
+**Symptoms:** Changes don't propagate to other projects, or changes are overwritten.
+
+**Likely Cause:** Editing React wrapper in consuming project instead of Web Component in design system.
+
+**Diagnostic:**
+```bash
+# Check if you're editing design system component
+# Should be: m3-design-v2/src/components/wy-*.js
+# NOT: plots/components/library-header-wrapper.tsx (React wrapper)
+```
+
+**Solution:**
+- **For shared components:** Edit `m3-design-v2/src/components/wy-*.js` (design system)
+- **For project-specific logic:** Edit React wrapper in consuming project
+- **Rule:** If component is used by multiple projects, edit in design system
+
+**Verification:**
+- Check component usage: `grep -r "wy-component-name"` across projects
+- If used in multiple projects → edit design system
+- If used in one project → can edit wrapper (but prefer design system for consistency)
+
+**Reference:** See "React Components vs Web Components Architecture" section above.
+
+---
+
+### Issue 4: Components Not Rendering
+
+**Symptoms:** Components appear as empty elements, don't register, or show as `<wy-component-name></wy-component-name>`.
+
+**Likely Causes:**
+- Component not registered
+- JavaScript errors preventing registration
+- Component not imported in `src/main.js`
+- Import path incorrect (CDN or npm link)
+
+**Diagnostic:**
+```javascript
+// In browser console
+customElements.get('wy-component-name')
+// Should return constructor function, not undefined
+
+// Check for JavaScript errors
+// Look for: "Failed to register", "Cannot read property", import errors
+```
+
+**Solution:**
+1. **Verify component registration:**
+```javascript
+// Check if component file exists
+// m3-design-v2/src/components/wy-component-name.js
+
+// Check if component is imported in src/main.js
+// Should have: import './components/wy-component-name.js';
+```
+
+2. **For CDN imports:**
+```javascript
+// Verify import path is correct
+import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';
+```
+
+3. **For npm link:**
+```bash
+# Verify link is active
+npm list wy-family-office
+
+# Re-link if needed
+cd m3-design-v2 && npm link
+cd consuming-project && npm link wy-family-office
+```
+
+**Verification:**
+- Component renders with content (not empty)
+- No console errors
+- `customElements.get()` returns constructor
+
+---
+
+### Issue 5: Fonts Not Loading in Shadow DOM
+
+**Symptoms:** Text renders in fallback fonts, Material Symbols icons show as text (e.g., "add", "search").
+
+**Likely Cause:** Fonts loaded in light DOM don't propagate into Shadow DOM. Components must explicitly import fonts.
+
+**Diagnostic:**
+```javascript
+// Check if component imports fonts in static styles
+// Look in src/components/wy-*.js for @import statements
+// Should have: @import url('https://fonts.googleapis.com/css2?...');
+```
+
+**Solution:**
+Add font imports directly in component's `static styles`:
+```javascript
+static styles = css`
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1,-50..200');
+  
+  .element {
+    font-family: var(--font-serif, 'Playfair Display', serif);
+  }
+`;
+```
+
+**Components that already include fonts:**
+- `wy-modal` - Playfair Display
+- `wy-prompt-modal` - Playfair Display + DM Sans
+- `wy-export-modal` - Playfair Display
+- `wy-controls-bar` - Material Symbols
+
+**Reference:** See "Shadow DOM Font Loading" section above.
+
+---
+
+### Issue 6: Import Path Issues
+
+**Symptoms:** Components/styles don't load, 404 errors, or wrong version served.
+
+**Likely Causes:**
+- Wrong CDN path
+- npm link not set up correctly
+- Version pinning to stale commit
+
+**Diagnostic:**
+```bash
+# Check CDN import paths in consuming project
+grep -r "cdn.jsdelivr.net" consuming-project/
+
+# Check npm link status
+npm list wy-family-office
+
+# Verify CDN serves expected content
+curl -s "https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css" | head -20
+```
+
+**Solution:**
+1. **CDN imports (correct format):**
+```css
+@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css');
+@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css');
+```
+```javascript
+import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';
+```
+
+2. **npm link setup:**
+```bash
+# In design system repo
+npm link
+
+# In consuming project
+npm link wy-family-office
+
+# Import tokens
+@import "./styles/tokens-no-fonts.css"; /* Generated from node_modules/wy-family-office/src/styles/tokens.css */
+```
+
+3. **If using commit hash pin (temporary fallback):**
+```javascript
+// TODO: revert to @main once CDN serves updated bundle
+import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@<commit-hash>/dist/web-components.js';
+```
+
+**Verification:**
+- No 404 errors in Network tab
+- Components/styles load correctly
+- CDN serves expected version
+
+---
+
+### Quick Reference Commands
+
+**CDN Purge (one-liner):**
+```bash
+for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done
+```
+
+**Check Component Registration:**
+```javascript
+customElements.get('wy-component-name') // Should return constructor, not undefined
+```
+
+**Check CSS Variable Resolution:**
+```javascript
+getComputedStyle(element).getPropertyValue('--md-sys-color-primary')
+```
+
+**Verify File Location:**
+```bash
+# Design system component (correct)
+m3-design-v2/src/components/wy-*.js
+
+# React wrapper (wrong for shared components)
+consuming-project/components/*-wrapper.tsx
+```
 
 ---
 
