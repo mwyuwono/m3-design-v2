@@ -403,37 +403,52 @@ export class WyLibraryHeader extends LitElement {
 
     /* RESPONSIVE */
     @media (max-width: 767px) {
+      :host {
+        min-height: auto;
+      }
+
+      .container {
+        padding: 0 var(--spacing-md);
+      }
+
       .header {
-        align-items: flex-start;
+        align-items: center;
+        min-height: auto;
+        padding: var(--spacing-sm) 0;
+      }
+
+      .header h1 {
+        display: none;
       }
 
       .headerScrolled {
-        padding: 0.75rem 0;
+        padding: var(--spacing-sm) 0;
       }
 
       .leftSection {
-        flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: var(--spacing-sm);
         flex: 1;
         min-width: 0;
       }
 
       .leftSectionScrolled {
-        padding: 1rem;
+        padding: 0.5rem 1rem;
+      }
+
+      .searchContainerHidden {
+        display: none;
       }
 
       .searchContainer {
-        order: 3;
-        width: 100%;
+        flex: 1;
+        min-width: 0;
         max-width: 100%;
-        margin-top: var(--spacing-xs);
       }
 
       .rightSection {
-        position: absolute;
-        top: var(--spacing-2xl);
-        right: 0;
+        position: static;
+        padding: 0;
       }
 
       .rightSectionHidden {
@@ -441,6 +456,10 @@ export class WyLibraryHeader extends LitElement {
         transform: translateY(-1rem);
         max-width: 0;
         overflow: hidden;
+      }
+
+      ::slotted([slot="backup-status"]) {
+        display: none;
       }
     }
   `;
