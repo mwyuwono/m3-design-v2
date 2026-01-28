@@ -98,13 +98,13 @@ export class WyIconButton extends LitElement {
 
     /* ===== FILLED VARIANT (Hunter Green) ===== */
     .button.variant-filled {
-      background-color: var(--wy-icon-button-filled-bg);
-      color: var(--wy-icon-button-filled-fg);
-      box-shadow: var(--wy-icon-button-filled-shadow);
+      background-color: var(--wy-icon-button-filled-bg, var(--md-sys-color-primary, #2C4C3B));
+      color: var(--wy-icon-button-filled-fg, var(--md-sys-color-on-primary, #FFFFFF));
+      box-shadow: var(--wy-icon-button-filled-shadow, 0 4px 12px rgba(44, 76, 59, 0.2));
     }
 
     .button.variant-filled::before {
-      background-color: var(--wy-icon-button-filled-fg);
+      background-color: var(--wy-icon-button-filled-fg, var(--md-sys-color-on-primary, #FFFFFF));
     }
 
     .button.variant-filled:hover:not(:disabled) {

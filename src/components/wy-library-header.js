@@ -502,7 +502,6 @@ export class WyLibraryHeader extends LitElement {
             variant="filled"
             size="small"
             icon="add"
-            label="Add work"
             @click="${this._handleAddWork}">
           </wy-icon-button>
           </div>

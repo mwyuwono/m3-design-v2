@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 📚 Comprehensive Documentation
+
+**For complete design system documentation, see [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md).**
+
+This file (`CLAUDE.md`) contains workflow-specific guidance for AI agents. For comprehensive documentation including installation, architecture, critical gotchas, component development, integration patterns, and troubleshooting, refer to [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md), which serves as the single source of truth for all design system information.
+
 ## Communication Preferences
 
 **Be concise.** Prefer brief, direct communication over verbose documentation.
@@ -77,6 +83,36 @@ Preferred verification-based communication:
 ## Project Overview
 
 M3 Design System v2 - A production-ready Web Component library built on Material Design 3 with Lit 3.x. The aesthetic is "Soft Modernism": organic M3 shapes (capsule buttons, rounded cards) paired with sharp editorial typography (Playfair Display) and a warm heritage color palette.
+
+## React Components vs Web Components Architecture
+
+**CRITICAL:** This design system provides Web Components (`.js` files) that are consumed by React projects via wrappers.
+
+**When making changes to shared components:**
+- **Edit Web Components here** (`src/components/wy-*.js`) - Changes propagate to all consuming projects
+- **Do NOT edit React wrappers** in consuming projects - They are thin wrappers that pass props/events
+
+**How consuming projects use Web Components:**
+1. Projects import Web Components via `npm link` or CDN
+2. Projects create React wrappers (e.g., `LibraryHeaderWrapper`) that use `<wy-component-name>` syntax
+3. Wrappers handle React-specific concerns (state, event listeners, refs)
+4. Actual UI logic lives in Web Components (this repository)
+
+**Example - Library Header:**
+- Web Component: `m3-design-v2/src/components/wy-library-header.js` (this repo)
+- React Wrapper: `plots/components/library-header-wrapper.tsx` (consuming project)
+- When editing header UI: Edit the Web Component here, not the wrapper
+
+**Legacy React Components:**
+Some consuming projects may have legacy React components (e.g., `library-header.tsx`) that are not imported. These are unused and should not be edited. Always verify which component is actually used before making changes.
+
+### Verification Checklist
+
+Before making component changes:
+- [ ] Confirm this is a shared component (used by multiple projects)
+- [ ] Verify changes should propagate to all consumers
+- [ ] Check if consuming projects have React wrappers (they handle React integration)
+- [ ] Test changes in consuming projects after updating
 
 ## Component Adaptation Workflow (NEW - Jan 2026)
 
