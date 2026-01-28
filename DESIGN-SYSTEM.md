@@ -2,6 +2,8 @@
 
 **Single Source of Truth** | Version 1.0 | Last Updated: January 2026
 
+> **📝 Document Maintenance:** When making changes to this document, update the version number and "Last Updated" timestamp above and at the end of the document. Timestamp format: `Month Day, YYYY at HH:MM AM/PM EST` (e.g., "January 27, 2026 at 3:45 PM EST").
+
 A production-ready, modular design system built on Material Design 3, featuring custom Web Components and a distinctive "Soft Modernism" aesthetic. Designed for high-end editorial interfaces with organic shapes and disciplined typography.
 
 ---
@@ -10,62 +12,25 @@ A production-ready, modular design system built on Material Design 3, featuring 
 
 ### 1. CSS Custom Property Inheritance in Nested Shadow DOM
 
-**Problem:** CSS variables from `:root` do NOT automatically cascade through nested shadow DOM boundaries. If Component A contains Component B inside its shadow DOM, variables set on `:root` won't reach Component B.
+**Problem:** CSS variables from `:root` don't cascade through nested shadow DOM boundaries. If Component A contains Component B inside its shadow DOM, `:root` variables won't reach Component B.
 
-**Example:**
-```
-Light DOM
-\-- wy-library-header (shadow DOM)
-    \-- wy-icon-button (its own shadow DOM) <- variables from :root don't reach here directly
-```
-
-**Solution:** Always provide fallback values in component styles:
-
+**Solution:** Use fallback pattern: `var(--component-token, var(--system-token, #hex-fallback))`
 ```css
-/* ALWAYS use this pattern for nested shadow DOM components */
 .button.variant-filled {
   background-color: var(--wy-icon-button-filled-bg, var(--md-sys-color-primary, #2C4C3B));
-  color: var(--wy-icon-button-filled-fg, var(--md-sys-color-on-primary, #FFFFFF));
 }
 ```
 
-**Pattern:** `var(--component-specific-token, var(--design-system-token, #hex-fallback))`
-
-**When to use:**
-- Components that are nested inside other components' shadow DOM
-- Components that may be used in isolation without design system tokens loaded
-- Any component where CSS variables are critical for rendering
-
-**For consuming projects:** Set variables on the parent component's host element - they cascade to immediate shadow children:
+**For consuming projects:** Set variables on parent component's host (cascades to immediate shadow children):
 ```css
-/* This works - set on the outer component's host */
 .controls-bar {
-  --wy-filter-chip-active-bg: #E8F5E9;
+  --wy-filter-chip-active-bg: #E8F5E9; /* Explicit hex for light-theme-only apps */
 }
 ```
 
-**When using `prefers-color-scheme` tokens:** If the consuming app is light-theme-only but the design system has dark mode overrides, use explicit hex values instead of `var()` references to avoid dark mode interference:
-```css
-/* Bad - may resolve to dark mode value if user prefers dark */
---wy-filter-chip-active-bg: var(--md-sys-color-primary-container);
+**Light-theme-only apps:** Use explicit hex values instead of `var()` to avoid dark mode interference.
 
-/* Good - explicit value for light-theme-only apps */
---wy-filter-chip-active-bg: #E8F5E9;
-```
-
-**Exposing parts for direct styling:** Components should expose key internal elements via `part` attribute for consumers who need direct style control:
-```javascript
-// In component template
-html`<div class="container" part="container">...</div>`
-```
-```css
-/* Consumer can then style directly */
-my-component::part(container) {
-  padding: 24px;
-}
-```
-
-**Reference:** See `src/components/wy-icon-button.js` lines 100-108 for implementation example.
+**Expose parts:** Use `part` attribute for direct styling: `html`<div part="container">` → `my-component::part(container)`
 
 ---
 
@@ -85,52 +50,69 @@ static styles = css`
 `;
 ```
 
-**Components that already include fonts:**
-- `wy-modal` - Playfair Display
-- `wy-prompt-modal` - Playfair Display + DM Sans
-- `wy-export-modal` - Playfair Display
-- `wy-controls-bar` - Material Symbols
+**Components with fonts:** `wy-modal`, `wy-prompt-modal`, `wy-export-modal` (Playfair Display), `wy-controls-bar` (Material Symbols).
 
-**When creating new components:** If the component uses icons (`<span class="material-symbols-outlined">`) or display fonts, add the appropriate `@import` to the component's `static styles`.
+**New components:** Import fonts in `static styles` if using icons or display fonts.
 
 ---
 
-### 3. React Components vs Web Components Architecture
+### 3. LitElement Exit Animations (Collapse/Fade-Out)
 
-**CRITICAL:** This design system provides Web Components (`.js` files) that are consumed by React projects via wrappers.
+**Problem:** LitElement reactive properties trigger synchronous re-renders. CSS transitions are skipped because the browser doesn't paint the "before" state.
 
-**When making changes to shared components:**
-- ✅ **Edit Web Components here** (`src/components/wy-*.js`) - Changes propagate to all consuming projects
-- ❌ **Do NOT edit React wrappers** in consuming projects - They are thin wrappers that pass props/events
+**Solution:** Defer property changes with double `requestAnimationFrame`:
+```javascript
+if (this.showSearch) {
+  // Exit animation: defer to allow paint
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      this.showSearch = false;
+    });
+  });
+} else {
+  // Enter animation: immediate is fine
+  this.showSearch = true;
+}
+```
 
-**How consuming projects use Web Components:**
-1. Projects import Web Components via `npm link` or CDN
-2. Projects create React wrappers (e.g., `LibraryHeaderWrapper`) that use `<wy-component-name>` syntax
-3. Wrappers handle React-specific concerns (state, event listeners, refs)
-4. Actual UI logic lives in Web Components (this repository)
-
-**Example - Library Header:**
-- Web Component: `m3-design-v2/src/components/wy-library-header.js` (this repo)
-- React Wrapper: `plots/components/library-header-wrapper.tsx` (consuming project)
-- When editing header UI: Edit the Web Component here, not the wrapper
-
-**Verification Checklist:**
-Before making component changes:
-- [ ] Confirm this is a shared component (used by multiple projects)
-- [ ] Verify changes should propagate to all consumers
-- [ ] Check if consuming projects have React wrappers (they handle React integration)
-- [ ] Test changes in consuming projects after updating
+**Alternative:** Use CSS `@keyframes` animations instead of transitions.
 
 ---
 
-### 4. CDN Cache Purging (Required After Every Commit)
+### 4. CSS :focus in Shadow DOM
 
-**Problem:** jsDelivr aggressively caches content. Without purging, changes won't propagate to consuming projects for up to 24 hours.
+**Problem:** `:focus` styles may not apply due to specificity conflicts in Shadow DOM.
 
-**Solution:** After EVERY commit, run the purge commands:
+**Solution:** Use `!important` on focus styles:
+```css
+.input:focus {
+  outline: 3px solid #2C4C3B !important;
+  border-color: #2C4C3B !important;
+}
+```
 
+**Backup:** Add `.focused` class via JS handlers alongside CSS `:focus`.
+
+---
+
+### 5. React Components vs Web Components Architecture
+
+**CRITICAL:** Edit Web Components (`src/components/wy-*.js`) here, not React wrappers in consuming projects.
+
+**Pattern:** Projects import via `npm link`/CDN → create React wrappers → wrappers pass props/events to `<wy-component-name>`.
+
+**Example:** `wy-library-header.js` (design system) vs `library-header-wrapper.tsx` (consuming project wrapper).
+
+**Before editing:** Confirm component is shared → verify changes should propagate → test in consuming projects.
+
+---
+
+### 6. CDN Cache Purging (Required After Every Commit)
+
+**Problem:** jsDelivr caches for up to 24 hours. Changes won't propagate without purging.
+
+**Solution:** After every commit:
 ```bash
-# Full purge (run after any change)
 for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
   for v in @main "" @latest; do
     curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
@@ -138,131 +120,44 @@ for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
 done
 ```
 
-**Quick One-Liner:**
-```bash
-git commit -m "Your message" && git push origin main && \
-for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done
-```
+**Verify:** Response contains `"status":"finished"`. Hard refresh consuming projects (Cmd+Shift+R).
 
-**Verify purge succeeded:** Response should contain `"status":"finished"`.
-
-**Dependent Projects (hard refresh with Cmd+Shift+R after purging):**
-- **prompts-library** - https://p.weaver-yuwono.com (uses CDN imports)
-- **plots** - Uses `npm link` for local development
-- **Weaver-Yuwono-Home-Page** - https://weaver-yuwono.com (uses CDN imports)
+**Consuming projects:** prompts-library, Weaver-Yuwono-Home-Page (CDN), plots (`npm link`).
 
 ---
 
 ## Quick Start
 
-### Installation
-
 ```bash
-# Clone or copy the design system
 git clone https://github.com/mwyuwono/m3-design-v2.git
-cd m3-design-v2
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
+cd m3-design-v2 && npm install && npm run dev
 ```
 
-The design system will be available at `http://localhost:5173`
+**Usage:** Import `<script type="module" src="/src/main.js"></script>`, then use `<wy-modal>`, `<wy-form-field>`, etc.
 
-### Basic Usage
-
-**Import in HTML:**
-```html
-<script type="module" src="/src/main.js"></script>
-```
-
-**Use components:**
-```html
-<wy-modal open heading="Export Configuration">
-  <wy-form-field label="File Name">
-    <input type="text" placeholder="my-export.svg">
-  </wy-form-field>
-  
-  <div slot="actions">
-    <md-text-button>Cancel</md-text-button>
-    <md-filled-button>Export</md-filled-button>
-  </div>
-</wy-modal>
-```
-
-**Visual Reference:** Open `design-system.html` in your dev server for interactive component previews.
+**Visual Reference:** Open `design-system.html` for interactive previews.
 
 ---
 
-## Architecture Overview
+## Architecture
 
-### Component Structure
+**Components:** 25 custom `wy-*` Web Components using LitElement. Located in `src/components/`, registered in `src/main.js`.
 
-All 25 custom components follow the `wy-*` naming convention and use LitElement:
+**Structure:** `src/components/` (Web Components), `src/styles/` (tokens.css, main.css), `src/data/` (JSON), `design-system.html` (style guide).
 
-```javascript
-import { LitElement, html, css } from 'lit';
-
-export class WyComponentName extends LitElement {
-  static properties = { /* reactive properties */ };
-  static styles = css`/* Shadow DOM scoped styles */`;
-  render() { return html`/* template */`; }
-}
-customElements.define('wy-component-name', WyComponentName);
-```
-
-Components are in `src/components/` and registered in `src/main.js`.
-
-### Project Structure
-
-```
-m3-design-v2/
-+-- src/
-|   +-- components/          # Custom Web Components (wy-*)
-|   |   +-- wy-modal.js
-|   |   +-- wy-prompt-modal.js
-|   |   +-- wy-form-field.js
-|   |   \-- ...
-|   +-- styles/
-|   |   +-- tokens.css       # Design tokens (colors, fonts, spacing)
-|   |   \-- main.css         # Global styles and utilities
-|   +-- data/                # Sample JSON data
-|   \-- main.js              # Component registration
-+-- design-system.html       # Living style guide
-+-- index.html               # Landing page example
-\-- docs/                    # Additional documentation
-```
-
-### Data Flow
-
-JSON files in `src/data/` drive page content. `main.js` reads JSON and dynamically creates components based on URL query parameters.
+**Data Flow:** JSON files drive content. `main.js` creates components based on URL query parameters.
 
 ---
 
 ## Design Philosophy: Soft Modernism
 
-The system balances modernist precision with organic warmth, creating interfaces that feel like premium architectural publications rather than typical web applications.
+Balances modernist precision with organic warmth - premium architectural publication aesthetic.
 
-### Visual Identity
+**Typography:** Playfair Display (headings), DM Sans (UI/body), wide letter-spacing on labels.
 
-- **Typography**: 
-  - `Playfair Display` (Serif) - Editorial headings with high contrast
-  - `DM Sans` (Sans) - UI elements and body text
-  - Wide letter-spacing on labels for architectural feel
+**Colors:** Hunter Green (`#2C4C3B`), Alabaster (`#FDFBF7`), Warm Clay (`#F5F2EA`), Muted Bronze (`#8C7E70`).
 
-- **Color Palette**:
-  - **Hunter Green** (`#2C4C3B`) - Primary brand color
-  - **Alabaster** (`#FDFBF7`) - Background foundation
-  - **Warm Clay** (`#F5F2EA`) - Surface tones
-  - **Muted Bronze** (`#8C7E70`) - Secondary accents
-
-- **Form Language**:
-  - Capsule buttons (`border-radius: 9999px`)
-  - Rounded cards (`16px` - `32px` radius)
-  - Generous spacing (48px - 64px between sections)
-  - Subtle borders over heavy shadows
+**Form:** Capsule buttons, rounded cards (16-32px), generous spacing (48-64px), subtle borders.
 
 ---
 
@@ -423,41 +318,23 @@ customElements.define('wy-component-name', WyComponentName);
 
 #### CRITICAL: NO !important Declarations
 
-- **NEVER use `!important`** in CSS except for true utility classes that must override everything
-- If specificity conflicts arise, resolve them by:
-  - Increasing selector specificity (e.g., adding a class or parent selector)
-  - Reordering rules in the source file
-  - Using attribute selectors `[hidden]` for utilities
-- `!important` breaks the cascade and makes maintenance extremely difficult
+**NEVER use `!important`** except for utility classes. Resolve conflicts via specificity, reordering, or attribute selectors.
 
 #### Material Design 3 Interactive States
 
-- All interactive elements use Material Design 3 state layers for hover/focus/pressed states
-- State layer opacity controlled by `--md-sys-state-hover-opacity`, `--md-sys-state-focus-opacity`, `--md-sys-state-pressed-opacity`
-- **NEVER change background colors directly on hover**; always use pseudo-element overlays (`:before` or `:after`) instead
+Use state layers (pseudo-element overlays) with opacity tokens. **NEVER change background colors directly on hover.**
 
 #### CSS Variables
 
-- Prefer CSS variables instead of hardcoded color values
-- Use `color-mix()` with variables: `color-mix(in srgb, var(--category-color) 16%, var(--color-card-surface))`
-- Define a clear color palette with descriptive names
-- Motion/typography/state tokens should use `--md-sys-*` variable naming convention
+Prefer variables over hardcoded values. Use `color-mix()` with variables. Motion/typography/state tokens use `--md-sys-*` naming.
 
 #### Transitions & Animations
 
-- **Always use motion token variables** for durations and easing curves
-- Common patterns:
-  - Short interactions: `var(--md-sys-motion-duration-short4)` (200ms) with `var(--md-sys-motion-easing-standard)`
-  - Medium interactions: `var(--md-sys-motion-duration-medium2)` (300ms) with `var(--md-sys-motion-easing-legacy)`
-  - Long interactions: `var(--md-sys-motion-duration-long1)` (450ms) with `var(--md-sys-motion-easing-emphasized)`
-- **NEVER use magic numbers** like `0.2s` or `0.3s` - always reference the motion tokens
+**Always use motion token variables** - never magic numbers. Common: `short4` (200ms), `medium2` (300ms), `long1` (450ms).
 
 #### Accessibility
 
-- All interactive elements must have `:focus-visible` states with clear outlines
-- Standard pattern: `outline: 3px solid var(--color-action-primary); outline-offset: 2px;`
-- Ensure adequate color contrast (WCAG AA minimum)
-- Toggle controls should use `:focus-within` for the label container
+All interactive elements need `:focus-visible` outlines (`outline: 3px solid; outline-offset: 2px`). WCAG AA minimum contrast. Toggle controls use `:focus-within`.
 
 ### Component Adaptation Workflow
 
@@ -516,47 +393,27 @@ python3 skills/component-adaptation/test-component.py \
 
 ## Integration Patterns
 
-### npm link Setup (for Local Development)
+### npm link (Local Development)
 
-**In design system repository:**
 ```bash
+# Design system
 npm link
-```
 
-**In consuming project:**
-```bash
+# Consuming project
 npm link wy-family-office
 ```
 
-**Import tokens:**
-```css
-@import "./styles/tokens-no-fonts.css"; /* Generated from node_modules/wy-family-office/src/styles/tokens.css */
-```
+**Import:** `@import "./styles/tokens-no-fonts.css";`
 
-### CDN Imports (for Production)
+### CDN (Production)
 
-**CSS tokens:**
-```css
-@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css');
-@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css');
-```
+**CSS:** `@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css');`
 
-**Web Components:**
-```javascript
-import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';
-```
+**JS:** `import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';`
 
-### Consuming Projects
+**Consuming projects:** prompts-library, Weaver-Yuwono-Home-Page (CDN), plots (`npm link`).
 
-- **prompts-library** - https://p.weaver-yuwono.com (uses CDN imports)
-- **plots** - Uses `npm link` for local development
-- **Weaver-Yuwono-Home-Page** - https://weaver-yuwono.com (uses CDN imports)
-
-### Token Synchronization
-
-After updating design system tokens, consuming projects need to:
-1. **npm link projects:** Run `npm link wy-family-office` again to update
-2. **CDN projects:** Purge CDN cache (see CDN Cache Purging section)
+**After token updates:** npm link projects re-link; CDN projects purge cache.
 
 ---
 
@@ -564,62 +421,13 @@ After updating design system tokens, consuming projects need to:
 
 ### Commit & Deploy Workflow
 
-**IMPORTANT: When committing changes, you MUST follow this workflow to purge the jsDelivr CDN cache. Dependent projects will not receive updates without this step.**
+**REQUIRED:** After every commit, purge CDN cache (see section 6 above).
 
-**Standard Commit Process:**
+**Process:** `git commit && git push origin main` → purge CDN → verify projects.
 
-```bash
-# 1. Stage and commit
-git add .
-git commit -m "Description of changes
+**Verify:** `./skills/design-system-sync/verify-projects.sh` checks integration status, token usage, overrides.
 
-Co-Authored-By: Claude <noreply@anthropic.com>"
-
-# 2. Push to main
-git push origin main
-
-# 3. Purge jsDelivr cache (REQUIRED for immediate propagation)
-for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
-  for v in @main "" @latest; do
-    curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
-  done
-done
-
-# 4. Verify all consuming projects (optional but recommended)
-./skills/design-system-sync/verify-projects.sh
-```
-
-**Quick One-Liner:**
-```bash
-git commit -m "Your message" && git push origin main && \
-for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done
-```
-
-### Verify All Projects After Changes
-
-After committing and purging CDN cache, verify all consuming projects are properly integrated:
-
-```bash
-./skills/design-system-sync/verify-projects.sh
-```
-
-This script checks:
-- Integration status (CDN, npm link, or not integrated)
-- Local token definitions that should use design system
-- Local component overrides
-- Overall health status
-
-For complete workflow details, see [skills/design-system-sync/SKILL.md](skills/design-system-sync/SKILL.md).
-
-### CDN Staleness Fallback (Consumers)
-
-If `@main` is still stale after a purge, consumers may temporarily pin to a commit hash to unblock production:
-```javascript
-// TODO: revert to @main once CDN serves the updated bundle
-import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@<commit>/dist/web-components.js';
-```
-
-Revert the pin once `@main` serves the expected snippet.
+**CDN Staleness Fallback:** Temporarily pin to commit hash if `@main` still stale after purge. Revert once updated.
 
 ---
 
@@ -672,292 +480,97 @@ See [COMPONENTS.md](COMPONENTS.md) for complete API documentation for all compon
 
 ### For Coding Assistants
 
-**Context:** This design system uses Web Components (Lit 3.x) consumed via CDN or npm link. Common issues stem from CDN cache, shadow DOM variable inheritance, or editing wrong files.
-
-**Quick Diagnostic Checklist** (check in order):
-1. [ ] CDN cache purged? (90% of "changes not appearing" issues)
-2. [ ] Hard refresh browser? (Cmd+Shift+R)
-3. [ ] Editing correct file? (Design system `src/components/wy-*.js` vs local React wrapper)
-4. [ ] Component registered? (`customElements.get('wy-component-name')`)
-5. [ ] CSS variables cascading? (Check shadow DOM inheritance)
-6. [ ] Fonts imported in component? (Shadow DOM requires explicit imports)
+**Quick Diagnostic Checklist:**
+1. CDN cache purged? (90% of issues)
+2. Hard refresh? (Cmd+Shift+R)
+3. Editing correct file? (`src/components/wy-*.js` not React wrapper)
+4. Component registered? (`customElements.get('wy-component-name')`)
+5. CSS variables cascading? (Check shadow DOM)
+6. Fonts imported? (Shadow DOM requires explicit imports)
 
 ---
 
-### Issue 1: Changes Not Appearing (CDN Cache Staleness)
+### Issue 1: Changes Not Appearing (CDN Cache)
 
-**Symptoms:** Changes made to design system don't appear in consuming projects, components show old styles/behavior.
+**Symptoms:** Old styles/behavior persist. **Cause:** jsDelivr cache (90% of cases).
 
-**Likely Cause:** jsDelivr CDN cache (most common issue - 90% of cases).
+**Diagnostic:** `curl -s "https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js" | grep "expected-code"`
 
-**Diagnostic:**
-```bash
-# Check if CDN is serving latest version
-curl -s "https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js" | grep "expected-code-snippet"
-```
-
-**Solution:**
-```bash
-# Full CDN purge (run after EVERY design system commit)
-for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
-  for v in @main "" @latest; do
-    curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
-  done
-done
-```
-
-**Verification:**
-- Response contains `"status":"finished"`
-- Hard refresh browser (Cmd+Shift+R)
-- Wait 2-3 seconds for propagation
-- If still stale, temporarily pin to commit hash (see CDN Staleness Fallback section)
+**Solution:** Purge CDN (see section 6). Verify: response `"status":"finished"`, hard refresh, wait 2-3s. If still stale, pin to commit hash temporarily.
 
 ---
 
 ### Issue 2: CSS Variables Not Resolving
 
-**Symptoms:** Components render with wrong colors, default browser styles, or transparent backgrounds.
+**Symptoms:** Wrong colors, default styles, transparent backgrounds.
 
-**Likely Causes:**
-- Variables not cascading into shadow DOM (nested components)
-- Variables not imported in consuming project
-- Using `var()` that resolves to dark mode values in light-theme-only apps
+**Causes:** Variables not cascading (nested shadow DOM), not imported, dark mode interference.
 
-**Diagnostic:**
-```javascript
-// In browser console - check if variable resolves
-getComputedStyle(document.querySelector('wy-component-name')).getPropertyValue('--md-sys-color-primary')
+**Diagnostic:** `getComputedStyle(element).getPropertyValue('--md-sys-color-primary')`
 
-// Check if component has fallback values
-// Look in src/components/wy-*.js for pattern:
-// var(--component-token, var(--system-token, #hex-fallback))
-```
-
-**Solution:**
-1. **For nested shadow DOM components:** Use fallback pattern in component styles:
-```css
-/* In component's static styles */
-background-color: var(--wy-icon-button-filled-bg, var(--md-sys-color-primary, #2C4C3B));
-```
-
-2. **For consuming projects:** Set variables on parent component's host:
-```css
-/* In consuming project CSS */
-.controls-bar {
-  --wy-filter-chip-active-bg: #E8F5E9; /* Explicit hex for light-theme-only apps */
-}
-```
-
-3. **For light-theme-only apps:** Use explicit hex values instead of `var()` to avoid dark mode interference:
-```css
-/* Bad - may resolve to dark mode value */
---wy-filter-chip-active-bg: var(--md-sys-color-primary-container);
-
-/* Good - explicit value */
---wy-filter-chip-active-bg: #E8F5E9;
-```
-
-**Reference:** See "CSS Custom Property Inheritance in Nested Shadow DOM" section above.
+**Solutions:**
+1. **Nested components:** Use fallback pattern: `var(--component-token, var(--system-token, #hex))`
+2. **Consuming projects:** Set on parent host: `.parent { --wy-component-bg: #hex; }`
+3. **Light-theme-only:** Use explicit hex, not `var()` (avoids dark mode)
 
 ---
 
-### Issue 3: Editing Wrong File (Local vs Design System)
+### Issue 3: Editing Wrong File
 
-**Symptoms:** Changes don't propagate to other projects, or changes are overwritten.
+**Symptoms:** Changes don't propagate or get overwritten.
 
-**Likely Cause:** Editing React wrapper in consuming project instead of Web Component in design system.
+**Cause:** Editing React wrapper instead of Web Component.
 
-**Diagnostic:**
-```bash
-# Check if you're editing design system component
-# Should be: m3-design-v2/src/components/wy-*.js
-# NOT: plots/components/library-header-wrapper.tsx (React wrapper)
-```
-
-**Solution:**
-- **For shared components:** Edit `m3-design-v2/src/components/wy-*.js` (design system)
-- **For project-specific logic:** Edit React wrapper in consuming project
-- **Rule:** If component is used by multiple projects, edit in design system
-
-**Verification:**
-- Check component usage: `grep -r "wy-component-name"` across projects
-- If used in multiple projects → edit design system
-- If used in one project → can edit wrapper (but prefer design system for consistency)
-
-**Reference:** See "React Components vs Web Components Architecture" section above.
+**Solution:** Edit `m3-design-v2/src/components/wy-*.js` for shared components. Check usage: `grep -r "wy-component-name"` - if multiple projects use it, edit design system.
 
 ---
 
 ### Issue 4: Components Not Rendering
 
-**Symptoms:** Components appear as empty elements, don't register, or show as `<wy-component-name></wy-component-name>`.
+**Symptoms:** Empty elements, not registered, shows as `<wy-component-name></wy-component-name>`.
 
-**Likely Causes:**
-- Component not registered
-- JavaScript errors preventing registration
-- Component not imported in `src/main.js`
-- Import path incorrect (CDN or npm link)
+**Causes:** Not registered, JS errors, not imported in `src/main.js`, wrong import path.
 
-**Diagnostic:**
-```javascript
-// In browser console
-customElements.get('wy-component-name')
-// Should return constructor function, not undefined
+**Diagnostic:** `customElements.get('wy-component-name')` should return constructor, not undefined. Check console for errors.
 
-// Check for JavaScript errors
-// Look for: "Failed to register", "Cannot read property", import errors
-```
-
-**Solution:**
-1. **Verify component registration:**
-```javascript
-// Check if component file exists
-// m3-design-v2/src/components/wy-component-name.js
-
-// Check if component is imported in src/main.js
-// Should have: import './components/wy-component-name.js';
-```
-
-2. **For CDN imports:**
-```javascript
-// Verify import path is correct
-import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';
-```
-
-3. **For npm link:**
-```bash
-# Verify link is active
-npm list wy-family-office
-
-# Re-link if needed
-cd m3-design-v2 && npm link
-cd consuming-project && npm link wy-family-office
-```
-
-**Verification:**
-- Component renders with content (not empty)
-- No console errors
-- `customElements.get()` returns constructor
+**Solutions:**
+1. Verify import in `src/main.js`: `import './components/wy-component-name.js';`
+2. **CDN:** Verify path: `import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';`
+3. **npm link:** `npm list wy-family-office` → re-link if needed
 
 ---
 
 ### Issue 5: Fonts Not Loading in Shadow DOM
 
-**Symptoms:** Text renders in fallback fonts, Material Symbols icons show as text (e.g., "add", "search").
+**Symptoms:** Fallback fonts, Material Symbols show as text ("add", "search").
 
-**Likely Cause:** Fonts loaded in light DOM don't propagate into Shadow DOM. Components must explicitly import fonts.
+**Cause:** Fonts in light DOM don't propagate. Components must import fonts.
 
-**Diagnostic:**
-```javascript
-// Check if component imports fonts in static styles
-// Look in src/components/wy-*.js for @import statements
-// Should have: @import url('https://fonts.googleapis.com/css2?...');
-```
-
-**Solution:**
-Add font imports directly in component's `static styles`:
-```javascript
-static styles = css`
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1,-50..200');
-  
-  .element {
-    font-family: var(--font-serif, 'Playfair Display', serif);
-  }
-`;
-```
-
-**Components that already include fonts:**
-- `wy-modal` - Playfair Display
-- `wy-prompt-modal` - Playfair Display + DM Sans
-- `wy-export-modal` - Playfair Display
-- `wy-controls-bar` - Material Symbols
-
-**Reference:** See "Shadow DOM Font Loading" section above.
+**Solution:** Add `@import` in component's `static styles`. See section 2 above.
 
 ---
 
 ### Issue 6: Import Path Issues
 
-**Symptoms:** Components/styles don't load, 404 errors, or wrong version served.
+**Symptoms:** 404 errors, wrong version, components/styles don't load.
 
-**Likely Causes:**
-- Wrong CDN path
-- npm link not set up correctly
-- Version pinning to stale commit
+**Causes:** Wrong CDN path, npm link not set up, stale commit pin.
 
-**Diagnostic:**
-```bash
-# Check CDN import paths in consuming project
-grep -r "cdn.jsdelivr.net" consuming-project/
+**Diagnostic:** `grep -r "cdn.jsdelivr.net"`, `npm list wy-family-office`, verify CDN content.
 
-# Check npm link status
-npm list wy-family-office
-
-# Verify CDN serves expected content
-curl -s "https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css" | head -20
-```
-
-**Solution:**
-1. **CDN imports (correct format):**
-```css
-@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css');
-@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css');
-```
-```javascript
-import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';
-```
-
-2. **npm link setup:**
-```bash
-# In design system repo
-npm link
-
-# In consuming project
-npm link wy-family-office
-
-# Import tokens
-@import "./styles/tokens-no-fonts.css"; /* Generated from node_modules/wy-family-office/src/styles/tokens.css */
-```
-
-3. **If using commit hash pin (temporary fallback):**
-```javascript
-// TODO: revert to @main once CDN serves updated bundle
-import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@<commit-hash>/dist/web-components.js';
-```
-
-**Verification:**
-- No 404 errors in Network tab
-- Components/styles load correctly
-- CDN serves expected version
+**Solutions:** Use correct CDN paths (see Integration Patterns), verify npm link setup, remove stale commit pins.
 
 ---
 
-### Quick Reference Commands
+### Quick Reference
 
-**CDN Purge (one-liner):**
-```bash
-for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done
-```
+**CDN Purge:** `for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done`
 
-**Check Component Registration:**
-```javascript
-customElements.get('wy-component-name') // Should return constructor, not undefined
-```
+**Component Registration:** `customElements.get('wy-component-name')` (should return constructor)
 
-**Check CSS Variable Resolution:**
-```javascript
-getComputedStyle(element).getPropertyValue('--md-sys-color-primary')
-```
+**CSS Variable:** `getComputedStyle(element).getPropertyValue('--md-sys-color-primary')`
 
-**Verify File Location:**
-```bash
-# Design system component (correct)
-m3-design-v2/src/components/wy-*.js
-
-# React wrapper (wrong for shared components)
-consuming-project/components/*-wrapper.tsx
-```
+**File Location:** `m3-design-v2/src/components/wy-*.js` (correct) vs `consuming-project/components/*-wrapper.tsx` (wrong for shared)
 
 ---
 
@@ -977,15 +590,9 @@ npm run preview
 
 This project includes a **visual-qa** skill for detecting visual issues (contrast problems, invisible elements, spacing issues) after CSS/component changes.
 
-### Prerequisites
+**Prerequisites:** `pip install playwright && playwright install chromium`
 
-```bash
-pip install playwright && playwright install chromium
-```
-
-### Usage
-
-After making component or styling changes, test against a consuming project:
+**Usage:** After component/styling changes:
 
 ```bash
 # Build the design system first
@@ -1017,50 +624,26 @@ See [skills/visual-qa/SKILL.md](skills/visual-qa/SKILL.md) for the complete work
 
 ## Dark Mode Support
 
-The system includes comprehensive dark mode support with proper contrast ratios:
-
-```css
-@media (prefers-color-scheme: dark) {
-  :root {
-    --md-sys-color-primary: #8DE0B0;
-    --md-sys-color-background: #161c19;
-    --md-sys-color-surface: #1E2623;
-    /* ... additional dark mode tokens */
-  }
-}
-```
+Comprehensive dark mode with proper contrast ratios via `@media (prefers-color-scheme: dark)` token overrides.
 
 ---
 
 ## Use Cases
 
-This design system is ideal for:
-- **Portfolio Management Dashboards** - Financial analytics with premium aesthetics
-- **Content Management Systems** - Editorial interfaces with rich typography
-- **Creative Tool Interfaces** - Art/design applications requiring refined UI
-- **Family Office Platforms** - Wealth management and asset tracking
-- **Generative Art Tools** - Plotter configuration and SVG export workflows
-
----
+Ideal for: Portfolio dashboards, CMS editorial interfaces, creative tools, family office platforms, generative art tools.
 
 ## Key Features
 
-✅ **Production-Ready** - Fully tested components with proper accessibility  
-✅ **Dark Mode** - Complete dark theme with high contrast ratios  
-✅ **Responsive** - Mobile-first design with adaptive layouts  
-✅ **Modular** - Import only the components you need  
-✅ **Themeable** - CSS custom properties for easy customization  
-✅ **Type-Safe** - Built with Lit 3.x reactive properties  
-✅ **Accessible** - Based on Material Design 3 accessibility standards
+✅ Production-ready • Dark mode • Responsive • Modular • Themeable • Type-safe (Lit 3.x) • Accessible (MD3)
 
 ---
 
 ## Additional Resources
 
-- **Living Style Guide:** Open `design-system.html` in your dev server for interactive component previews
-- **Design Philosophy:** See `m3-requirements.md` for detailed design principles
-- **Component APIs:** See [COMPONENTS.md](COMPONENTS.md) for complete API documentation
-- **Component Adaptation:** See [workflows/component-adaptation/QUICK-START-COMPONENT-ADAPTATION.md](workflows/component-adaptation/QUICK-START-COMPONENT-ADAPTATION.md) for workflow
+- **Style Guide:** `design-system.html` (interactive previews)
+- **Design Philosophy:** `m3-requirements.md`
+- **Component APIs:** [COMPONENTS.md](COMPONENTS.md)
+- **Component Adaptation:** [workflows/component-adaptation/QUICK-START-COMPONENT-ADAPTATION.md](workflows/component-adaptation/QUICK-START-COMPONENT-ADAPTATION.md)
 
 ---
 
@@ -1071,5 +654,5 @@ Private - Weaver-Yuwono Family Office
 ---
 
 **Version**: 1.0.0  
-**Last Updated**: January 2026  
+**Last Updated**: January 27, 2026 at 11:15 PM EST  
 **Status**: Production Ready
