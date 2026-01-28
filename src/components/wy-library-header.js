@@ -40,12 +40,10 @@ export class WyLibraryHeader extends LitElement {
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 var(--spacing-xl);
-      transition: max-width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
     }
 
     .container.headerScrolledContainer {
-      max-width: fit-content;
-      width: auto;
+      /* Container stays full-width; leftSection handles visual compaction */
     }
 
     .header {
@@ -101,7 +99,7 @@ export class WyLibraryHeader extends LitElement {
       align-items: center;
       gap: var(--spacing-sm);
       flex: 1;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       min-width: 0;
       padding: 0;
       background-color: transparent;
@@ -234,7 +232,6 @@ export class WyLibraryHeader extends LitElement {
       display: flex;
       align-items: center;
       max-width: 100%;
-      overflow: hidden;
     }
 
     .searchInput {
@@ -251,8 +248,7 @@ export class WyLibraryHeader extends LitElement {
       line-height: 1.5;
       box-shadow: 0 1px 2px rgba(26, 22, 20, 0.02);
       transition: border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
-        box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
-        transform 0.3s ease-in-out;
+        box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
       box-sizing: border-box;
     }
 
@@ -276,23 +272,25 @@ export class WyLibraryHeader extends LitElement {
       font-size: 18px;
     }
 
+    /* Hide native browser clear button on type="search" inputs */
+    .searchInput::-webkit-search-cancel-button,
+    .searchInput::-webkit-search-decoration {
+      -webkit-appearance: none;
+      appearance: none;
+      display: none;
+    }
+
     .searchInput::placeholder {
       color: var(--md-sys-color-on-surface-variant);
       opacity: 0.6;
     }
 
-    /* Focus styles - IMPORTANT: Using !important temporarily to debug specificity issues */
     .searchInput:focus,
-    .searchInput:focus-visible,
-    .searchInput:focus-within,
-    .searchInput.focused,
-    input.searchInput:focus,
-    input[type="search"].searchInput:focus {
-      outline: 3px solid #2C4C3B !important;
-      outline-offset: 2px !important;
-      border-color: #2C4C3B !important;
-      box-shadow: 0 0 0 3px rgba(44, 76, 59, 0.12) !important;
-      transform: scale(1.02) !important;
+    .searchInput:focus-visible {
+      outline: 3px solid var(--md-sys-color-primary, #2C4C3B);
+      outline-offset: 2px;
+      border-color: var(--md-sys-color-primary, #2C4C3B);
+      box-shadow: 0 0 0 3px rgba(44, 76, 59, 0.12);
     }
 
     .searchInputWrapper:has(.searchInput.focused) .searchIcon,
@@ -467,14 +465,6 @@ export class WyLibraryHeader extends LitElement {
             ` : ''}
           </div>
 
-          <wy-icon-button
-            variant="outlined"
-            size="small"
-            icon="${this.showSearch ? 'close' : 'search'}"
-            label="${this.showSearch ? 'Hide search' : 'Show search'}"
-            @click="${this._handleSearchToggle}">
-          </wy-icon-button>
-
           <div class="searchContainer ${this.searchSize === 'medium' ? 'size-medium' : ''} ${!this.showSearch ? 'searchContainerHidden' : ''}">
             <div class="searchInputWrapper">
               <span class="material-symbols-outlined searchIcon">search</span>
@@ -499,6 +489,14 @@ export class WyLibraryHeader extends LitElement {
               ` : ''}
             </div>
           </div>
+
+          <wy-icon-button
+            variant="outlined"
+            size="small"
+            icon="${this.showSearch ? 'close' : 'search'}"
+            label="${this.showSearch ? 'Hide search' : 'Show search'}"
+            @click="${this._handleSearchToggle}">
+          </wy-icon-button>
 
           <wy-icon-button
             variant="filled"
