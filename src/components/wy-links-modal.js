@@ -209,10 +209,31 @@ export class WyLinksModal extends LitElement {
     /* Content wrapper with padding - matches mockup p-8 */
     .modal-content {
       padding: var(--spacing-xl);
+      padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0px));
       display: flex;
       flex-direction: column;
       overflow-y: auto;
       overflow-x: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .modal-content {
+        padding: var(--spacing-lg);
+        padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px));
+      }
+
+      .close-button {
+        top: var(--spacing-lg);
+        right: var(--spacing-lg);
+      }
+
+      .modal-title {
+        font-size: 1.75rem;
+      }
+
+      .title-wrapper {
+        margin-bottom: var(--spacing-xl);
+      }
     }
 
     /* Close button - matches mockup exactly */

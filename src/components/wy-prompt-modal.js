@@ -326,25 +326,35 @@ export class WyPromptModal extends LitElement {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 24px;
+      gap: 16px;
       background: var(--md-sys-color-surface); /* Ensure contrast against content bg if needed */
       border-radius: 0 0 16px 16px;
     }
 
-    .text-link {
-        background: none;
-        border: none;
+    .secondary-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: transparent;
+        border: 1px solid var(--md-sys-color-outline);
+        color: var(--md-sys-color-on-surface);
+        padding: 12px 24px;
+        border-radius: 999px;
         font-family: var(--font-sans, 'DM Sans', sans-serif);
         font-size: 0.875rem;
         font-weight: 500;
-        color: var(--md-sys-color-text-muted);
-        text-decoration: underline;
-        text-decoration-style: dotted;
-        text-underline-offset: 4px;
         cursor: pointer;
-        transition: color 0.2s;
+        transition: all 0.2s;
     }
-    .text-link:hover { color: var(--wy-color-text-primary); }
+    .secondary-btn:hover {
+        background: var(--md-sys-color-surface-container-high);
+        border-color: var(--md-sys-color-outline);
+    }
+
+    .btn-label {
+        display: inline;
+    }
 
     .primary-btn {
         display: flex;
@@ -375,9 +385,28 @@ export class WyPromptModal extends LitElement {
         max-height: 100%;
         border-radius: 0;
       }
+      .header { padding: 24px 16px 16px; }
       .header-main { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .footer { flex-direction: column-reverse; width: 100%; }
-      .primary-btn, .text-link { width: 100%; justify-content: center; }
+      .title-group h2 { font-size: 1.75rem; }
+      .tabs-container { padding: 0 16px; }
+      .body { padding: 16px; }
+      .footer {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        border-top: 1px solid var(--md-sys-color-outline-variant);
+      }
+      .btn-label {
+        display: none;
+      }
+      .primary-btn, .secondary-btn {
+        width: auto;
+        min-width: 48px;
+        padding: 12px 16px;
+        justify-content: center;
+      }
     }
     `;
 
@@ -484,14 +513,23 @@ export class WyPromptModal extends LitElement {
         <!-- FOOTER -->
         <footer class="footer">
           ${this.mode === 'locked' ? html`
-            <button class="text-link" @click="${this._handleDownload}">Download .txt</button>
+            <button class="secondary-btn" @click="${this._handleDownload}">
+                <md-icon style="font-size: 18px;">download</md-icon>
+                <span class="btn-label">Download .txt</span>
+            </button>
             <button class="primary-btn" @click="${this._handleCopy}">
                 <md-icon style="font-size: 18px;">content_copy</md-icon>
-                Copy to Clipboard
+                <span class="btn-label">Copy to Clipboard</span>
             </button>
           ` : html`
-            <button class="text-link" @click="${() => this.mode = 'locked'}">Cancel</button>
-            <button class="primary-btn" @click="${this._handleSave}">Save Template</button>
+            <button class="secondary-btn" @click="${() => this.mode = 'locked'}">
+                <md-icon style="font-size: 18px;">close</md-icon>
+                <span class="btn-label">Cancel</span>
+            </button>
+            <button class="primary-btn" @click="${this._handleSave}">
+                <md-icon style="font-size: 18px;">save</md-icon>
+                <span class="btn-label">Save Template</span>
+            </button>
           `}
         </footer>
       </div>
