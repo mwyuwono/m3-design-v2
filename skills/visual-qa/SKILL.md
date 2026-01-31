@@ -157,9 +157,18 @@ When issues are found in `wy-*` web components:
 3. Commit and push to trigger CDN update
 4. Purge jsDelivr cache:
    ```bash
-   for f in dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done
+   for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
+     for v in @main "" @latest; do
+       curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
+     done
+   done
    ```
-5. Hard refresh the app (Cmd+Shift+R)
+5. Update cache-busting parameters (`?v=YYYYMMDD`) in consuming projects:
+   - prompt-library: `components/index.js`
+   - Weaver-Yuwono-Home-Page: `index.html`, `projects/index.html`
+6. Hard refresh the app (Cmd+Shift+R)
+
+**Note:** Safari aggressively caches CSS/JS even after CDN purge. Cache-busting parameters ensure fresh content is loaded.
 
 ## What This Skill Does NOT Do
 

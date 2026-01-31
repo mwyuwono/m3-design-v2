@@ -216,19 +216,66 @@ When tokens or components are added/modified:
 1. **For plots** (npm link):
    - Regenerate tokens file: `tail -n +2 node_modules/wy-family-office/src/styles/tokens.css > app/styles/tokens-no-fonts.css`
    - Restart dev server to pick up changes
+   - No CDN cache issues - uses local npm link
 
-2. **For prompt-library** (CDN):
-   - Purge CDN cache: `for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done`
-   - Hard refresh browser (Cmd+Shift+R)
+2. **For CDN-consuming projects** (prompt-library, Weaver-Yuwono-Home-Page):
+   - **Step 1:** Purge CDN cache:
+     ```bash
+     for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
+       for v in @main "" @latest; do
+         curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
+       done
+     done
+     ```
+   - **Step 2:** Update cache-busting parameters in consuming projects:
+     - prompt-library: Update `?v=YYYYMMDD` in `components/index.js`
+     - Weaver-Yuwono-Home-Page: Update `?v=YYYYMMDD` in `index.html` and `projects/index.html`
+   - **Step 3:** Commit version bumps together
+   - **Step 4:** Hard refresh browser (Cmd+Shift+R)
 
-3. **For Weaver-Yuwono-Home-Page**:
-   - ✅ **Integrated** - uses CDN imports (same as prompt-library)
-   - Purge CDN cache: `for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done`
-   - Hard refresh browser (Cmd+Shift+R) to see changes
+## CDN Import Best Practices
+
+### Import Pinning Policy (3-Tier Hierarchy)
+
+| Priority | Method | Use Case |
+|----------|--------|----------|
+| **Primary** | Semantic version tags (`@v1.2.3`) | Production stability, immutable |
+| **Secondary** | `@main` with cache-busting (`?v=YYYYMMDD`) | Development iteration |
+| **Emergency** | Commit hash (`@abc1234`) | CDN staleness fallback only |
+
+**Current default:** Use `@main` with cache-busting parameters.
+
+### Cache-Busting Parameters
+
+**Why needed:** Safari aggressively caches CSS/JS even with proper `Cache-Control` headers from the CDN.
+
+**Format:** `?v=YYYYMMDD` (e.g., `?v=20260130`)
+
+**Examples:**
+```javascript
+// Web components with cache-busting
+import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js?v=20260130';
+```
+
+```html
+<!-- CSS tokens with cache-busting -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css?v=20260130">
+```
+
+### Emergency Commit Hash Pinning
+
+Only use when CDN is serving stale `@main` after purging. **MUST include:**
+- Comment explaining the specific issue
+- TODO with reversion deadline (24-48 hours max)
+
+```javascript
+// EMERGENCY: Pinned due to [issue]. Revert to @main by [date].
+import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@abc1234/dist/web-components.js';
+```
 
 ## Notes
 
-- Always purge CDN cache after design system changes (for prompt-library)
-- npm link projects (plots) pick up changes automatically on restart
+- Always purge CDN cache AND update cache-busting parameters after design system changes
+- npm link projects (plots) pick up changes automatically on restart - no CDN issues
 - Document any project-specific token needs that can't use design system
 - Keep consuming projects' CLAUDE.md files updated with integration status
