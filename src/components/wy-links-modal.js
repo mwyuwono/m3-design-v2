@@ -217,9 +217,24 @@ export class WyLinksModal extends LitElement {
     }
 
     @media (max-width: 600px) {
+      .modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .modal-container {
+        max-width: 100%;
+        max-height: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+
       .modal-content {
         padding: var(--spacing-lg);
-        padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px));
+        /* Extra padding for mobile browser controls (toolbar, home indicator) */
+        padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+        height: 100%;
+        box-sizing: border-box;
       }
 
       .close-button {
@@ -234,6 +249,10 @@ export class WyLinksModal extends LitElement {
       .title-wrapper {
         margin-bottom: var(--spacing-xl);
       }
+
+      .sections-container {
+        gap: 2rem;
+      }
     }
 
     /* Close button - matches mockup exactly */
@@ -243,15 +262,16 @@ export class WyLinksModal extends LitElement {
       right: var(--spacing-xl);
       background: none;
       border: none;
-      padding: 0;
+      padding: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       color: var(--wy-links-modal-close-color); /* stone-400 from reference */
       transition: color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
-      position: relative;
       overflow: hidden;
+      z-index: 10;
+      border-radius: 50%;
     }
 
     .close-button::before {
@@ -367,25 +387,13 @@ export class WyLinksModal extends LitElement {
       overflow: hidden;
     }
 
-    /* Active chip - matches mockup bg-primary text-white */
-    .link-chip.active {
-      background-color: var(--md-sys-color-primary); /* bg-primary = #2C4C3B */
-      color: var(--md-sys-color-on-primary); /* text-white = #FFFFFF */
-      border-color: var(--md-sys-color-primary);
-    }
-
-    /* Active chip pressed state */
-    .link-chip.active:active {
-      transform: scale(0.95); /* active:scale-95 */
-    }
-
-    /* Inactive chip hover - matches mockup hover:border-primary */
-    .link-chip:not(.active):hover {
+    /* Chip hover - matches mockup hover:border-primary */
+    .link-chip:hover {
       border-color: var(--md-sys-color-primary); /* hover:border-primary */
     }
 
-    /* Inactive chip hover state layer */
-    .link-chip:not(.active)::before {
+    /* Chip hover state layer */
+    .link-chip::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -395,8 +403,13 @@ export class WyLinksModal extends LitElement {
       pointer-events: none;
     }
 
-    .link-chip:not(.active):hover::before {
+    .link-chip:hover::before {
       opacity: var(--md-sys-state-hover-opacity);
+    }
+
+    /* Chip pressed state */
+    .link-chip:active {
+      transform: scale(0.97);
     }
 
     /* Focus state */
@@ -413,7 +426,7 @@ export class WyLinksModal extends LitElement {
         color: var(--md-sys-color-on-surface-variant); /* dark:text-stone-300 */
       }
 
-      .link-chip:not(.active):hover {
+      .link-chip:hover {
         border-color: var(--md-sys-color-outline); /* dark:hover:border-stone-400 */
       }
     }
@@ -445,8 +458,8 @@ export class WyLinksModal extends LitElement {
                     <div class="chips-container">
                       ${category.links && category.links.length > 0 
                         ? category.links.map(link => html`
-                          <button 
-                            class="link-chip ${link.active ? 'active' : ''}"
+                          <button
+                            class="link-chip"
                             @click="${(e) => this._handleLinkClick(e, link)}"
                             aria-label="Open ${link.name}"
                           >
