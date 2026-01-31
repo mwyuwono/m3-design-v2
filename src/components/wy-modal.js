@@ -83,6 +83,11 @@ export class WyModal extends LitElement {
       padding-top: 8px;
     }
 
+    /* Mobile button label utility class */
+    ::slotted(.btn-label) {
+      display: inline;
+    }
+
     /* Ensure buttons in footer are capsule-shaped */
     ::slotted(md-filled-button),
     ::slotted(md-outlined-button),
@@ -97,6 +102,16 @@ export class WyModal extends LitElement {
         --md-dialog-container-shape: 28px 28px 0 0;
         margin: 0;
         align-self: flex-end;
+      }
+
+      .footer-actions {
+        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        gap: 8px;
+      }
+
+      /* Hide button labels on mobile */
+      ::slotted(.btn-label) {
+        display: none;
       }
     }
   `;
