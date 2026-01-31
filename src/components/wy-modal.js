@@ -25,11 +25,12 @@ export class WyModal extends LitElement {
       display: block;
     }
 
-    /* Wrap md-dialog to override its internals if needed, 
+    /* Wrap md-dialog to override its internals if needed,
        but primarily use CSS variables for styling. */
     md-dialog {
       --md-dialog-container-color: var(--md-sys-color-surface);
       --md-dialog-container-shape: 28px;
+      --md-dialog-container-max-height: min(90vh, calc(100% - 48px));
     }
 
     /* Soft Modernism Detail: Surface border instead of heavy shadow */
@@ -72,6 +73,9 @@ export class WyModal extends LitElement {
       display: flex;
       flex-direction: column;
       gap: 24px;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
     }
 
     .footer-actions {
@@ -81,6 +85,7 @@ export class WyModal extends LitElement {
       width: 100%;
       padding-bottom: 16px;
       padding-top: 8px;
+      flex-shrink: 0;
     }
 
     /* Mobile button label utility class */

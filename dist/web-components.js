@@ -6243,11 +6243,12 @@ class Ja extends g {
       display: block;
     }
 
-    /* Wrap md-dialog to override its internals if needed, 
+    /* Wrap md-dialog to override its internals if needed,
        but primarily use CSS variables for styling. */
     md-dialog {
       --md-dialog-container-color: var(--md-sys-color-surface);
       --md-dialog-container-shape: 28px;
+      --md-dialog-container-max-height: min(90vh, calc(100% - 48px));
     }
 
     /* Soft Modernism Detail: Surface border instead of heavy shadow */
@@ -6290,6 +6291,9 @@ class Ja extends g {
       display: flex;
       flex-direction: column;
       gap: 24px;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
     }
 
     .footer-actions {
@@ -6299,6 +6303,7 @@ class Ja extends g {
       width: 100%;
       padding-bottom: 16px;
       padding-top: 8px;
+      flex-shrink: 0;
     }
 
     /* Mobile button label utility class */
@@ -7587,6 +7592,7 @@ class ds extends g {
       display: flex;
       flex-direction: column;
       gap: 16px;
+      flex-shrink: 0; /* Header stays fixed, doesn't shrink */
     }
 
     .header-top {
@@ -7679,6 +7685,7 @@ class ds extends g {
         border-bottom: 1px solid var(--md-sys-color-outline-variant);
         display: flex;
         gap: 32px;
+        flex-shrink: 0; /* Tabs stay fixed, don't shrink */
     }
 
     .tab-item {
@@ -7827,6 +7834,7 @@ class ds extends g {
       gap: 16px;
       background: var(--md-sys-color-surface); /* Ensure contrast against content bg if needed */
       border-radius: 0 0 16px 16px;
+      flex-shrink: 0; /* Footer stays fixed, doesn't shrink */
     }
 
     .secondary-btn {
@@ -8321,6 +8329,7 @@ class Ge extends g {
       position: relative;
       width: 100%;
       max-width: 56rem; /* max-w-4xl = 896px */
+      max-height: 90vh; /* Constrain height to enable scrolling */
       background: var(--md-sys-color-surface);
       border-radius: var(--md-sys-shape-corner-medium);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
@@ -8330,6 +8339,8 @@ class Ge extends g {
       opacity: 0;
       transition: transform var(--md-sys-motion-duration-long2) var(--md-sys-motion-easing-spring),
                   opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+      display: flex;
+      flex-direction: column;
     }
 
     :host([open]) .modal-container {
@@ -8350,6 +8361,8 @@ class Ge extends g {
       padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0px));
       display: flex;
       flex-direction: column;
+      flex: 1;
+      min-height: 0; /* Allow shrinking below content size for scroll */
       overflow-y: auto;
       overflow-x: hidden;
     }
@@ -8450,6 +8463,7 @@ class Ge extends g {
     /* Title wrapper with mb-12 */
     .title-wrapper {
       margin-bottom: var(--spacing-2xl);
+      flex-shrink: 0; /* Title stays fixed, doesn't shrink */
     }
 
     /* Title - matches mockup exactly */

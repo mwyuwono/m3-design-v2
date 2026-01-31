@@ -183,6 +183,7 @@ export class WyLinksModal extends LitElement {
       position: relative;
       width: 100%;
       max-width: 56rem; /* max-w-4xl = 896px */
+      max-height: 90vh; /* Constrain height to enable scrolling */
       background: var(--md-sys-color-surface);
       border-radius: var(--md-sys-shape-corner-medium);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
@@ -192,6 +193,8 @@ export class WyLinksModal extends LitElement {
       opacity: 0;
       transition: transform var(--md-sys-motion-duration-long2) var(--md-sys-motion-easing-spring),
                   opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+      display: flex;
+      flex-direction: column;
     }
 
     :host([open]) .modal-container {
@@ -212,6 +215,8 @@ export class WyLinksModal extends LitElement {
       padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0px));
       display: flex;
       flex-direction: column;
+      flex: 1;
+      min-height: 0; /* Allow shrinking below content size for scroll */
       overflow-y: auto;
       overflow-x: hidden;
     }
@@ -312,6 +317,7 @@ export class WyLinksModal extends LitElement {
     /* Title wrapper with mb-12 */
     .title-wrapper {
       margin-bottom: var(--spacing-2xl);
+      flex-shrink: 0; /* Title stays fixed, doesn't shrink */
     }
 
     /* Title - matches mockup exactly */

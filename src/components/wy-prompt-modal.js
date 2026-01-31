@@ -89,6 +89,7 @@ export class WyPromptModal extends LitElement {
       display: flex;
       flex-direction: column;
       gap: 16px;
+      flex-shrink: 0; /* Header stays fixed, doesn't shrink */
     }
 
     .header-top {
@@ -181,6 +182,7 @@ export class WyPromptModal extends LitElement {
         border-bottom: 1px solid var(--md-sys-color-outline-variant);
         display: flex;
         gap: 32px;
+        flex-shrink: 0; /* Tabs stay fixed, don't shrink */
     }
 
     .tab-item {
@@ -329,6 +331,7 @@ export class WyPromptModal extends LitElement {
       gap: 16px;
       background: var(--md-sys-color-surface); /* Ensure contrast against content bg if needed */
       border-radius: 0 0 16px 16px;
+      flex-shrink: 0; /* Footer stays fixed, doesn't shrink */
     }
 
     .secondary-btn {
