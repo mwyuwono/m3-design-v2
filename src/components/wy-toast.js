@@ -47,7 +47,21 @@ export class WyToast extends LitElement {
 
     .icon {
       color: var(--md-sys-color-primary-fixed);
+      font-family: 'Material Symbols Outlined';
       font-size: 20px;
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: 'liga';
     }
 
     .message {
@@ -60,7 +74,7 @@ export class WyToast extends LitElement {
     render() {
         return html`
       <div class="toast-container">
-        <md-icon class="icon">check_circle</md-icon>
+        <span class="icon">check_circle</span>
         <span class="message">${this.message}</span>
       </div>
     `;
