@@ -49,6 +49,14 @@ export class WyTabs extends LitElement {
       height: 2px;
       background-color: var(--md-sys-color-primary);
     }
+
+    /* Responsive padding to match page/modal gutters */
+    @media (max-width: 600px) {
+      .tabs-list {
+        padding: 0 16px;
+        gap: 24px;
+      }
+    }
   `;
 
   render() {

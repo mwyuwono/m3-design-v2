@@ -33,6 +33,26 @@ export class WyPromptModal extends LitElement {
     /* Required fonts - load in page <head>:
        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,899&display=swap" rel="stylesheet">
     */
+    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+    /* Material Symbols base styling */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: 'liga';
+    }
 
     :host {
       display: block;
@@ -74,7 +94,7 @@ export class WyPromptModal extends LitElement {
       transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow: hidden; /* Clip content to border-radius */
       border: 1px solid var(--md-sys-color-outline-variant);
       font-family: var(--font-sans, 'DM Sans', sans-serif);
     }
@@ -104,6 +124,35 @@ export class WyPromptModal extends LitElement {
         gap: 12px;
     }
 
+    /* Icon Button - Perfect circle with centered icon */
+    .icon-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: background-color 0.2s, transform 0.15s;
+    }
+
+    .icon-btn.filled {
+        background: var(--md-sys-color-surface-container-high);
+        color: var(--md-sys-color-on-surface);
+    }
+
+    .icon-btn.filled:hover {
+        background: var(--md-sys-color-surface-container-highest);
+        transform: scale(1.05);
+    }
+
+    .icon-btn .material-symbols-outlined {
+        font-size: 20px;
+        line-height: 1;
+    }
+
     .header-main {
         display: flex;
         justify-content: space-between;
@@ -127,7 +176,7 @@ export class WyPromptModal extends LitElement {
     @media (prefers-color-scheme: dark) {
         :host {
           --wy-color-surface-light: var(--md-sys-color-surface);
-          --wy-color-text-primary: var(--md-sys-color-primary);
+          --wy-color-text-primary: var(--md-sys-color-text-heading, #8DE0B0); /* High-contrast mint for dark mode */
           --wy-color-badge-bg: rgba(255, 255, 255, 0.12);
           --wy-color-focus-ring: rgba(141, 224, 176, 0.2);
         }
@@ -178,7 +227,7 @@ export class WyPromptModal extends LitElement {
 
     /* TABS */
     .tabs-container {
-        padding: 0 32px;
+        padding: 0; /* Removed - wy-tabs handles its own padding */
         border-bottom: 1px solid var(--md-sys-color-outline-variant);
         display: flex;
         gap: 32px;
@@ -273,7 +322,7 @@ export class WyPromptModal extends LitElement {
     .form-group input, .form-group textarea {
         width: 100%;
         box-sizing: border-box;
-        padding: 12px 16px;
+        padding: 16px; /* Increased padding for breathing room */
         border: 1px solid var(--md-sys-color-outline-variant);
         border-radius: 8px;
         font-family: var(--font-sans, 'DM Sans', sans-serif);
@@ -324,7 +373,8 @@ export class WyPromptModal extends LitElement {
 
     /* FOOTER */
     .footer {
-      padding: 16px 32px 32px;
+      padding: 16px 32px;
+      padding-bottom: max(32px, env(safe-area-inset-bottom, 32px)); /* Respect safe area */
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -391,7 +441,7 @@ export class WyPromptModal extends LitElement {
       .header { padding: 24px 16px 16px; }
       .header-main { flex-direction: column; align-items: flex-start; gap: 16px; }
       .title-group h2 { font-size: 1.75rem; }
-      .tabs-container { padding: 0 16px; }
+      .tabs-container { padding: 0; } /* wy-tabs handles its own mobile padding */
       .body { padding: 16px; }
       .footer {
         flex-direction: row;
@@ -430,14 +480,13 @@ export class WyPromptModal extends LitElement {
                 <span class="badge category-badge">${this.category}</span>
                 <div class="header-actions">
                     ${this.mode === 'locked' ? html`
-                        <button class="customize-btn" @click="${() => this.mode = 'edit'}">
-                            <md-icon style="font-size: 18px;">edit</md-icon>
-                            Edit Prompt
+                        <button class="icon-btn filled" @click="${() => this.mode = 'edit'}" aria-label="Edit prompt" title="Edit prompt">
+                            <span class="material-symbols-outlined">edit</span>
                         </button>
                     ` : ''}
-                    <md-icon-button @click="${this._close}">
-                        <md-icon>close</md-icon>
-                    </md-icon-button>
+                    <button class="icon-btn filled" @click="${this._close}" aria-label="Close" title="Close">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
                 </div>
             </div>
             
@@ -517,20 +566,20 @@ export class WyPromptModal extends LitElement {
         <footer class="footer">
           ${this.mode === 'locked' ? html`
             <button class="secondary-btn" @click="${this._handleDownload}">
-                <md-icon style="font-size: 18px;">download</md-icon>
+                <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
                 <span class="btn-label">Download .txt</span>
             </button>
             <button class="primary-btn" @click="${this._handleCopy}">
-                <md-icon style="font-size: 18px;">content_copy</md-icon>
+                <span class="material-symbols-outlined" style="font-size: 18px;">content_copy</span>
                 <span class="btn-label">Copy to Clipboard</span>
             </button>
           ` : html`
             <button class="secondary-btn" @click="${() => this.mode = 'locked'}">
-                <md-icon style="font-size: 18px;">close</md-icon>
+                <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
                 <span class="btn-label">Cancel</span>
             </button>
             <button class="primary-btn" @click="${this._handleSave}">
-                <md-icon style="font-size: 18px;">save</md-icon>
+                <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
                 <span class="btn-label">Save Template</span>
             </button>
           `}
