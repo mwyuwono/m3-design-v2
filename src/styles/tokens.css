@@ -56,6 +56,7 @@
   /* Semantic Text */
   --md-sys-color-text-main: #121714;
   --md-sys-color-text-muted: #667f71;
+  --md-sys-color-text-heading: #2C4C3B;  /* Primary Hunter Green for light mode headings */
   
   /* Links Modal Specific Colors (exact match to Tailwind stone palette from reference design) */
   /* These are component-specific colors that don't align with M3 semantic tokens */
@@ -361,6 +362,10 @@
     /* Text: Warm Clay (#F5F2EA) for main, muted for secondary */
     --md-sys-color-text-main: #F5F2EA;
     --md-sys-color-text-muted: rgba(245, 242, 234, 0.7);
+
+    /* High-contrast heading color for dark backgrounds (meets WCAG 4.5:1) */
+    /* Sage/Mint tint of brand green for dark mode headings */
+    --md-sys-color-text-heading: #8DE0B0;
     
     /* Links Modal Specific Colors (dark mode) */
     --wy-links-modal-text-muted: rgba(245, 242, 234, 0.7); /* Muted text in dark mode */
@@ -446,7 +451,11 @@ html.dark :root {
   /* Text: Warm Clay (#F5F2EA) for main, muted for secondary */
   --md-sys-color-text-main: #F5F2EA;
   --md-sys-color-text-muted: rgba(245, 242, 234, 0.7);
-  
+
+  /* High-contrast heading color for dark backgrounds (meets WCAG 4.5:1) */
+  /* Sage/Mint tint of brand green for dark mode headings */
+  --md-sys-color-text-heading: #8DE0B0;
+
   /* Links Modal Specific Colors (dark mode) */
   --wy-links-modal-text-muted: rgba(245, 242, 234, 0.7);
   --wy-links-modal-chip-border: rgba(255, 255, 255, 0.1);
