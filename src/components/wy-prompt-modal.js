@@ -594,7 +594,13 @@ export class WyPromptModal extends LitElement {
   }
 
   _handleVariationChange(e) {
-    this.activeVariationIndex = parseInt(e.target.value);
+    const index = parseInt(e.target.value);
+    this.activeVariationIndex = index;
+    this.dispatchEvent(new CustomEvent('variation-change', {
+      detail: { index, variation: this.variations[index] },
+      bubbles: true,
+      composed: true
+    }));
   }
 
   _compilePrompt(template) {
@@ -614,6 +620,11 @@ export class WyPromptModal extends LitElement {
   _handleCopy() {
     const text = this._compilePrompt(this.variations.length > 0 ? this.variations[this.activeVariationIndex].template : this.template);
     navigator.clipboard.writeText(text);
+    this.dispatchEvent(new CustomEvent('copy', {
+      detail: { text },
+      bubbles: true,
+      composed: true
+    }));
     this.dispatchEvent(new CustomEvent('toast', {
       detail: { message: 'Copied to clipboard!' },
       bubbles: true,
@@ -631,7 +642,12 @@ export class WyPromptModal extends LitElement {
   }
 
   _handleDownload() {
-    // Logic for download
+    const text = this._compilePrompt(this.variations.length > 0 ? this.variations[this.activeVariationIndex].template : this.template);
+    this.dispatchEvent(new CustomEvent('download', {
+      detail: { text, title: this.title },
+      bubbles: true,
+      composed: true
+    }));
   }
 }
 

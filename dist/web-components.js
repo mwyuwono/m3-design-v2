@@ -8096,7 +8096,12 @@ class ds extends g {
     this._values = { ...this._values, [e]: t }, this.requestUpdate();
   }
   _handleVariationChange(e) {
-    this.activeVariationIndex = parseInt(e.target.value);
+    const t = parseInt(e.target.value);
+    this.activeVariationIndex = t, this.dispatchEvent(new CustomEvent("variation-change", {
+      detail: { index: t, variation: this.variations[t] },
+      bubbles: !0,
+      composed: !0
+    }));
   }
   _compilePrompt(e) {
     let t = e;
@@ -8110,7 +8115,11 @@ class ds extends g {
   }
   _handleCopy() {
     const e = this._compilePrompt(this.variations.length > 0 ? this.variations[this.activeVariationIndex].template : this.template);
-    navigator.clipboard.writeText(e), this.dispatchEvent(new CustomEvent("toast", {
+    navigator.clipboard.writeText(e), this.dispatchEvent(new CustomEvent("copy", {
+      detail: { text: e },
+      bubbles: !0,
+      composed: !0
+    })), this.dispatchEvent(new CustomEvent("toast", {
       detail: { message: "Copied to clipboard!" },
       bubbles: !0,
       composed: !0
@@ -8124,6 +8133,12 @@ class ds extends g {
     }));
   }
   _handleDownload() {
+    const e = this._compilePrompt(this.variations.length > 0 ? this.variations[this.activeVariationIndex].template : this.template);
+    this.dispatchEvent(new CustomEvent("download", {
+      detail: { text: e, title: this.title },
+      bubbles: !0,
+      composed: !0
+    }));
   }
 }
 customElements.define("wy-prompt-modal", ds);
