@@ -227,11 +227,39 @@ export class WyPromptModal extends LitElement {
 
     /* TABS */
     .tabs-container {
-        padding: 0; /* Removed - wy-tabs handles its own padding */
+        padding: 0 32px; /* Align with body padding */
         border-bottom: 1px solid var(--md-sys-color-outline-variant);
         display: flex;
+        align-items: center;
         gap: 32px;
         flex-shrink: 0; /* Tabs stay fixed, don't shrink */
+    }
+
+    .tabs-container wy-tabs {
+        flex: 1;
+    }
+
+    .clear-btn {
+        background: none;
+        border: none;
+        color: var(--md-sys-color-primary);
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: background 0.2s;
+        white-space: nowrap;
+    }
+
+    .clear-btn:hover {
+        background: var(--md-sys-color-surface-container-high);
+    }
+
+    .clear-btn:focus-visible {
+        outline: 3px solid var(--wy-color-focus-ring);
+        outline-offset: 2px;
     }
 
     .tab-item {
@@ -272,6 +300,22 @@ export class WyPromptModal extends LitElement {
         flex: 1;
     }
 
+    .variation-selector-container {
+        padding: 0 32px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .variation-selector-container wy-dropdown {
+        width: 100%;
+    }
+
+    .variation-description-panel {
+        margin-top: 0;
+    }
+
+    /* Legacy selector styles (kept for backwards compatibility) */
     .variation-selector {
         margin: 0 32px 16px;
         padding: 12px;
@@ -344,6 +388,78 @@ export class WyPromptModal extends LitElement {
         font-size: 0.75rem;
         color: var(--md-sys-color-text-muted);
         margin-top: 4px;
+    }
+
+    /* TOGGLE SWITCH */
+    .toggle-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    .toggle-label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .toggle-track {
+        position: relative;
+        width: 52px;
+        height: 32px;
+        background: var(--md-sys-color-surface-container-highest);
+        border: 2px solid var(--md-sys-color-outline);
+        border-radius: 16px;
+        transition: all 0.2s ease;
+    }
+
+    .toggle-track::after {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 20px;
+        height: 20px;
+        background: var(--md-sys-color-outline);
+        border-radius: 50%;
+        transition: all 0.2s ease;
+    }
+
+    .toggle-input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .toggle-input:checked + .toggle-track {
+        background: var(--md-sys-color-primary);
+        border-color: var(--md-sys-color-primary);
+    }
+
+    .toggle-input:checked + .toggle-track::after {
+        left: 24px;
+        background: var(--md-sys-color-on-primary);
+    }
+
+    .toggle-input:focus-visible + .toggle-track {
+        outline: 3px solid var(--wy-color-focus-ring);
+        outline-offset: 2px;
+    }
+
+    .toggle-status {
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--md-sys-color-on-surface-variant);
+        min-width: 60px;
+    }
+
+    .toggle-status.active {
+        color: var(--md-sys-color-primary);
     }
 
     .preview-area {
@@ -500,52 +616,41 @@ export class WyPromptModal extends LitElement {
             </div>
         </header>
 
-        ${this.mode === 'locked' ? html`
+        ${this.mode === 'locked' && this.variables.length > 0 ? html`
           <div class="tabs-container">
               <wy-tabs active-tab="${this.activeTab}" @tab-change="${e => this.activeTab = e.detail.tab}">
                 <button class="tab-item ${this.activeTab === 'variables' ? 'active' : ''}" role="tab" data-tab="variables">Variables</button>
                 <button class="tab-item ${this.activeTab === 'preview' ? 'active' : ''}" role="tab" data-tab="preview">Final Preview</button>
               </wy-tabs>
+              ${this.activeTab === 'variables' && this._hasValues() ? html`
+                <button class="clear-btn" @click="${this._clearAllVariables}">Clear All</button>
+              ` : ''}
           </div>
         ` : ''}
 
         <div class="content">
           ${this.mode === 'locked' ? html`
             ${this.variations.length > 1 ? html`
-              <div class="variation-selector">
-                <span class="variation-label">Variation Style:</span>
-                <select class="variation-select" @change="${this._handleVariationChange}">
-                  ${this.variations.map((v, i) => html`
-                    <option value="${i}" ?selected="${this.activeVariationIndex === i}">${v.name}</option>
-                  `)}
-                </select>
+              <div class="variation-selector-container">
+                <wy-dropdown
+                  label="STYLE"
+                  .value="${this.variations[this.activeVariationIndex]?.id || ''}"
+                  .options="${this.variations.map(v => ({ value: v.id, label: v.name }))}"
+                  variant="subtle"
+                  @change="${this._handleVariationDropdownChange}"
+                ></wy-dropdown>
+                ${this.variations[this.activeVariationIndex]?.description ? html`
+                  <wy-info-panel class="variation-description-panel">
+                    ${this.variations[this.activeVariationIndex].description}
+                  </wy-info-panel>
+                ` : ''}
               </div>
             ` : ''}
 
             <div class="body">
               ${this.activeTab === 'variables' ? html`
                 <div class="variables-grid">
-                  ${this.variables.map(v => html`
-                    <div class="form-group">
-                        <label>${v.label}</label>
-                        ${v.type === 'textarea' ? html`
-                            <textarea 
-                            placeholder="${v.placeholder || ''}" 
-                            @input="${(e) => this._handleInput(v.name, e.target.value)}"
-                            .value="${this._values[v.name] || ''}"
-                            rows="4"
-                            ></textarea>
-                            <span class="helper-text">Markdown supported</span>
-                        ` : html`
-                            <input 
-                            type="text" 
-                            placeholder="${v.placeholder || ''}" 
-                            @input="${(e) => this._handleInput(v.name, e.target.value)}"
-                            .value="${this._values[v.name] || ''}"
-                            >
-                        `}
-                    </div>
-                  `)}
+                  ${this.variables.map(v => this._renderVariable(v))}
                 </div>
               ` : html`
                 <div class="preview-area">${compiledPrompt}</div>
@@ -588,8 +693,90 @@ export class WyPromptModal extends LitElement {
     `;
   }
 
+  _renderVariable(v) {
+    // Support both 'type' and 'inputType' for compatibility
+    const inputType = v.inputType || v.type || 'text';
+
+    if (inputType === 'toggle') {
+      const isChecked = this._values[v.name] === v.options?.[1] ||
+                        this._values[v.name] === 'true' ||
+                        this._values[v.name] === true;
+      const statusText = isChecked ? 'Enabled' : 'Disabled';
+
+      return html`
+        <div class="form-group">
+          <label>${v.label}</label>
+          <div class="toggle-wrapper">
+            <label class="toggle-label">
+              <input
+                type="checkbox"
+                class="toggle-input"
+                .checked="${isChecked}"
+                @change="${(e) => this._handleToggle(v, e.target.checked)}"
+              >
+              <span class="toggle-track"></span>
+            </label>
+            <span class="toggle-status ${isChecked ? 'active' : ''}">${statusText}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    if (inputType === 'textarea') {
+      return html`
+        <div class="form-group">
+          <label>${v.label}</label>
+          <textarea
+            placeholder="${v.placeholder || ''}"
+            @input="${(e) => this._handleInput(v.name, e.target.value)}"
+            .value="${this._values[v.name] || ''}"
+            rows="4"
+          ></textarea>
+          <span class="helper-text">Markdown supported</span>
+        </div>
+      `;
+    }
+
+    // Default: text input
+    return html`
+      <div class="form-group">
+        <label>${v.label}</label>
+        <input
+          type="text"
+          placeholder="${v.placeholder || ''}"
+          @input="${(e) => this._handleInput(v.name, e.target.value)}"
+          .value="${this._values[v.name] || ''}"
+        >
+      </div>
+    `;
+  }
+
+  _handleToggle(variable, checked) {
+    const value = checked ? (variable.options?.[1] || 'true') : (variable.options?.[0] || '');
+    this._handleInput(variable.name, value);
+  }
+
   _handleInput(name, value) {
     this._values = { ...this._values, [name]: value };
+    this.dispatchEvent(new CustomEvent('variable-change', {
+      detail: { name, value, values: this._values },
+      bubbles: true,
+      composed: true
+    }));
+    this.requestUpdate();
+  }
+
+  _hasValues() {
+    return Object.values(this._values).some(v => v && v.length > 0);
+  }
+
+  _clearAllVariables() {
+    this._values = {};
+    this.dispatchEvent(new CustomEvent('variables-cleared', {
+      detail: { values: this._values },
+      bubbles: true,
+      composed: true
+    }));
     this.requestUpdate();
   }
 
@@ -601,6 +788,19 @@ export class WyPromptModal extends LitElement {
       bubbles: true,
       composed: true
     }));
+  }
+
+  _handleVariationDropdownChange(e) {
+    const selectedId = e.detail.value;
+    const index = this.variations.findIndex(v => v.id === selectedId);
+    if (index !== -1) {
+      this.activeVariationIndex = index;
+      this.dispatchEvent(new CustomEvent('variation-change', {
+        detail: { index, variation: this.variations[index] },
+        bubbles: true,
+        composed: true
+      }));
+    }
   }
 
   _compilePrompt(template) {
