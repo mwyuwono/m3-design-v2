@@ -878,7 +878,7 @@ export class WyPromptModal extends LitElement {
               ` : ''}
 
               <div class="body">
-                ${this.activeTab === 'variables' ? html`
+                ${this.activeTab === 'variables' && this.variables.length > 0 ? html`
                   <div class="variables-grid">
                     ${this.variables.map(v => this._renderVariable(v))}
                   </div>
