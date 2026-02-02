@@ -8,7 +8,8 @@ export class WyControlsBar extends LitElement {
         categories: { type: Array },
         searchValue: { type: String, attribute: 'search-value' },
         hideViewToggle: { type: Boolean, attribute: 'hide-view-toggle' },
-        hideDetailsToggle: { type: Boolean, attribute: 'hide-details-toggle' }
+        hideDetailsToggle: { type: Boolean, attribute: 'hide-details-toggle' },
+        isScrolled: { type: Boolean, state: true }
     };
 
     constructor() {
@@ -20,6 +21,31 @@ export class WyControlsBar extends LitElement {
         this.searchValue = '';
         this.hideViewToggle = false;
         this.hideDetailsToggle = false;
+        this.isScrolled = false;
+        this._scrollThreshold = 50; // px
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        this._handleScroll = this._handleScroll.bind(this);
+        window.addEventListener('scroll', this._handleScroll, { passive: true });
+        // Check initial scroll position
+        this._handleScroll();
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener('scroll', this._handleScroll);
+    }
+
+    _handleScroll() {
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        const wasScrolled = this.isScrolled;
+        this.isScrolled = scrollY > this._scrollThreshold;
+        
+        if (wasScrolled !== this.isScrolled) {
+            this.requestUpdate();
+        }
     }
 
     static styles = css`
@@ -33,6 +59,30 @@ export class WyControlsBar extends LitElement {
       border-bottom: var(--wy-controls-bar-border, none);
       padding: var(--wy-controls-bar-padding, 8px 32px);
       box-sizing: border-box;
+    }
+
+    /* Sticky Pill State - when scrolled */
+    :host([data-scrolled]) {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      width: auto;
+      max-width: 900px;
+      background-color: rgba(245, 242, 234, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 9999px;
+      border-bottom: none;
+      padding: 8px 24px;
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      transition: 
+        padding var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        background-color var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
     }
 
     .material-symbols-outlined {
@@ -65,11 +115,22 @@ export class WyControlsBar extends LitElement {
       margin: 0 auto;
     }
 
+    :host([data-scrolled]) .controls-container {
+      gap: 8px;
+      max-width: 100%;
+      transition: gap var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
+    }
+
     /* Search Section */
     .search-section {
       flex: 0 0 auto;
       width: 192px;
       position: relative;
+    }
+
+    :host([data-scrolled]) .search-section {
+      width: 160px;
+      transition: width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
     }
 
     .search-input {
@@ -84,6 +145,16 @@ export class WyControlsBar extends LitElement {
       color: var(--md-sys-color-on-surface, #1f2937);
       box-sizing: border-box;
       transition: all 0.2s;
+    }
+
+    :host([data-scrolled]) .search-input {
+      height: 28px;
+      font-size: 0.7rem;
+      background-color: rgba(255, 255, 255, 0.6);
+      transition: 
+        height var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        font-size var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        background-color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
     }
 
     .search-input::placeholder {
@@ -121,12 +192,20 @@ export class WyControlsBar extends LitElement {
       flex-shrink: 0;
     }
 
+    :host([data-scrolled]) .divider {
+      display: none;
+    }
+
     /* Toggle Section */
     .toggle-section {
       display: flex;
       align-items: center;
       gap: 16px;
       flex-shrink: 0;
+    }
+
+    :host([data-scrolled]) .toggle-section {
+      display: none;
     }
 
     /* View Toggle */
@@ -236,7 +315,29 @@ export class WyControlsBar extends LitElement {
       display: none;
     }
 
+    :host([data-scrolled]) .category-section {
+      flex: 0 1 auto;
+      max-width: 600px;
+      transition: max-width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
+    }
+
     @media (max-width: 768px) {
+      /* Disable sticky pill behavior on mobile */
+      :host([data-scrolled]) {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        padding: var(--wy-controls-bar-padding, 8px 32px);
+        background-color: var(--wy-controls-bar-bg, transparent);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+      }
+
       .controls-container {
         flex-wrap: wrap;
         gap: 8px;
@@ -247,7 +348,21 @@ export class WyControlsBar extends LitElement {
         order: -1;
       }
 
+      :host([data-scrolled]) .search-section {
+        width: 100%;
+      }
+
+      :host([data-scrolled]) .search-input {
+        height: 32px;
+        font-size: 0.75rem;
+        background-color: var(--wy-controls-search-bg, var(--md-sys-color-surface-container-high, #f3f4f6));
+      }
+
       .divider {
+        display: none;
+      }
+
+      :host([data-scrolled]) .divider {
         display: none;
       }
 
@@ -255,14 +370,30 @@ export class WyControlsBar extends LitElement {
         gap: 12px;
       }
 
+      :host([data-scrolled]) .toggle-section {
+        display: flex;
+      }
+
       .category-section {
         width: 100%;
         order: 1;
+      }
+
+      :host([data-scrolled]) .category-section {
+        width: 100%;
+        max-width: 100%;
       }
     }
   `;
 
     render() {
+        // Set attribute on host for CSS targeting
+        if (this.isScrolled) {
+            this.setAttribute('data-scrolled', '');
+        } else {
+            this.removeAttribute('data-scrolled');
+        }
+
         return html`
       <div class="controls-container" part="controls-container">
         <div class="search-section">
@@ -276,7 +407,7 @@ export class WyControlsBar extends LitElement {
           <span class="material-symbols-outlined search-icon">search</span>
         </div>
 
-        ${!this.hideViewToggle || !this.hideDetailsToggle ? html`
+        ${!this.isScrolled && (!this.hideViewToggle || !this.hideDetailsToggle) ? html`
           <div class="divider"></div>
 
           <div class="toggle-section">
@@ -308,7 +439,9 @@ export class WyControlsBar extends LitElement {
           </div>
 
           <div class="divider"></div>
-        ` : ''}
+        ` : html`
+          ${!this.isScrolled ? html`<div class="divider"></div>` : ''}
+        `}
 
         <div class="category-section">
           <wy-filter-chip

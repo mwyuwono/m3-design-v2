@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Pill Controls Bar Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/styles/tokens.css">
+    <link rel="stylesheet" href="src/styles/main.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-sans, 'DM Sans', sans-serif);
+            background-color: var(--md-sys-color-background, #FDFBF7);
+            color: var(--md-sys-color-on-surface, #121714);
+        }
+
+        .page-header {
+            padding: 32px;
+            background-color: var(--md-sys-color-surface, #F5F2EA);
+            border-bottom: 1px solid var(--md-sys-color-outline-variant, #e5e7eb);
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px 0;
+            font-family: var(--font-serif, 'Playfair Display', serif);
+            font-size: 2.5rem;
+            color: var(--md-sys-color-primary, #2C4C3B);
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .content-section {
+            margin-bottom: 32px;
+            padding: 24px;
+            background-color: var(--md-sys-color-surface, #F5F2EA);
+            border-radius: var(--md-sys-shape-corner-medium, 16px);
+        }
+
+        .content-section h2 {
+            margin: 0 0 16px 0;
+            font-family: var(--font-serif, 'Playfair Display', serif);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            padding: 12px 16px;
+            background-color: var(--md-sys-color-primary, #2C4C3B);
+            color: white;
+            border-radius: var(--md-sys-shape-corner-small, 8px);
+            font-size: 0.875rem;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Sticky Pill Controls Bar Test</h1>
+        <p>Scroll down to see the controls bar transform into a sticky pill</p>
+    </div>
+
+    <wy-controls-bar
+        view-mode="grid"
+        active-category="all"
+    ></wy-controls-bar>
+
+    <div class="content">
+        <div class="content-section">
+            <h2>Test Section 1</h2>
+            <p>Scroll past 50px to trigger the sticky pill transformation.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Test Section 2</h2>
+            <p>The controls bar should be fixed at the top center with a semi-transparent warm clay background and backdrop blur.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Test Section 3</h2>
+            <p>View toggle and details toggle should be hidden in pill mode.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Test Section 4</h2>
+            <p>Only search input and category filters should be visible in pill mode.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Test Section 5</h2>
+            <p>Scroll back to the top to see the controls bar return to its original state.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Test Section 6</h2>
+            <p>All transitions should use Material Design 3 motion tokens for smooth animation.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Test Section 7</h2>
+            <p>The pill shape should have fully rounded corners (border-radius: 9999px).</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Test Section 8</h2>
+            <p>Final section to ensure sufficient scroll height for testing.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        Scroll Y: <span id="scroll-y">0</span>px
+    </div>
+
+    <script type="module">
+        import './dist/web-components.js';
+
+        // Initialize controls bar with categories
+        const controlsBar = document.querySelector('wy-controls-bar');
+        controlsBar.categories = ['Creativity', 'Expertise', 'Productivity', 'Travel & Shopping'];
+
+        // Update scroll indicator
+        function updateScrollIndicator() {
+            const scrollY = window.scrollY || document.documentElement.scrollTop;
+            document.getElementById('scroll-y').textContent = Math.round(scrollY);
+        }
+
+        window.addEventListener('scroll', updateScrollIndicator, { passive: true });
+        updateScrollIndicator();
+
+        // Log filter changes
+        controlsBar.addEventListener('filter-change', (e) => {
+            console.log('Filter change:', e.detail);
+        });
+    </script>
+</body>
+</html>

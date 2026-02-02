@@ -9,16 +9,16 @@ const _ = (r) => (e, t) => {
     customElements.define(r, e);
   }) : customElements.define(r, e);
 };
-const Ge = globalThis, Gt = Ge.ShadowRoot && (Ge.ShadyCSS === void 0 || Ge.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, Yt = /* @__PURE__ */ Symbol(), vo = /* @__PURE__ */ new WeakMap();
+const Ye = globalThis, Yt = Ye.ShadowRoot && (Ye.ShadyCSS === void 0 || Ye.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, Gt = /* @__PURE__ */ Symbol(), vo = /* @__PURE__ */ new WeakMap();
 let Bo = class {
   constructor(e, t, o) {
-    if (this._$cssResult$ = !0, o !== Yt) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
+    if (this._$cssResult$ = !0, o !== Gt) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
     this.cssText = e, this.t = t;
   }
   get styleSheet() {
     let e = this.o;
     const t = this.t;
-    if (Gt && e === void 0) {
+    if (Yt && e === void 0) {
       const o = t !== void 0 && t.length === 1;
       o && (e = vo.get(t)), e === void 0 && ((this.o = e = new CSSStyleSheet()).replaceSync(this.cssText), o && vo.set(t, e));
     }
@@ -28,28 +28,28 @@ let Bo = class {
     return this.cssText;
   }
 };
-const wr = (r) => new Bo(typeof r == "string" ? r : r + "", void 0, Yt), u = (r, ...e) => {
+const wr = (r) => new Bo(typeof r == "string" ? r : r + "", void 0, Gt), u = (r, ...e) => {
   const t = r.length === 1 ? r[0] : e.reduce((o, i, a) => o + ((n) => {
     if (n._$cssResult$ === !0) return n.cssText;
     if (typeof n == "number") return n;
     throw Error("Value passed to 'css' function must be a 'css' function result: " + n + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
   })(i) + r[a + 1], r[0]);
-  return new Bo(t, r, Yt);
+  return new Bo(t, r, Gt);
 }, kr = (r, e) => {
-  if (Gt) r.adoptedStyleSheets = e.map((t) => t instanceof CSSStyleSheet ? t : t.styleSheet);
+  if (Yt) r.adoptedStyleSheets = e.map((t) => t instanceof CSSStyleSheet ? t : t.styleSheet);
   else for (const t of e) {
-    const o = document.createElement("style"), i = Ge.litNonce;
+    const o = document.createElement("style"), i = Ye.litNonce;
     i !== void 0 && o.setAttribute("nonce", i), o.textContent = t.cssText, r.appendChild(o);
   }
-}, go = Gt ? (r) => r : (r) => r instanceof CSSStyleSheet ? ((e) => {
+}, go = Yt ? (r) => r : (r) => r instanceof CSSStyleSheet ? ((e) => {
   let t = "";
   for (const o of e.cssRules) t += o.cssText;
   return wr(t);
 })(r) : r;
-const { is: Cr, defineProperty: $r, getOwnPropertyDescriptor: Er, getOwnPropertyNames: Sr, getOwnPropertySymbols: Tr, getPrototypeOf: Ar } = Object, Je = globalThis, bo = Je.trustedTypes, Ir = bo ? bo.emptyScript : "", zr = Je.reactiveElementPolyfillSupport, ke = (r, e) => r, Xe = { toAttribute(r, e) {
+const { is: Cr, defineProperty: $r, getOwnPropertyDescriptor: Er, getOwnPropertyNames: Sr, getOwnPropertySymbols: Tr, getPrototypeOf: zr } = Object, Je = globalThis, bo = Je.trustedTypes, Ar = bo ? bo.emptyScript : "", Ir = Je.reactiveElementPolyfillSupport, ke = (r, e) => r, Xe = { toAttribute(r, e) {
   switch (e) {
     case Boolean:
-      r = r ? Ir : null;
+      r = r ? Ar : null;
       break;
     case Object:
     case Array:
@@ -105,7 +105,7 @@ let fe = class extends HTMLElement {
   }
   static _$Ei() {
     if (this.hasOwnProperty(ke("elementProperties"))) return;
-    const e = Ar(this);
+    const e = zr(this);
     e.finalize(), e.l !== void 0 && (this.l = [...e.l]), this.elementProperties = new Map(e.elementProperties);
   }
   static finalize() {
@@ -257,7 +257,7 @@ let fe = class extends HTMLElement {
   firstUpdated(e) {
   }
 };
-fe.elementStyles = [], fe.shadowRootOptions = { mode: "open" }, fe[ke("elementProperties")] = /* @__PURE__ */ new Map(), fe[ke("finalized")] = /* @__PURE__ */ new Map(), zr?.({ ReactiveElement: fe }), (Je.reactiveElementVersions ??= []).push("2.1.2");
+fe.elementStyles = [], fe.shadowRootOptions = { mode: "open" }, fe[ke("elementProperties")] = /* @__PURE__ */ new Map(), fe[ke("finalized")] = /* @__PURE__ */ new Map(), Ir?.({ ReactiveElement: fe }), (Je.reactiveElementVersions ??= []).push("2.1.2");
 const Dr = { attribute: !0, type: String, converter: Xe, reflect: !1, hasChanged: Xt }, Rr = (r = Dr, e, t) => {
   const { kind: o, metadata: i } = t;
   let a = globalThis.litPropertyMetadata.get(i);
@@ -285,7 +285,7 @@ function d(r) {
     return i.constructor.createProperty(a, o), n ? Object.getOwnPropertyDescriptor(i, a) : void 0;
   })(r, e, t);
 }
-function A(r) {
+function z(r) {
   return d({ ...r, state: !0, attribute: !1 });
 }
 const et = (r, e, t) => (t.configurable = !0, t.enumerable = !0, Reflect.decorate && typeof e != "object" && Object.defineProperty(r, e, t), t);
@@ -399,7 +399,7 @@ class Nr {
     for (; p !== void 0; ) {
       if (n === p.index) {
         let v;
-        p.type === 2 ? v = new Ie(a, a.nextSibling, this, e) : p.type === 1 ? v = new p.ctor(a, p.name, p.strings, this, e) : p.type === 6 && (v = new qr(a, this, e)), this._$AV.push(v), p = o[++c];
+        p.type === 2 ? v = new Ae(a, a.nextSibling, this, e) : p.type === 1 ? v = new p.ctor(a, p.name, p.strings, this, e) : p.type === 6 && (v = new qr(a, this, e)), this._$AV.push(v), p = o[++c];
       }
       n !== p?.index && (a = de.nextNode(), n++);
     }
@@ -410,7 +410,7 @@ class Nr {
     for (const o of this._$AV) o !== void 0 && (o.strings !== void 0 ? (o._$AI(e, o, t), t += o.strings.length - 2) : o._$AI(e[t])), t++;
   }
 }
-class Ie {
+class Ae {
   get _$AU() {
     return this._$AM?._$AU ?? this._$Cv;
   }
@@ -456,7 +456,7 @@ class Ie {
     Qt(this._$AH) || (this._$AH = [], this._$AR());
     const t = this._$AH;
     let o, i = 0;
-    for (const a of e) i === t.length ? t.push(o = new Ie(this.O($e()), this.O($e()), this, this.options)) : o = t[i], o._$AI(a), i++;
+    for (const a of e) i === t.length ? t.push(o = new Ae(this.O($e()), this.O($e()), this, this.options)) : o = t[i], o._$AI(a), i++;
     i < t.length && (this._$AR(o && o._$AB.nextSibling, i), t.length = i);
   }
   _$AR(e = this._$AA.nextSibling, t) {
@@ -535,13 +535,13 @@ class qr {
   }
 }
 const Wr = Zt.litHtmlPolyfillSupport;
-Wr?.(Se, Ie), (Zt.litHtmlVersions ??= []).push("3.3.2");
+Wr?.(Se, Ae), (Zt.litHtmlVersions ??= []).push("3.3.2");
 const Jt = (r, e, t) => {
   const o = t?.renderBefore ?? e;
   let i = o._$litPart$;
   if (i === void 0) {
     const a = t?.renderBefore ?? null;
-    o._$litPart$ = i = new Ie(e.insertBefore($e(), a), a, void 0, t ?? {});
+    o._$litPart$ = i = new Ae(e.insertBefore($e(), a), a, void 0, t ?? {});
   }
   return i._$AI(r), i;
 };
@@ -584,11 +584,11 @@ class Kr extends g {
     this.setAttribute("aria-hidden", "true");
   }
 }
-const Gr = u`:host{font-size:var(--md-icon-size, 24px);width:var(--md-icon-size, 24px);height:var(--md-icon-size, 24px);color:inherit;font-variation-settings:inherit;font-weight:400;font-family:var(--md-icon-font, Material Symbols Outlined);display:inline-flex;font-style:normal;place-items:center;place-content:center;line-height:1;overflow:hidden;letter-spacing:normal;text-transform:none;user-select:none;white-space:nowrap;word-wrap:normal;flex-shrink:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale}::slotted(svg){fill:currentColor}::slotted(*){height:100%;width:100%}
+const Yr = u`:host{font-size:var(--md-icon-size, 24px);width:var(--md-icon-size, 24px);height:var(--md-icon-size, 24px);color:inherit;font-variation-settings:inherit;font-weight:400;font-family:var(--md-icon-font, Material Symbols Outlined);display:inline-flex;font-style:normal;place-items:center;place-content:center;line-height:1;overflow:hidden;letter-spacing:normal;text-transform:none;user-select:none;white-space:nowrap;word-wrap:normal;flex-shrink:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale}::slotted(svg){fill:currentColor}::slotted(*){height:100%;width:100%}
 `;
 let pt = class extends Kr {
 };
-pt.styles = [Gr];
+pt.styles = [Yr];
 pt = s([
   _("md-icon")
 ], pt);
@@ -640,7 +640,7 @@ class Ko {
     this.onControlChange(this.currentControl, e), this.currentControl = e;
   }
 }
-const Yr = ["focusin", "focusout", "pointerdown"];
+const Gr = ["focusin", "focusout", "pointerdown"];
 class to extends g {
   constructor() {
     super(...arguments), this.visible = !1, this.inward = !1, this.attachableController = new Ko(this, this.onControlChange.bind(this));
@@ -684,7 +684,7 @@ class to extends g {
     }
   }
   onControlChange(e, t) {
-    for (const o of Yr)
+    for (const o of Gr)
       e?.removeEventListener(o, this), t?.addEventListener(o, this);
   }
   update(e) {
@@ -775,7 +775,7 @@ const ai = [
   "pointerleave",
   "pointerup"
 ], si = 150, ni = window.matchMedia("(forced-colors: active)");
-class ze extends g {
+class Ie extends g {
   constructor() {
     super(...arguments), this.disabled = !1, this.hovered = !1, this.pressed = !1, this.rippleSize = "", this.rippleScale = "", this.initialSize = 0, this.state = B.INACTIVE, this.attachableController = new Ko(this, this.onControlChange.bind(this));
   }
@@ -976,25 +976,25 @@ class ze extends g {
 }
 s([
   d({ type: Boolean, reflect: !0 })
-], ze.prototype, "disabled", void 0);
+], Ie.prototype, "disabled", void 0);
 s([
-  A()
-], ze.prototype, "hovered", void 0);
+  z()
+], Ie.prototype, "hovered", void 0);
 s([
-  A()
-], ze.prototype, "pressed", void 0);
+  z()
+], Ie.prototype, "pressed", void 0);
 s([
   w(".surface")
-], ze.prototype, "mdRoot", void 0);
+], Ie.prototype, "mdRoot", void 0);
 const li = u`:host{display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20)) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-ripple-hover-opacity, 0.08)}.pressed::after{opacity:var(--md-ripple-pressed-opacity, 0.12);transition-duration:105ms}
 `;
-let ut = class extends ze {
+let ut = class extends Ie {
 };
 ut.styles = [li];
 ut = s([
   _("md-ripple")
 ], ut);
-const Go = [
+const Yo = [
   "role",
   "ariaAtomic",
   "ariaAutoComplete",
@@ -1033,11 +1033,11 @@ const Go = [
   "ariaValueMin",
   "ariaValueNow",
   "ariaValueText"
-], di = Go.map(Yo);
+], di = Yo.map(Go);
 function st(r) {
   return di.includes(r);
 }
-function Yo(r) {
+function Go(r) {
   return r.replace("aria", "aria-").replace(/Elements?/g, "").toLowerCase();
 }
 const Fe = /* @__PURE__ */ Symbol("privateIgnoreAttributeChangesFor");
@@ -1068,8 +1068,8 @@ function Q(r) {
   return e = Fe, ci(t), t;
 }
 function ci(r) {
-  for (const e of Go) {
-    const t = Yo(e), o = mt(t), i = ft(t);
+  for (const e of Yo) {
+    const t = Go(e), o = mt(t), i = ft(t);
     r.createProperty(e, {
       attribute: t,
       noAccessor: !0
@@ -1102,10 +1102,10 @@ function pi(r, e) {
     throw new Error(`'${r.type}' event needs setupDispatchHooks().`);
   t.addEventListener("after", e);
 }
-const Ao = /* @__PURE__ */ new WeakMap();
+const zo = /* @__PURE__ */ new WeakMap();
 function hi(r, ...e) {
-  let t = Ao.get(r);
-  t || (t = /* @__PURE__ */ new Set(), Ao.set(r, t));
+  let t = zo.get(r);
+  t || (t = /* @__PURE__ */ new Set(), zo.set(r, t));
   for (const o of e) {
     if (t.has(o))
       continue;
@@ -1158,7 +1158,7 @@ function Re(r) {
   }
   return e;
 }
-const Te = /* @__PURE__ */ Symbol("createValidator"), Ae = /* @__PURE__ */ Symbol("getValidityAnchor"), lt = /* @__PURE__ */ Symbol("privateValidator"), Z = /* @__PURE__ */ Symbol("privateSyncValidity"), Le = /* @__PURE__ */ Symbol("privateCustomValidationMessage");
+const Te = /* @__PURE__ */ Symbol("createValidator"), ze = /* @__PURE__ */ Symbol("getValidityAnchor"), lt = /* @__PURE__ */ Symbol("privateValidator"), Z = /* @__PURE__ */ Symbol("privateSyncValidity"), Le = /* @__PURE__ */ Symbol("privateCustomValidationMessage");
 function io(r) {
   var e;
   class t extends r {
@@ -1192,12 +1192,12 @@ function io(r) {
     [(e = Le, Z)]() {
       this[lt] || (this[lt] = this[Te]());
       const { validity: i, validationMessage: a } = this[lt].getValidity(), n = !!this[Le], c = this[Le] || a;
-      this[N].setValidity({ ...i, customError: n }, c, this[Ae]() ?? void 0);
+      this[N].setValidity({ ...i, customError: n }, c, this[ze]() ?? void 0);
     }
     [Te]() {
       throw new Error("Implement [createValidator]");
     }
-    [Ae]() {
+    [ze]() {
       throw new Error("Implement [getValidityAnchor]");
     }
   }
@@ -1435,7 +1435,7 @@ class ae extends vi {
       required: this.required
     }));
   }
-  [Ae]() {
+  [ze]() {
     return this.input;
   }
 }
@@ -1684,7 +1684,7 @@ const er = /* @__PURE__ */ Symbol.for(""), Ti = (r) => {
   if (a._$litStatic$ !== void 0) return a._$litStatic$;
   throw Error(`Value passed to 'literal' function must be a 'literal' result: ${a}. Use 'unsafeStatic' to pass non-literal values, but
             take care to ensure page security.`);
-})(o) + r[i + 1], r[0]), r: er }), Io = /* @__PURE__ */ new Map(), Ai = (r) => (e, ...t) => {
+})(o) + r[i + 1], r[0]), r: er }), Ao = /* @__PURE__ */ new Map(), zi = (r) => (e, ...t) => {
   const o = t.length;
   let i, a;
   const n = [], c = [];
@@ -1695,15 +1695,15 @@ const er = /* @__PURE__ */ Symbol.for(""), Ti = (r) => {
   }
   if (v === o && n.push(e[o]), f) {
     const m = n.join("$$lit$$");
-    (e = Io.get(m)) === void 0 && (n.raw = n, Io.set(m, e = n)), t = c;
+    (e = Ao.get(m)) === void 0 && (n.raw = n, Ao.set(m, e = n)), t = c;
   }
   return r(e, ...t);
-}, lo = Ai(l);
-function zo(r, e = !0) {
+}, lo = zi(l);
+function Io(r, e = !0) {
   return e && getComputedStyle(r).getPropertyValue("direction").trim() === "rtl";
 }
-const Ii = Q(Re(g));
-class M extends Ii {
+const Ai = Q(Re(g));
+class M extends Ai {
   get name() {
     return this.getAttribute("name") ?? "";
   }
@@ -1723,7 +1723,7 @@ class M extends Ii {
     return this[N].labels;
   }
   constructor() {
-    super(), this.disabled = !1, this.softDisabled = !1, this.flipIconInRtl = !1, this.href = "", this.download = "", this.target = "", this.ariaLabelSelected = "", this.toggle = !1, this.selected = !1, this.type = "submit", this.value = "", this.flipIcon = zo(this, this.flipIconInRtl), this.addEventListener("click", this.handleClick.bind(this));
+    super(), this.disabled = !1, this.softDisabled = !1, this.flipIconInRtl = !1, this.href = "", this.download = "", this.target = "", this.ariaLabelSelected = "", this.toggle = !1, this.selected = !1, this.type = "submit", this.value = "", this.flipIcon = Io(this, this.flipIconInRtl), this.addEventListener("click", this.handleClick.bind(this));
   }
   willUpdate() {
     this.href && (this.disabled = !1, this.softDisabled = !1);
@@ -1791,7 +1791,7 @@ class M extends Ii {
       ?disabled="${e}"></md-ripple>`;
   }
   connectedCallback() {
-    this.flipIcon = zo(this, this.flipIconInRtl), super.connectedCallback();
+    this.flipIcon = Io(this, this.flipIconInRtl), super.connectedCallback();
   }
   /** Handles a click on this element. */
   handleClick(e) {
@@ -1848,9 +1848,9 @@ s([
   d({ reflect: !0 })
 ], M.prototype, "value", void 0);
 s([
-  A()
+  z()
 ], M.prototype, "flipIcon", void 0);
-const zi = u`:host{display:inline-flex;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);height:var(--_container-height);width:var(--_container-width);justify-content:center}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) max(0px,(48px - var(--_container-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host(:is([disabled],[soft-disabled])){pointer-events:none}.icon-button{place-items:center;background:none;border:none;box-sizing:border-box;cursor:pointer;display:flex;place-content:center;outline:none;padding:0;position:relative;text-decoration:none;user-select:none;z-index:0;flex:1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.icon ::slotted(*){font-size:var(--_icon-size);height:var(--_icon-size);width:var(--_icon-size);font-weight:inherit}md-ripple{z-index:-1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.flip-icon .icon{transform:scaleX(-1)}.icon{display:inline-flex}.link{display:grid;height:100%;outline:none;place-items:center;position:absolute;width:100%}.touch{position:absolute;height:max(48px,100%);width:max(48px,100%)}:host([touch-target=none]) .touch{display:none}@media(forced-colors: active){:host(:is([disabled],[soft-disabled])){--_disabled-icon-color: GrayText;--_disabled-icon-opacity: 1}}
+const Ii = u`:host{display:inline-flex;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);height:var(--_container-height);width:var(--_container-width);justify-content:center}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) max(0px,(48px - var(--_container-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host(:is([disabled],[soft-disabled])){pointer-events:none}.icon-button{place-items:center;background:none;border:none;box-sizing:border-box;cursor:pointer;display:flex;place-content:center;outline:none;padding:0;position:relative;text-decoration:none;user-select:none;z-index:0;flex:1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.icon ::slotted(*){font-size:var(--_icon-size);height:var(--_icon-size);width:var(--_icon-size);font-weight:inherit}md-ripple{z-index:-1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.flip-icon .icon{transform:scaleX(-1)}.icon{display:inline-flex}.link{display:grid;height:100%;outline:none;place-items:center;position:absolute;width:100%}.touch{position:absolute;height:max(48px,100%);width:max(48px,100%)}:host([touch-target=none]) .touch{display:none}@media(forced-colors: active){:host(:is([disabled],[soft-disabled])){--_disabled-icon-color: GrayText;--_disabled-icon-opacity: 1}}
 `;
 const Di = u`:host{--_disabled-icon-color: var(--md-icon-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-icon-button-disabled-icon-opacity, 0.38);--_icon-size: var(--md-icon-button-icon-size, 24px);--_selected-focus-icon-color: var(--md-icon-button-selected-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-icon-color: var(--md-icon-button-selected-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-color: var(--md-icon-button-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-opacity: var(--md-icon-button-selected-hover-state-layer-opacity, 0.08);--_selected-icon-color: var(--md-icon-button-selected-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-icon-color: var(--md-icon-button-selected-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-color: var(--md-icon-button-selected-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-opacity: var(--md-icon-button-selected-pressed-state-layer-opacity, 0.12);--_state-layer-height: var(--md-icon-button-state-layer-height, 40px);--_state-layer-shape: var(--md-icon-button-state-layer-shape, var(--md-sys-shape-corner-full, 9999px));--_state-layer-width: var(--md-icon-button-state-layer-width, 40px);--_focus-icon-color: var(--md-icon-button-focus-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-icon-color: var(--md-icon-button-hover-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-color: var(--md-icon-button-hover-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-opacity: var(--md-icon-button-hover-state-layer-opacity, 0.08);--_icon-color: var(--md-icon-button-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-icon-button-pressed-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-color: var(--md-icon-button-pressed-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-opacity: var(--md-icon-button-pressed-state-layer-opacity, 0.12);--_container-shape-start-start: 0;--_container-shape-start-end: 0;--_container-shape-end-end: 0;--_container-shape-end-start: 0;--_container-height: 0;--_container-width: 0;height:var(--_state-layer-height);width:var(--_state-layer-width)}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_state-layer-height))/2) max(0px,(48px - var(--_state-layer-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_state-layer-shape);--md-focus-ring-shape-start-end: var(--_state-layer-shape);--md-focus-ring-shape-end-end: var(--_state-layer-shape);--md-focus-ring-shape-end-start: var(--_state-layer-shape)}.standard{background-color:rgba(0,0,0,0);color:var(--_icon-color);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.standard:hover{color:var(--_hover-icon-color)}.standard:focus{color:var(--_focus-icon-color)}.standard:active{color:var(--_pressed-icon-color)}.standard:is(:disabled,[aria-disabled=true]){color:var(--_disabled-icon-color)}md-ripple{border-radius:var(--_state-layer-shape)}.standard:is(:disabled,[aria-disabled=true]){opacity:var(--_disabled-icon-opacity)}.selected:not(:disabled,[aria-disabled=true]){color:var(--_selected-icon-color)}.selected:not(:disabled,[aria-disabled=true]):hover{color:var(--_selected-hover-icon-color)}.selected:not(:disabled,[aria-disabled=true]):focus{color:var(--_selected-focus-icon-color)}.selected:not(:disabled,[aria-disabled=true]):active{color:var(--_selected-pressed-icon-color)}.selected{--md-ripple-hover-color: var(--_selected-hover-state-layer-color);--md-ripple-hover-opacity: var(--_selected-hover-state-layer-opacity);--md-ripple-pressed-color: var(--_selected-pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_selected-pressed-state-layer-opacity)}
 `;
@@ -1862,7 +1862,7 @@ let kt = class extends M {
     };
   }
 };
-kt.styles = [zi, Di];
+kt.styles = [Ii, Di];
 kt = s([
   _("md-icon-button")
 ], kt);
@@ -2050,13 +2050,13 @@ s([
   K({ slot: "aria-describedby" })
 ], T.prototype, "slottedAriaDescribedBy", void 0);
 s([
-  A()
+  z()
 ], T.prototype, "isAnimating", void 0);
 s([
-  A()
+  z()
 ], T.prototype, "refreshErrorAlert", void 0);
 s([
-  A()
+  z()
 ], T.prototype, "disableTransitions", void 0);
 s([
   w(".label.floating")
@@ -2581,7 +2581,7 @@ class y extends Wi {
       renderedControl: this.inputOrTextarea
     }));
   }
-  [Ae]() {
+  [ze]() {
     return this.inputOrTextarea;
   }
   [Qe](e) {
@@ -2676,16 +2676,16 @@ s([
   d({ reflect: !0 })
 ], y.prototype, "autocomplete", void 0);
 s([
-  A()
+  z()
 ], y.prototype, "dirty", void 0);
 s([
-  A()
+  z()
 ], y.prototype, "focused", void 0);
 s([
-  A()
+  z()
 ], y.prototype, "nativeError", void 0);
 s([
-  A()
+  z()
 ], y.prototype, "nativeErrorText", void 0);
 s([
   w(".input")
@@ -2730,15 +2730,15 @@ class Ki extends T {
     `;
   }
 }
-const Gi = u`@layer styles{:host{--_bottom-space: var(--md-outlined-field-bottom-space, 16px);--_content-color: var(--md-outlined-field-content-color, var(--md-sys-color-on-surface, #1d1b20));--_content-font: var(--md-outlined-field-content-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_content-line-height: var(--md-outlined-field-content-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_content-size: var(--md-outlined-field-content-size, var(--md-sys-typescale-body-large-size, 1rem));--_content-space: var(--md-outlined-field-content-space, 16px);--_content-weight: var(--md-outlined-field-content-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_disabled-content-color: var(--md-outlined-field-disabled-content-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-content-opacity: var(--md-outlined-field-disabled-content-opacity, 0.38);--_disabled-label-text-color: var(--md-outlined-field-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-outlined-field-disabled-label-text-opacity, 0.38);--_disabled-leading-content-color: var(--md-outlined-field-disabled-leading-content-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-leading-content-opacity: var(--md-outlined-field-disabled-leading-content-opacity, 0.38);--_disabled-outline-color: var(--md-outlined-field-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-opacity: var(--md-outlined-field-disabled-outline-opacity, 0.12);--_disabled-outline-width: var(--md-outlined-field-disabled-outline-width, 1px);--_disabled-supporting-text-color: var(--md-outlined-field-disabled-supporting-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-supporting-text-opacity: var(--md-outlined-field-disabled-supporting-text-opacity, 0.38);--_disabled-trailing-content-color: var(--md-outlined-field-disabled-trailing-content-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-trailing-content-opacity: var(--md-outlined-field-disabled-trailing-content-opacity, 0.38);--_error-content-color: var(--md-outlined-field-error-content-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-content-color: var(--md-outlined-field-error-focus-content-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-label-text-color: var(--md-outlined-field-error-focus-label-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-leading-content-color: var(--md-outlined-field-error-focus-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-focus-outline-color: var(--md-outlined-field-error-focus-outline-color, var(--md-sys-color-error, #b3261e));--_error-focus-supporting-text-color: var(--md-outlined-field-error-focus-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-trailing-content-color: var(--md-outlined-field-error-focus-trailing-content-color, var(--md-sys-color-error, #b3261e));--_error-hover-content-color: var(--md-outlined-field-error-hover-content-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-label-text-color: var(--md-outlined-field-error-hover-label-text-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-leading-content-color: var(--md-outlined-field-error-hover-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-hover-outline-color: var(--md-outlined-field-error-hover-outline-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-supporting-text-color: var(--md-outlined-field-error-hover-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-hover-trailing-content-color: var(--md-outlined-field-error-hover-trailing-content-color, var(--md-sys-color-on-error-container, #410e0b));--_error-label-text-color: var(--md-outlined-field-error-label-text-color, var(--md-sys-color-error, #b3261e));--_error-leading-content-color: var(--md-outlined-field-error-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-outline-color: var(--md-outlined-field-error-outline-color, var(--md-sys-color-error, #b3261e));--_error-supporting-text-color: var(--md-outlined-field-error-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-trailing-content-color: var(--md-outlined-field-error-trailing-content-color, var(--md-sys-color-error, #b3261e));--_focus-content-color: var(--md-outlined-field-focus-content-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-label-text-color: var(--md-outlined-field-focus-label-text-color, var(--md-sys-color-primary, #6750a4));--_focus-leading-content-color: var(--md-outlined-field-focus-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-outline-color: var(--md-outlined-field-focus-outline-color, var(--md-sys-color-primary, #6750a4));--_focus-outline-width: var(--md-outlined-field-focus-outline-width, 3px);--_focus-supporting-text-color: var(--md-outlined-field-focus-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-trailing-content-color: var(--md-outlined-field-focus-trailing-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-content-color: var(--md-outlined-field-hover-content-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-outlined-field-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-leading-content-color: var(--md-outlined-field-hover-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-outline-color: var(--md-outlined-field-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-outlined-field-hover-outline-width, 1px);--_hover-supporting-text-color: var(--md-outlined-field-hover-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-trailing-content-color: var(--md-outlined-field-hover-trailing-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-color: var(--md-outlined-field-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-font: var(--md-outlined-field-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-outlined-field-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_label-text-padding-bottom: var(--md-outlined-field-label-text-padding-bottom, 8px);--_label-text-populated-line-height: var(--md-outlined-field-label-text-populated-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_label-text-populated-size: var(--md-outlined-field-label-text-populated-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_label-text-size: var(--md-outlined-field-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_label-text-weight: var(--md-outlined-field-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_leading-content-color: var(--md-outlined-field-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_leading-space: var(--md-outlined-field-leading-space, 16px);--_outline-color: var(--md-outlined-field-outline-color, var(--md-sys-color-outline, #79747e));--_outline-label-padding: var(--md-outlined-field-outline-label-padding, 4px);--_outline-width: var(--md-outlined-field-outline-width, 1px);--_supporting-text-color: var(--md-outlined-field-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_supporting-text-font: var(--md-outlined-field-supporting-text-font, var(--md-sys-typescale-body-small-font, var(--md-ref-typeface-plain, Roboto)));--_supporting-text-leading-space: var(--md-outlined-field-supporting-text-leading-space, 16px);--_supporting-text-line-height: var(--md-outlined-field-supporting-text-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_supporting-text-size: var(--md-outlined-field-supporting-text-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_supporting-text-top-space: var(--md-outlined-field-supporting-text-top-space, 4px);--_supporting-text-trailing-space: var(--md-outlined-field-supporting-text-trailing-space, 16px);--_supporting-text-weight: var(--md-outlined-field-supporting-text-weight, var(--md-sys-typescale-body-small-weight, var(--md-ref-typeface-weight-regular, 400)));--_top-space: var(--md-outlined-field-top-space, 16px);--_trailing-content-color: var(--md-outlined-field-trailing-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_trailing-space: var(--md-outlined-field-trailing-space, 16px);--_with-leading-content-leading-space: var(--md-outlined-field-with-leading-content-leading-space, 12px);--_with-trailing-content-trailing-space: var(--md-outlined-field-with-trailing-content-trailing-space, 12px);--_container-shape-start-start: var(--md-outlined-field-container-shape-start-start, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-start-end: var(--md-outlined-field-container-shape-start-end, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-end: var(--md-outlined-field-container-shape-end-end, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-start: var(--md-outlined-field-container-shape-end-start, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)))}.outline{border-color:var(--_outline-color);border-radius:inherit;display:flex;pointer-events:none;height:100%;position:absolute;width:100%;z-index:1}.outline-start::before,.outline-start::after,.outline-panel-inactive::before,.outline-panel-inactive::after,.outline-panel-active::before,.outline-panel-active::after,.outline-end::before,.outline-end::after{border:inherit;content:"";inset:0;position:absolute}.outline-start,.outline-end{border:inherit;border-radius:inherit;box-sizing:border-box;position:relative}.outline-start::before,.outline-start::after,.outline-end::before,.outline-end::after{border-bottom-style:solid;border-top-style:solid}.outline-start::after,.outline-end::after{opacity:0;transition:opacity 150ms cubic-bezier(0.2, 0, 0, 1)}.focused .outline-start::after,.focused .outline-end::after{opacity:1}.outline-start::before,.outline-start::after{border-inline-start-style:solid;border-inline-end-style:none;border-start-start-radius:inherit;border-start-end-radius:0;border-end-start-radius:inherit;border-end-end-radius:0;margin-inline-end:var(--_outline-label-padding)}.outline-end{flex-grow:1;margin-inline-start:calc(-1*var(--_outline-label-padding))}.outline-end::before,.outline-end::after{border-inline-start-style:none;border-inline-end-style:solid;border-start-start-radius:0;border-start-end-radius:inherit;border-end-start-radius:0;border-end-end-radius:inherit}.outline-notch{align-items:flex-start;border:inherit;display:flex;margin-inline-start:calc(-1*var(--_outline-label-padding));margin-inline-end:var(--_outline-label-padding);max-width:calc(100% - var(--_leading-space) - var(--_trailing-space));padding:0 var(--_outline-label-padding);position:relative}.no-label .outline-notch{display:none}.outline-panel-inactive,.outline-panel-active{border:inherit;border-bottom-style:solid;inset:0;position:absolute}.outline-panel-inactive::before,.outline-panel-inactive::after,.outline-panel-active::before,.outline-panel-active::after{border-top-style:solid;border-bottom:none;bottom:auto;transform:scaleX(1);transition:transform 150ms cubic-bezier(0.2, 0, 0, 1)}.outline-panel-inactive::before,.outline-panel-active::before{right:50%;transform-origin:top left}.outline-panel-inactive::after,.outline-panel-active::after{left:50%;transform-origin:top right}.populated .outline-panel-inactive::before,.populated .outline-panel-inactive::after,.populated .outline-panel-active::before,.populated .outline-panel-active::after,.focused .outline-panel-inactive::before,.focused .outline-panel-inactive::after,.focused .outline-panel-active::before,.focused .outline-panel-active::after{transform:scaleX(0)}.outline-panel-active{opacity:0;transition:opacity 150ms cubic-bezier(0.2, 0, 0, 1)}.focused .outline-panel-active{opacity:1}.outline-label{display:flex;max-width:100%;transform:translateY(calc(-100% + var(--_label-text-padding-bottom)))}.outline-start,.field:not(.with-start) .content ::slotted(*){padding-inline-start:max(var(--_leading-space),max(var(--_container-shape-start-start),var(--_container-shape-end-start)) + var(--_outline-label-padding))}.field:not(.with-start) .label-wrapper{margin-inline-start:max(var(--_leading-space),max(var(--_container-shape-start-start),var(--_container-shape-end-start)) + var(--_outline-label-padding))}.field:not(.with-end) .content ::slotted(*){padding-inline-end:max(var(--_trailing-space),max(var(--_container-shape-start-end),var(--_container-shape-end-end)))}.field:not(.with-end) .label-wrapper{margin-inline-end:max(var(--_trailing-space),max(var(--_container-shape-start-end),var(--_container-shape-end-end)))}.outline-start::before,.outline-end::before,.outline-panel-inactive,.outline-panel-inactive::before,.outline-panel-inactive::after{border-width:var(--_outline-width)}:hover .outline{border-color:var(--_hover-outline-color);color:var(--_hover-outline-color)}:hover .outline-start::before,:hover .outline-end::before,:hover .outline-panel-inactive,:hover .outline-panel-inactive::before,:hover .outline-panel-inactive::after{border-width:var(--_hover-outline-width)}.focused .outline{border-color:var(--_focus-outline-color);color:var(--_focus-outline-color)}.outline-start::after,.outline-end::after,.outline-panel-active,.outline-panel-active::before,.outline-panel-active::after{border-width:var(--_focus-outline-width)}.disabled .outline{border-color:var(--_disabled-outline-color);color:var(--_disabled-outline-color)}.disabled .outline-start,.disabled .outline-end,.disabled .outline-panel-inactive{opacity:var(--_disabled-outline-opacity)}.disabled .outline-start::before,.disabled .outline-end::before,.disabled .outline-panel-inactive,.disabled .outline-panel-inactive::before,.disabled .outline-panel-inactive::after{border-width:var(--_disabled-outline-width)}.error .outline{border-color:var(--_error-outline-color);color:var(--_error-outline-color)}.error:hover .outline{border-color:var(--_error-hover-outline-color);color:var(--_error-hover-outline-color)}.error.focused .outline{border-color:var(--_error-focus-outline-color);color:var(--_error-focus-outline-color)}.resizable .container{bottom:var(--_focus-outline-width);inset-inline-end:var(--_focus-outline-width);clip-path:inset(var(--_focus-outline-width) 0 0 var(--_focus-outline-width))}.resizable .container>*{top:var(--_focus-outline-width);inset-inline-start:var(--_focus-outline-width)}.resizable .container:dir(rtl){clip-path:inset(var(--_focus-outline-width) var(--_focus-outline-width) 0 0)}}@layer hcm{@media(forced-colors: active){.disabled .outline{border-color:GrayText;color:GrayText}.disabled :is(.outline-start,.outline-end,.outline-panel-inactive){opacity:1}}}
+const Yi = u`@layer styles{:host{--_bottom-space: var(--md-outlined-field-bottom-space, 16px);--_content-color: var(--md-outlined-field-content-color, var(--md-sys-color-on-surface, #1d1b20));--_content-font: var(--md-outlined-field-content-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_content-line-height: var(--md-outlined-field-content-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_content-size: var(--md-outlined-field-content-size, var(--md-sys-typescale-body-large-size, 1rem));--_content-space: var(--md-outlined-field-content-space, 16px);--_content-weight: var(--md-outlined-field-content-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_disabled-content-color: var(--md-outlined-field-disabled-content-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-content-opacity: var(--md-outlined-field-disabled-content-opacity, 0.38);--_disabled-label-text-color: var(--md-outlined-field-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-outlined-field-disabled-label-text-opacity, 0.38);--_disabled-leading-content-color: var(--md-outlined-field-disabled-leading-content-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-leading-content-opacity: var(--md-outlined-field-disabled-leading-content-opacity, 0.38);--_disabled-outline-color: var(--md-outlined-field-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-opacity: var(--md-outlined-field-disabled-outline-opacity, 0.12);--_disabled-outline-width: var(--md-outlined-field-disabled-outline-width, 1px);--_disabled-supporting-text-color: var(--md-outlined-field-disabled-supporting-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-supporting-text-opacity: var(--md-outlined-field-disabled-supporting-text-opacity, 0.38);--_disabled-trailing-content-color: var(--md-outlined-field-disabled-trailing-content-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-trailing-content-opacity: var(--md-outlined-field-disabled-trailing-content-opacity, 0.38);--_error-content-color: var(--md-outlined-field-error-content-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-content-color: var(--md-outlined-field-error-focus-content-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-label-text-color: var(--md-outlined-field-error-focus-label-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-leading-content-color: var(--md-outlined-field-error-focus-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-focus-outline-color: var(--md-outlined-field-error-focus-outline-color, var(--md-sys-color-error, #b3261e));--_error-focus-supporting-text-color: var(--md-outlined-field-error-focus-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-trailing-content-color: var(--md-outlined-field-error-focus-trailing-content-color, var(--md-sys-color-error, #b3261e));--_error-hover-content-color: var(--md-outlined-field-error-hover-content-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-label-text-color: var(--md-outlined-field-error-hover-label-text-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-leading-content-color: var(--md-outlined-field-error-hover-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-hover-outline-color: var(--md-outlined-field-error-hover-outline-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-supporting-text-color: var(--md-outlined-field-error-hover-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-hover-trailing-content-color: var(--md-outlined-field-error-hover-trailing-content-color, var(--md-sys-color-on-error-container, #410e0b));--_error-label-text-color: var(--md-outlined-field-error-label-text-color, var(--md-sys-color-error, #b3261e));--_error-leading-content-color: var(--md-outlined-field-error-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-outline-color: var(--md-outlined-field-error-outline-color, var(--md-sys-color-error, #b3261e));--_error-supporting-text-color: var(--md-outlined-field-error-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-trailing-content-color: var(--md-outlined-field-error-trailing-content-color, var(--md-sys-color-error, #b3261e));--_focus-content-color: var(--md-outlined-field-focus-content-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-label-text-color: var(--md-outlined-field-focus-label-text-color, var(--md-sys-color-primary, #6750a4));--_focus-leading-content-color: var(--md-outlined-field-focus-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-outline-color: var(--md-outlined-field-focus-outline-color, var(--md-sys-color-primary, #6750a4));--_focus-outline-width: var(--md-outlined-field-focus-outline-width, 3px);--_focus-supporting-text-color: var(--md-outlined-field-focus-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-trailing-content-color: var(--md-outlined-field-focus-trailing-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-content-color: var(--md-outlined-field-hover-content-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-outlined-field-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-leading-content-color: var(--md-outlined-field-hover-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-outline-color: var(--md-outlined-field-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-outlined-field-hover-outline-width, 1px);--_hover-supporting-text-color: var(--md-outlined-field-hover-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-trailing-content-color: var(--md-outlined-field-hover-trailing-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-color: var(--md-outlined-field-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-font: var(--md-outlined-field-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-outlined-field-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_label-text-padding-bottom: var(--md-outlined-field-label-text-padding-bottom, 8px);--_label-text-populated-line-height: var(--md-outlined-field-label-text-populated-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_label-text-populated-size: var(--md-outlined-field-label-text-populated-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_label-text-size: var(--md-outlined-field-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_label-text-weight: var(--md-outlined-field-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_leading-content-color: var(--md-outlined-field-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_leading-space: var(--md-outlined-field-leading-space, 16px);--_outline-color: var(--md-outlined-field-outline-color, var(--md-sys-color-outline, #79747e));--_outline-label-padding: var(--md-outlined-field-outline-label-padding, 4px);--_outline-width: var(--md-outlined-field-outline-width, 1px);--_supporting-text-color: var(--md-outlined-field-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_supporting-text-font: var(--md-outlined-field-supporting-text-font, var(--md-sys-typescale-body-small-font, var(--md-ref-typeface-plain, Roboto)));--_supporting-text-leading-space: var(--md-outlined-field-supporting-text-leading-space, 16px);--_supporting-text-line-height: var(--md-outlined-field-supporting-text-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_supporting-text-size: var(--md-outlined-field-supporting-text-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_supporting-text-top-space: var(--md-outlined-field-supporting-text-top-space, 4px);--_supporting-text-trailing-space: var(--md-outlined-field-supporting-text-trailing-space, 16px);--_supporting-text-weight: var(--md-outlined-field-supporting-text-weight, var(--md-sys-typescale-body-small-weight, var(--md-ref-typeface-weight-regular, 400)));--_top-space: var(--md-outlined-field-top-space, 16px);--_trailing-content-color: var(--md-outlined-field-trailing-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_trailing-space: var(--md-outlined-field-trailing-space, 16px);--_with-leading-content-leading-space: var(--md-outlined-field-with-leading-content-leading-space, 12px);--_with-trailing-content-trailing-space: var(--md-outlined-field-with-trailing-content-trailing-space, 12px);--_container-shape-start-start: var(--md-outlined-field-container-shape-start-start, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-start-end: var(--md-outlined-field-container-shape-start-end, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-end: var(--md-outlined-field-container-shape-end-end, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-start: var(--md-outlined-field-container-shape-end-start, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)))}.outline{border-color:var(--_outline-color);border-radius:inherit;display:flex;pointer-events:none;height:100%;position:absolute;width:100%;z-index:1}.outline-start::before,.outline-start::after,.outline-panel-inactive::before,.outline-panel-inactive::after,.outline-panel-active::before,.outline-panel-active::after,.outline-end::before,.outline-end::after{border:inherit;content:"";inset:0;position:absolute}.outline-start,.outline-end{border:inherit;border-radius:inherit;box-sizing:border-box;position:relative}.outline-start::before,.outline-start::after,.outline-end::before,.outline-end::after{border-bottom-style:solid;border-top-style:solid}.outline-start::after,.outline-end::after{opacity:0;transition:opacity 150ms cubic-bezier(0.2, 0, 0, 1)}.focused .outline-start::after,.focused .outline-end::after{opacity:1}.outline-start::before,.outline-start::after{border-inline-start-style:solid;border-inline-end-style:none;border-start-start-radius:inherit;border-start-end-radius:0;border-end-start-radius:inherit;border-end-end-radius:0;margin-inline-end:var(--_outline-label-padding)}.outline-end{flex-grow:1;margin-inline-start:calc(-1*var(--_outline-label-padding))}.outline-end::before,.outline-end::after{border-inline-start-style:none;border-inline-end-style:solid;border-start-start-radius:0;border-start-end-radius:inherit;border-end-start-radius:0;border-end-end-radius:inherit}.outline-notch{align-items:flex-start;border:inherit;display:flex;margin-inline-start:calc(-1*var(--_outline-label-padding));margin-inline-end:var(--_outline-label-padding);max-width:calc(100% - var(--_leading-space) - var(--_trailing-space));padding:0 var(--_outline-label-padding);position:relative}.no-label .outline-notch{display:none}.outline-panel-inactive,.outline-panel-active{border:inherit;border-bottom-style:solid;inset:0;position:absolute}.outline-panel-inactive::before,.outline-panel-inactive::after,.outline-panel-active::before,.outline-panel-active::after{border-top-style:solid;border-bottom:none;bottom:auto;transform:scaleX(1);transition:transform 150ms cubic-bezier(0.2, 0, 0, 1)}.outline-panel-inactive::before,.outline-panel-active::before{right:50%;transform-origin:top left}.outline-panel-inactive::after,.outline-panel-active::after{left:50%;transform-origin:top right}.populated .outline-panel-inactive::before,.populated .outline-panel-inactive::after,.populated .outline-panel-active::before,.populated .outline-panel-active::after,.focused .outline-panel-inactive::before,.focused .outline-panel-inactive::after,.focused .outline-panel-active::before,.focused .outline-panel-active::after{transform:scaleX(0)}.outline-panel-active{opacity:0;transition:opacity 150ms cubic-bezier(0.2, 0, 0, 1)}.focused .outline-panel-active{opacity:1}.outline-label{display:flex;max-width:100%;transform:translateY(calc(-100% + var(--_label-text-padding-bottom)))}.outline-start,.field:not(.with-start) .content ::slotted(*){padding-inline-start:max(var(--_leading-space),max(var(--_container-shape-start-start),var(--_container-shape-end-start)) + var(--_outline-label-padding))}.field:not(.with-start) .label-wrapper{margin-inline-start:max(var(--_leading-space),max(var(--_container-shape-start-start),var(--_container-shape-end-start)) + var(--_outline-label-padding))}.field:not(.with-end) .content ::slotted(*){padding-inline-end:max(var(--_trailing-space),max(var(--_container-shape-start-end),var(--_container-shape-end-end)))}.field:not(.with-end) .label-wrapper{margin-inline-end:max(var(--_trailing-space),max(var(--_container-shape-start-end),var(--_container-shape-end-end)))}.outline-start::before,.outline-end::before,.outline-panel-inactive,.outline-panel-inactive::before,.outline-panel-inactive::after{border-width:var(--_outline-width)}:hover .outline{border-color:var(--_hover-outline-color);color:var(--_hover-outline-color)}:hover .outline-start::before,:hover .outline-end::before,:hover .outline-panel-inactive,:hover .outline-panel-inactive::before,:hover .outline-panel-inactive::after{border-width:var(--_hover-outline-width)}.focused .outline{border-color:var(--_focus-outline-color);color:var(--_focus-outline-color)}.outline-start::after,.outline-end::after,.outline-panel-active,.outline-panel-active::before,.outline-panel-active::after{border-width:var(--_focus-outline-width)}.disabled .outline{border-color:var(--_disabled-outline-color);color:var(--_disabled-outline-color)}.disabled .outline-start,.disabled .outline-end,.disabled .outline-panel-inactive{opacity:var(--_disabled-outline-opacity)}.disabled .outline-start::before,.disabled .outline-end::before,.disabled .outline-panel-inactive,.disabled .outline-panel-inactive::before,.disabled .outline-panel-inactive::after{border-width:var(--_disabled-outline-width)}.error .outline{border-color:var(--_error-outline-color);color:var(--_error-outline-color)}.error:hover .outline{border-color:var(--_error-hover-outline-color);color:var(--_error-hover-outline-color)}.error.focused .outline{border-color:var(--_error-focus-outline-color);color:var(--_error-focus-outline-color)}.resizable .container{bottom:var(--_focus-outline-width);inset-inline-end:var(--_focus-outline-width);clip-path:inset(var(--_focus-outline-width) 0 0 var(--_focus-outline-width))}.resizable .container>*{top:var(--_focus-outline-width);inset-inline-start:var(--_focus-outline-width)}.resizable .container:dir(rtl){clip-path:inset(var(--_focus-outline-width) var(--_focus-outline-width) 0 0)}}@layer hcm{@media(forced-colors: active){.disabled .outline{border-color:GrayText;color:GrayText}.disabled :is(.outline-start,.outline-end,.outline-panel-inactive){opacity:1}}}
 `;
 let Et = class extends Ki {
 };
-Et.styles = [tr, Gi];
+Et.styles = [tr, Yi];
 Et = s([
   _("md-outlined-field")
 ], Et);
-const Yi = u`:host{--_caret-color: var(--md-outlined-text-field-caret-color, var(--md-sys-color-primary, #6750a4));--_disabled-input-text-color: var(--md-outlined-text-field-disabled-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-input-text-opacity: var(--md-outlined-text-field-disabled-input-text-opacity, 0.38);--_disabled-label-text-color: var(--md-outlined-text-field-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-outlined-text-field-disabled-label-text-opacity, 0.38);--_disabled-leading-icon-color: var(--md-outlined-text-field-disabled-leading-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-leading-icon-opacity: var(--md-outlined-text-field-disabled-leading-icon-opacity, 0.38);--_disabled-outline-color: var(--md-outlined-text-field-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-opacity: var(--md-outlined-text-field-disabled-outline-opacity, 0.12);--_disabled-outline-width: var(--md-outlined-text-field-disabled-outline-width, 1px);--_disabled-supporting-text-color: var(--md-outlined-text-field-disabled-supporting-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-supporting-text-opacity: var(--md-outlined-text-field-disabled-supporting-text-opacity, 0.38);--_disabled-trailing-icon-color: var(--md-outlined-text-field-disabled-trailing-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-trailing-icon-opacity: var(--md-outlined-text-field-disabled-trailing-icon-opacity, 0.38);--_error-focus-caret-color: var(--md-outlined-text-field-error-focus-caret-color, var(--md-sys-color-error, #b3261e));--_error-focus-input-text-color: var(--md-outlined-text-field-error-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-label-text-color: var(--md-outlined-text-field-error-focus-label-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-leading-icon-color: var(--md-outlined-text-field-error-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-focus-outline-color: var(--md-outlined-text-field-error-focus-outline-color, var(--md-sys-color-error, #b3261e));--_error-focus-supporting-text-color: var(--md-outlined-text-field-error-focus-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-trailing-icon-color: var(--md-outlined-text-field-error-focus-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_error-hover-input-text-color: var(--md-outlined-text-field-error-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-label-text-color: var(--md-outlined-text-field-error-hover-label-text-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-leading-icon-color: var(--md-outlined-text-field-error-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-hover-outline-color: var(--md-outlined-text-field-error-hover-outline-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-supporting-text-color: var(--md-outlined-text-field-error-hover-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-hover-trailing-icon-color: var(--md-outlined-text-field-error-hover-trailing-icon-color, var(--md-sys-color-on-error-container, #410e0b));--_error-input-text-color: var(--md-outlined-text-field-error-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-label-text-color: var(--md-outlined-text-field-error-label-text-color, var(--md-sys-color-error, #b3261e));--_error-leading-icon-color: var(--md-outlined-text-field-error-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-outline-color: var(--md-outlined-text-field-error-outline-color, var(--md-sys-color-error, #b3261e));--_error-supporting-text-color: var(--md-outlined-text-field-error-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-trailing-icon-color: var(--md-outlined-text-field-error-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_focus-input-text-color: var(--md-outlined-text-field-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-label-text-color: var(--md-outlined-text-field-focus-label-text-color, var(--md-sys-color-primary, #6750a4));--_focus-leading-icon-color: var(--md-outlined-text-field-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-outline-color: var(--md-outlined-text-field-focus-outline-color, var(--md-sys-color-primary, #6750a4));--_focus-outline-width: var(--md-outlined-text-field-focus-outline-width, 3px);--_focus-supporting-text-color: var(--md-outlined-text-field-focus-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-trailing-icon-color: var(--md-outlined-text-field-focus-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-input-text-color: var(--md-outlined-text-field-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-outlined-text-field-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-leading-icon-color: var(--md-outlined-text-field-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-outline-color: var(--md-outlined-text-field-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-outlined-text-field-hover-outline-width, 1px);--_hover-supporting-text-color: var(--md-outlined-text-field-hover-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-trailing-icon-color: var(--md-outlined-text-field-hover-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-color: var(--md-outlined-text-field-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_input-text-font: var(--md-outlined-text-field-input-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_input-text-line-height: var(--md-outlined-text-field-input-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_input-text-placeholder-color: var(--md-outlined-text-field-input-text-placeholder-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-prefix-color: var(--md-outlined-text-field-input-text-prefix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-size: var(--md-outlined-text-field-input-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_input-text-suffix-color: var(--md-outlined-text-field-input-text-suffix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-weight: var(--md-outlined-text-field-input-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_label-text-color: var(--md-outlined-text-field-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-font: var(--md-outlined-text-field-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-outlined-text-field-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_label-text-populated-line-height: var(--md-outlined-text-field-label-text-populated-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_label-text-populated-size: var(--md-outlined-text-field-label-text-populated-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_label-text-size: var(--md-outlined-text-field-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_label-text-weight: var(--md-outlined-text-field-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_leading-icon-color: var(--md-outlined-text-field-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_leading-icon-size: var(--md-outlined-text-field-leading-icon-size, 24px);--_outline-color: var(--md-outlined-text-field-outline-color, var(--md-sys-color-outline, #79747e));--_outline-width: var(--md-outlined-text-field-outline-width, 1px);--_supporting-text-color: var(--md-outlined-text-field-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_supporting-text-font: var(--md-outlined-text-field-supporting-text-font, var(--md-sys-typescale-body-small-font, var(--md-ref-typeface-plain, Roboto)));--_supporting-text-line-height: var(--md-outlined-text-field-supporting-text-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_supporting-text-size: var(--md-outlined-text-field-supporting-text-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_supporting-text-weight: var(--md-outlined-text-field-supporting-text-weight, var(--md-sys-typescale-body-small-weight, var(--md-ref-typeface-weight-regular, 400)));--_trailing-icon-color: var(--md-outlined-text-field-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_trailing-icon-size: var(--md-outlined-text-field-trailing-icon-size, 24px);--_container-shape-start-start: var(--md-outlined-text-field-container-shape-start-start, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-start-end: var(--md-outlined-text-field-container-shape-start-end, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-end: var(--md-outlined-text-field-container-shape-end-end, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-start: var(--md-outlined-text-field-container-shape-end-start, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_icon-input-space: var(--md-outlined-text-field-icon-input-space, 16px);--_leading-space: var(--md-outlined-text-field-leading-space, 16px);--_trailing-space: var(--md-outlined-text-field-trailing-space, 16px);--_top-space: var(--md-outlined-text-field-top-space, 16px);--_bottom-space: var(--md-outlined-text-field-bottom-space, 16px);--_input-text-prefix-trailing-space: var(--md-outlined-text-field-input-text-prefix-trailing-space, 2px);--_input-text-suffix-leading-space: var(--md-outlined-text-field-input-text-suffix-leading-space, 2px);--_focus-caret-color: var(--md-outlined-text-field-focus-caret-color, var(--md-sys-color-primary, #6750a4));--_with-leading-icon-leading-space: var(--md-outlined-text-field-with-leading-icon-leading-space, 12px);--_with-trailing-icon-trailing-space: var(--md-outlined-text-field-with-trailing-icon-trailing-space, 12px);--md-outlined-field-bottom-space: var(--_bottom-space);--md-outlined-field-container-shape-end-end: var(--_container-shape-end-end);--md-outlined-field-container-shape-end-start: var(--_container-shape-end-start);--md-outlined-field-container-shape-start-end: var(--_container-shape-start-end);--md-outlined-field-container-shape-start-start: var(--_container-shape-start-start);--md-outlined-field-content-color: var(--_input-text-color);--md-outlined-field-content-font: var(--_input-text-font);--md-outlined-field-content-line-height: var(--_input-text-line-height);--md-outlined-field-content-size: var(--_input-text-size);--md-outlined-field-content-space: var(--_icon-input-space);--md-outlined-field-content-weight: var(--_input-text-weight);--md-outlined-field-disabled-content-color: var(--_disabled-input-text-color);--md-outlined-field-disabled-content-opacity: var(--_disabled-input-text-opacity);--md-outlined-field-disabled-label-text-color: var(--_disabled-label-text-color);--md-outlined-field-disabled-label-text-opacity: var(--_disabled-label-text-opacity);--md-outlined-field-disabled-leading-content-color: var(--_disabled-leading-icon-color);--md-outlined-field-disabled-leading-content-opacity: var(--_disabled-leading-icon-opacity);--md-outlined-field-disabled-outline-color: var(--_disabled-outline-color);--md-outlined-field-disabled-outline-opacity: var(--_disabled-outline-opacity);--md-outlined-field-disabled-outline-width: var(--_disabled-outline-width);--md-outlined-field-disabled-supporting-text-color: var(--_disabled-supporting-text-color);--md-outlined-field-disabled-supporting-text-opacity: var(--_disabled-supporting-text-opacity);--md-outlined-field-disabled-trailing-content-color: var(--_disabled-trailing-icon-color);--md-outlined-field-disabled-trailing-content-opacity: var(--_disabled-trailing-icon-opacity);--md-outlined-field-error-content-color: var(--_error-input-text-color);--md-outlined-field-error-focus-content-color: var(--_error-focus-input-text-color);--md-outlined-field-error-focus-label-text-color: var(--_error-focus-label-text-color);--md-outlined-field-error-focus-leading-content-color: var(--_error-focus-leading-icon-color);--md-outlined-field-error-focus-outline-color: var(--_error-focus-outline-color);--md-outlined-field-error-focus-supporting-text-color: var(--_error-focus-supporting-text-color);--md-outlined-field-error-focus-trailing-content-color: var(--_error-focus-trailing-icon-color);--md-outlined-field-error-hover-content-color: var(--_error-hover-input-text-color);--md-outlined-field-error-hover-label-text-color: var(--_error-hover-label-text-color);--md-outlined-field-error-hover-leading-content-color: var(--_error-hover-leading-icon-color);--md-outlined-field-error-hover-outline-color: var(--_error-hover-outline-color);--md-outlined-field-error-hover-supporting-text-color: var(--_error-hover-supporting-text-color);--md-outlined-field-error-hover-trailing-content-color: var(--_error-hover-trailing-icon-color);--md-outlined-field-error-label-text-color: var(--_error-label-text-color);--md-outlined-field-error-leading-content-color: var(--_error-leading-icon-color);--md-outlined-field-error-outline-color: var(--_error-outline-color);--md-outlined-field-error-supporting-text-color: var(--_error-supporting-text-color);--md-outlined-field-error-trailing-content-color: var(--_error-trailing-icon-color);--md-outlined-field-focus-content-color: var(--_focus-input-text-color);--md-outlined-field-focus-label-text-color: var(--_focus-label-text-color);--md-outlined-field-focus-leading-content-color: var(--_focus-leading-icon-color);--md-outlined-field-focus-outline-color: var(--_focus-outline-color);--md-outlined-field-focus-outline-width: var(--_focus-outline-width);--md-outlined-field-focus-supporting-text-color: var(--_focus-supporting-text-color);--md-outlined-field-focus-trailing-content-color: var(--_focus-trailing-icon-color);--md-outlined-field-hover-content-color: var(--_hover-input-text-color);--md-outlined-field-hover-label-text-color: var(--_hover-label-text-color);--md-outlined-field-hover-leading-content-color: var(--_hover-leading-icon-color);--md-outlined-field-hover-outline-color: var(--_hover-outline-color);--md-outlined-field-hover-outline-width: var(--_hover-outline-width);--md-outlined-field-hover-supporting-text-color: var(--_hover-supporting-text-color);--md-outlined-field-hover-trailing-content-color: var(--_hover-trailing-icon-color);--md-outlined-field-label-text-color: var(--_label-text-color);--md-outlined-field-label-text-font: var(--_label-text-font);--md-outlined-field-label-text-line-height: var(--_label-text-line-height);--md-outlined-field-label-text-populated-line-height: var(--_label-text-populated-line-height);--md-outlined-field-label-text-populated-size: var(--_label-text-populated-size);--md-outlined-field-label-text-size: var(--_label-text-size);--md-outlined-field-label-text-weight: var(--_label-text-weight);--md-outlined-field-leading-content-color: var(--_leading-icon-color);--md-outlined-field-leading-space: var(--_leading-space);--md-outlined-field-outline-color: var(--_outline-color);--md-outlined-field-outline-width: var(--_outline-width);--md-outlined-field-supporting-text-color: var(--_supporting-text-color);--md-outlined-field-supporting-text-font: var(--_supporting-text-font);--md-outlined-field-supporting-text-line-height: var(--_supporting-text-line-height);--md-outlined-field-supporting-text-size: var(--_supporting-text-size);--md-outlined-field-supporting-text-weight: var(--_supporting-text-weight);--md-outlined-field-top-space: var(--_top-space);--md-outlined-field-trailing-content-color: var(--_trailing-icon-color);--md-outlined-field-trailing-space: var(--_trailing-space);--md-outlined-field-with-leading-content-leading-space: var(--_with-leading-icon-leading-space);--md-outlined-field-with-trailing-content-trailing-space: var(--_with-trailing-icon-trailing-space)}
+const Gi = u`:host{--_caret-color: var(--md-outlined-text-field-caret-color, var(--md-sys-color-primary, #6750a4));--_disabled-input-text-color: var(--md-outlined-text-field-disabled-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-input-text-opacity: var(--md-outlined-text-field-disabled-input-text-opacity, 0.38);--_disabled-label-text-color: var(--md-outlined-text-field-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-outlined-text-field-disabled-label-text-opacity, 0.38);--_disabled-leading-icon-color: var(--md-outlined-text-field-disabled-leading-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-leading-icon-opacity: var(--md-outlined-text-field-disabled-leading-icon-opacity, 0.38);--_disabled-outline-color: var(--md-outlined-text-field-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-opacity: var(--md-outlined-text-field-disabled-outline-opacity, 0.12);--_disabled-outline-width: var(--md-outlined-text-field-disabled-outline-width, 1px);--_disabled-supporting-text-color: var(--md-outlined-text-field-disabled-supporting-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-supporting-text-opacity: var(--md-outlined-text-field-disabled-supporting-text-opacity, 0.38);--_disabled-trailing-icon-color: var(--md-outlined-text-field-disabled-trailing-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-trailing-icon-opacity: var(--md-outlined-text-field-disabled-trailing-icon-opacity, 0.38);--_error-focus-caret-color: var(--md-outlined-text-field-error-focus-caret-color, var(--md-sys-color-error, #b3261e));--_error-focus-input-text-color: var(--md-outlined-text-field-error-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-label-text-color: var(--md-outlined-text-field-error-focus-label-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-leading-icon-color: var(--md-outlined-text-field-error-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-focus-outline-color: var(--md-outlined-text-field-error-focus-outline-color, var(--md-sys-color-error, #b3261e));--_error-focus-supporting-text-color: var(--md-outlined-text-field-error-focus-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-trailing-icon-color: var(--md-outlined-text-field-error-focus-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_error-hover-input-text-color: var(--md-outlined-text-field-error-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-label-text-color: var(--md-outlined-text-field-error-hover-label-text-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-leading-icon-color: var(--md-outlined-text-field-error-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-hover-outline-color: var(--md-outlined-text-field-error-hover-outline-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-supporting-text-color: var(--md-outlined-text-field-error-hover-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-hover-trailing-icon-color: var(--md-outlined-text-field-error-hover-trailing-icon-color, var(--md-sys-color-on-error-container, #410e0b));--_error-input-text-color: var(--md-outlined-text-field-error-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-label-text-color: var(--md-outlined-text-field-error-label-text-color, var(--md-sys-color-error, #b3261e));--_error-leading-icon-color: var(--md-outlined-text-field-error-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-outline-color: var(--md-outlined-text-field-error-outline-color, var(--md-sys-color-error, #b3261e));--_error-supporting-text-color: var(--md-outlined-text-field-error-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-trailing-icon-color: var(--md-outlined-text-field-error-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_focus-input-text-color: var(--md-outlined-text-field-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-label-text-color: var(--md-outlined-text-field-focus-label-text-color, var(--md-sys-color-primary, #6750a4));--_focus-leading-icon-color: var(--md-outlined-text-field-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-outline-color: var(--md-outlined-text-field-focus-outline-color, var(--md-sys-color-primary, #6750a4));--_focus-outline-width: var(--md-outlined-text-field-focus-outline-width, 3px);--_focus-supporting-text-color: var(--md-outlined-text-field-focus-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-trailing-icon-color: var(--md-outlined-text-field-focus-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-input-text-color: var(--md-outlined-text-field-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-outlined-text-field-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-leading-icon-color: var(--md-outlined-text-field-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-outline-color: var(--md-outlined-text-field-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-outlined-text-field-hover-outline-width, 1px);--_hover-supporting-text-color: var(--md-outlined-text-field-hover-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-trailing-icon-color: var(--md-outlined-text-field-hover-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-color: var(--md-outlined-text-field-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_input-text-font: var(--md-outlined-text-field-input-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_input-text-line-height: var(--md-outlined-text-field-input-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_input-text-placeholder-color: var(--md-outlined-text-field-input-text-placeholder-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-prefix-color: var(--md-outlined-text-field-input-text-prefix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-size: var(--md-outlined-text-field-input-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_input-text-suffix-color: var(--md-outlined-text-field-input-text-suffix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-weight: var(--md-outlined-text-field-input-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_label-text-color: var(--md-outlined-text-field-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-font: var(--md-outlined-text-field-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-outlined-text-field-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_label-text-populated-line-height: var(--md-outlined-text-field-label-text-populated-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_label-text-populated-size: var(--md-outlined-text-field-label-text-populated-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_label-text-size: var(--md-outlined-text-field-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_label-text-weight: var(--md-outlined-text-field-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_leading-icon-color: var(--md-outlined-text-field-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_leading-icon-size: var(--md-outlined-text-field-leading-icon-size, 24px);--_outline-color: var(--md-outlined-text-field-outline-color, var(--md-sys-color-outline, #79747e));--_outline-width: var(--md-outlined-text-field-outline-width, 1px);--_supporting-text-color: var(--md-outlined-text-field-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_supporting-text-font: var(--md-outlined-text-field-supporting-text-font, var(--md-sys-typescale-body-small-font, var(--md-ref-typeface-plain, Roboto)));--_supporting-text-line-height: var(--md-outlined-text-field-supporting-text-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_supporting-text-size: var(--md-outlined-text-field-supporting-text-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_supporting-text-weight: var(--md-outlined-text-field-supporting-text-weight, var(--md-sys-typescale-body-small-weight, var(--md-ref-typeface-weight-regular, 400)));--_trailing-icon-color: var(--md-outlined-text-field-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_trailing-icon-size: var(--md-outlined-text-field-trailing-icon-size, 24px);--_container-shape-start-start: var(--md-outlined-text-field-container-shape-start-start, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-start-end: var(--md-outlined-text-field-container-shape-start-end, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-end: var(--md-outlined-text-field-container-shape-end-end, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-start: var(--md-outlined-text-field-container-shape-end-start, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_icon-input-space: var(--md-outlined-text-field-icon-input-space, 16px);--_leading-space: var(--md-outlined-text-field-leading-space, 16px);--_trailing-space: var(--md-outlined-text-field-trailing-space, 16px);--_top-space: var(--md-outlined-text-field-top-space, 16px);--_bottom-space: var(--md-outlined-text-field-bottom-space, 16px);--_input-text-prefix-trailing-space: var(--md-outlined-text-field-input-text-prefix-trailing-space, 2px);--_input-text-suffix-leading-space: var(--md-outlined-text-field-input-text-suffix-leading-space, 2px);--_focus-caret-color: var(--md-outlined-text-field-focus-caret-color, var(--md-sys-color-primary, #6750a4));--_with-leading-icon-leading-space: var(--md-outlined-text-field-with-leading-icon-leading-space, 12px);--_with-trailing-icon-trailing-space: var(--md-outlined-text-field-with-trailing-icon-trailing-space, 12px);--md-outlined-field-bottom-space: var(--_bottom-space);--md-outlined-field-container-shape-end-end: var(--_container-shape-end-end);--md-outlined-field-container-shape-end-start: var(--_container-shape-end-start);--md-outlined-field-container-shape-start-end: var(--_container-shape-start-end);--md-outlined-field-container-shape-start-start: var(--_container-shape-start-start);--md-outlined-field-content-color: var(--_input-text-color);--md-outlined-field-content-font: var(--_input-text-font);--md-outlined-field-content-line-height: var(--_input-text-line-height);--md-outlined-field-content-size: var(--_input-text-size);--md-outlined-field-content-space: var(--_icon-input-space);--md-outlined-field-content-weight: var(--_input-text-weight);--md-outlined-field-disabled-content-color: var(--_disabled-input-text-color);--md-outlined-field-disabled-content-opacity: var(--_disabled-input-text-opacity);--md-outlined-field-disabled-label-text-color: var(--_disabled-label-text-color);--md-outlined-field-disabled-label-text-opacity: var(--_disabled-label-text-opacity);--md-outlined-field-disabled-leading-content-color: var(--_disabled-leading-icon-color);--md-outlined-field-disabled-leading-content-opacity: var(--_disabled-leading-icon-opacity);--md-outlined-field-disabled-outline-color: var(--_disabled-outline-color);--md-outlined-field-disabled-outline-opacity: var(--_disabled-outline-opacity);--md-outlined-field-disabled-outline-width: var(--_disabled-outline-width);--md-outlined-field-disabled-supporting-text-color: var(--_disabled-supporting-text-color);--md-outlined-field-disabled-supporting-text-opacity: var(--_disabled-supporting-text-opacity);--md-outlined-field-disabled-trailing-content-color: var(--_disabled-trailing-icon-color);--md-outlined-field-disabled-trailing-content-opacity: var(--_disabled-trailing-icon-opacity);--md-outlined-field-error-content-color: var(--_error-input-text-color);--md-outlined-field-error-focus-content-color: var(--_error-focus-input-text-color);--md-outlined-field-error-focus-label-text-color: var(--_error-focus-label-text-color);--md-outlined-field-error-focus-leading-content-color: var(--_error-focus-leading-icon-color);--md-outlined-field-error-focus-outline-color: var(--_error-focus-outline-color);--md-outlined-field-error-focus-supporting-text-color: var(--_error-focus-supporting-text-color);--md-outlined-field-error-focus-trailing-content-color: var(--_error-focus-trailing-icon-color);--md-outlined-field-error-hover-content-color: var(--_error-hover-input-text-color);--md-outlined-field-error-hover-label-text-color: var(--_error-hover-label-text-color);--md-outlined-field-error-hover-leading-content-color: var(--_error-hover-leading-icon-color);--md-outlined-field-error-hover-outline-color: var(--_error-hover-outline-color);--md-outlined-field-error-hover-supporting-text-color: var(--_error-hover-supporting-text-color);--md-outlined-field-error-hover-trailing-content-color: var(--_error-hover-trailing-icon-color);--md-outlined-field-error-label-text-color: var(--_error-label-text-color);--md-outlined-field-error-leading-content-color: var(--_error-leading-icon-color);--md-outlined-field-error-outline-color: var(--_error-outline-color);--md-outlined-field-error-supporting-text-color: var(--_error-supporting-text-color);--md-outlined-field-error-trailing-content-color: var(--_error-trailing-icon-color);--md-outlined-field-focus-content-color: var(--_focus-input-text-color);--md-outlined-field-focus-label-text-color: var(--_focus-label-text-color);--md-outlined-field-focus-leading-content-color: var(--_focus-leading-icon-color);--md-outlined-field-focus-outline-color: var(--_focus-outline-color);--md-outlined-field-focus-outline-width: var(--_focus-outline-width);--md-outlined-field-focus-supporting-text-color: var(--_focus-supporting-text-color);--md-outlined-field-focus-trailing-content-color: var(--_focus-trailing-icon-color);--md-outlined-field-hover-content-color: var(--_hover-input-text-color);--md-outlined-field-hover-label-text-color: var(--_hover-label-text-color);--md-outlined-field-hover-leading-content-color: var(--_hover-leading-icon-color);--md-outlined-field-hover-outline-color: var(--_hover-outline-color);--md-outlined-field-hover-outline-width: var(--_hover-outline-width);--md-outlined-field-hover-supporting-text-color: var(--_hover-supporting-text-color);--md-outlined-field-hover-trailing-content-color: var(--_hover-trailing-icon-color);--md-outlined-field-label-text-color: var(--_label-text-color);--md-outlined-field-label-text-font: var(--_label-text-font);--md-outlined-field-label-text-line-height: var(--_label-text-line-height);--md-outlined-field-label-text-populated-line-height: var(--_label-text-populated-line-height);--md-outlined-field-label-text-populated-size: var(--_label-text-populated-size);--md-outlined-field-label-text-size: var(--_label-text-size);--md-outlined-field-label-text-weight: var(--_label-text-weight);--md-outlined-field-leading-content-color: var(--_leading-icon-color);--md-outlined-field-leading-space: var(--_leading-space);--md-outlined-field-outline-color: var(--_outline-color);--md-outlined-field-outline-width: var(--_outline-width);--md-outlined-field-supporting-text-color: var(--_supporting-text-color);--md-outlined-field-supporting-text-font: var(--_supporting-text-font);--md-outlined-field-supporting-text-line-height: var(--_supporting-text-line-height);--md-outlined-field-supporting-text-size: var(--_supporting-text-size);--md-outlined-field-supporting-text-weight: var(--_supporting-text-weight);--md-outlined-field-top-space: var(--_top-space);--md-outlined-field-trailing-content-color: var(--_trailing-icon-color);--md-outlined-field-trailing-space: var(--_trailing-space);--md-outlined-field-with-leading-content-leading-space: var(--_with-leading-icon-leading-space);--md-outlined-field-with-trailing-content-trailing-space: var(--_with-trailing-icon-trailing-space)}
 `;
 class Xi extends y {
   constructor() {
@@ -2750,7 +2750,7 @@ let St = class extends Xi {
     super(...arguments), this.fieldTag = ie`md-outlined-field`;
   }
 };
-St.styles = [ir, Yi];
+St.styles = [ir, Gi];
 St = s([
   _("md-outlined-text-field")
 ], St);
@@ -2955,7 +2955,7 @@ function lr(r) {
 function oa(r) {
   return Object.values(Tt).some((e) => e === r);
 }
-function At(r, e) {
+function zt(r, e) {
   const t = new Event("md-contains", { bubbles: !0, composed: !0 });
   let o = [];
   const i = (n) => {
@@ -3012,7 +3012,7 @@ class ra {
       opacity: "0"
     }, this.host.requestUpdate(), await this.host.updateComplete, e.popover && e.isConnected && e.showPopover();
     const O = e.getSurfacePositionClientRect ? e.getSurfacePositionClientRect() : e.getBoundingClientRect(), F = t.getSurfacePositionClientRect ? t.getSurfacePositionClientRect() : t.getBoundingClientRect(), [R, ee] = b.split("-"), [te, ne] = m.split("-"), Oe = getComputedStyle(e).direction === "ltr";
-    let { blockInset: ue, blockOutOfBoundsCorrection: Y, surfaceBlockProperty: mo } = this.calculateBlock({
+    let { blockInset: ue, blockOutOfBoundsCorrection: G, surfaceBlockProperty: mo } = this.calculateBlock({
       surfaceRect: O,
       anchorRect: F,
       anchorBlock: te,
@@ -3022,7 +3022,7 @@ class ra {
       windowInnerHeight: E,
       blockScrollbarHeight: D
     });
-    if (Y && !p) {
+    if (G && !p) {
       const rt = R === "start" ? "end" : "start", it = te === "start" ? "end" : "start", X = this.calculateBlock({
         surfaceRect: O,
         anchorRect: F,
@@ -3033,7 +3033,7 @@ class ra {
         windowInnerHeight: E,
         blockScrollbarHeight: D
       });
-      Y > X.blockOutOfBoundsCorrection && (ue = X.blockInset, Y = X.blockOutOfBoundsCorrection, mo = X.surfaceBlockProperty);
+      G > X.blockOutOfBoundsCorrection && (ue = X.blockInset, G = X.blockOutOfBoundsCorrection, mo = X.surfaceBlockProperty);
     }
     let { inlineInset: Pe, inlineOutOfBoundsCorrection: me, surfaceInlineProperty: fo } = this.calculateInline({
       surfaceRect: O,
@@ -3060,12 +3060,12 @@ class ra {
       });
       Math.abs(me) > Math.abs(X.inlineOutOfBoundsCorrection) && (Pe = X.inlineInset, me = X.inlineOutOfBoundsCorrection, fo = X.surfaceInlineProperty);
     }
-    f === "move" && (ue = ue - Y, Pe = Pe - me), this.surfaceStylesInternal = {
+    f === "move" && (ue = ue - G, Pe = Pe - me), this.surfaceStylesInternal = {
       display: "block",
       opacity: "1",
       [mo]: `${ue}px`,
       [fo]: `${Pe}px`
-    }, f === "resize" && (Y && (this.surfaceStylesInternal.height = `${O.height - Y}px`), me && (this.surfaceStylesInternal.width = `${O.width - me}px`)), this.host.requestUpdate();
+    }, f === "resize" && (G && (this.surfaceStylesInternal.height = `${O.height - G}px`), me && (this.surfaceStylesInternal.width = `${O.width - me}px`)), this.host.requestUpdate();
   }
   /**
    * Calculates the css property, the inset, and the out of bounds correction
@@ -3081,11 +3081,11 @@ class ra {
    */
   calculateInline(e) {
     const { isLTR: t, surfaceInline: o, anchorInline: i, anchorRect: a, surfaceRect: n, xOffset: c, positioning: p, windowInnerWidth: v, inlineScrollbarWidth: f } = e, m = p === "fixed" || p === "document" ? 1 : 0, b = p === "document" ? 1 : 0, x = t ? 1 : 0, E = t ? 0 : 1, k = o === "start" ? 1 : 0, S = o === "end" ? 1 : 0, C = (i !== o ? 1 : 0) * a.width + c, O = k * a.left + S * (v - a.right - f), F = k * (v - a.right - f) + S * a.left, R = x * O + E * F, ee = k * window.scrollX - S * window.scrollX, te = S * window.scrollX - k * window.scrollX, ne = x * ee + E * te, Oe = Math.abs(Math.min(0, v - R - C - n.width)), ue = m * R + C + b * ne;
-    let Y = o === "start" ? "inset-inline-start" : "inset-inline-end";
-    return (p === "document" || p === "fixed") && (o === "start" && t || o === "end" && !t ? Y = "left" : Y = "right"), {
+    let G = o === "start" ? "inset-inline-start" : "inset-inline-end";
+    return (p === "document" || p === "fixed") && (o === "start" && t || o === "end" && !t ? G = "left" : G = "right"), {
       inlineInset: ue,
       inlineOutOfBoundsCorrection: Oe,
-      surfaceInlineProperty: Y
+      surfaceInlineProperty: G
     };
   }
   hostUpdate() {
@@ -3228,7 +3228,7 @@ function sa(r = document) {
     e = e.shadowRoot.activeElement;
   return e;
 }
-class I extends g {
+class A extends g {
   /**
    * Whether the menu is animating upwards or downwards when opening. This is
    * helpful for calculating some animation calculations.
@@ -3297,7 +3297,7 @@ class I extends g {
       if (this.stayOpenOnFocusout || !this.open || this.pointerPath.includes(t))
         return;
       if (e.relatedTarget) {
-        if (At(e.relatedTarget, this) || this.pointerPath.length !== 0 && At(e.relatedTarget, t))
+        if (zt(e.relatedTarget, this) || this.pointerPath.length !== 0 && zt(e.relatedTarget, t))
           return;
       } else if (this.pointerPath.includes(this))
         return;
@@ -3577,75 +3577,75 @@ class I extends g {
 }
 s([
   w(".menu")
-], I.prototype, "surfaceEl", void 0);
+], A.prototype, "surfaceEl", void 0);
 s([
   w("slot")
-], I.prototype, "slotEl", void 0);
+], A.prototype, "slotEl", void 0);
 s([
   d()
-], I.prototype, "anchor", void 0);
+], A.prototype, "anchor", void 0);
 s([
   d()
-], I.prototype, "positioning", void 0);
+], A.prototype, "positioning", void 0);
 s([
   d({ type: Boolean })
-], I.prototype, "quick", void 0);
+], A.prototype, "quick", void 0);
 s([
   d({ type: Boolean, attribute: "has-overflow" })
-], I.prototype, "hasOverflow", void 0);
+], A.prototype, "hasOverflow", void 0);
 s([
   d({ type: Boolean, reflect: !0 })
-], I.prototype, "open", void 0);
+], A.prototype, "open", void 0);
 s([
   d({ type: Number, attribute: "x-offset" })
-], I.prototype, "xOffset", void 0);
+], A.prototype, "xOffset", void 0);
 s([
   d({ type: Number, attribute: "y-offset" })
-], I.prototype, "yOffset", void 0);
+], A.prototype, "yOffset", void 0);
 s([
   d({ type: Boolean, attribute: "no-horizontal-flip" })
-], I.prototype, "noHorizontalFlip", void 0);
+], A.prototype, "noHorizontalFlip", void 0);
 s([
   d({ type: Boolean, attribute: "no-vertical-flip" })
-], I.prototype, "noVerticalFlip", void 0);
+], A.prototype, "noVerticalFlip", void 0);
 s([
   d({ type: Number, attribute: "typeahead-delay" })
-], I.prototype, "typeaheadDelay", void 0);
+], A.prototype, "typeaheadDelay", void 0);
 s([
   d({ attribute: "anchor-corner" })
-], I.prototype, "anchorCorner", void 0);
+], A.prototype, "anchorCorner", void 0);
 s([
   d({ attribute: "menu-corner" })
-], I.prototype, "menuCorner", void 0);
+], A.prototype, "menuCorner", void 0);
 s([
   d({ type: Boolean, attribute: "stay-open-on-outside-click" })
-], I.prototype, "stayOpenOnOutsideClick", void 0);
+], A.prototype, "stayOpenOnOutsideClick", void 0);
 s([
   d({ type: Boolean, attribute: "stay-open-on-focusout" })
-], I.prototype, "stayOpenOnFocusout", void 0);
+], A.prototype, "stayOpenOnFocusout", void 0);
 s([
   d({ type: Boolean, attribute: "skip-restore-focus" })
-], I.prototype, "skipRestoreFocus", void 0);
+], A.prototype, "skipRestoreFocus", void 0);
 s([
   d({ attribute: "default-focus" })
-], I.prototype, "defaultFocus", void 0);
+], A.prototype, "defaultFocus", void 0);
 s([
   d({ type: Boolean, attribute: "no-navigation-wrap" })
-], I.prototype, "noNavigationWrap", void 0);
+], A.prototype, "noNavigationWrap", void 0);
 s([
   K({ flatten: !0 })
-], I.prototype, "slotItems", void 0);
+], A.prototype, "slotItems", void 0);
 s([
-  A()
-], I.prototype, "typeaheadActive", void 0);
+  z()
+], A.prototype, "typeaheadActive", void 0);
 const na = u`:host{--md-elevation-level: var(--md-menu-container-elevation, 2);--md-elevation-shadow-color: var(--md-menu-container-shadow-color, var(--md-sys-color-shadow, #000));min-width:112px;color:unset;display:contents}md-focus-ring{--md-focus-ring-shape: var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px))}.menu{border-radius:var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px));display:none;inset:auto;border:none;padding:0px;overflow:visible;background-color:rgba(0,0,0,0);color:inherit;opacity:0;z-index:20;position:absolute;user-select:none;max-height:inherit;height:inherit;min-width:inherit;max-width:inherit;scrollbar-width:inherit}.menu::backdrop{display:none}.fixed{position:fixed}.items{display:block;list-style-type:none;margin:0;outline:none;box-sizing:border-box;background-color:var(--md-menu-container-color, var(--md-sys-color-surface-container, #f3edf7));height:inherit;max-height:inherit;overflow:auto;min-width:inherit;max-width:inherit;border-radius:inherit;scrollbar-width:inherit}.item-padding{padding-block:var(--md-menu-top-space, 8px) var(--md-menu-bottom-space, 8px)}.has-overflow:not([popover]) .items{overflow:visible}.has-overflow.animating .items,.animating .items{overflow:hidden}.has-overflow.animating .items{pointer-events:none}.animating ::slotted(.md-menu-hidden){opacity:0}slot{display:block;height:inherit;max-height:inherit}::slotted(:is(md-divider,[role=separator])){margin:8px 0}@media(forced-colors: active){.menu{border-style:solid;border-color:CanvasText;border-width:1px}}
 `;
-let It = class extends I {
+let At = class extends A {
 };
-It.styles = [na];
-It = s([
+At.styles = [na];
+At = s([
   _("md-menu")
-], It);
+], At);
 class la extends so {
   computeValidity(e) {
     return this.selectControl || (this.selectControl = document.createElement("select")), Jt(l`<option value=${e.value}></option>`, this.selectControl), this.selectControl.value = e.value, this.selectControl.required = e.required, {
@@ -3927,7 +3927,7 @@ class $ extends ca {
    * Handles closing the menu when the focus leaves the select's subtree.
    */
   handleFocusout(e) {
-    e.relatedTarget && At(e.relatedTarget, this) || (this.open = !1);
+    e.relatedTarget && zt(e.relatedTarget, this) || (this.open = !1);
   }
   /**
    * Gets a list of all selected select options as a list item record array.
@@ -4045,7 +4045,7 @@ class $ extends ca {
   [Te]() {
     return new la(() => this);
   }
-  [Ae]() {
+  [ze]() {
     return this.field;
   }
 }
@@ -4099,19 +4099,19 @@ s([
   d({ type: Number, attribute: "selected-index" })
 ], $.prototype, "selectedIndex", null);
 s([
-  A()
+  z()
 ], $.prototype, "nativeError", void 0);
 s([
-  A()
+  z()
 ], $.prototype, "nativeErrorText", void 0);
 s([
-  A()
+  z()
 ], $.prototype, "focused", void 0);
 s([
-  A()
+  z()
 ], $.prototype, "open", void 0);
 s([
-  A()
+  z()
 ], $.prototype, "defaultFocus", void 0);
 s([
   w(".field")
@@ -4134,12 +4134,12 @@ const ha = u`:host{--_text-field-active-indicator-color: var(--md-filled-select-
 `;
 const pr = u`:host{color:unset;min-width:210px;display:flex}.field{cursor:default;outline:none}.select{position:relative;flex-direction:column}.icon.trailing svg,.icon ::slotted(*){fill:currentColor}.icon ::slotted(*){width:inherit;height:inherit;font-size:inherit}.icon slot{display:flex;height:100%;width:100%;align-items:center;justify-content:center}.icon.trailing :is(.up,.down){opacity:0;transition:opacity 75ms linear 75ms}.select:not(.open) .down,.select.open .up{opacity:1}.field,.select,md-menu{min-width:inherit;width:inherit;max-width:inherit;display:flex}md-menu{min-width:var(--__menu-min-width);max-width:var(--__menu-max-width, inherit)}.menu-wrapper{width:0px;height:0px;max-width:inherit}md-menu ::slotted(:not[disabled]){cursor:pointer}.field,.select{width:100%}:host{display:inline-flex}:host([disabled]){pointer-events:none}
 `;
-let zt = class extends pa {
+let It = class extends pa {
 };
-zt.styles = [pr, ha];
-zt = s([
+It.styles = [pr, ha];
+It = s([
   _("md-filled-select")
-], zt);
+], It);
 class ua extends $ {
   constructor() {
     super(...arguments), this.fieldTag = ie`md-outlined-field`;
@@ -4930,16 +4930,16 @@ s([
 s([
   d({ type: Boolean, reflect: !0, attribute: "inset-end" })
 ], ot.prototype, "insetEnd", void 0);
-const Aa = u`:host{box-sizing:border-box;color:var(--md-divider-color, var(--md-sys-color-outline-variant, #cac4d0));display:flex;height:var(--md-divider-thickness, 1px);width:100%}:host([inset]),:host([inset-start]){padding-inline-start:16px}:host([inset]),:host([inset-end]){padding-inline-end:16px}:host::before{background:currentColor;content:"";height:100%;width:100%}@media(forced-colors: active){:host::before{background:CanvasText}}
+const za = u`:host{box-sizing:border-box;color:var(--md-divider-color, var(--md-sys-color-outline-variant, #cac4d0));display:flex;height:var(--md-divider-thickness, 1px);width:100%}:host([inset]),:host([inset-start]){padding-inline-start:16px}:host([inset]),:host([inset-end]){padding-inline-end:16px}:host::before{background:currentColor;content:"";height:100%;width:100%}@media(forced-colors: active){:host::before{background:CanvasText}}
 `;
 let Mt = class extends ot {
 };
-Mt.styles = [Aa];
+Mt.styles = [za];
 Mt = s([
   _("md-divider")
 ], Mt);
 const qe = /* @__PURE__ */ Symbol("isFocusable"), ct = /* @__PURE__ */ Symbol("privateIsFocusable"), We = /* @__PURE__ */ Symbol("externalTabIndex"), je = /* @__PURE__ */ Symbol("isUpdatingTabIndex"), Ke = /* @__PURE__ */ Symbol("updateTabIndex");
-function Ia(r) {
+function Aa(r) {
   var e, t, o;
   class i extends r {
     constructor() {
@@ -4976,8 +4976,8 @@ function Ia(r) {
     d({ noAccessor: !0 })
   ], i.prototype, "tabIndex", void 0), i;
 }
-const br = /* @__PURE__ */ Symbol("animateIndicator"), za = Ia(g);
-class G extends za {
+const br = /* @__PURE__ */ Symbol("animateIndicator"), Ia = Aa(g);
+class Y extends Ia {
   /**
    * @deprecated use `active`
    */
@@ -5059,31 +5059,31 @@ class G extends za {
 }
 s([
   d({ type: Boolean, reflect: !0, attribute: "md-tab" })
-], G.prototype, "isTab", void 0);
+], Y.prototype, "isTab", void 0);
 s([
   d({ type: Boolean, reflect: !0 })
-], G.prototype, "active", void 0);
+], Y.prototype, "active", void 0);
 s([
   d({ type: Boolean })
-], G.prototype, "selected", null);
+], Y.prototype, "selected", null);
 s([
   d({ type: Boolean, attribute: "has-icon" })
-], G.prototype, "hasIcon", void 0);
+], Y.prototype, "hasIcon", void 0);
 s([
   d({ type: Boolean, attribute: "icon-only" })
-], G.prototype, "iconOnly", void 0);
+], Y.prototype, "iconOnly", void 0);
 s([
   w(".indicator")
-], G.prototype, "indicator", void 0);
+], Y.prototype, "indicator", void 0);
 s([
-  A()
-], G.prototype, "fullWidthIndicator", void 0);
+  z()
+], Y.prototype, "fullWidthIndicator", void 0);
 s([
   No({ flatten: !0 })
-], G.prototype, "assignedDefaultNodes", void 0);
+], Y.prototype, "assignedDefaultNodes", void 0);
 s([
   K({ slot: "icon", flatten: !0 })
-], G.prototype, "assignedIcons", void 0);
+], Y.prototype, "assignedIcons", void 0);
 function Da() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
@@ -5243,7 +5243,7 @@ Bt.styles = [Oa];
 Bt = s([
   _("md-tabs")
 ], Bt);
-class yr extends G {
+class yr extends Y {
   constructor() {
     super(...arguments), this.inlineIcon = !1;
   }
@@ -5267,7 +5267,7 @@ Nt.styles = [xr, Pa];
 Nt = s([
   _("md-primary-tab")
 ], Nt);
-class Fa extends G {
+class Fa extends Y {
   constructor() {
     super(...arguments), this.fullWidthIndicator = !0;
   }
@@ -5386,7 +5386,7 @@ const Ma = {
   ]
 };
 const Na = Q(g);
-class z extends Na {
+class I extends Na {
   // We do not use `delegatesFocus: true` due to a Chromium bug with
   // selecting text.
   // See https://bugs.chromium.org/p/chromium/issues/detail?id=950357
@@ -5624,71 +5624,71 @@ class z extends Na {
 }
 s([
   d({ type: Boolean })
-], z.prototype, "open", null);
+], I.prototype, "open", null);
 s([
   d({ type: Boolean })
-], z.prototype, "quick", void 0);
+], I.prototype, "quick", void 0);
 s([
   d({ attribute: !1 })
-], z.prototype, "returnValue", void 0);
+], I.prototype, "returnValue", void 0);
 s([
   d()
-], z.prototype, "type", void 0);
+], I.prototype, "type", void 0);
 s([
   d({ type: Boolean, attribute: "no-focus-trap" })
-], z.prototype, "noFocusTrap", void 0);
+], I.prototype, "noFocusTrap", void 0);
 s([
   w("dialog")
-], z.prototype, "dialog", void 0);
+], I.prototype, "dialog", void 0);
 s([
   w(".scrim")
-], z.prototype, "scrim", void 0);
+], I.prototype, "scrim", void 0);
 s([
   w(".container")
-], z.prototype, "container", void 0);
+], I.prototype, "container", void 0);
 s([
   w(".headline")
-], z.prototype, "headline", void 0);
+], I.prototype, "headline", void 0);
 s([
   w(".content")
-], z.prototype, "content", void 0);
+], I.prototype, "content", void 0);
 s([
   w(".actions")
-], z.prototype, "actions", void 0);
+], I.prototype, "actions", void 0);
 s([
-  A()
-], z.prototype, "isAtScrollTop", void 0);
+  z()
+], I.prototype, "isAtScrollTop", void 0);
 s([
-  A()
-], z.prototype, "isAtScrollBottom", void 0);
+  z()
+], I.prototype, "isAtScrollBottom", void 0);
 s([
   w(".scroller")
-], z.prototype, "scroller", void 0);
+], I.prototype, "scroller", void 0);
 s([
   w(".top.anchor")
-], z.prototype, "topAnchor", void 0);
+], I.prototype, "topAnchor", void 0);
 s([
   w(".bottom.anchor")
-], z.prototype, "bottomAnchor", void 0);
+], I.prototype, "bottomAnchor", void 0);
 s([
   w(".focus-trap")
-], z.prototype, "firstFocusTrap", void 0);
+], I.prototype, "firstFocusTrap", void 0);
 s([
-  A()
-], z.prototype, "hasHeadline", void 0);
+  z()
+], I.prototype, "hasHeadline", void 0);
 s([
-  A()
-], z.prototype, "hasActions", void 0);
+  z()
+], I.prototype, "hasActions", void 0);
 s([
-  A()
-], z.prototype, "hasIcon", void 0);
+  z()
+], I.prototype, "hasIcon", void 0);
 function Va(r) {
   const e = ":is(button,input,select,textarea,object,:is(a,area)[href],[tabindex],[contenteditable=true])", t = ":not(:disabled,[disabled])";
   return r.matches(e + t + ':not([tabindex^="-"])') ? !0 : !r.localName.includes("-") || !r.matches(t) ? !1 : r.shadowRoot?.delegatesFocus ?? !1;
 }
 const Ua = u`:host{border-start-start-radius:var(--md-dialog-container-shape-start-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-start-end-radius:var(--md-dialog-container-shape-start-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-end-radius:var(--md-dialog-container-shape-end-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-start-radius:var(--md-dialog-container-shape-end-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));display:contents;margin:auto;max-height:min(560px,100% - 48px);max-width:min(560px,100% - 48px);min-height:140px;min-width:280px;position:fixed;height:fit-content;width:fit-content}dialog{background:rgba(0,0,0,0);border:none;border-radius:inherit;flex-direction:column;height:inherit;margin:inherit;max-height:inherit;max-width:inherit;min-height:inherit;min-width:inherit;outline:none;overflow:visible;padding:0;width:inherit}dialog[open]{display:flex}::backdrop{background:none}.scrim{background:var(--md-sys-color-scrim, #000);display:none;inset:0;opacity:32%;pointer-events:none;position:fixed;z-index:1}:host([open]) .scrim{display:flex}h2{all:unset;align-self:stretch}.headline{align-items:center;color:var(--md-dialog-headline-color, var(--md-sys-color-on-surface, #1d1b20));display:flex;flex-direction:column;font-family:var(--md-dialog-headline-font, var(--md-sys-typescale-headline-small-font, var(--md-ref-typeface-brand, Roboto)));font-size:var(--md-dialog-headline-size, var(--md-sys-typescale-headline-small-size, 1.5rem));line-height:var(--md-dialog-headline-line-height, var(--md-sys-typescale-headline-small-line-height, 2rem));font-weight:var(--md-dialog-headline-weight, var(--md-sys-typescale-headline-small-weight, var(--md-ref-typeface-weight-regular, 400)));position:relative}slot[name=headline]::slotted(*){align-items:center;align-self:stretch;box-sizing:border-box;display:flex;gap:8px;padding:24px 24px 0}.icon{display:flex}slot[name=icon]::slotted(*){color:var(--md-dialog-icon-color, var(--md-sys-color-secondary, #625b71));fill:currentColor;font-size:var(--md-dialog-icon-size, 24px);margin-top:24px;height:var(--md-dialog-icon-size, 24px);width:var(--md-dialog-icon-size, 24px)}.has-icon slot[name=headline]::slotted(*){justify-content:center;padding-top:16px}.scrollable slot[name=headline]::slotted(*){padding-bottom:16px}.scrollable.has-headline slot[name=content]::slotted(*){padding-top:8px}.container{border-radius:inherit;display:flex;flex-direction:column;flex-grow:1;overflow:hidden;position:relative;transform-origin:top}.container::before{background:var(--md-dialog-container-color, var(--md-sys-color-surface-container-high, #ece6f0));border-radius:inherit;content:"";inset:0;position:absolute}.scroller{display:flex;flex:1;flex-direction:column;overflow:hidden;z-index:1}.scrollable .scroller{overflow-y:scroll}.content{color:var(--md-dialog-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-dialog-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-dialog-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-dialog-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));flex:1;font-weight:var(--md-dialog-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)));height:min-content;position:relative}slot[name=content]::slotted(*){box-sizing:border-box;padding:24px}.anchor{position:absolute}.top.anchor{top:0}.bottom.anchor{bottom:0}.actions{position:relative}slot[name=actions]::slotted(*){box-sizing:border-box;display:flex;gap:8px;justify-content:flex-end;padding:16px 24px 24px}.has-actions slot[name=content]::slotted(*){padding-bottom:8px}md-divider{display:none;position:absolute}.has-headline.show-top-divider .headline md-divider,.has-actions.show-bottom-divider .actions md-divider{display:flex}.headline md-divider{bottom:0}.actions md-divider{top:0}@media(forced-colors: active){dialog{outline:2px solid WindowText}}
 `;
-let Ut = class extends z {
+let Ut = class extends I {
 };
 Ut.styles = [Ua];
 Ut = s([
@@ -5830,19 +5830,19 @@ Wt.styles = [uo, Ka];
 Wt = s([
   _("md-elevated-card")
 ], Wt);
-const Ga = u`:host{--_container-color: var(--md-filled-card-container-color, var(--md-sys-color-surface-container-highest, #e6e0e9));--_container-elevation: var(--md-filled-card-container-elevation, 0);--_container-shadow-color: var(--md-filled-card-container-shadow-color, var(--md-sys-color-shadow, #000));--_container-shape: var(--md-filled-card-container-shape, var(--md-sys-shape-corner-medium, 12px))}
+const Ya = u`:host{--_container-color: var(--md-filled-card-container-color, var(--md-sys-color-surface-container-highest, #e6e0e9));--_container-elevation: var(--md-filled-card-container-elevation, 0);--_container-shadow-color: var(--md-filled-card-container-shadow-color, var(--md-sys-color-shadow, #000));--_container-shape: var(--md-filled-card-container-shape, var(--md-sys-shape-corner-medium, 12px))}
 `;
 let jt = class extends ho {
 };
-jt.styles = [uo, Ga];
+jt.styles = [uo, Ya];
 jt = s([
   _("md-filled-card")
 ], jt);
-const Ya = u`:host{--_container-color: var(--md-outlined-card-container-color, var(--md-sys-color-surface, #fef7ff));--_container-elevation: var(--md-outlined-card-container-elevation, 0);--_container-shadow-color: var(--md-outlined-card-container-shadow-color, var(--md-sys-color-shadow, #000));--_container-shape: var(--md-outlined-card-container-shape, var(--md-sys-shape-corner-medium, 12px));--_outline-color: var(--md-outlined-card-outline-color, var(--md-sys-color-outline-variant, #cac4d0));--_outline-width: var(--md-outlined-card-outline-width, 1px)}.outline{border-color:var(--_outline-color);border-width:var(--_outline-width)}
+const Ga = u`:host{--_container-color: var(--md-outlined-card-container-color, var(--md-sys-color-surface, #fef7ff));--_container-elevation: var(--md-outlined-card-container-elevation, 0);--_container-shadow-color: var(--md-outlined-card-container-shadow-color, var(--md-sys-color-shadow, #000));--_container-shape: var(--md-outlined-card-container-shape, var(--md-sys-shape-corner-medium, 12px));--_outline-color: var(--md-outlined-card-outline-color, var(--md-sys-color-outline-variant, #cac4d0));--_outline-width: var(--md-outlined-card-outline-width, 1px)}.outline{border-color:var(--_outline-color);border-width:var(--_outline-width)}
 `;
 let Kt = class extends ho {
 };
-Kt.styles = [uo, Ya];
+Kt.styles = [uo, Ga];
 Kt = s([
   _("md-outlined-card")
 ], Kt);
@@ -5925,10 +5925,21 @@ class Za extends g {
     categories: { type: Array },
     searchValue: { type: String, attribute: "search-value" },
     hideViewToggle: { type: Boolean, attribute: "hide-view-toggle" },
-    hideDetailsToggle: { type: Boolean, attribute: "hide-details-toggle" }
+    hideDetailsToggle: { type: Boolean, attribute: "hide-details-toggle" },
+    isScrolled: { type: Boolean, state: !0 }
   };
   constructor() {
-    super(), this.viewMode = "grid", this.showDetails = !1, this.activeCategory = "all", this.categories = ["Productivity", "Expertise", "Travel & Shopping"], this.searchValue = "", this.hideViewToggle = !1, this.hideDetailsToggle = !1;
+    super(), this.viewMode = "grid", this.showDetails = !1, this.activeCategory = "all", this.categories = ["Productivity", "Expertise", "Travel & Shopping"], this.searchValue = "", this.hideViewToggle = !1, this.hideDetailsToggle = !1, this.isScrolled = !1, this._scrollThreshold = 50;
+  }
+  connectedCallback() {
+    super.connectedCallback(), this._handleScroll = this._handleScroll.bind(this), window.addEventListener("scroll", this._handleScroll, { passive: !0 }), this._handleScroll();
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback(), window.removeEventListener("scroll", this._handleScroll);
+  }
+  _handleScroll() {
+    const e = window.scrollY || document.documentElement.scrollTop, t = this.isScrolled;
+    this.isScrolled = e > this._scrollThreshold, t !== this.isScrolled && this.requestUpdate();
   }
   static styles = u`
     /* Required fonts - load in page <head>:
@@ -5941,6 +5952,30 @@ class Za extends g {
       border-bottom: var(--wy-controls-bar-border, none);
       padding: var(--wy-controls-bar-padding, 8px 32px);
       box-sizing: border-box;
+    }
+
+    /* Sticky Pill State - when scrolled */
+    :host([data-scrolled]) {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      width: auto;
+      max-width: 900px;
+      background-color: rgba(245, 242, 234, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 9999px;
+      border-bottom: none;
+      padding: 8px 24px;
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      transition: 
+        padding var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        background-color var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
     }
 
     .material-symbols-outlined {
@@ -5973,11 +6008,22 @@ class Za extends g {
       margin: 0 auto;
     }
 
+    :host([data-scrolled]) .controls-container {
+      gap: 8px;
+      max-width: 100%;
+      transition: gap var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
+    }
+
     /* Search Section */
     .search-section {
       flex: 0 0 auto;
       width: 192px;
       position: relative;
+    }
+
+    :host([data-scrolled]) .search-section {
+      width: 160px;
+      transition: width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
     }
 
     .search-input {
@@ -5992,6 +6038,16 @@ class Za extends g {
       color: var(--md-sys-color-on-surface, #1f2937);
       box-sizing: border-box;
       transition: all 0.2s;
+    }
+
+    :host([data-scrolled]) .search-input {
+      height: 28px;
+      font-size: 0.7rem;
+      background-color: rgba(255, 255, 255, 0.6);
+      transition: 
+        height var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        font-size var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        background-color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
     }
 
     .search-input::placeholder {
@@ -6029,12 +6085,20 @@ class Za extends g {
       flex-shrink: 0;
     }
 
+    :host([data-scrolled]) .divider {
+      display: none;
+    }
+
     /* Toggle Section */
     .toggle-section {
       display: flex;
       align-items: center;
       gap: 16px;
       flex-shrink: 0;
+    }
+
+    :host([data-scrolled]) .toggle-section {
+      display: none;
     }
 
     /* View Toggle */
@@ -6144,7 +6208,29 @@ class Za extends g {
       display: none;
     }
 
+    :host([data-scrolled]) .category-section {
+      flex: 0 1 auto;
+      max-width: 600px;
+      transition: max-width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
+    }
+
     @media (max-width: 768px) {
+      /* Disable sticky pill behavior on mobile */
+      :host([data-scrolled]) {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        padding: var(--wy-controls-bar-padding, 8px 32px);
+        background-color: var(--wy-controls-bar-bg, transparent);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+      }
+
       .controls-container {
         flex-wrap: wrap;
         gap: 8px;
@@ -6155,7 +6241,21 @@ class Za extends g {
         order: -1;
       }
 
+      :host([data-scrolled]) .search-section {
+        width: 100%;
+      }
+
+      :host([data-scrolled]) .search-input {
+        height: 32px;
+        font-size: 0.75rem;
+        background-color: var(--wy-controls-search-bg, var(--md-sys-color-surface-container-high, #f3f4f6));
+      }
+
       .divider {
+        display: none;
+      }
+
+      :host([data-scrolled]) .divider {
         display: none;
       }
 
@@ -6163,14 +6263,23 @@ class Za extends g {
         gap: 12px;
       }
 
+      :host([data-scrolled]) .toggle-section {
+        display: flex;
+      }
+
       .category-section {
         width: 100%;
         order: 1;
       }
+
+      :host([data-scrolled]) .category-section {
+        width: 100%;
+        max-width: 100%;
+      }
     }
   `;
   render() {
-    return l`
+    return this.isScrolled ? this.setAttribute("data-scrolled", "") : this.removeAttribute("data-scrolled"), l`
       <div class="controls-container" part="controls-container">
         <div class="search-section">
           <input
@@ -6183,7 +6292,7 @@ class Za extends g {
           <span class="material-symbols-outlined search-icon">search</span>
         </div>
 
-        ${!this.hideViewToggle || !this.hideDetailsToggle ? l`
+        ${!this.isScrolled && (!this.hideViewToggle || !this.hideDetailsToggle) ? l`
           <div class="divider"></div>
 
           <div class="toggle-section">
@@ -6215,7 +6324,9 @@ class Za extends g {
           </div>
 
           <div class="divider"></div>
-        ` : ""}
+        ` : l`
+          ${this.isScrolled ? "" : l`<div class="divider"></div>`}
+        `}
 
         <div class="category-section">
           <wy-filter-chip
@@ -10051,7 +10162,7 @@ class fs extends g {
   }
 }
 customElements.define("wy-export-modal", fs);
-class Ye extends g {
+class Ge extends g {
   static properties = {
     open: { type: Boolean, reflect: !0 },
     title: { type: String },
@@ -10494,14 +10605,14 @@ class Ye extends g {
     this._handleClose();
   }
 }
-if (!Ye)
+if (!Ge)
   throw console.error("[wy-links-modal] Component class is undefined"), new Error("WyLinksModal class is undefined");
 if (!customElements)
   throw console.error("[wy-links-modal] customElements API not available"), new Error("customElements API not available");
 try {
-  customElements.define("wy-links-modal", Ye), console.log("[wy-links-modal] Component registered successfully");
+  customElements.define("wy-links-modal", Ge), console.log("[wy-links-modal] Component registered successfully");
 } catch (r) {
-  throw console.error("[wy-links-modal] Failed to register component:", r), console.error("[wy-links-modal] Error stack:", r.stack), console.error("[wy-links-modal] WyLinksModal type:", typeof Ye), console.error("[wy-links-modal] WyLinksModal value:", Ye), r;
+  throw console.error("[wy-links-modal] Failed to register component:", r), console.error("[wy-links-modal] Error stack:", r.stack), console.error("[wy-links-modal] WyLinksModal type:", typeof Ge), console.error("[wy-links-modal] WyLinksModal value:", Ge), r;
 }
 class vs extends g {
   static properties = {
@@ -12245,7 +12356,7 @@ class Ts extends g {
   }
 }
 customElements.define("wy-plot-card", Ts);
-class As extends g {
+class zs extends g {
   static properties = {
     status: { type: String },
     // 'synced', 'syncing', 'error'
@@ -12342,6 +12453,6 @@ class As extends g {
     `;
   }
 }
-customElements.define("wy-backup-status", As);
+customElements.define("wy-backup-status", zs);
 console.log("[m3-design-v2] Web components registered");
 //# sourceMappingURL=web-components.js.map
