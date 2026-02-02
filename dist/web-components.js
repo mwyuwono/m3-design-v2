@@ -5946,25 +5946,34 @@ class Za extends g {
     this._scrollContainer === window ? window.removeEventListener("scroll", this._handleScroll) : this._scrollContainer && this._scrollContainer.removeEventListener("scroll", this._handleScroll);
   }
   _findScrollableContainer() {
-    const e = [
-      this.parentElement?.querySelector(".prompt-area"),
-      this.parentElement?.querySelector(".main-content"),
-      this.parentElement?.querySelector('[class*="scroll"]')
-    ].filter(Boolean);
-    for (const i of e) {
-      const a = window.getComputedStyle(i);
-      if (a.overflowY === "auto" || a.overflowY === "scroll")
-        return i;
+    const e = document.querySelector(".prompt-area");
+    if (e) {
+      const n = window.getComputedStyle(e);
+      if (n.overflowY === "auto" || n.overflowY === "scroll")
+        return e;
     }
-    let t = this.parentElement;
-    for (; t && t !== document.body; ) {
-      const i = window.getComputedStyle(t);
-      if (i.overflowY === "auto" || i.overflowY === "scroll")
+    const t = document.querySelector(".main-content");
+    if (t) {
+      const n = window.getComputedStyle(t);
+      if (n.overflowY === "auto" || n.overflowY === "scroll")
         return t;
-      t = t.parentElement;
     }
-    const o = window.getComputedStyle(document.body);
-    return o.overflowY === "auto" || o.overflowY === "scroll" ? document.body : window;
+    const o = this.parentElement?.querySelectorAll('[class*="scroll"], [class*="area"]');
+    if (o)
+      for (const n of o) {
+        const c = window.getComputedStyle(n);
+        if (c.overflowY === "auto" || c.overflowY === "scroll")
+          return n;
+      }
+    let i = this.parentElement;
+    for (; i && i !== document.body; ) {
+      const n = window.getComputedStyle(i);
+      if (n.overflowY === "auto" || n.overflowY === "scroll")
+        return i;
+      i = i.parentElement;
+    }
+    const a = window.getComputedStyle(document.body);
+    return a.overflowY === "auto" || a.overflowY === "scroll" ? document.body : window;
   }
   _handleScroll() {
     let e;

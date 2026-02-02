@@ -67,37 +67,46 @@ export class WyControlsBar extends LitElement {
     }
 
     _findScrollableContainer() {
-        // Strategy 1: Check for common sibling patterns
-        const siblings = [
-            this.parentElement?.querySelector('.prompt-area'),
-            this.parentElement?.querySelector('.main-content'),
-            this.parentElement?.querySelector('[class*="scroll"]')
-        ].filter(Boolean);
-        
-        for (const sibling of siblings) {
-            const style = window.getComputedStyle(sibling);
-            const hasScroll = style.overflowY === 'auto' || style.overflowY === 'scroll';
-            
-            if (hasScroll) {
-                return sibling;
+        // Strategy 1: Check for .prompt-area anywhere in document (common in prompt-library)
+        const promptArea = document.querySelector('.prompt-area');
+        if (promptArea) {
+            const style = window.getComputedStyle(promptArea);
+            if (style.overflowY === 'auto' || style.overflowY === 'scroll') {
+                return promptArea;
             }
         }
         
-        // Strategy 2: Traverse up the DOM to find nearest scrollable ancestor
-        let element = this.parentElement;
+        // Strategy 2: Check for .main-content
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            const style = window.getComputedStyle(mainContent);
+            if (style.overflowY === 'auto' || style.overflowY === 'scroll') {
+                return mainContent;
+            }
+        }
         
+        // Strategy 3: Check siblings via parent
+        const siblings = this.parentElement?.querySelectorAll('[class*="scroll"], [class*="area"]');
+        if (siblings) {
+            for (const sibling of siblings) {
+                const style = window.getComputedStyle(sibling);
+                if (style.overflowY === 'auto' || style.overflowY === 'scroll') {
+                    return sibling;
+                }
+            }
+        }
+        
+        // Strategy 4: Traverse up the DOM to find nearest scrollable ancestor
+        let element = this.parentElement;
         while (element && element !== document.body) {
             const style = window.getComputedStyle(element);
-            const hasScroll = style.overflowY === 'auto' || style.overflowY === 'scroll';
-            
-            if (hasScroll) {
+            if (style.overflowY === 'auto' || style.overflowY === 'scroll') {
                 return element;
             }
-            
             element = element.parentElement;
         }
         
-        // Strategy 3: Check document.body
+        // Strategy 5: Check document.body
         const bodyStyle = window.getComputedStyle(document.body);
         if (bodyStyle.overflowY === 'auto' || bodyStyle.overflowY === 'scroll') {
             return document.body;
