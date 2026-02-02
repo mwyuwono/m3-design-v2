@@ -53,6 +53,19 @@ export class WyControlsBar extends LitElement {
     }
 
     _findScrollableContainer() {
+        // First, check if there's a sibling with .prompt-area class (common pattern)
+        const promptArea = this.parentElement?.querySelector('.prompt-area');
+        if (promptArea) {
+            const style = window.getComputedStyle(promptArea);
+            const hasScroll = style.overflowY === 'auto' || style.overflowY === 'scroll';
+            const isScrollable = promptArea.scrollHeight > promptArea.clientHeight;
+            
+            if (hasScroll && isScrollable) {
+                return promptArea;
+            }
+        }
+        
+        // Then traverse up the DOM to find nearest scrollable ancestor
         let element = this.parentElement;
         
         while (element && element !== document.body) {

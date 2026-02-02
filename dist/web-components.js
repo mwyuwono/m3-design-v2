@@ -5938,12 +5938,18 @@ class Za extends g {
     super.disconnectedCallback(), this._scrollContainer === window ? window.removeEventListener("scroll", this._handleScroll) : this._scrollContainer && this._scrollContainer.removeEventListener("scroll", this._handleScroll);
   }
   _findScrollableContainer() {
-    let e = this.parentElement;
-    for (; e && e !== document.body; ) {
-      const t = window.getComputedStyle(e), o = t.overflowY === "auto" || t.overflowY === "scroll", i = e.scrollHeight > e.clientHeight;
-      if (o && i)
+    const e = this.parentElement?.querySelector(".prompt-area");
+    if (e) {
+      const o = window.getComputedStyle(e), i = o.overflowY === "auto" || o.overflowY === "scroll", a = e.scrollHeight > e.clientHeight;
+      if (i && a)
         return e;
-      e = e.parentElement;
+    }
+    let t = this.parentElement;
+    for (; t && t !== document.body; ) {
+      const o = window.getComputedStyle(t), i = o.overflowY === "auto" || o.overflowY === "scroll", a = t.scrollHeight > t.clientHeight;
+      if (i && a)
+        return t;
+      t = t.parentElement;
     }
     return window;
   }
