@@ -104,10 +104,12 @@ export class WyCodeTextarea extends LitElement {
     `;
 
     _handleInput(e) {
-        // Don't update this.value here - let the textarea manage its own state during editing
-        // Just notify the parent of the change
+        // Update internal value to keep it in sync
+        this.value = e.target.value;
+        
+        // Notify parent of the change
         this.dispatchEvent(new CustomEvent('input', {
-            detail: { value: e.target.value },
+            detail: { value: this.value },
             bubbles: true,
             composed: true
         }));

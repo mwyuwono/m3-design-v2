@@ -7719,8 +7719,8 @@ class ls extends g {
         }
     `;
   _handleInput(e) {
-    this.dispatchEvent(new CustomEvent("input", {
-      detail: { value: e.target.value },
+    this.value = e.target.value, this.dispatchEvent(new CustomEvent("input", {
+      detail: { value: this.value },
       bubbles: !0,
       composed: !0
     }));
