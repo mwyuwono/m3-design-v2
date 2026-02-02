@@ -29,10 +29,6 @@ export class WyPromptEditor extends LitElement {
     }
 
     static styles = css`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-
         :host {
             display: block;
             width: 100%;
@@ -345,7 +341,7 @@ export class WyPromptEditor extends LitElement {
                     <!-- Header -->
                     <div class="editor-header">
                         <nav class="breadcrumbs">
-                            <a href="/admin">← Back to prompts list</a>
+                            <a href="#" @click="${(e) => { e.preventDefault(); window.location.hash = ''; }}">← Back to prompts list</a>
                         </nav>
                         <h1>Prompt Editor</h1>
                         <p class="subtitle">Edit prompt details and template</p>

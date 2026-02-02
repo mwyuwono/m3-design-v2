@@ -11,7 +11,9 @@ export class WyPromptModal extends LitElement {
     variations: { type: Array },
     activeVariationIndex: { type: Number, attribute: 'active-variation-index' },
     mode: { type: String }, // 'locked' or 'edit'
-    activeTab: { type: String } // 'variables' or 'preview'
+    activeTab: { type: String }, // 'variables' or 'preview'
+    steps: { type: Array }, // Array of step objects for multi-step prompts
+    activeStepIndex: { type: Number, attribute: 'active-step-index' } // Current step (0-based)
   };
 
   constructor() {
@@ -26,6 +28,8 @@ export class WyPromptModal extends LitElement {
     this.activeVariationIndex = 0;
     this.mode = 'locked';
     this.activeTab = 'variables';
+    this.steps = [];
+    this.activeStepIndex = 0;
     this._values = {};
   }
 
@@ -547,6 +551,70 @@ export class WyPromptModal extends LitElement {
         box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
 
+    /* STEPPER STYLES */
+    .stepper-container {
+      margin-bottom: var(--spacing-xl, 32px);
+    }
+
+    .stepper-progress {
+      height: 4px;
+      background: var(--md-sys-color-surface-container-highest);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: var(--spacing-md, 16px);
+    }
+
+    .stepper-progress-bar {
+      height: 100%;
+      background: var(--md-sys-color-primary);
+      transition: width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
+    }
+
+    .stepper-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stepper-label {
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
+      font-size: var(--md-sys-typescale-label-medium-size, 0.75rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--md-sys-color-primary);
+      font-weight: 500;
+    }
+
+    .stepper-step-name {
+      font-family: var(--font-serif, 'Playfair Display', serif);
+      font-size: var(--md-sys-typescale-title-medium-size, 1rem);
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .step-instructions {
+      margin-bottom: var(--spacing-lg, 24px);
+    }
+
+    .step-navigation {
+      display: flex;
+      gap: var(--spacing-md, 16px);
+      justify-content: space-between;
+      margin-top: var(--spacing-lg, 24px);
+      padding-top: var(--spacing-lg, 24px);
+      border-top: 1px solid var(--md-sys-color-surface-container-highest);
+    }
+
+    .step-navigation .secondary-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs, 4px);
+    }
+
+    .step-navigation .secondary-btn:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+
     @media (max-width: 600px) {
       .modal-container {
         width: 100%;
@@ -576,8 +644,99 @@ export class WyPromptModal extends LitElement {
         padding: 12px 16px;
         justify-content: center;
       }
+      .step-navigation {
+        flex-direction: row;
+        gap: 12px;
+      }
+      .step-navigation .secondary-btn {
+        flex: 1;
+        min-width: 0;
+      }
     }
     `;
+
+  // Multi-step navigation methods
+  nextStep() {
+    if (this.activeStepIndex < this.steps.length - 1) {
+      this.activeStepIndex++;
+      this.dispatchEvent(new CustomEvent('step-change', {
+        detail: { stepIndex: this.activeStepIndex, step: this.steps[this.activeStepIndex] },
+        bubbles: true,
+        composed: true
+      }));
+    }
+  }
+
+  previousStep() {
+    if (this.activeStepIndex > 0) {
+      this.activeStepIndex--;
+      this.dispatchEvent(new CustomEvent('step-change', {
+        detail: { stepIndex: this.activeStepIndex, step: this.steps[this.activeStepIndex] },
+        bubbles: true,
+        composed: true
+      }));
+    }
+  }
+
+  // Render stepper UI for multi-step prompts
+  _renderStepper() {
+    if (!this.steps || this.steps.length === 0) return '';
+    
+    const progressPercent = ((this.activeStepIndex + 1) / this.steps.length) * 100;
+    
+    return html`
+      <div class="stepper-container">
+        <div class="stepper-progress">
+          <div class="stepper-progress-bar" 
+               style="width: ${progressPercent}%">
+          </div>
+        </div>
+        <div class="stepper-header">
+          <span class="stepper-label">
+            Step ${this.activeStepIndex + 1} of ${this.steps.length}
+          </span>
+          <span class="stepper-step-name">
+            ${this.steps[this.activeStepIndex].name}
+          </span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Render multi-step body content
+  _renderMultiStepBody() {
+    const step = this.steps[this.activeStepIndex];
+    
+    return html`
+      ${this._renderStepper()}
+      
+      <wy-info-panel class="step-instructions">
+        ${step.instructions}
+      </wy-info-panel>
+      
+      <div class="variables-grid">
+        ${step.variables.map(v => this._renderVariable(v))}
+      </div>
+      
+      <div class="step-navigation">
+        <button 
+          class="secondary-btn"
+          ?disabled=${this.activeStepIndex === 0}
+          @click=${() => this.previousStep()}>
+          <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+          Previous
+        </button>
+        
+        <button 
+          class="secondary-btn"
+          ?disabled=${this.activeStepIndex === this.steps.length - 1}
+          @click=${() => this.nextStep()}>
+          Next
+          <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+        </button>
+      </div>
+    `;
+  }
 
   render() {
     const currentTemplate = this.variations.length > 0
@@ -630,32 +789,40 @@ export class WyPromptModal extends LitElement {
 
         <div class="content">
           ${this.mode === 'locked' ? html`
-            ${this.variations.length > 1 ? html`
-              <div class="variation-selector-container">
-                <wy-dropdown
-                  label="STYLE"
-                  .value="${this.variations[this.activeVariationIndex]?.id || ''}"
-                  .options="${this.variations.map(v => ({ value: v.id, label: v.name }))}"
-                  variant="subtle"
-                  @change="${this._handleVariationDropdownChange}"
-                ></wy-dropdown>
-                ${this.variations[this.activeVariationIndex]?.description ? html`
-                  <wy-info-panel class="variation-description-panel">
-                    ${this.variations[this.activeVariationIndex].description}
-                  </wy-info-panel>
-                ` : ''}
+            ${this.steps && this.steps.length > 0 ? html`
+              <!-- Multi-step mode -->
+              <div class="body">
+                ${this._renderMultiStepBody()}
               </div>
-            ` : ''}
-
-            <div class="body">
-              ${this.activeTab === 'variables' ? html`
-                <div class="variables-grid">
-                  ${this.variables.map(v => this._renderVariable(v))}
+            ` : html`
+              <!-- Standard mode -->
+              ${this.variations.length > 1 ? html`
+                <div class="variation-selector-container">
+                  <wy-dropdown
+                    label="STYLE"
+                    .value="${this.variations[this.activeVariationIndex]?.id || ''}"
+                    .options="${this.variations.map(v => ({ value: v.id, label: v.name }))}"
+                    variant="subtle"
+                    @change="${this._handleVariationDropdownChange}"
+                  ></wy-dropdown>
+                  ${this.variations[this.activeVariationIndex]?.description ? html`
+                    <wy-info-panel class="variation-description-panel">
+                      ${this.variations[this.activeVariationIndex].description}
+                    </wy-info-panel>
+                  ` : ''}
                 </div>
-              ` : html`
-                <div class="preview-area">${compiledPrompt}</div>
-              `}
-            </div>
+              ` : ''}
+
+              <div class="body">
+                ${this.activeTab === 'variables' ? html`
+                  <div class="variables-grid">
+                    ${this.variables.map(v => this._renderVariable(v))}
+                  </div>
+                ` : html`
+                  <div class="preview-area">${compiledPrompt}</div>
+                `}
+              </div>
+            `}
           ` : html`
             <div class="body">
               <textarea 
@@ -818,10 +985,24 @@ export class WyPromptModal extends LitElement {
   }
 
   _handleCopy() {
-    const text = this._compilePrompt(this.variations.length > 0 ? this.variations[this.activeVariationIndex].template : this.template);
-    navigator.clipboard.writeText(text);
+    let textToCopy;
+    
+    if (this.steps && this.steps.length > 0) {
+      // Multi-step mode: compile current step only
+      const step = this.steps[this.activeStepIndex];
+      textToCopy = this._compilePrompt(step.template);
+    } else {
+      // Standard mode: existing behavior
+      textToCopy = this._compilePrompt(
+        this.variations.length > 0 
+          ? this.variations[this.activeVariationIndex].template 
+          : this.template
+      );
+    }
+    
+    navigator.clipboard.writeText(textToCopy);
     this.dispatchEvent(new CustomEvent('copy', {
-      detail: { text },
+      detail: { text: textToCopy },
       bubbles: true,
       composed: true
     }));
@@ -842,9 +1023,23 @@ export class WyPromptModal extends LitElement {
   }
 
   _handleDownload() {
-    const text = this._compilePrompt(this.variations.length > 0 ? this.variations[this.activeVariationIndex].template : this.template);
+    let textToDownload;
+    
+    if (this.steps && this.steps.length > 0) {
+      // Multi-step mode: download current step only
+      const step = this.steps[this.activeStepIndex];
+      textToDownload = this._compilePrompt(step.template);
+    } else {
+      // Standard mode: existing behavior
+      textToDownload = this._compilePrompt(
+        this.variations.length > 0 
+          ? this.variations[this.activeVariationIndex].template 
+          : this.template
+      );
+    }
+    
     this.dispatchEvent(new CustomEvent('download', {
-      detail: { text, title: this.title },
+      detail: { text: textToDownload, title: this.title },
       bubbles: true,
       composed: true
     }));

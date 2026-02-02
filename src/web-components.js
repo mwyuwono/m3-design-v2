@@ -41,7 +41,7 @@ import '@material/web/labs/card/outlined-card.js';
 // Custom wy-* Components
 import './components/wy-filter-chip.js';
 import './components/wy-controls-bar.js';
-// Note: wy-toast excluded - consumers may want custom duration/styling
+import './components/wy-toast.js';
 import './components/wy-modal.js';
 import './components/wy-tabs.js';
 import './components/wy-tag-chip.js';

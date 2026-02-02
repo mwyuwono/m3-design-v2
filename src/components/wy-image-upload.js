@@ -19,9 +19,6 @@ export class WyImageUpload extends LitElement {
     }
 
     static styles = css`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-
         :host {
             display: block;
             width: 100%;

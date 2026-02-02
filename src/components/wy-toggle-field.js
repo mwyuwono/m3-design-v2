@@ -17,9 +17,6 @@ export class WyToggleField extends LitElement {
     }
 
     static styles = css`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
-
         :host {
             display: block;
             width: 100%;

@@ -21,9 +21,6 @@ export class WyCodeTextarea extends LitElement {
     }
 
     static styles = css`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
-
         :host {
             display: block;
             width: 100%;
@@ -107,20 +104,34 @@ export class WyCodeTextarea extends LitElement {
     `;
 
     _handleInput(e) {
-        this.value = e.target.value;
+        // Don't update this.value here - let the textarea manage its own state during editing
+        // Just notify the parent of the change
         this.dispatchEvent(new CustomEvent('input', {
-            detail: { value: this.value },
+            detail: { value: e.target.value },
             bubbles: true,
             composed: true
         }));
     }
 
     _handleChange(e) {
+        this.value = e.target.value; // Update on blur
         this.dispatchEvent(new CustomEvent('change', {
             detail: { value: this.value },
             bubbles: true,
             composed: true
         }));
+    }
+
+    updated(changedProperties) {
+        if (changedProperties.has('value')) {
+            const textarea = this.shadowRoot.querySelector('textarea');
+            // Only update textarea value if it's not currently focused (avoid interfering with typing)
+            // Check shadowRoot.activeElement for proper shadow DOM focus detection
+            const isFocused = this.shadowRoot.activeElement === textarea;
+            if (textarea && !isFocused && textarea.value !== this.value) {
+                textarea.value = this.value;
+            }
+        }
     }
 
     _insertVariable(variableName) {
@@ -156,7 +167,6 @@ export class WyCodeTextarea extends LitElement {
         return html`
             ${this.label ? html`<div class="label">${this.label}</div>` : ''}
             <textarea
-                .value="${this.value}"
                 placeholder="${this.placeholder}"
                 rows="${this.rows}"
                 maxlength="${this.maxLength > 0 ? this.maxLength : ''}"

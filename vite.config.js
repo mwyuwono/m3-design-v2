@@ -11,14 +11,7 @@ export default defineConfig({
       formats: ['es'] // ES module format for modern browsers
     },
     rollupOptions: {
-      // Externalize lit to keep bundle smaller (consumers provide via importmap)
-      external: ['lit'],
-      output: {
-        // Provide global variables for externalized deps in UMD builds
-        globals: {
-          lit: 'lit'
-        }
-      }
+      // Bundle all dependencies for self-contained local use
     },
     // Output to dist folder
     outDir: 'dist',
