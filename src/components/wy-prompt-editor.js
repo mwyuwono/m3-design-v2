@@ -293,6 +293,16 @@ export class WyPromptEditor extends LitElement {
     }
 
     _handleSave() {
+        // Get fresh template value from the textarea component before saving
+        const codeTextarea = this.shadowRoot.querySelector('wy-code-textarea');
+        if (codeTextarea) {
+            const textarea = codeTextarea.shadowRoot?.querySelector('textarea');
+            if (textarea) {
+                // Read current DOM value directly to ensure we get latest edits
+                this._editedPrompt.template = textarea.value;
+            }
+        }
+        
         this.dispatchEvent(new CustomEvent('save', {
             detail: { prompt: this._editedPrompt },
             bubbles: true,
