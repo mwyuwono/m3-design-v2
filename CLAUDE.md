@@ -214,6 +214,8 @@ See [skills/visual-qa/SKILL.md](skills/visual-qa/SKILL.md) for the complete work
 
 This design system is consumed by dependent projects via jsDelivr CDN. **After every commit, you must purge the CDN cache.**
 
+**CRITICAL CDN Cache Management:** After pushing changes to m3-design-v2, always wait 2-3 minutes before purging jsDelivr CDN (purges are throttled to max 10/hour per file), and if throttled, temporarily pin consuming projects to the commit hash (e.g., `@abc1234`) with a TODO to revert to `@main` within 24 hours, rather than repeatedly purging which will fail.
+
 ### Standard Commit Process
 
 ```bash
