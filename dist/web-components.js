@@ -5932,22 +5932,30 @@ class Za extends g {
     super(), this.viewMode = "grid", this.showDetails = !1, this.activeCategory = "all", this.categories = ["Productivity", "Expertise", "Travel & Shopping"], this.searchValue = "", this.hideViewToggle = !1, this.hideDetailsToggle = !1, this.isScrolled = !1, this._scrollThreshold = 50;
   }
   connectedCallback() {
-    super.connectedCallback(), this._handleScroll = this._handleScroll.bind(this), this._scrollContainer = this._findScrollableContainer(), this._scrollContainer === window ? window.addEventListener("scroll", this._handleScroll, { passive: !0 }) : this._scrollContainer.addEventListener("scroll", this._handleScroll, { passive: !0 }), this._handleScroll();
+    super.connectedCallback(), this._handleScroll = this._handleScroll.bind(this), requestAnimationFrame(() => {
+      this._setupScrollListener();
+    });
   }
   disconnectedCallback() {
-    super.disconnectedCallback(), this._scrollContainer === window ? window.removeEventListener("scroll", this._handleScroll) : this._scrollContainer && this._scrollContainer.removeEventListener("scroll", this._handleScroll);
+    super.disconnectedCallback(), this._removeScrollListener();
+  }
+  _setupScrollListener() {
+    this._removeScrollListener(), this._scrollContainer = this._findScrollableContainer(), this._scrollContainer === window ? window.addEventListener("scroll", this._handleScroll, { passive: !0 }) : this._scrollContainer && this._scrollContainer.addEventListener("scroll", this._handleScroll, { passive: !0 }), this._handleScroll();
+  }
+  _removeScrollListener() {
+    this._scrollContainer === window ? window.removeEventListener("scroll", this._handleScroll) : this._scrollContainer && this._scrollContainer.removeEventListener("scroll", this._handleScroll);
   }
   _findScrollableContainer() {
     const e = this.parentElement?.querySelector(".prompt-area");
     if (e) {
-      const o = window.getComputedStyle(e), i = o.overflowY === "auto" || o.overflowY === "scroll", a = e.scrollHeight > e.clientHeight;
-      if (i && a)
+      const o = window.getComputedStyle(e);
+      if (o.overflowY === "auto" || o.overflowY === "scroll")
         return e;
     }
     let t = this.parentElement;
     for (; t && t !== document.body; ) {
-      const o = window.getComputedStyle(t), i = o.overflowY === "auto" || o.overflowY === "scroll", a = t.scrollHeight > t.clientHeight;
-      if (i && a)
+      const o = window.getComputedStyle(t);
+      if (o.overflowY === "auto" || o.overflowY === "scroll")
         return t;
       t = t.parentElement;
     }

@@ -29,13 +29,27 @@ export class WyControlsBar extends LitElement {
         super.connectedCallback();
         this._handleScroll = this._handleScroll.bind(this);
         
-        // Find the scrollable container by traversing up the DOM
-        // Look for the nearest scrollable ancestor or fallback to window
+        // Delay finding scroll container to ensure DOM is fully ready
+        requestAnimationFrame(() => {
+            this._setupScrollListener();
+        });
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this._removeScrollListener();
+    }
+
+    _setupScrollListener() {
+        // Remove any existing listener first
+        this._removeScrollListener();
+        
+        // Find the scrollable container
         this._scrollContainer = this._findScrollableContainer();
         
         if (this._scrollContainer === window) {
             window.addEventListener('scroll', this._handleScroll, { passive: true });
-        } else {
+        } else if (this._scrollContainer) {
             this._scrollContainer.addEventListener('scroll', this._handleScroll, { passive: true });
         }
         
@@ -43,8 +57,7 @@ export class WyControlsBar extends LitElement {
         this._handleScroll();
     }
 
-    disconnectedCallback() {
-        super.disconnectedCallback();
+    _removeScrollListener() {
         if (this._scrollContainer === window) {
             window.removeEventListener('scroll', this._handleScroll);
         } else if (this._scrollContainer) {
@@ -58,9 +71,9 @@ export class WyControlsBar extends LitElement {
         if (promptArea) {
             const style = window.getComputedStyle(promptArea);
             const hasScroll = style.overflowY === 'auto' || style.overflowY === 'scroll';
-            const isScrollable = promptArea.scrollHeight > promptArea.clientHeight;
             
-            if (hasScroll && isScrollable) {
+            // Check if it's currently scrollable or could become scrollable
+            if (hasScroll) {
                 return promptArea;
             }
         }
@@ -71,9 +84,8 @@ export class WyControlsBar extends LitElement {
         while (element && element !== document.body) {
             const style = window.getComputedStyle(element);
             const hasScroll = style.overflowY === 'auto' || style.overflowY === 'scroll';
-            const isScrollable = element.scrollHeight > element.clientHeight;
             
-            if (hasScroll && isScrollable) {
+            if (hasScroll) {
                 return element;
             }
             
