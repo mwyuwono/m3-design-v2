@@ -120,12 +120,22 @@ export class WyPromptModal extends LitElement {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
+        gap: 12px;
+    }
+
+    .header-actions-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 0 0 auto;
     }
 
     .header-actions {
         display: flex;
         align-items: center;
         gap: 12px;
+        flex: 0 0 auto;
     }
 
     /* Icon Button - Perfect circle with centered icon */
@@ -152,6 +162,16 @@ export class WyPromptModal extends LitElement {
         transform: scale(1.05);
     }
 
+    .icon-btn.primary {
+        background: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+    }
+
+    .icon-btn.primary:hover {
+        opacity: 0.9;
+        transform: scale(1.05);
+    }
+
     .icon-btn .material-symbols-outlined {
         font-size: 20px;
         line-height: 1;
@@ -175,6 +195,10 @@ export class WyPromptModal extends LitElement {
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.15em; /* Wider tracking */
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none; /* Prevent badge from blocking clicks */
     }
 
     @media (prefers-color-scheme: dark) {
@@ -491,19 +515,7 @@ export class WyPromptModal extends LitElement {
     }
     .editor-area:focus { outline: none; }
 
-    /* FOOTER */
-    .footer {
-      padding: 16px 32px;
-      padding-bottom: max(32px, env(safe-area-inset-bottom, 32px)); /* Respect safe area */
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 16px;
-      background: var(--md-sys-color-surface); /* Ensure contrast against content bg if needed */
-      border-radius: 0 0 16px 16px;
-      flex-shrink: 0; /* Footer stays fixed, doesn't shrink */
-    }
-
+    /* STEP NAVIGATION BUTTONS (for multi-step prompts) */
     .secondary-btn {
         display: flex;
         align-items: center;
@@ -523,32 +535,6 @@ export class WyPromptModal extends LitElement {
     .secondary-btn:hover {
         background: var(--md-sys-color-surface-container-high);
         border-color: var(--md-sys-color-outline);
-    }
-
-    .btn-label {
-        display: inline;
-    }
-
-    .primary-btn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: var(--md-sys-color-primary);
-        color: var(--md-sys-color-on-primary);
-        border: none;
-        padding: 12px 24px;
-        border-radius: 999px;
-        font-family: var(--font-sans, 'DM Sans', sans-serif);
-        font-size: 0.875rem;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        transition: all 0.2s;
-    }
-    .primary-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
 
     /* STEPPER STYLES */
@@ -615,6 +601,38 @@ export class WyPromptModal extends LitElement {
       cursor: not-allowed;
     }
 
+    .tabs-header {
+      display: flex;
+      gap: 24px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      margin-bottom: var(--spacing-lg, 24px);
+    }
+
+    .tab-item {
+      background: none;
+      border: none;
+      padding: 8px 0;
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab-item:hover {
+      color: var(--md-sys-color-primary);
+    }
+
+    .tab-item.active {
+      color: var(--md-sys-color-primary);
+      font-weight: 700;
+      border-bottom-color: var(--md-sys-color-primary);
+    }
+
     @media (max-width: 600px) {
       .modal-container {
         width: 100%;
@@ -627,23 +645,18 @@ export class WyPromptModal extends LitElement {
       .title-group h2 { font-size: 1.75rem; }
       .tabs-container { padding: 0; } /* wy-tabs handles its own mobile padding */
       .body { padding: 16px; }
-      .footer {
-        flex-direction: row;
-        justify-content: center;
-        gap: 12px;
-        padding: 16px;
-        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-        border-top: 1px solid var(--md-sys-color-outline-variant);
-      }
-      .btn-label {
+      
+      /* Hide category badge on mobile to save space */
+      .badge {
         display: none;
       }
-      .primary-btn, .secondary-btn {
-        width: auto;
-        min-width: 48px;
-        padding: 12px 16px;
-        justify-content: center;
+      
+      /* Tighter button spacing on mobile */
+      .header-actions-left {
+        gap: 4px;
       }
+      
+      /* Step navigation styles (for multi-step prompts) */
       .step-navigation {
         flex-direction: row;
         gap: 12px;
@@ -706,17 +719,39 @@ export class WyPromptModal extends LitElement {
   // Render multi-step body content
   _renderMultiStepBody() {
     const step = this.steps[this.activeStepIndex];
+    const compiledPrompt = this._compilePrompt(step.template);
     
     return html`
       ${this._renderStepper()}
+      
+      <!-- Add tabs for Variables/Preview -->
+      ${step.variables && step.variables.length > 0 ? html`
+        <div class="tabs-header">
+          <button 
+            class="tab-item ${this.activeTab === 'variables' ? 'active' : ''}"
+            @click="${() => this.activeTab = 'variables'}">
+            Variables
+          </button>
+          <button 
+            class="tab-item ${this.activeTab === 'preview' ? 'active' : ''}"
+            @click="${() => this.activeTab = 'preview'}">
+            Preview
+          </button>
+        </div>
+      ` : ''}
       
       <wy-info-panel class="step-instructions">
         ${step.instructions}
       </wy-info-panel>
       
-      <div class="variables-grid">
-        ${step.variables.map(v => this._renderVariable(v))}
-      </div>
+      <!-- Conditionally render variables or preview based on active tab -->
+      ${this.activeTab === 'variables' ? html`
+        <div class="variables-grid">
+          ${step.variables.map(v => this._renderVariable(v))}
+        </div>
+      ` : html`
+        <div class="preview-area">${compiledPrompt}</div>
+      `}
       
       <div class="step-navigation">
         <button 
@@ -752,14 +787,33 @@ export class WyPromptModal extends LitElement {
         <!-- HEADER -->
         <header class="header">
             <div class="header-top">
-                <span class="badge category-badge">${this.category}</span>
-                <div class="header-actions">
-                    ${this.mode === 'locked' ? html`
-                        <button class="icon-btn filled" @click="${() => this.mode = 'edit'}" aria-label="Edit prompt" title="Edit prompt">
+                ${this.mode === 'locked' ? html`
+                    <div class="header-actions-left">
+                        <button class="icon-btn primary" @click="${this._handleCopy}" aria-label="Copy to clipboard" title="Copy">
+                            <span class="material-symbols-outlined">content_copy</span>
+                        </button>
+                        <button class="icon-btn filled" @click="${() => this.mode = 'edit'}" aria-label="Edit prompt" title="Edit">
                             <span class="material-symbols-outlined">edit</span>
                         </button>
-                    ` : ''}
-                    <button class="icon-btn filled" @click="${this._close}" aria-label="Close" title="Close">
+                        <button class="icon-btn filled" @click="${this._handleDownload}" aria-label="Download" title="Download">
+                            <span class="material-symbols-outlined">download</span>
+                        </button>
+                    </div>
+                ` : html`
+                    <div class="header-actions-left">
+                        <button class="icon-btn filled" @click="${() => this.mode = 'locked'}" aria-label="Cancel" title="Cancel">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                        <button class="icon-btn primary" @click="${this._handleSave}" aria-label="Save" title="Save">
+                            <span class="material-symbols-outlined">save</span>
+                        </button>
+                    </div>
+                `}
+                
+                <span class="badge category-badge">${this.category}</span>
+                
+                <div class="header-actions">
+                    <button class="icon-btn filled" @click="${this._close}" aria-label="Close modal" title="Close">
                         <span class="material-symbols-outlined">close</span>
                     </button>
                 </div>
@@ -833,29 +887,6 @@ export class WyPromptModal extends LitElement {
             </div>
           `}
         </div>
-
-        <!-- FOOTER -->
-        <footer class="footer">
-          ${this.mode === 'locked' ? html`
-            <button class="secondary-btn" @click="${this._handleDownload}">
-                <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
-                <span class="btn-label">Download .txt</span>
-            </button>
-            <button class="primary-btn" @click="${this._handleCopy}">
-                <span class="material-symbols-outlined" style="font-size: 18px;">content_copy</span>
-                <span class="btn-label">Copy to Clipboard</span>
-            </button>
-          ` : html`
-            <button class="secondary-btn" @click="${() => this.mode = 'locked'}">
-                <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
-                <span class="btn-label">Cancel</span>
-            </button>
-            <button class="primary-btn" @click="${this._handleSave}">
-                <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
-                <span class="btn-label">Save Template</span>
-            </button>
-          `}
-        </footer>
       </div>
     `;
   }
