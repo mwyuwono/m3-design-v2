@@ -52,7 +52,7 @@ export class WySelectionCard extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       margin-top: 2px; /* Slight alignment adjust */
     }
 

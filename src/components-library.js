@@ -17,6 +17,7 @@ class ComponentLibraryRenderer {
     this.selectedComponent = null; // For individual component view
     this.scrollSpyActive = true; // Enable scroll spy for category highlighting
     this.scrollTimeout = null; // Debounce scroll events
+    this.isComponentsLibraryPage = window.location.pathname.endsWith('components-library.html');
     
     // Pagination state (per category)
     this.itemsPerPage = 8;
@@ -256,13 +257,13 @@ class ComponentLibraryRenderer {
           </div>
         </div>
         <div style="margin-bottom: 32px;">
-          <h3 style="font-family: var(--font-serif); font-size: 1.25rem; color: var(--md-sys-color-primary); margin: 0 0 16px 0; font-weight: 600;">
+          <h3 style="font-family: var(--font-serif); font-size: 1.25rem; color: var(--md-sys-color-text-heading); margin: 0 0 16px 0; font-weight: 600;">
             Components
           </h3>
           <a href="#components" 
              onclick="event.preventDefault(); const renderer = window.componentLibraryRenderer; if (renderer) { renderer.activeCategory = 'all'; renderer.selectedComponent = null; window.location.hash = ''; renderer.renderFilters(); renderer.renderComponents(); window.scrollTo({ top: 0, behavior: 'smooth' }); } return false;"
-             class="nav-link-all"
-             style="display: block; padding: 8px 12px; border-radius: 8px; text-decoration: none; color: var(--md-sys-color-on-surface-variant); font-family: var(--font-body); font-size: 0.875rem; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); margin-bottom: 4px; ${isAllActive ? 'background: var(--md-sys-color-surface-variant); color: var(--md-sys-color-primary); font-weight: 600;' : ''}"
+             class="nav-link-all ${isAllActive ? 'active' : ''}"
+             style="display: block; padding: 8px 12px; border-radius: 8px; text-decoration: none; color: var(--md-sys-color-on-surface-variant); font-family: var(--font-body); font-size: 0.875rem; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); margin-bottom: 4px; ${isAllActive ? 'background: var(--md-sys-color-surface-variant); color: var(--md-sys-color-text-heading); font-weight: 600;' : ''}"
              onmouseover="if(!this.classList.contains('active')) this.style.background='var(--md-sys-color-surface-variant)'"
              onmouseout="if(!this.classList.contains('active')) this.style.background='transparent'">
             All Components
@@ -283,9 +284,9 @@ class ComponentLibraryRenderer {
               <div style="margin-bottom: 20px;">
                 <a href="#${categorySlug}"
                    onclick="event.preventDefault(); const renderer = window.componentLibraryRenderer; if (renderer) { renderer.activeCategory = '${categoryKey}'; renderer.selectedComponent = null; renderer.categoryPages['${categoryKey}'] = 1; window.location.hash = '${categorySlug}'; renderer.renderFilters(); renderer.renderComponents(); setTimeout(() => renderer.scrollToCategory('${categoryKey}'), 50); } return false;"
-                   class="nav-link-category"
+                   class="nav-link-category ${isActive ? 'active' : ''}"
                    data-nav-category="${categoryKey}"
-                   style="display: block; padding: 6px 12px; border-radius: 8px; text-decoration: none; color: var(--md-sys-color-on-surface); font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); ${isActive ? 'background: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary);' : ''}"
+                   style="display: block; padding: 6px 12px; border-radius: 8px; text-decoration: none; color: var(--md-sys-color-on-surface); font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); ${isActive ? 'background: var(--md-sys-color-primary-container); color: var(--md-sys-color-text-heading);' : ''}"
                    onmouseover="if(!this.classList.contains('active')) this.style.background='var(--md-sys-color-surface-variant)'"
                    onmouseout="if(!this.classList.contains('active')) this.style.background='${isActive ? 'var(--md-sys-color-primary-container)' : 'transparent'}'">
                   ${categoryInfo.name}
@@ -298,8 +299,8 @@ class ComponentLibraryRenderer {
                     return `
                       <a href="#${comp.name}"
                          onclick="event.preventDefault(); window.location.hash='${comp.name}'; return false;"
-                         class="nav-link-component"
-                         style="display: ${isVisible ? 'block' : 'none'}; padding: 4px 10px; border-radius: 6px; text-decoration: none; color: var(--md-sys-color-on-surface-variant); font-family: var(--font-body); font-size: 0.8125rem; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); margin-bottom: 2px; ${isSelected ? 'background: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); font-weight: 600;' : ''}"
+                         class="nav-link-component ${isSelected ? 'active' : ''}"
+                         style="display: ${isVisible ? 'block' : 'none'}; padding: 4px 10px; border-radius: 6px; text-decoration: none; color: var(--md-sys-color-on-surface-variant); font-family: var(--font-body); font-size: 0.8125rem; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); margin-bottom: 2px; ${isSelected ? 'background: var(--md-sys-color-primary-container); color: var(--md-sys-color-text-heading); font-weight: 600;' : ''}"
                          onmouseover="if(!this.classList.contains('active')) this.style.background='var(--md-sys-color-surface-variant)'"
                          onmouseout="if(!this.classList.contains('active')) this.style.background='transparent'">
                         ${comp.title}
@@ -436,7 +437,7 @@ class ComponentLibraryRenderer {
           <div style="margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid var(--md-sys-color-outline-variant);">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
               <button onclick="window.location.hash=''; return false;" 
-                      style="display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-primary); font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s;"
+                      style="display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-text-heading); font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s;"
                       onmouseover="this.style.background='var(--md-sys-color-surface-variant)'"
                       onmouseout="this.style.background='var(--md-sys-color-surface)'">
                 <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
@@ -445,7 +446,7 @@ class ComponentLibraryRenderer {
               <span style="color: var(--md-sys-color-on-surface-variant); font-family: var(--font-body); font-size: 0.875rem;">/</span>
               <a href="#${component.category.toLowerCase().replace(/\s+/g, '-')}" 
                  onclick="event.preventDefault(); window.location.hash='${component.category.toLowerCase().replace(/\s+/g, '-')}'; return false;"
-                 style="color: var(--md-sys-color-primary); text-decoration: none; font-family: var(--font-body); font-size: 0.875rem;">
+                 style="color: var(--md-sys-color-text-heading); text-decoration: none; font-family: var(--font-body); font-size: 0.875rem;">
                 ${this.categories[component.category]?.name || component.category}
               </a>
             </div>
@@ -542,7 +543,7 @@ class ComponentLibraryRenderer {
               ${this.enablePagination && components.length > this.itemsPerPage ? `
                 <button 
                   onclick="const renderer = window.componentLibraryRenderer; if (renderer) { renderer.showAllCategories['${categoryKey}'] = !renderer.showAllCategories['${categoryKey}']; renderer.renderComponents(); }"
-                  style="padding: 4px 12px; border-radius: 6px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-primary); font-family: var(--font-body); font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: all 0.2s;"
+                  style="padding: 4px 12px; border-radius: 6px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-text-heading); font-family: var(--font-body); font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: all 0.2s;"
                   onmouseover="this.style.background='var(--md-sys-color-surface-variant)'"
                   onmouseout="this.style.background='var(--md-sys-color-surface)'"
                 >
@@ -624,7 +625,7 @@ class ComponentLibraryRenderer {
       <div class="component-item component-item-compact" data-component="${comp.name}" style="margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--md-sys-color-outline-variant); scroll-margin-top: 100px; width: 100%; max-width: 100%; box-sizing: border-box; overflow-x: hidden;">
         <div style="margin-bottom: 24px; width: 100%; max-width: 100%;">
           <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;">
-            <h3 style="font-family: var(--font-serif); font-size: clamp(1.5rem, 4vw, 2rem); color: var(--md-sys-color-primary); margin: 0; line-height: 1.2; font-weight: 600; word-wrap: break-word;">
+            <h3 style="font-family: var(--font-serif); font-size: clamp(1.5rem, 4vw, 2rem); color: var(--md-sys-color-text-heading); margin: 0; line-height: 1.2; font-weight: 600; word-wrap: break-word;">
               ${comp.title}
             </h3>
             ${statusBadge}
@@ -665,7 +666,7 @@ class ComponentLibraryRenderer {
       <div class="component-item component-item-compact" data-component="${comp.name}" style="margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--md-sys-color-outline-variant); scroll-margin-top: 100px; width: 100%; max-width: 100%; box-sizing: border-box; overflow-x: hidden;">
         <div style="margin-bottom: 24px; width: 100%; max-width: 100%;">
           <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;">
-            <h3 style="font-family: var(--font-serif); font-size: clamp(1.5rem, 4vw, 2rem); color: var(--md-sys-color-primary); margin: 0; line-height: 1.2; font-weight: 600; word-wrap: break-word;">
+            <h3 style="font-family: var(--font-serif); font-size: clamp(1.5rem, 4vw, 2rem); color: var(--md-sys-color-text-heading); margin: 0; line-height: 1.2; font-weight: 600; word-wrap: break-word;">
               ${comp.title}
             </h3>
             ${statusBadge}
@@ -703,7 +704,7 @@ class ComponentLibraryRenderer {
                         class="copy-code-btn" 
                         data-code-id="${codeId}"
                         data-component-identifier="${this.generateComponentIdentifier(comp, example)}"
-                        style="display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-primary); font-family: var(--font-body); font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: all 0.2s; width: 100%; justify-content: center;"
+                        style="display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-text-heading); font-family: var(--font-body); font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: all 0.2s; width: 100%; justify-content: center;"
                         onmouseover="this.style.background='var(--md-sys-color-surface-variant)'; this.style.borderColor='var(--md-sys-color-primary)'"
                         onmouseout="this.style.background='var(--md-sys-color-surface)'; this.style.borderColor='var(--md-sys-color-outline-variant)'"
                       >
@@ -773,7 +774,7 @@ class ComponentLibraryRenderer {
             class="copy-code-btn" 
             data-code-id="${codeId}"
             data-component-identifier="${this.escapeHtmlAttribute(this.generateComponentIdentifier(comp, example))}"
-            style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-primary); font-family: var(--font-body); font-size: clamp(0.75rem, 2vw, 0.8125rem); font-weight: 500; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; flex-shrink: 0;"
+            style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-text-heading); font-family: var(--font-body); font-size: clamp(0.75rem, 2vw, 0.8125rem); font-weight: 500; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; flex-shrink: 0;"
             onmouseover="this.style.background='var(--md-sys-color-surface-variant)'; this.style.borderColor='var(--md-sys-color-primary)'"
             onmouseout="this.style.background='var(--md-sys-color-surface)'; this.style.borderColor='var(--md-sys-color-outline-variant)'"
           >
@@ -822,7 +823,7 @@ class ComponentLibraryRenderer {
                     <code style="font-family: 'Monaco', 'Courier New', monospace; background: var(--md-sys-color-surface-container-high); padding: 4px 8px; border-radius: 4px; font-size: clamp(0.75rem, 2vw, 0.8125rem); border: 1px solid var(--md-sys-color-outline-variant); word-break: break-all;">${prop.name}</code>
                   </td>
                   <td style="padding: 8px 12px; color: var(--md-sys-color-on-surface-variant); white-space: nowrap;">
-                    <code style="font-family: 'Monaco', 'Courier New', monospace; color: var(--md-sys-color-primary); font-weight: 500; font-size: clamp(0.75rem, 2vw, 0.8125rem);">${prop.type}</code>
+                    <code style="font-family: 'Monaco', 'Courier New', monospace; color: var(--md-sys-color-text-heading); font-weight: 500; font-size: clamp(0.75rem, 2vw, 0.8125rem);">${prop.type}</code>
                   </td>
                   <td style="padding: 8px 12px; color: var(--md-sys-color-on-surface-variant); white-space: nowrap;">
                     ${prop.required ? '<span style="color: #B3261E; font-weight: 600;">Yes</span>' : '<span style="opacity: 0.6;">No</span>'}
@@ -899,7 +900,7 @@ class ComponentLibraryRenderer {
                     <code style="font-family: 'Monaco', 'Courier New', monospace; background: var(--md-sys-color-surface-container-high); padding: 4px 8px; border-radius: 4px; font-size: clamp(0.75rem, 2vw, 0.8125rem); border: 1px solid var(--md-sys-color-outline-variant); word-break: break-all;">${event.name}</code>
                   </td>
                   <td style="padding: 8px 12px; color: var(--md-sys-color-on-surface-variant); white-space: nowrap;">
-                    ${event.detail ? `<code style="font-family: 'Monaco', 'Courier New', monospace; color: var(--md-sys-color-primary); font-size: clamp(0.75rem, 2vw, 0.8125rem); font-weight: 500;">${event.detail}</code>` : '<span style="opacity: 0.4;">-</span>'}
+                    ${event.detail ? `<code style="font-family: 'Monaco', 'Courier New', monospace; color: var(--md-sys-color-text-heading); font-size: clamp(0.75rem, 2vw, 0.8125rem); font-weight: 500;">${event.detail}</code>` : '<span style="opacity: 0.4;">-</span>'}
                   </td>
                   <td style="padding: 8px 0 8px 12px; color: var(--md-sys-color-on-surface-variant); line-height: 1.6; min-width: 200px;">
                     ${event.description}
@@ -977,6 +978,29 @@ class ComponentLibraryRenderer {
             }
           }
           
+          const isToast = comp.name.includes('toast');
+          if (isToast) {
+            let toastId = `${comp.name}-preview-${idx}`;
+            const toastIdMatch = componentHTML.match(/id=["']([^"']+)["']/);
+            if (toastIdMatch) {
+              toastId = toastIdMatch[1];
+            } else {
+              componentHTML = componentHTML.replace(/<(\w+-toast)/, `<$1 id="${toastId}"`);
+            }
+
+            componentHTML = componentHTML.replace(/\s+show(?=\s|>)/g, '');
+            componentHTML = componentHTML.replace(/\s+show=["']true["']/g, '');
+            componentHTML = componentHTML.replace(/\s+show=["']false["']/g, '');
+
+            const triggerButton = `
+              <md-filled-button onclick="const toast = document.getElementById('${toastId}'); if (toast) { if (!toast.message) { toast.message = 'Toast triggered'; } toast.show = true; }" style="margin-bottom: 16px;">
+                <span class="material-symbols-outlined" style="font-size: 18px; margin-right: 8px;">notifications</span>
+                Show Toast
+              </md-filled-button>
+            `;
+            componentHTML = triggerButton + componentHTML;
+          }
+
           // For modal components, remove 'open' attribute and add trigger button
           const isModal = comp.name.includes('modal');
           if (isModal) {
@@ -1007,6 +1031,7 @@ class ComponentLibraryRenderer {
           
           // Render the component HTML
           previewEl.innerHTML = componentHTML;
+          this.hideEmptyPreview(previewEl);
 
           // Execute initialization scripts after a short delay to ensure components are ready
           if (scriptContent) {
@@ -1018,6 +1043,7 @@ class ComponentLibraryRenderer {
               } catch (e) {
                 console.warn(`Error executing example script for ${comp.name} example ${idx}:`, e);
               }
+              this.hideEmptyPreview(previewEl);
             }, 100);
           }
         }
@@ -1051,6 +1077,25 @@ class ComponentLibraryRenderer {
         });
       }
     });
+  }
+
+  hideEmptyPreview(previewEl) {
+    if (!this.isComponentsLibraryPage || !previewEl) return;
+    const hasContent = Array.from(previewEl.childNodes).some(node => {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const tag = node.tagName ? node.tagName.toLowerCase() : '';
+        return tag && tag !== 'script' && tag !== 'template';
+      }
+      if (node.nodeType === Node.TEXT_NODE) {
+        return node.textContent.trim().length > 0;
+      }
+      return false;
+    });
+
+    if (!hasContent) {
+      previewEl.style.display = 'none';
+      previewEl.setAttribute('data-empty', 'true');
+    }
   }
 
   /**

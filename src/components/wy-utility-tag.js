@@ -74,7 +74,7 @@ export class WyUtilityTag extends LitElement {
 
     .tag.variant-add:hover {
       border-color: color-mix(in srgb, var(--md-sys-color-primary) 60%, transparent);
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
     }
 
     .tag.variant-add:focus-visible {

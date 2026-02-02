@@ -30,7 +30,7 @@ export class WyTagChip extends LitElement {
 
     :host([variant="ai-generated"]) {
       background-color: transparent;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       border: 1px dashed var(--md-sys-color-primary);
     }
 

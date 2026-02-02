@@ -73,7 +73,7 @@ export class WyWorkCard extends LitElement {
     .title {
       font-family: var(--font-serif);
       font-size: 1.125rem;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       margin-bottom: 4px;
       white-space: nowrap;
       overflow: hidden;
@@ -105,7 +105,7 @@ export class WyWorkCard extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(4px);
     }
@@ -127,7 +127,7 @@ export class WyWorkCard extends LitElement {
     }
 
     .favorite-toggle {
-      color: ${css`var(--md-sys-color-primary)`};
+      color: ${css`var(--md-sys-color-text-heading)`};
     }
 
     .favorite-toggle[active] {

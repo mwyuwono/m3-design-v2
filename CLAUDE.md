@@ -84,6 +84,15 @@ Preferred verification-based communication:
 
 M3 Design System v2 - A production-ready Web Component library built on Material Design 3 with Lit 3.x. The aesthetic is "Soft Modernism": organic M3 shapes (capsule buttons, rounded cards) paired with sharp editorial typography (Playfair Display) and a warm heritage color palette.
 
+
+## Default Change Locus (Important)
+
+**Unless the user explicitly asks otherwise, all component and styling changes must be made in this design system repository** so updates propagate to every consuming project.
+
+- Do **not** implement per-page or per-app overrides in consuming projects unless explicitly requested.
+- If a local override is unavoidable, call it out and confirm before proceeding.
+- If the request mentions a consuming app, first verify whether the component is sourced from this design system and update it here.
+
 ## React Components vs Web Components Architecture
 
 **CRITICAL:** This design system provides Web Components (`.js` files) that are consumed by React projects via wrappers.

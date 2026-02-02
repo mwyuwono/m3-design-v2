@@ -102,7 +102,7 @@ export class WyAllocationCard extends LitElement {
     }
 
     .footer strong {
-        color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-text-heading);
     }
   `;
 

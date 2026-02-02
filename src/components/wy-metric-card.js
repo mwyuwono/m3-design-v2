@@ -30,7 +30,7 @@ export class WyMetricCard extends LitElement {
 
     .icon-container {
       background-color: var(--md-sys-color-primary-container);
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       width: 48px;
       height: 48px;
       border-radius: 50%;
@@ -65,7 +65,7 @@ export class WyMetricCard extends LitElement {
       font-family: var(--font-display);
       font-size: 0.875rem;
       font-weight: 500;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
     }
 
     md-icon {

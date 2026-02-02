@@ -30,7 +30,7 @@ export class WyFormField extends LitElement {
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
     }
 
     .required-mark {

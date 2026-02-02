@@ -242,7 +242,7 @@ export class WyPromptModal extends LitElement {
     .clear-btn {
         background: none;
         border: none;
-        color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-text-heading);
         font-family: var(--font-sans, 'DM Sans', sans-serif);
         font-size: 0.875rem;
         font-weight: 500;
@@ -459,7 +459,7 @@ export class WyPromptModal extends LitElement {
     }
 
     .toggle-status.active {
-        color: var(--md-sys-color-primary);
+        color: var(--md-sys-color-text-heading);
     }
 
     .preview-area {

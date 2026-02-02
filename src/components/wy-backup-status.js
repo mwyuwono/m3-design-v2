@@ -61,7 +61,7 @@ export class WyBackupStatus extends LitElement {
     }
 
     .status-synced { color: #4CAF50; }
-    .status-syncing { color: var(--md-sys-color-primary); }
+    .status-syncing { color: var(--md-sys-color-text-heading); }
     .status-error { color: #D32F2F; }
 
     .syncing-container {

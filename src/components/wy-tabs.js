@@ -32,11 +32,11 @@ export class WyTabs extends LitElement {
     }
 
     .tab-item:hover {
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
     }
 
     .tab-item.active {
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       font-weight: 700;
     }
 

@@ -294,7 +294,7 @@ export class WyLinksModal extends LitElement {
     }
 
     .close-button:hover {
-      color: var(--md-sys-color-primary); /* hover:text-primary */
+      color: var(--md-sys-color-text-heading); /* hover:text-primary */
     }
 
     @media (prefers-color-scheme: dark) {

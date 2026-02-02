@@ -38,6 +38,71 @@
             max-width: 100vw;
         }
 
+        .global-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            background: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+                background var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+                color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+        }
+
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--md-sys-color-primary);
+            outline-offset: 2px;
+        }
+
+        .theme-toggle-text {
+            opacity: 0.6;
+            transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+        }
+
+        .theme-toggle-track {
+            width: 40px;
+            height: 20px;
+            border-radius: 999px;
+            background: var(--md-sys-color-surface-variant);
+            position: relative;
+            transition: background var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+        }
+
+        .theme-toggle-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--md-sys-color-primary);
+            transition: transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+                background var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+        }
+
+        .theme-toggle[data-theme="dark"] .theme-toggle-thumb {
+            transform: translateX(20px);
+            background: var(--md-sys-color-on-primary);
+        }
+
+        .theme-toggle[data-theme="light"] .theme-toggle-text[data-theme="light"],
+        .theme-toggle[data-theme="dark"] .theme-toggle-text[data-theme="dark"] {
+            opacity: 1;
+            font-weight: 600;
+        }
         /* Sticky Global Header */
         .global-header {
             position: sticky;
@@ -395,7 +460,16 @@
         <div class="global-header-branding">
             <h1>Components Library</h1>
         </div>
-        <a href="design-system.html" class="global-header-back">← Back to Design System</a>
+        <div class="global-header-actions">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" data-theme="light">
+                <span class="theme-toggle-text" data-theme="light">Light</span>
+                <span class="theme-toggle-track">
+                    <span class="theme-toggle-thumb"></span>
+                </span>
+                <span class="theme-toggle-text" data-theme="dark">Dark</span>
+            </button>
+            <a href="design-system.html" class="global-header-back">← Back to Design System</a>
+        </div>
     </header>
 
     <div class="ds-layout">
@@ -424,6 +498,39 @@
     <script type="module">
         // Initialize component library when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const root = document.documentElement;
+            const storageKey = 'm3-theme';
+
+            const applyTheme = (theme) => {
+                const isDark = theme === 'dark';
+                root.classList.toggle('dark', isDark);
+                if (themeToggle) {
+                    themeToggle.setAttribute('aria-pressed', String(isDark));
+                    themeToggle.dataset.theme = isDark ? 'dark' : 'light';
+                }
+            };
+
+            const storedTheme = localStorage.getItem(storageKey);
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const nextTheme = root.classList.contains('dark') ? 'light' : 'dark';
+                    localStorage.setItem(storageKey, nextTheme);
+                    applyTheme(nextTheme);
+                });
+            }
+
+            if (window.matchMedia) {
+                const media = window.matchMedia('(prefers-color-scheme: dark)');
+                media.addEventListener('change', (e) => {
+                    if (!localStorage.getItem(storageKey)) {
+                        applyTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
             // Wait for custom elements to be registered and ComponentLibraryRenderer to be available
             setTimeout(() => {
                 const container = document.getElementById('component-library-container');

@@ -60,7 +60,7 @@ export class WyExportModal extends LitElement {
     .section-title {
       font-family: var(--font-serif, 'Playfair Display', serif);
       font-size: 1.125rem;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       margin-bottom: 12px;
     }
 

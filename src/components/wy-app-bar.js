@@ -71,7 +71,7 @@ export class WyAppBar extends LitElement {
       font-family: var(--font-body);
       font-size: 0.875rem;
       font-weight: 500;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       text-decoration: none;
       padding: 8px 16px;
       border-radius: 20px;

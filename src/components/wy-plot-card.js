@@ -49,7 +49,7 @@ export class WyPlotCard extends LitElement {
       font-family: var(--font-serif);
       font-size: 1.125rem;
       font-weight: 500;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
     }
 
     .status-badge {

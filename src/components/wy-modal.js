@@ -47,7 +47,7 @@ export class WyModal extends LitElement {
     ::slotted(.headline-text) {
       font-family: 'Playfair Display', serif;
       font-size: 1.75rem;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       margin: 0;
       padding-top: 24px;
       padding-bottom: 8px;
@@ -58,7 +58,7 @@ export class WyModal extends LitElement {
     md-dialog::slotted(.headline-text) {
       font-family: 'Playfair Display', serif;
       font-size: 1.75rem;
-      color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-text-heading);
       margin: 0;
       padding-top: 24px;
       padding-bottom: 8px;

@@ -365,7 +365,7 @@
 
     /* High-contrast heading color for dark backgrounds (meets WCAG 4.5:1) */
     /* Sage/Mint tint of brand green for dark mode headings */
-    --md-sys-color-text-heading: #8DE0B0;
+    --md-sys-color-text-heading: var(--md-sys-color-on-background);
     
     /* Links Modal Specific Colors (dark mode) */
     --wy-links-modal-text-muted: rgba(245, 242, 234, 0.7); /* Muted text in dark mode */
@@ -454,7 +454,7 @@ html.dark :root {
 
   /* High-contrast heading color for dark backgrounds (meets WCAG 4.5:1) */
   /* Sage/Mint tint of brand green for dark mode headings */
-  --md-sys-color-text-heading: #8DE0B0;
+  --md-sys-color-text-heading: var(--md-sys-color-on-background);
 
   /* Links Modal Specific Colors (dark mode) */
   --wy-links-modal-text-muted: rgba(245, 242, 234, 0.7);
