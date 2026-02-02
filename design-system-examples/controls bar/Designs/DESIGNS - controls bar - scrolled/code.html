@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sticky Pill Controls Bar</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1B4D3E", // Dark Hunter Green text
+                        "background-light": "#FAF9F6", // Page background (Off-white)
+                        "background-dark": "#111827", // Page background (Dark gray)
+                        // Custom Palette based on description & image
+                        "warm-clay": "#F5F2EA",
+                        "warm-border": "#D7D3C8",
+                        "active-green": "#E8F5E9",
+                        "active-green-dark": "#064E3B",
+                        "search-bg": "#EAE6DF",
+                    },
+                    fontFamily: {
+                        sans: ["'DM Sans'", "sans-serif"],
+                        serif: ["'Playfair Display'", "serif"],
+                        display: ["'Playfair Display'", "serif"],
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>.hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-gray-800 dark:text-gray-100 min-h-screen relative transition-colors duration-300">
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-orange-100/40 dark:bg-blue-900/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-green-100/40 dark:bg-purple-900/20 rounded-full blur-[120px]"></div>
+<div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 32px 32px;">
+</div>
+</div>
+<div class="relative z-10 pt-40 px-6 max-w-7xl mx-auto space-y-8 pb-32">
+<div class="h-64 bg-white/40 dark:bg-gray-800/40 rounded-xl border border-warm-border dark:border-gray-700"></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="h-96 bg-white/40 dark:bg-gray-800/40 rounded-xl border border-warm-border dark:border-gray-700"></div>
+<div class="h-96 bg-white/40 dark:bg-gray-800/40 rounded-xl border border-warm-border dark:border-gray-700"></div>
+<div class="h-96 bg-white/40 dark:bg-gray-800/40 rounded-xl border border-warm-border dark:border-gray-700"></div>
+</div>
+<div class="h-64 bg-white/40 dark:bg-gray-800/40 rounded-xl border border-warm-border dark:border-gray-700"></div>
+</div>
+<div class="fixed top-8 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+<div class="pointer-events-auto shadow-glass backdrop-blur-xl bg-warm-clay/85 dark:bg-gray-900/80 border border-warm-border dark:border-gray-700 rounded-full p-2 pr-2 md:pr-3 flex flex-col md:flex-row items-center gap-2 md:gap-4 transition-all duration-300 w-full max-w-[95%] md:w-auto md:max-w-5xl">
+<div class="flex items-center w-full md:w-auto gap-2 md:gap-4 overflow-x-auto hide-scrollbar">
+<div class="relative group shrink-0">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+<span class="material-icons-outlined text-gray-500 dark:text-gray-400 text-[20px] group-focus-within:text-primary dark:group-focus-within:text-green-400 transition-colors">search</span>
+</div>
+<input class="block w-full md:w-[280px] pl-10 pr-4 py-2.5 rounded-full text-sm bg-search-bg/80 dark:bg-gray-800 border-none ring-0 focus:ring-2 focus:ring-warm-border dark:focus:ring-gray-600 placeholder-gray-500 dark:placeholder-gray-500 text-gray-800 dark:text-gray-100 transition-all shadow-inner" placeholder="Search prompts..." type="text"/>
+</div>
+<div class="hidden md:block w-px h-6 bg-warm-border/80 dark:bg-gray-700 mx-1"></div>
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pr-2 md:pr-0">
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-medium bg-active-green dark:bg-active-green-dark text-primary dark:text-green-100 transition-transform hover:scale-105 active:scale-95 shadow-sm border border-transparent">
+                        All
+                    </button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-medium bg-transparent border border-warm-border dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800 transition-all hover:border-gray-400 dark:hover:border-gray-500">
+                        Creativity
+                    </button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-medium bg-transparent border border-warm-border dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800 transition-all hover:border-gray-400 dark:hover:border-gray-500">
+                        Expertise
+                    </button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-medium bg-transparent border border-warm-border dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800 transition-all hover:border-gray-400 dark:hover:border-gray-500">
+                        Productivity
+                    </button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-medium bg-transparent border border-warm-border dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800 transition-all hover:border-gray-400 dark:hover:border-gray-500">
+                        Travel &amp; Shopping
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-6 right-6 z-50">
+<button class="p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:scale-110 transition-transform" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons-outlined block dark:hidden">dark_mode</span>
+<span class="material-icons-outlined hidden dark:block">light_mode</span>
+</button>
+</div>
+
+</body></html>

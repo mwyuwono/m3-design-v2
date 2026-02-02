@@ -155,15 +155,13 @@ export class WyControlsBar extends LitElement {
       z-index: 100;
       width: auto;
       max-width: 900px;
-      background-color: rgba(245, 242, 234, 0.95);
+      background-color: rgba(245, 242, 234, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--md-sys-color-outline-variant, #D7D3C8);
       border-radius: 9999px;
-      border-bottom: none;
       padding: 8px 24px;
-      box-shadow: 
-        0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
       transition: 
         padding var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
         background-color var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
@@ -201,7 +199,7 @@ export class WyControlsBar extends LitElement {
     }
 
     :host([data-scrolled]) .controls-container {
-      gap: 8px;
+      gap: 16px;
       max-width: 100%;
       transition: gap var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
     }
@@ -214,7 +212,7 @@ export class WyControlsBar extends LitElement {
     }
 
     :host([data-scrolled]) .search-section {
-      width: 160px;
+      width: 280px;
       transition: width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
     }
 
@@ -275,10 +273,6 @@ export class WyControlsBar extends LitElement {
       height: 24px;
       background-color: var(--md-sys-color-outline-variant, #e5e7eb);
       flex-shrink: 0;
-    }
-
-    :host([data-scrolled]) .divider {
-      display: none;
     }
 
     /* Toggle Section */
@@ -525,7 +519,7 @@ export class WyControlsBar extends LitElement {
 
           <div class="divider"></div>
         ` : html`
-          ${!this.isScrolled ? html`<div class="divider"></div>` : ''}
+          ${this.isScrolled ? html`<div class="divider"></div>` : ''}
         `}
 
         <div class="category-section">
