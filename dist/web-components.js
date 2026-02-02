@@ -320,7 +320,7 @@ function No(r) {
     } });
   };
 }
-const Zt = globalThis, xo = (r) => r, Ze = Zt.trustedTypes, _o = Ze ? Ze.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, Vo = "$lit$", re = `lit$${Math.random().toFixed(9).slice(2)}$`, Uo = "?" + re, Fr = `<${Uo}>`, ce = document, $e = () => ce.createComment(""), Ee = (r) => r === null || typeof r != "object" && typeof r != "function", Qt = Array.isArray, Lr = (r) => Qt(r) || typeof r?.[Symbol.iterator] == "function", at = `[ 	
+const Zt = globalThis, xo = (r) => r, Ze = Zt.trustedTypes, _o = Ze ? Ze.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, Vo = "$lit$", re = `lit$${Math.random().toFixed(9).slice(2)}$`, Uo = "?" + re, Lr = `<${Uo}>`, ce = document, $e = () => ce.createComment(""), Ee = (r) => r === null || typeof r != "object" && typeof r != "function", Qt = Array.isArray, Fr = (r) => Qt(r) || typeof r?.[Symbol.iterator] == "function", at = `[ 	
 \f\r]`, _e = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, wo = /-->/g, ko = />/g, le = RegExp(`>|${at}(?:([^\\s"'>=/]+)(${at}*=${at}*(?:[^ 	
 \f\r"'\`<>=]|("|')|))|$)`, "g"), Co = /'/g, $o = /"/g, Ho = /^(?:script|style|textarea|title)$/i, Mr = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), l = Mr(1), H = /* @__PURE__ */ Symbol.for("lit-noChange"), h = /* @__PURE__ */ Symbol.for("lit-nothing"), Eo = /* @__PURE__ */ new WeakMap(), de = ce.createTreeWalker(ce, 129);
 function qo(r, e) {
@@ -335,7 +335,7 @@ const Br = (r, e) => {
     let v, f, m = -1, b = 0;
     for (; b < p.length && (n.lastIndex = b, f = n.exec(p), f !== null); ) b = n.lastIndex, n === _e ? f[1] === "!--" ? n = wo : f[1] !== void 0 ? n = ko : f[2] !== void 0 ? (Ho.test(f[2]) && (i = RegExp("</" + f[2], "g")), n = le) : f[3] !== void 0 && (n = le) : n === le ? f[0] === ">" ? (n = i ?? _e, m = -1) : f[1] === void 0 ? m = -2 : (m = n.lastIndex - f[2].length, v = f[1], n = f[3] === void 0 ? le : f[3] === '"' ? $o : Co) : n === $o || n === Co ? n = le : n === wo || n === ko ? n = _e : (n = le, i = void 0);
     const x = n === le && r[c + 1].startsWith("/>") ? " " : "";
-    a += n === _e ? p + Fr : m >= 0 ? (o.push(v), p.slice(0, m) + Vo + p.slice(m) + re + x) : p + re + (m === -2 ? c : x);
+    a += n === _e ? p + Lr : m >= 0 ? (o.push(v), p.slice(0, m) + Vo + p.slice(m) + re + x) : p + re + (m === -2 ? c : x);
   }
   return [qo(r, a + (r[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), o];
 };
@@ -429,7 +429,7 @@ class Ae {
     return this._$AB;
   }
   _$AI(e, t = this) {
-    e = ge(this, e, t), Ee(e) ? e === h || e == null || e === "" ? (this._$AH !== h && this._$AR(), this._$AH = h) : e !== this._$AH && e !== H && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Lr(e) ? this.k(e) : this._(e);
+    e = ge(this, e, t), Ee(e) ? e === h || e == null || e === "" ? (this._$AH !== h && this._$AR(), this._$AH = h) : e !== this._$AH && e !== H && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Fr(e) ? this.k(e) : this._(e);
   }
   O(e) {
     return this._$AA.parentNode.insertBefore(e, this._$AB);
@@ -1040,7 +1040,7 @@ function st(r) {
 function Go(r) {
   return r.replace("aria", "aria-").replace(/Elements?/g, "").toLowerCase();
 }
-const Fe = /* @__PURE__ */ Symbol("privateIgnoreAttributeChangesFor");
+const Le = /* @__PURE__ */ Symbol("privateIgnoreAttributeChangesFor");
 function Q(r) {
   var e;
   class t extends r {
@@ -1052,9 +1052,9 @@ function Q(r) {
         super.attributeChangedCallback(i, a, n);
         return;
       }
-      if (this[Fe].has(i))
+      if (this[Le].has(i))
         return;
-      this[Fe].add(i), this.removeAttribute(i), this[Fe].delete(i);
+      this[Le].add(i), this.removeAttribute(i), this[Le].delete(i);
       const c = ft(i);
       n === null ? delete this.dataset[c] : this.dataset[c] = n, this.requestUpdate(ft(i), a);
     }
@@ -1065,7 +1065,7 @@ function Q(r) {
       super.removeAttribute(i), st(i) && (super.removeAttribute(mt(i)), this.requestUpdate());
     }
   }
-  return e = Fe, ci(t), t;
+  return e = Le, ci(t), t;
 }
 function ci(r) {
   for (const e of Yo) {
@@ -1158,7 +1158,7 @@ function Re(r) {
   }
   return e;
 }
-const Te = /* @__PURE__ */ Symbol("createValidator"), ze = /* @__PURE__ */ Symbol("getValidityAnchor"), lt = /* @__PURE__ */ Symbol("privateValidator"), Z = /* @__PURE__ */ Symbol("privateSyncValidity"), Le = /* @__PURE__ */ Symbol("privateCustomValidationMessage");
+const Te = /* @__PURE__ */ Symbol("createValidator"), ze = /* @__PURE__ */ Symbol("getValidityAnchor"), lt = /* @__PURE__ */ Symbol("privateValidator"), Z = /* @__PURE__ */ Symbol("privateSyncValidity"), Fe = /* @__PURE__ */ Symbol("privateCustomValidationMessage");
 function io(r) {
   var e;
   class t extends r {
@@ -1181,7 +1181,7 @@ function io(r) {
       return this[Z](), this[N].reportValidity();
     }
     setCustomValidity(i) {
-      this[Le] = i, this[Z]();
+      this[Fe] = i, this[Z]();
     }
     requestUpdate(i, a, n) {
       super.requestUpdate(i, a, n), this[Z]();
@@ -1189,9 +1189,9 @@ function io(r) {
     firstUpdated(i) {
       super.firstUpdated(i), this[Z]();
     }
-    [(e = Le, Z)]() {
+    [(e = Fe, Z)]() {
       this[lt] || (this[lt] = this[Te]());
-      const { validity: i, validationMessage: a } = this[lt].getValidity(), n = !!this[Le], c = this[Le] || a;
+      const { validity: i, validationMessage: a } = this[lt].getValidity(), n = !!this[Fe], c = this[Fe] || a;
       this[N].setValidity({ ...i, customError: n }, c, this[ze]() ?? void 0);
     }
     [Te]() {
@@ -2090,11 +2090,11 @@ Ct = s([
 ], Ct);
 const Pi = u`:host{--_active-indicator-color: var(--md-filled-text-field-active-indicator-color, var(--md-sys-color-on-surface-variant, #49454f));--_active-indicator-height: var(--md-filled-text-field-active-indicator-height, 1px);--_caret-color: var(--md-filled-text-field-caret-color, var(--md-sys-color-primary, #6750a4));--_container-color: var(--md-filled-text-field-container-color, var(--md-sys-color-surface-container-highest, #e6e0e9));--_disabled-active-indicator-color: var(--md-filled-text-field-disabled-active-indicator-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-active-indicator-height: var(--md-filled-text-field-disabled-active-indicator-height, 1px);--_disabled-active-indicator-opacity: var(--md-filled-text-field-disabled-active-indicator-opacity, 0.38);--_disabled-container-color: var(--md-filled-text-field-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-container-opacity: var(--md-filled-text-field-disabled-container-opacity, 0.04);--_disabled-input-text-color: var(--md-filled-text-field-disabled-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-input-text-opacity: var(--md-filled-text-field-disabled-input-text-opacity, 0.38);--_disabled-label-text-color: var(--md-filled-text-field-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-filled-text-field-disabled-label-text-opacity, 0.38);--_disabled-leading-icon-color: var(--md-filled-text-field-disabled-leading-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-leading-icon-opacity: var(--md-filled-text-field-disabled-leading-icon-opacity, 0.38);--_disabled-supporting-text-color: var(--md-filled-text-field-disabled-supporting-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-supporting-text-opacity: var(--md-filled-text-field-disabled-supporting-text-opacity, 0.38);--_disabled-trailing-icon-color: var(--md-filled-text-field-disabled-trailing-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-trailing-icon-opacity: var(--md-filled-text-field-disabled-trailing-icon-opacity, 0.38);--_error-active-indicator-color: var(--md-filled-text-field-error-active-indicator-color, var(--md-sys-color-error, #b3261e));--_error-focus-active-indicator-color: var(--md-filled-text-field-error-focus-active-indicator-color, var(--md-sys-color-error, #b3261e));--_error-focus-caret-color: var(--md-filled-text-field-error-focus-caret-color, var(--md-sys-color-error, #b3261e));--_error-focus-input-text-color: var(--md-filled-text-field-error-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-label-text-color: var(--md-filled-text-field-error-focus-label-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-leading-icon-color: var(--md-filled-text-field-error-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-focus-supporting-text-color: var(--md-filled-text-field-error-focus-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-trailing-icon-color: var(--md-filled-text-field-error-focus-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_error-hover-active-indicator-color: var(--md-filled-text-field-error-hover-active-indicator-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-input-text-color: var(--md-filled-text-field-error-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-label-text-color: var(--md-filled-text-field-error-hover-label-text-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-leading-icon-color: var(--md-filled-text-field-error-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-hover-state-layer-color: var(--md-filled-text-field-error-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-state-layer-opacity: var(--md-filled-text-field-error-hover-state-layer-opacity, 0.08);--_error-hover-supporting-text-color: var(--md-filled-text-field-error-hover-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-hover-trailing-icon-color: var(--md-filled-text-field-error-hover-trailing-icon-color, var(--md-sys-color-on-error-container, #410e0b));--_error-input-text-color: var(--md-filled-text-field-error-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-label-text-color: var(--md-filled-text-field-error-label-text-color, var(--md-sys-color-error, #b3261e));--_error-leading-icon-color: var(--md-filled-text-field-error-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-supporting-text-color: var(--md-filled-text-field-error-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-trailing-icon-color: var(--md-filled-text-field-error-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_focus-active-indicator-color: var(--md-filled-text-field-focus-active-indicator-color, var(--md-sys-color-primary, #6750a4));--_focus-active-indicator-height: var(--md-filled-text-field-focus-active-indicator-height, 3px);--_focus-input-text-color: var(--md-filled-text-field-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-label-text-color: var(--md-filled-text-field-focus-label-text-color, var(--md-sys-color-primary, #6750a4));--_focus-leading-icon-color: var(--md-filled-text-field-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-supporting-text-color: var(--md-filled-text-field-focus-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-trailing-icon-color: var(--md-filled-text-field-focus-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-active-indicator-color: var(--md-filled-text-field-hover-active-indicator-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-active-indicator-height: var(--md-filled-text-field-hover-active-indicator-height, 1px);--_hover-input-text-color: var(--md-filled-text-field-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-filled-text-field-hover-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-leading-icon-color: var(--md-filled-text-field-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-color: var(--md-filled-text-field-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-filled-text-field-hover-state-layer-opacity, 0.08);--_hover-supporting-text-color: var(--md-filled-text-field-hover-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-trailing-icon-color: var(--md-filled-text-field-hover-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-color: var(--md-filled-text-field-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_input-text-font: var(--md-filled-text-field-input-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_input-text-line-height: var(--md-filled-text-field-input-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_input-text-placeholder-color: var(--md-filled-text-field-input-text-placeholder-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-prefix-color: var(--md-filled-text-field-input-text-prefix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-size: var(--md-filled-text-field-input-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_input-text-suffix-color: var(--md-filled-text-field-input-text-suffix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-weight: var(--md-filled-text-field-input-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_label-text-color: var(--md-filled-text-field-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-font: var(--md-filled-text-field-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-filled-text-field-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_label-text-populated-line-height: var(--md-filled-text-field-label-text-populated-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_label-text-populated-size: var(--md-filled-text-field-label-text-populated-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_label-text-size: var(--md-filled-text-field-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_label-text-weight: var(--md-filled-text-field-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_leading-icon-color: var(--md-filled-text-field-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_leading-icon-size: var(--md-filled-text-field-leading-icon-size, 24px);--_supporting-text-color: var(--md-filled-text-field-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_supporting-text-font: var(--md-filled-text-field-supporting-text-font, var(--md-sys-typescale-body-small-font, var(--md-ref-typeface-plain, Roboto)));--_supporting-text-line-height: var(--md-filled-text-field-supporting-text-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_supporting-text-size: var(--md-filled-text-field-supporting-text-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_supporting-text-weight: var(--md-filled-text-field-supporting-text-weight, var(--md-sys-typescale-body-small-weight, var(--md-ref-typeface-weight-regular, 400)));--_trailing-icon-color: var(--md-filled-text-field-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_trailing-icon-size: var(--md-filled-text-field-trailing-icon-size, 24px);--_container-shape-start-start: var(--md-filled-text-field-container-shape-start-start, var(--md-filled-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-start-end: var(--md-filled-text-field-container-shape-start-end, var(--md-filled-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-end: var(--md-filled-text-field-container-shape-end-end, var(--md-filled-text-field-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-start: var(--md-filled-text-field-container-shape-end-start, var(--md-filled-text-field-container-shape, var(--md-sys-shape-corner-none, 0px)));--_icon-input-space: var(--md-filled-text-field-icon-input-space, 16px);--_leading-space: var(--md-filled-text-field-leading-space, 16px);--_trailing-space: var(--md-filled-text-field-trailing-space, 16px);--_top-space: var(--md-filled-text-field-top-space, 16px);--_bottom-space: var(--md-filled-text-field-bottom-space, 16px);--_input-text-prefix-trailing-space: var(--md-filled-text-field-input-text-prefix-trailing-space, 2px);--_input-text-suffix-leading-space: var(--md-filled-text-field-input-text-suffix-leading-space, 2px);--_with-label-top-space: var(--md-filled-text-field-with-label-top-space, 8px);--_with-label-bottom-space: var(--md-filled-text-field-with-label-bottom-space, 8px);--_focus-caret-color: var(--md-filled-text-field-focus-caret-color, var(--md-sys-color-primary, #6750a4));--_with-leading-icon-leading-space: var(--md-filled-text-field-with-leading-icon-leading-space, 12px);--_with-trailing-icon-trailing-space: var(--md-filled-text-field-with-trailing-icon-trailing-space, 12px);--md-filled-field-active-indicator-color: var(--_active-indicator-color);--md-filled-field-active-indicator-height: var(--_active-indicator-height);--md-filled-field-bottom-space: var(--_bottom-space);--md-filled-field-container-color: var(--_container-color);--md-filled-field-container-shape-end-end: var(--_container-shape-end-end);--md-filled-field-container-shape-end-start: var(--_container-shape-end-start);--md-filled-field-container-shape-start-end: var(--_container-shape-start-end);--md-filled-field-container-shape-start-start: var(--_container-shape-start-start);--md-filled-field-content-color: var(--_input-text-color);--md-filled-field-content-font: var(--_input-text-font);--md-filled-field-content-line-height: var(--_input-text-line-height);--md-filled-field-content-size: var(--_input-text-size);--md-filled-field-content-space: var(--_icon-input-space);--md-filled-field-content-weight: var(--_input-text-weight);--md-filled-field-disabled-active-indicator-color: var(--_disabled-active-indicator-color);--md-filled-field-disabled-active-indicator-height: var(--_disabled-active-indicator-height);--md-filled-field-disabled-active-indicator-opacity: var(--_disabled-active-indicator-opacity);--md-filled-field-disabled-container-color: var(--_disabled-container-color);--md-filled-field-disabled-container-opacity: var(--_disabled-container-opacity);--md-filled-field-disabled-content-color: var(--_disabled-input-text-color);--md-filled-field-disabled-content-opacity: var(--_disabled-input-text-opacity);--md-filled-field-disabled-label-text-color: var(--_disabled-label-text-color);--md-filled-field-disabled-label-text-opacity: var(--_disabled-label-text-opacity);--md-filled-field-disabled-leading-content-color: var(--_disabled-leading-icon-color);--md-filled-field-disabled-leading-content-opacity: var(--_disabled-leading-icon-opacity);--md-filled-field-disabled-supporting-text-color: var(--_disabled-supporting-text-color);--md-filled-field-disabled-supporting-text-opacity: var(--_disabled-supporting-text-opacity);--md-filled-field-disabled-trailing-content-color: var(--_disabled-trailing-icon-color);--md-filled-field-disabled-trailing-content-opacity: var(--_disabled-trailing-icon-opacity);--md-filled-field-error-active-indicator-color: var(--_error-active-indicator-color);--md-filled-field-error-content-color: var(--_error-input-text-color);--md-filled-field-error-focus-active-indicator-color: var(--_error-focus-active-indicator-color);--md-filled-field-error-focus-content-color: var(--_error-focus-input-text-color);--md-filled-field-error-focus-label-text-color: var(--_error-focus-label-text-color);--md-filled-field-error-focus-leading-content-color: var(--_error-focus-leading-icon-color);--md-filled-field-error-focus-supporting-text-color: var(--_error-focus-supporting-text-color);--md-filled-field-error-focus-trailing-content-color: var(--_error-focus-trailing-icon-color);--md-filled-field-error-hover-active-indicator-color: var(--_error-hover-active-indicator-color);--md-filled-field-error-hover-content-color: var(--_error-hover-input-text-color);--md-filled-field-error-hover-label-text-color: var(--_error-hover-label-text-color);--md-filled-field-error-hover-leading-content-color: var(--_error-hover-leading-icon-color);--md-filled-field-error-hover-state-layer-color: var(--_error-hover-state-layer-color);--md-filled-field-error-hover-state-layer-opacity: var(--_error-hover-state-layer-opacity);--md-filled-field-error-hover-supporting-text-color: var(--_error-hover-supporting-text-color);--md-filled-field-error-hover-trailing-content-color: var(--_error-hover-trailing-icon-color);--md-filled-field-error-label-text-color: var(--_error-label-text-color);--md-filled-field-error-leading-content-color: var(--_error-leading-icon-color);--md-filled-field-error-supporting-text-color: var(--_error-supporting-text-color);--md-filled-field-error-trailing-content-color: var(--_error-trailing-icon-color);--md-filled-field-focus-active-indicator-color: var(--_focus-active-indicator-color);--md-filled-field-focus-active-indicator-height: var(--_focus-active-indicator-height);--md-filled-field-focus-content-color: var(--_focus-input-text-color);--md-filled-field-focus-label-text-color: var(--_focus-label-text-color);--md-filled-field-focus-leading-content-color: var(--_focus-leading-icon-color);--md-filled-field-focus-supporting-text-color: var(--_focus-supporting-text-color);--md-filled-field-focus-trailing-content-color: var(--_focus-trailing-icon-color);--md-filled-field-hover-active-indicator-color: var(--_hover-active-indicator-color);--md-filled-field-hover-active-indicator-height: var(--_hover-active-indicator-height);--md-filled-field-hover-content-color: var(--_hover-input-text-color);--md-filled-field-hover-label-text-color: var(--_hover-label-text-color);--md-filled-field-hover-leading-content-color: var(--_hover-leading-icon-color);--md-filled-field-hover-state-layer-color: var(--_hover-state-layer-color);--md-filled-field-hover-state-layer-opacity: var(--_hover-state-layer-opacity);--md-filled-field-hover-supporting-text-color: var(--_hover-supporting-text-color);--md-filled-field-hover-trailing-content-color: var(--_hover-trailing-icon-color);--md-filled-field-label-text-color: var(--_label-text-color);--md-filled-field-label-text-font: var(--_label-text-font);--md-filled-field-label-text-line-height: var(--_label-text-line-height);--md-filled-field-label-text-populated-line-height: var(--_label-text-populated-line-height);--md-filled-field-label-text-populated-size: var(--_label-text-populated-size);--md-filled-field-label-text-size: var(--_label-text-size);--md-filled-field-label-text-weight: var(--_label-text-weight);--md-filled-field-leading-content-color: var(--_leading-icon-color);--md-filled-field-leading-space: var(--_leading-space);--md-filled-field-supporting-text-color: var(--_supporting-text-color);--md-filled-field-supporting-text-font: var(--_supporting-text-font);--md-filled-field-supporting-text-line-height: var(--_supporting-text-line-height);--md-filled-field-supporting-text-size: var(--_supporting-text-size);--md-filled-field-supporting-text-weight: var(--_supporting-text-weight);--md-filled-field-top-space: var(--_top-space);--md-filled-field-trailing-content-color: var(--_trailing-icon-color);--md-filled-field-trailing-space: var(--_trailing-space);--md-filled-field-with-label-bottom-space: var(--_with-label-bottom-space);--md-filled-field-with-label-top-space: var(--_with-label-top-space);--md-filled-field-with-leading-content-leading-space: var(--_with-leading-icon-leading-space);--md-filled-field-with-trailing-content-trailing-space: var(--_with-trailing-icon-trailing-space)}
 `;
-const Fi = (r) => r.strings === void 0, Li = {}, Mi = (r, e = Li) => r._$AH = e;
+const Li = (r) => r.strings === void 0, Fi = {}, Mi = (r, e = Fi) => r._$AH = e;
 const Do = oo(class extends ro {
   constructor(r) {
     if (super(r), r.type !== oe.PROPERTY && r.type !== oe.ATTRIBUTE && r.type !== oe.BOOLEAN_ATTRIBUTE) throw Error("The `live` directive is not allowed on child or event bindings");
-    if (!Fi(r)) throw Error("`live` bindings can only contain a single expression");
+    if (!Li(r)) throw Error("`live` bindings can only contain a single expression");
   }
   render(r) {
     return r;
@@ -2826,7 +2826,7 @@ function Oo(r, e, t = J, o = !0) {
 function J(r) {
   return !r.disabled;
 }
-const L = {
+const F = {
   ArrowDown: "ArrowDown",
   ArrowLeft: "ArrowLeft",
   ArrowUp: "ArrowUp",
@@ -2845,25 +2845,25 @@ class Ji {
         return;
       const x = Ce(b, this.isActivatable);
       f.preventDefault();
-      const E = this.isRtl(), k = E ? L.ArrowRight : L.ArrowLeft, S = E ? L.ArrowLeft : L.ArrowRight;
+      const E = this.isRtl(), k = E ? F.ArrowRight : F.ArrowLeft, S = E ? F.ArrowLeft : F.ArrowRight;
       let D = null;
       switch (m) {
         // Activate the next item
-        case L.ArrowDown:
+        case F.ArrowDown:
         case S:
           D = Ro(b, x, this.isActivatable, this.wrapNavigation());
           break;
         // Activate the previous item
-        case L.ArrowUp:
+        case F.ArrowUp:
         case k:
           D = Oo(b, x, this.isActivatable, this.wrapNavigation());
           break;
         // Activate the first item
-        case L.Home:
+        case F.Home:
           D = ar(b, this.isActivatable);
           break;
         // Activate the last item
-        case L.End:
+        case F.End:
           D = sr(b, this.isActivatable);
           break;
       }
@@ -2941,7 +2941,7 @@ function ea(r, e) {
 const Po = ea, Tt = {
   SPACE: "Space",
   ENTER: "Enter"
-}, Fo = {
+}, Lo = {
   CLICK_SELECTION: "click-selection",
   KEYDOWN: "keydown"
 }, ta = {
@@ -2969,7 +2969,7 @@ const W = {
   FIRST_ITEM: "first-item",
   LAST_ITEM: "last-item"
 };
-const Lo = {
+const Fo = {
   END_START: "end-start",
   START_START: "start-start"
 };
@@ -3011,10 +3011,10 @@ class ra {
       display: "block",
       opacity: "0"
     }, this.host.requestUpdate(), await this.host.updateComplete, e.popover && e.isConnected && e.showPopover();
-    const O = e.getSurfacePositionClientRect ? e.getSurfacePositionClientRect() : e.getBoundingClientRect(), F = t.getSurfacePositionClientRect ? t.getSurfacePositionClientRect() : t.getBoundingClientRect(), [R, ee] = b.split("-"), [te, ne] = m.split("-"), Oe = getComputedStyle(e).direction === "ltr";
+    const O = e.getSurfacePositionClientRect ? e.getSurfacePositionClientRect() : e.getBoundingClientRect(), L = t.getSurfacePositionClientRect ? t.getSurfacePositionClientRect() : t.getBoundingClientRect(), [R, ee] = b.split("-"), [te, ne] = m.split("-"), Oe = getComputedStyle(e).direction === "ltr";
     let { blockInset: ue, blockOutOfBoundsCorrection: G, surfaceBlockProperty: mo } = this.calculateBlock({
       surfaceRect: O,
-      anchorRect: F,
+      anchorRect: L,
       anchorBlock: te,
       surfaceBlock: R,
       yOffset: c,
@@ -3025,7 +3025,7 @@ class ra {
     if (G && !p) {
       const rt = R === "start" ? "end" : "start", it = te === "start" ? "end" : "start", X = this.calculateBlock({
         surfaceRect: O,
-        anchorRect: F,
+        anchorRect: L,
         anchorBlock: it,
         surfaceBlock: rt,
         yOffset: c,
@@ -3037,7 +3037,7 @@ class ra {
     }
     let { inlineInset: Pe, inlineOutOfBoundsCorrection: me, surfaceInlineProperty: fo } = this.calculateInline({
       surfaceRect: O,
-      anchorRect: F,
+      anchorRect: L,
       anchorInline: ne,
       surfaceInline: ee,
       xOffset: n,
@@ -3049,7 +3049,7 @@ class ra {
     if (me && !v) {
       const rt = ee === "start" ? "end" : "start", it = ne === "start" ? "end" : "start", X = this.calculateInline({
         surfaceRect: O,
-        anchorRect: F,
+        anchorRect: L,
         anchorInline: it,
         surfaceInline: rt,
         xOffset: n,
@@ -3080,7 +3080,7 @@ class ra {
    * for the surface in the inline direction.
    */
   calculateInline(e) {
-    const { isLTR: t, surfaceInline: o, anchorInline: i, anchorRect: a, surfaceRect: n, xOffset: c, positioning: p, windowInnerWidth: v, inlineScrollbarWidth: f } = e, m = p === "fixed" || p === "document" ? 1 : 0, b = p === "document" ? 1 : 0, x = t ? 1 : 0, E = t ? 0 : 1, k = o === "start" ? 1 : 0, S = o === "end" ? 1 : 0, C = (i !== o ? 1 : 0) * a.width + c, O = k * a.left + S * (v - a.right - f), F = k * (v - a.right - f) + S * a.left, R = x * O + E * F, ee = k * window.scrollX - S * window.scrollX, te = S * window.scrollX - k * window.scrollX, ne = x * ee + E * te, Oe = Math.abs(Math.min(0, v - R - C - n.width)), ue = m * R + C + b * ne;
+    const { isLTR: t, surfaceInline: o, anchorInline: i, anchorRect: a, surfaceRect: n, xOffset: c, positioning: p, windowInnerWidth: v, inlineScrollbarWidth: f } = e, m = p === "fixed" || p === "document" ? 1 : 0, b = p === "document" ? 1 : 0, x = t ? 1 : 0, E = t ? 0 : 1, k = o === "start" ? 1 : 0, S = o === "end" ? 1 : 0, C = (i !== o ? 1 : 0) * a.width + c, O = k * a.left + S * (v - a.right - f), L = k * (v - a.right - f) + S * a.left, R = x * O + E * L, ee = k * window.scrollX - S * window.scrollX, te = S * window.scrollX - k * window.scrollX, ne = x * ee + E * te, Oe = Math.abs(Math.min(0, v - R - C - n.width)), ue = m * R + C + b * ne;
     let G = o === "start" ? "inset-inline-start" : "inset-inline-end";
     return (p === "document" || p === "fixed") && (o === "start" && t || o === "end" && !t ? G = "left" : G = "right"), {
       inlineInset: ue,
@@ -3213,13 +3213,13 @@ class ia {
   }
 }
 const dr = 200, cr = /* @__PURE__ */ new Set([
-  L.ArrowDown,
-  L.ArrowUp,
-  L.Home,
-  L.End
+  F.ArrowDown,
+  F.ArrowUp,
+  F.Home,
+  F.End
 ]), aa = /* @__PURE__ */ new Set([
-  L.ArrowLeft,
-  L.ArrowRight,
+  F.ArrowLeft,
+  F.ArrowRight,
   ...cr
 ]);
 function sa(r = document) {
@@ -3248,7 +3248,7 @@ class A extends g {
     this.currentAnchorElement = e, this.requestUpdate("anchorElement");
   }
   constructor() {
-    super(), this.anchor = "", this.positioning = "absolute", this.quick = !1, this.hasOverflow = !1, this.open = !1, this.xOffset = 0, this.yOffset = 0, this.noHorizontalFlip = !1, this.noVerticalFlip = !1, this.typeaheadDelay = dr, this.anchorCorner = Lo.END_START, this.menuCorner = Lo.START_START, this.stayOpenOnOutsideClick = !1, this.stayOpenOnFocusout = !1, this.skipRestoreFocus = !1, this.defaultFocus = W.FIRST_ITEM, this.noNavigationWrap = !1, this.typeaheadActive = !0, this.isSubmenu = !1, this.pointerPath = [], this.isRepositioning = !1, this.openCloseAnimationSignal = Zr(), this.listController = new Ji({
+    super(), this.anchor = "", this.positioning = "absolute", this.quick = !1, this.hasOverflow = !1, this.open = !1, this.xOffset = 0, this.yOffset = 0, this.noHorizontalFlip = !1, this.noVerticalFlip = !1, this.typeaheadDelay = dr, this.anchorCorner = Fo.END_START, this.menuCorner = Fo.START_START, this.stayOpenOnOutsideClick = !1, this.stayOpenOnFocusout = !1, this.skipRestoreFocus = !1, this.defaultFocus = W.FIRST_ITEM, this.noNavigationWrap = !1, this.typeaheadActive = !0, this.isSubmenu = !1, this.pointerPath = [], this.isRepositioning = !1, this.openCloseAnimationSignal = Zr(), this.listController = new Ji({
       isItem: (e) => e.hasAttribute("md-menu-item"),
       getPossibleItems: () => this.slotItems,
       isRtl: () => getComputedStyle(this).direction === "rtl",
@@ -3261,7 +3261,7 @@ class A extends g {
       isNavigableKey: (e) => {
         if (!this.isSubmenu)
           return aa.has(e);
-        const o = getComputedStyle(this).direction === "rtl" ? L.ArrowLeft : L.ArrowRight;
+        const o = getComputedStyle(this).direction === "rtl" ? F.ArrowLeft : F.ArrowRight;
         return e === o ? !0 : cr.has(e);
       },
       wrapNavigation: () => !this.noNavigationWrap
@@ -3441,13 +3441,13 @@ class A extends g {
       { transform: "" }
     ], { duration: p, easing: j.EMPHASIZED }), E = e.animate([{ opacity: 0 }, { opacity: 1 }], v), k = [];
     for (let C = 0; C < c.length; C++) {
-      const O = n ? c.length - 1 - C : C, F = c[O], R = F.animate([{ opacity: 0 }, { opacity: 1 }], {
+      const O = n ? c.length - 1 - C : C, L = c[O], R = L.animate([{ opacity: 0 }, { opacity: 1 }], {
         duration: f,
         delay: m * C
       });
-      F.classList.toggle("md-menu-hidden", !0), R.addEventListener("finish", () => {
-        F.classList.toggle("md-menu-hidden", !1);
-      }), k.push([F, R]);
+      L.classList.toggle("md-menu-hidden", !0), R.addEventListener("finish", () => {
+        L.classList.toggle("md-menu-hidden", !1);
+      }), k.push([L, R]);
     }
     let S = (C) => {
     };
@@ -3487,7 +3487,7 @@ class A extends g {
       {
         transform: n ? `translateY(-${p * (1 - k)}px)` : ""
       }
-    ], { duration: f, easing: j.EMPHASIZED_ACCELERATE }), O = o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: m, delay: b }), F = [];
+    ], { duration: f, easing: j.EMPHASIZED_ACCELERATE }), O = o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: m, delay: b }), L = [];
     for (let R = 0; R < v.length; R++) {
       const ee = n ? R : v.length - 1 - R, te = v[ee], ne = te.animate([{ opacity: 1 }, { opacity: 0 }], {
         duration: x,
@@ -3495,14 +3495,14 @@ class A extends g {
       });
       ne.addEventListener("finish", () => {
         te.classList.toggle("md-menu-hidden", !0);
-      }), F.push([te, ne]);
+      }), L.push([te, ne]);
     }
     return c.addEventListener("abort", () => {
-      D.cancel(), C.cancel(), O.cancel(), F.forEach(([R, ee]) => {
+      D.cancel(), C.cancel(), O.cancel(), L.forEach(([R, ee]) => {
         ee.cancel(), R.classList.toggle("md-menu-hidden", !1);
       }), e(!1);
     }), D.addEventListener("finish", () => {
-      o.classList.toggle("animating", !1), F.forEach(([R]) => {
+      o.classList.toggle("animating", !1), L.forEach(([R]) => {
         R.classList.toggle("md-menu-hidden", !1);
       }), this.openCloseAnimationSignal.finish(), this.dispatchEvent(new Event("closed")), e(!0);
     }), t;
@@ -4217,7 +4217,7 @@ class ba {
   constructor(e, t) {
     this.host = e, this.internalTypeaheadText = null, this.onClick = () => {
       this.host.keepOpen || this.host.dispatchEvent(Po(this.host, {
-        kind: Fo.CLICK_SELECTION
+        kind: Lo.CLICK_SELECTION
       }));
     }, this.onKeydown = (o) => {
       if (this.host.href && o.code === "Enter") {
@@ -4228,7 +4228,7 @@ class ba {
         return;
       const i = o.code;
       this.host.keepOpen && i !== "Escape" || lr(i) && (o.preventDefault(), this.host.dispatchEvent(Po(this.host, {
-        kind: Fo.KEYDOWN,
+        kind: Lo.KEYDOWN,
         key: i
       })));
     }, this.getHeadlineElements = t.getHeadlineElements, this.getSupportingTextElements = t.getSupportingTextElements, this.getDefaultElements = t.getDefaultElements, this.getInteractiveElement = t.getInteractiveElement, this.host.addController(this);
@@ -4813,18 +4813,18 @@ const vr = u`:host{border-start-start-radius:var(--_container-shape-start-start)
 `;
 const gr = u`.trailing.action{align-items:center;justify-content:center;padding-inline-start:var(--_icon-label-space);padding-inline-end:var(--_with-trailing-icon-trailing-space)}.trailing.action :is(md-ripple,md-focus-ring){border-radius:50%;height:calc(1.3333333333*var(--_icon-size));width:calc(1.3333333333*var(--_icon-size))}.trailing.action md-focus-ring{inset:unset}.has-trailing .primary.action{padding-inline-end:0}.trailing.icon{color:var(--_trailing-icon-color);height:var(--_icon-size);width:var(--_icon-size)}:where(:hover) .trailing.icon{color:var(--_hover-trailing-icon-color)}:where(:focus) .trailing.icon{color:var(--_focus-trailing-icon-color)}:where(:active) .trailing.icon{color:var(--_pressed-trailing-icon-color)}:where(.disabled) .trailing.icon{color:var(--_disabled-trailing-icon-color);opacity:var(--_disabled-trailing-icon-opacity)}:where(.selected) .trailing.icon{color:var(--_selected-trailing-icon-color)}:where(.selected:hover) .trailing.icon{color:var(--_selected-hover-trailing-icon-color)}:where(.selected:focus) .trailing.icon{color:var(--_selected-focus-trailing-icon-color)}:where(.selected:active) .trailing.icon{color:var(--_selected-pressed-trailing-icon-color)}@media(forced-colors: active){.trailing.icon{color:ButtonText}:where(.disabled) .trailing.icon{color:GrayText;opacity:1}}
 `;
-let Ft = class extends pe {
+let Lt = class extends pe {
 };
-Ft.styles = [
+Lt.styles = [
   vr,
   $a,
   gr,
   fr,
   Sa
 ];
-Ft = s([
+Lt = s([
   _("md-filter-chip")
-], Ft);
+], Lt);
 class he extends ur {
   constructor() {
     super(...arguments), this.avatar = !1, this.href = "", this.target = "", this.removeOnly = !1, this.selected = !1;
@@ -4905,17 +4905,17 @@ s([
 ], he.prototype, "trailingAction", void 0);
 const Ta = u`:host{--_container-height: var(--md-input-chip-container-height, 32px);--_disabled-label-text-color: var(--md-input-chip-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-input-chip-disabled-label-text-opacity, 0.38);--_disabled-selected-container-color: var(--md-input-chip-disabled-selected-container-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-selected-container-opacity: var(--md-input-chip-disabled-selected-container-opacity, 0.12);--_label-text-font: var(--md-input-chip-label-text-font, var(--md-sys-typescale-label-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-input-chip-label-text-line-height, var(--md-sys-typescale-label-large-line-height, 1.25rem));--_label-text-size: var(--md-input-chip-label-text-size, var(--md-sys-typescale-label-large-size, 0.875rem));--_label-text-weight: var(--md-input-chip-label-text-weight, var(--md-sys-typescale-label-large-weight, var(--md-ref-typeface-weight-medium, 500)));--_selected-container-color: var(--md-input-chip-selected-container-color, var(--md-sys-color-secondary-container, #e8def8));--_selected-focus-label-text-color: var(--md-input-chip-selected-focus-label-text-color, var(--md-sys-color-on-secondary-container, #1d192b));--_selected-hover-label-text-color: var(--md-input-chip-selected-hover-label-text-color, var(--md-sys-color-on-secondary-container, #1d192b));--_selected-hover-state-layer-color: var(--md-input-chip-selected-hover-state-layer-color, var(--md-sys-color-on-secondary-container, #1d192b));--_selected-hover-state-layer-opacity: var(--md-input-chip-selected-hover-state-layer-opacity, 0.08);--_selected-label-text-color: var(--md-input-chip-selected-label-text-color, var(--md-sys-color-on-secondary-container, #1d192b));--_selected-outline-width: var(--md-input-chip-selected-outline-width, 0px);--_selected-pressed-label-text-color: var(--md-input-chip-selected-pressed-label-text-color, var(--md-sys-color-on-secondary-container, #1d192b));--_selected-pressed-state-layer-color: var(--md-input-chip-selected-pressed-state-layer-color, var(--md-sys-color-on-secondary-container, #1d192b));--_selected-pressed-state-layer-opacity: var(--md-input-chip-selected-pressed-state-layer-opacity, 0.12);--_disabled-outline-color: var(--md-input-chip-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-opacity: var(--md-input-chip-disabled-outline-opacity, 0.12);--_focus-label-text-color: var(--md-input-chip-focus-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-outline-color: var(--md-input-chip-focus-outline-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-label-text-color: var(--md-input-chip-hover-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-color: var(--md-input-chip-hover-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-opacity: var(--md-input-chip-hover-state-layer-opacity, 0.08);--_label-text-color: var(--md-input-chip-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_outline-color: var(--md-input-chip-outline-color, var(--md-sys-color-outline, #79747e));--_outline-width: var(--md-input-chip-outline-width, 1px);--_pressed-label-text-color: var(--md-input-chip-pressed-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-color: var(--md-input-chip-pressed-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-opacity: var(--md-input-chip-pressed-state-layer-opacity, 0.12);--_avatar-shape: var(--md-input-chip-avatar-shape, var(--md-sys-shape-corner-full, 9999px));--_avatar-size: var(--md-input-chip-avatar-size, 24px);--_disabled-avatar-opacity: var(--md-input-chip-disabled-avatar-opacity, 0.38);--_disabled-leading-icon-color: var(--md-input-chip-disabled-leading-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-leading-icon-opacity: var(--md-input-chip-disabled-leading-icon-opacity, 0.38);--_icon-size: var(--md-input-chip-icon-size, 18px);--_selected-focus-leading-icon-color: var(--md-input-chip-selected-focus-leading-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-leading-icon-color: var(--md-input-chip-selected-hover-leading-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-leading-icon-color: var(--md-input-chip-selected-leading-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-leading-icon-color: var(--md-input-chip-selected-pressed-leading-icon-color, var(--md-sys-color-primary, #6750a4));--_focus-leading-icon-color: var(--md-input-chip-focus-leading-icon-color, var(--md-sys-color-primary, #6750a4));--_hover-leading-icon-color: var(--md-input-chip-hover-leading-icon-color, var(--md-sys-color-primary, #6750a4));--_leading-icon-color: var(--md-input-chip-leading-icon-color, var(--md-sys-color-primary, #6750a4));--_pressed-leading-icon-color: var(--md-input-chip-pressed-leading-icon-color, var(--md-sys-color-primary, #6750a4));--_disabled-trailing-icon-color: var(--md-input-chip-disabled-trailing-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-trailing-icon-opacity: var(--md-input-chip-disabled-trailing-icon-opacity, 0.38);--_selected-focus-trailing-icon-color: var(--md-input-chip-selected-focus-trailing-icon-color, var(--md-sys-color-on-secondary-container, #1d192b));--_selected-hover-trailing-icon-color: var(--md-input-chip-selected-hover-trailing-icon-color, var(--md-sys-color-on-secondary-container, #1d192b));--_selected-pressed-trailing-icon-color: var(--md-input-chip-selected-pressed-trailing-icon-color, var(--md-sys-color-on-secondary-container, #1d192b));--_selected-trailing-icon-color: var(--md-input-chip-selected-trailing-icon-color, var(--md-sys-color-on-secondary-container, #1d192b));--_focus-trailing-icon-color: var(--md-input-chip-focus-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-trailing-icon-color: var(--md-input-chip-hover-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-trailing-icon-color: var(--md-input-chip-pressed-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_trailing-icon-color: var(--md-input-chip-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_container-shape-start-start: var(--md-input-chip-container-shape-start-start, var(--md-input-chip-container-shape, var(--md-sys-shape-corner-small, 8px)));--_container-shape-start-end: var(--md-input-chip-container-shape-start-end, var(--md-input-chip-container-shape, var(--md-sys-shape-corner-small, 8px)));--_container-shape-end-end: var(--md-input-chip-container-shape-end-end, var(--md-input-chip-container-shape, var(--md-sys-shape-corner-small, 8px)));--_container-shape-end-start: var(--md-input-chip-container-shape-end-start, var(--md-input-chip-container-shape, var(--md-sys-shape-corner-small, 8px)));--_leading-space: var(--md-input-chip-leading-space, 16px);--_trailing-space: var(--md-input-chip-trailing-space, 16px);--_icon-label-space: var(--md-input-chip-icon-label-space, 8px);--_with-leading-icon-leading-space: var(--md-input-chip-with-leading-icon-leading-space, 8px);--_with-trailing-icon-trailing-space: var(--md-input-chip-with-trailing-icon-trailing-space, 8px)}:host([avatar]){--_container-shape-start-start: var( --md-input-chip-container-shape-start-start, var(--md-input-chip-container-shape, calc(var(--_container-height) / 2)) );--_container-shape-start-end: var( --md-input-chip-container-shape-start-end, var(--md-input-chip-container-shape, calc(var(--_container-height) / 2)) );--_container-shape-end-end: var( --md-input-chip-container-shape-end-end, var(--md-input-chip-container-shape, calc(var(--_container-height) / 2)) );--_container-shape-end-start: var( --md-input-chip-container-shape-end-start, var(--md-input-chip-container-shape, calc(var(--_container-height) / 2)) )}.avatar .primary.action{padding-inline-start:4px}.avatar .leading.icon ::slotted(:first-child){border-radius:var(--_avatar-shape);height:var(--_avatar-size);width:var(--_avatar-size)}.disabled.avatar .leading.icon{opacity:var(--_disabled-avatar-opacity)}@media(forced-colors: active){.link .outline{border-color:ActiveText}.disabled.avatar .leading.icon{opacity:1}}
 `;
-let Lt = class extends he {
+let Ft = class extends he {
 };
-Lt.styles = [
+Ft.styles = [
   vr,
   gr,
   fr,
   Ta
 ];
-Lt = s([
+Ft = s([
   _("md-input-chip")
-], Lt);
+], Ft);
 class ot extends g {
   constructor() {
     super(...arguments), this.inset = !1, this.insetStart = !1, this.insetEnd = !1;
@@ -5267,16 +5267,16 @@ Nt.styles = [xr, Pa];
 Nt = s([
   _("md-primary-tab")
 ], Nt);
-class Fa extends Y {
+class La extends Y {
   constructor() {
     super(...arguments), this.fullWidthIndicator = !0;
   }
 }
-const La = u`:host{--_active-indicator-color: var(--md-secondary-tab-active-indicator-color, var(--md-sys-color-primary, #6750a4));--_active-indicator-height: var(--md-secondary-tab-active-indicator-height, 2px);--_active-label-text-color: var(--md-secondary-tab-active-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_container-color: var(--md-secondary-tab-container-color, var(--md-sys-color-surface, #fef7ff));--_container-elevation: var(--md-secondary-tab-container-elevation, 0);--_container-height: var(--md-secondary-tab-container-height, 48px);--_focus-label-text-color: var(--md-secondary-tab-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-secondary-tab-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-color: var(--md-secondary-tab-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-secondary-tab-hover-state-layer-opacity, 0.08);--_label-text-font: var(--md-secondary-tab-label-text-font, var(--md-sys-typescale-title-small-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-secondary-tab-label-text-line-height, var(--md-sys-typescale-title-small-line-height, 1.25rem));--_label-text-size: var(--md-secondary-tab-label-text-size, var(--md-sys-typescale-title-small-size, 0.875rem));--_label-text-weight: var(--md-secondary-tab-label-text-weight, var(--md-sys-typescale-title-small-weight, var(--md-ref-typeface-weight-medium, 500)));--_pressed-label-text-color: var(--md-secondary-tab-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-color: var(--md-secondary-tab-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-opacity: var(--md-secondary-tab-pressed-state-layer-opacity, 0.12);--_active-focus-icon-color: var(--md-secondary-tab-active-focus-icon-color, );--_active-focus-label-text-color: var(--md-secondary-tab-active-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-icon-color: var(--md-secondary-tab-active-hover-icon-color, );--_active-hover-label-text-color: var(--md-secondary-tab-active-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-color: var(--md-secondary-tab-active-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-opacity: var(--md-secondary-tab-active-hover-state-layer-opacity, 0.08);--_active-icon-color: var(--md-secondary-tab-active-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_active-indicator-shape: var(--md-secondary-tab-active-indicator-shape, 0);--_active-pressed-icon-color: var(--md-secondary-tab-active-pressed-icon-color, );--_active-pressed-label-text-color: var(--md-secondary-tab-active-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-color: var(--md-secondary-tab-active-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-opacity: var(--md-secondary-tab-active-pressed-state-layer-opacity, 0.12);--_label-text-color: var(--md-secondary-tab-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-icon-color: var(--md-secondary-tab-focus-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-icon-color: var(--md-secondary-tab-hover-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_icon-size: var(--md-secondary-tab-icon-size, 24px);--_icon-color: var(--md-secondary-tab-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-secondary-tab-pressed-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_container-shape-start-start: var(--md-secondary-tab-container-shape-start-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-start-end: var(--md-secondary-tab-container-shape-start-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-end: var(--md-secondary-tab-container-shape-end-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-start: var(--md-secondary-tab-container-shape-end-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)))}
+const Fa = u`:host{--_active-indicator-color: var(--md-secondary-tab-active-indicator-color, var(--md-sys-color-primary, #6750a4));--_active-indicator-height: var(--md-secondary-tab-active-indicator-height, 2px);--_active-label-text-color: var(--md-secondary-tab-active-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_container-color: var(--md-secondary-tab-container-color, var(--md-sys-color-surface, #fef7ff));--_container-elevation: var(--md-secondary-tab-container-elevation, 0);--_container-height: var(--md-secondary-tab-container-height, 48px);--_focus-label-text-color: var(--md-secondary-tab-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-secondary-tab-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-color: var(--md-secondary-tab-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-secondary-tab-hover-state-layer-opacity, 0.08);--_label-text-font: var(--md-secondary-tab-label-text-font, var(--md-sys-typescale-title-small-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-secondary-tab-label-text-line-height, var(--md-sys-typescale-title-small-line-height, 1.25rem));--_label-text-size: var(--md-secondary-tab-label-text-size, var(--md-sys-typescale-title-small-size, 0.875rem));--_label-text-weight: var(--md-secondary-tab-label-text-weight, var(--md-sys-typescale-title-small-weight, var(--md-ref-typeface-weight-medium, 500)));--_pressed-label-text-color: var(--md-secondary-tab-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-color: var(--md-secondary-tab-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-state-layer-opacity: var(--md-secondary-tab-pressed-state-layer-opacity, 0.12);--_active-focus-icon-color: var(--md-secondary-tab-active-focus-icon-color, );--_active-focus-label-text-color: var(--md-secondary-tab-active-focus-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-icon-color: var(--md-secondary-tab-active-hover-icon-color, );--_active-hover-label-text-color: var(--md-secondary-tab-active-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-color: var(--md-secondary-tab-active-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-hover-state-layer-opacity: var(--md-secondary-tab-active-hover-state-layer-opacity, 0.08);--_active-icon-color: var(--md-secondary-tab-active-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_active-indicator-shape: var(--md-secondary-tab-active-indicator-shape, 0);--_active-pressed-icon-color: var(--md-secondary-tab-active-pressed-icon-color, );--_active-pressed-label-text-color: var(--md-secondary-tab-active-pressed-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-color: var(--md-secondary-tab-active-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_active-pressed-state-layer-opacity: var(--md-secondary-tab-active-pressed-state-layer-opacity, 0.12);--_label-text-color: var(--md-secondary-tab-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-icon-color: var(--md-secondary-tab-focus-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-icon-color: var(--md-secondary-tab-hover-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_icon-size: var(--md-secondary-tab-icon-size, 24px);--_icon-color: var(--md-secondary-tab-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-secondary-tab-pressed-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_container-shape-start-start: var(--md-secondary-tab-container-shape-start-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-start-end: var(--md-secondary-tab-container-shape-start-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-end: var(--md-secondary-tab-container-shape-end-end, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)));--_container-shape-end-start: var(--md-secondary-tab-container-shape-end-start, var(--md-secondary-tab-container-shape, var(--md-sys-shape-corner-none, 0px)))}
 `;
-let Vt = class extends Fa {
+let Vt = class extends La {
 };
-Vt.styles = [xr, La];
+Vt.styles = [xr, Fa];
 Vt = s([
   _("md-secondary-tab")
 ], Vt);
@@ -5932,13 +5932,25 @@ class Za extends g {
     super(), this.viewMode = "grid", this.showDetails = !1, this.activeCategory = "all", this.categories = ["Productivity", "Expertise", "Travel & Shopping"], this.searchValue = "", this.hideViewToggle = !1, this.hideDetailsToggle = !1, this.isScrolled = !1, this._scrollThreshold = 50;
   }
   connectedCallback() {
-    super.connectedCallback(), this._handleScroll = this._handleScroll.bind(this), window.addEventListener("scroll", this._handleScroll, { passive: !0 }), this._handleScroll();
+    super.connectedCallback(), this._handleScroll = this._handleScroll.bind(this), this._scrollContainer = this._findScrollableContainer(), this._scrollContainer === window ? window.addEventListener("scroll", this._handleScroll, { passive: !0 }) : this._scrollContainer.addEventListener("scroll", this._handleScroll, { passive: !0 }), this._handleScroll();
   }
   disconnectedCallback() {
-    super.disconnectedCallback(), window.removeEventListener("scroll", this._handleScroll);
+    super.disconnectedCallback(), this._scrollContainer === window ? window.removeEventListener("scroll", this._handleScroll) : this._scrollContainer && this._scrollContainer.removeEventListener("scroll", this._handleScroll);
+  }
+  _findScrollableContainer() {
+    let e = this.parentElement;
+    for (; e && e !== document.body; ) {
+      const t = window.getComputedStyle(e), o = t.overflowY === "auto" || t.overflowY === "scroll", i = e.scrollHeight > e.clientHeight;
+      if (o && i)
+        return e;
+      e = e.parentElement;
+    }
+    return window;
   }
   _handleScroll() {
-    const e = window.scrollY || document.documentElement.scrollTop, t = this.isScrolled;
+    let e;
+    this._scrollContainer === window ? e = window.scrollY || document.documentElement.scrollTop : e = this._scrollContainer ? this._scrollContainer.scrollTop : 0;
+    const t = this.isScrolled;
     this.isScrolled = e > this._scrollThreshold, t !== this.isScrolled && this.requestUpdate();
   }
   static styles = u`

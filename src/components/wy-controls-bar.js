@@ -28,18 +28,58 @@ export class WyControlsBar extends LitElement {
     connectedCallback() {
         super.connectedCallback();
         this._handleScroll = this._handleScroll.bind(this);
-        window.addEventListener('scroll', this._handleScroll, { passive: true });
+        
+        // Find the scrollable container by traversing up the DOM
+        // Look for the nearest scrollable ancestor or fallback to window
+        this._scrollContainer = this._findScrollableContainer();
+        
+        if (this._scrollContainer === window) {
+            window.addEventListener('scroll', this._handleScroll, { passive: true });
+        } else {
+            this._scrollContainer.addEventListener('scroll', this._handleScroll, { passive: true });
+        }
+        
         // Check initial scroll position
         this._handleScroll();
     }
 
     disconnectedCallback() {
         super.disconnectedCallback();
-        window.removeEventListener('scroll', this._handleScroll);
+        if (this._scrollContainer === window) {
+            window.removeEventListener('scroll', this._handleScroll);
+        } else if (this._scrollContainer) {
+            this._scrollContainer.removeEventListener('scroll', this._handleScroll);
+        }
+    }
+
+    _findScrollableContainer() {
+        let element = this.parentElement;
+        
+        while (element && element !== document.body) {
+            const style = window.getComputedStyle(element);
+            const hasScroll = style.overflowY === 'auto' || style.overflowY === 'scroll';
+            const isScrollable = element.scrollHeight > element.clientHeight;
+            
+            if (hasScroll && isScrollable) {
+                return element;
+            }
+            
+            element = element.parentElement;
+        }
+        
+        // Fallback to window if no scrollable container found
+        return window;
     }
 
     _handleScroll() {
-        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        let scrollY;
+        
+        if (this._scrollContainer === window) {
+            scrollY = window.scrollY || document.documentElement.scrollTop;
+        } else {
+            scrollY = this._scrollContainer ? this._scrollContainer.scrollTop : 0;
+        }
+        
         const wasScrolled = this.isScrolled;
         this.isScrolled = scrollY > this._scrollThreshold;
         
