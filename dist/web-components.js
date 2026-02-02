@@ -7201,10 +7201,11 @@ customElements.define("wy-dropdown", is);
 class as extends g {
   static properties = {
     content: { type: String },
-    variant: { type: String }
+    variant: { type: String },
+    heading: { type: String }
   };
   constructor() {
-    super(), this.content = "", this.variant = "default";
+    super(), this.content = "", this.variant = "default", this.heading = "";
   }
   static styles = u`
         /* Note: DM Sans font should be loaded in consuming page <head> */
@@ -7238,6 +7239,18 @@ class as extends g {
             margin-top: var(--spacing-md, 16px);
         }
         
+        .panel.compact {
+            padding: var(--spacing-md, 16px);
+        }
+        
+        .panel-heading {
+            font-family: var(--font-serif, 'Playfair Display', serif);
+            font-size: var(--md-sys-typescale-title-medium-size, 1rem);
+            color: var(--md-sys-color-on-surface);
+            margin: 0 0 var(--spacing-sm, 8px) 0;
+            font-weight: 500;
+        }
+        
         /* Support for slotted content */
         ::slotted(*) {
             color: var(--wy-info-panel-text-color);
@@ -7253,8 +7266,10 @@ class as extends g {
         }
     `;
   render() {
+    const e = this.variant === "compact" ? "panel compact" : "panel";
     return l`
-            <div class="panel">
+            <div class="${e}">
+                ${this.heading ? l`<h3 class="panel-heading">${this.heading}</h3>` : ""}
                 ${this.content ? l`<p>${this.content}</p>` : l`<slot></slot>`}
             </div>
         `;
@@ -8915,11 +8930,13 @@ class ms extends g {
     // 'variables' or 'preview'
     steps: { type: Array },
     // Array of step objects for multi-step prompts
-    activeStepIndex: { type: Number, attribute: "active-step-index" }
+    activeStepIndex: { type: Number, attribute: "active-step-index" },
     // Current step (0-based)
+    descriptionExpanded: { type: Boolean, attribute: "description-expanded" }
+    // Mobile description toggle
   };
   constructor() {
-    super(), this.open = !1, this.title = "", this.category = "", this.description = "", this.template = "", this.variables = [], this.variations = [], this.activeVariationIndex = 0, this.mode = "locked", this.activeTab = "variables", this.steps = [], this.activeStepIndex = 0, this._values = {};
+    super(), this.open = !1, this.title = "", this.category = "", this.description = "", this.template = "", this.variables = [], this.variations = [], this.activeVariationIndex = 0, this.mode = "locked", this.activeTab = "variables", this.steps = [], this.activeStepIndex = 0, this.descriptionExpanded = !1, this._values = {};
   }
   static styles = u`
     /* Required fonts - load in page <head>:
@@ -9058,6 +9075,15 @@ class ms extends g {
     .icon-btn.primary:hover {
         opacity: 0.9;
         transform: scale(1.05);
+    }
+
+    .icon-btn:disabled {
+        opacity: 0.38;
+        cursor: not-allowed;
+    }
+
+    .icon-btn:disabled:hover {
+        transform: none;
     }
 
     .icon-btn .material-symbols-outlined {
@@ -9459,34 +9485,13 @@ class ms extends g {
       font-weight: 500;
     }
 
-    .stepper-step-name {
-      font-family: var(--font-serif, 'Playfair Display', serif);
-      font-size: var(--md-sys-typescale-title-medium-size, 1rem);
-      color: var(--md-sys-color-on-surface);
+    .stepper-nav {
+      display: flex;
+      gap: var(--spacing-xs, 4px);
     }
 
     .step-instructions {
       margin-bottom: var(--spacing-lg, 24px);
-    }
-
-    .step-navigation {
-      display: flex;
-      gap: var(--spacing-md, 16px);
-      justify-content: space-between;
-      margin-top: var(--spacing-lg, 24px);
-      padding-top: var(--spacing-lg, 24px);
-      border-top: 1px solid var(--md-sys-color-surface-container-highest);
-    }
-
-    .step-navigation .secondary-btn {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs, 4px);
-    }
-
-    .step-navigation .secondary-btn:disabled {
-      opacity: 0.38;
-      cursor: not-allowed;
     }
 
     .tabs-header {
@@ -9544,6 +9549,19 @@ class ms extends g {
         gap: 4px;
       }
       
+      /* Mobile description toggle */
+      .title-group h2 {
+        cursor: pointer;
+      }
+      
+      .description-text {
+        display: none;
+      }
+      
+      .description-text.expanded {
+        display: block;
+      }
+      
       /* Step navigation styles (for multi-step prompts) */
       .step-navigation {
         flex-direction: row;
@@ -9573,7 +9591,7 @@ class ms extends g {
   // Render stepper UI for multi-step prompts
   _renderStepper() {
     if (!this.steps || this.steps.length === 0) return "";
-    const e = (this.activeStepIndex + 1) / this.steps.length * 100;
+    const e = (this.activeStepIndex + 1) / this.steps.length * 100, t = this.activeStepIndex === 0, o = this.activeStepIndex === this.steps.length - 1;
     return l`
       <div class="stepper-container">
         <div class="stepper-progress">
@@ -9585,12 +9603,31 @@ class ms extends g {
           <span class="stepper-label">
             Step ${this.activeStepIndex + 1} of ${this.steps.length}
           </span>
-          <span class="stepper-step-name">
-            ${this.steps[this.activeStepIndex].name}
-          </span>
+          <div class="stepper-nav">
+            <button 
+              class="icon-btn filled"
+              ?disabled=${t}
+              @click=${() => this.previousStep()}
+              aria-label="Previous step"
+              title="Previous step">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <button 
+              class="icon-btn filled"
+              ?disabled=${o}
+              @click=${() => this.nextStep()}
+              aria-label="Next step"
+              title="Next step">
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
         </div>
       </div>
     `;
+  }
+  // Toggle description visibility (mobile only)
+  _toggleDescription() {
+    this.descriptionExpanded = !this.descriptionExpanded;
   }
   // Render multi-step body content
   _renderMultiStepBody() {
@@ -9614,7 +9651,10 @@ class ms extends g {
         </div>
       ` : ""}
       
-      <wy-info-panel class="step-instructions">
+      <wy-info-panel 
+        class="step-instructions"
+        variant="compact"
+        heading="${e.name}">
         ${e.instructions}
       </wy-info-panel>
       
@@ -9626,24 +9666,6 @@ class ms extends g {
       ` : l`
         <div class="preview-area">${t}</div>
       `}
-      
-      <div class="step-navigation">
-        <button 
-          class="secondary-btn"
-          ?disabled=${this.activeStepIndex === 0}
-          @click=${() => this.previousStep()}>
-          <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
-          Previous
-        </button>
-        
-        <button 
-          class="secondary-btn"
-          ?disabled=${this.activeStepIndex === this.steps.length - 1}
-          @click=${() => this.nextStep()}>
-          Next
-          <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
-        </button>
-      </div>
     `;
   }
   render() {
@@ -9689,8 +9711,8 @@ class ms extends g {
             
             <div class="header-main">
                 <div class="title-group">
-                    <h2>${this.title}</h2>
-                    <p class="description-text">${this.description}</p>
+                    <h2 @click="${this._toggleDescription}">${this.title}</h2>
+                    <p class="description-text ${this.descriptionExpanded ? "expanded" : ""}">${this.description}</p>
                 </div>
                 
                 ${this.mode === "locked" ? l`` : ""}

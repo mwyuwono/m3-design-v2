@@ -13,7 +13,8 @@ export class WyPromptModal extends LitElement {
     mode: { type: String }, // 'locked' or 'edit'
     activeTab: { type: String }, // 'variables' or 'preview'
     steps: { type: Array }, // Array of step objects for multi-step prompts
-    activeStepIndex: { type: Number, attribute: 'active-step-index' } // Current step (0-based)
+    activeStepIndex: { type: Number, attribute: 'active-step-index' }, // Current step (0-based)
+    descriptionExpanded: { type: Boolean, attribute: 'description-expanded' } // Mobile description toggle
   };
 
   constructor() {
@@ -30,6 +31,7 @@ export class WyPromptModal extends LitElement {
     this.activeTab = 'variables';
     this.steps = [];
     this.activeStepIndex = 0;
+    this.descriptionExpanded = false;
     this._values = {};
   }
 
@@ -170,6 +172,15 @@ export class WyPromptModal extends LitElement {
     .icon-btn.primary:hover {
         opacity: 0.9;
         transform: scale(1.05);
+    }
+
+    .icon-btn:disabled {
+        opacity: 0.38;
+        cursor: not-allowed;
+    }
+
+    .icon-btn:disabled:hover {
+        transform: none;
     }
 
     .icon-btn .material-symbols-outlined {
@@ -571,34 +582,13 @@ export class WyPromptModal extends LitElement {
       font-weight: 500;
     }
 
-    .stepper-step-name {
-      font-family: var(--font-serif, 'Playfair Display', serif);
-      font-size: var(--md-sys-typescale-title-medium-size, 1rem);
-      color: var(--md-sys-color-on-surface);
+    .stepper-nav {
+      display: flex;
+      gap: var(--spacing-xs, 4px);
     }
 
     .step-instructions {
       margin-bottom: var(--spacing-lg, 24px);
-    }
-
-    .step-navigation {
-      display: flex;
-      gap: var(--spacing-md, 16px);
-      justify-content: space-between;
-      margin-top: var(--spacing-lg, 24px);
-      padding-top: var(--spacing-lg, 24px);
-      border-top: 1px solid var(--md-sys-color-surface-container-highest);
-    }
-
-    .step-navigation .secondary-btn {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs, 4px);
-    }
-
-    .step-navigation .secondary-btn:disabled {
-      opacity: 0.38;
-      cursor: not-allowed;
     }
 
     .tabs-header {
@@ -656,6 +646,19 @@ export class WyPromptModal extends LitElement {
         gap: 4px;
       }
       
+      /* Mobile description toggle */
+      .title-group h2 {
+        cursor: pointer;
+      }
+      
+      .description-text {
+        display: none;
+      }
+      
+      .description-text.expanded {
+        display: block;
+      }
+      
       /* Step navigation styles (for multi-step prompts) */
       .step-navigation {
         flex-direction: row;
@@ -696,6 +699,8 @@ export class WyPromptModal extends LitElement {
     if (!this.steps || this.steps.length === 0) return '';
     
     const progressPercent = ((this.activeStepIndex + 1) / this.steps.length) * 100;
+    const isFirstStep = this.activeStepIndex === 0;
+    const isLastStep = this.activeStepIndex === this.steps.length - 1;
     
     return html`
       <div class="stepper-container">
@@ -708,12 +713,32 @@ export class WyPromptModal extends LitElement {
           <span class="stepper-label">
             Step ${this.activeStepIndex + 1} of ${this.steps.length}
           </span>
-          <span class="stepper-step-name">
-            ${this.steps[this.activeStepIndex].name}
-          </span>
+          <div class="stepper-nav">
+            <button 
+              class="icon-btn filled"
+              ?disabled=${isFirstStep}
+              @click=${() => this.previousStep()}
+              aria-label="Previous step"
+              title="Previous step">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <button 
+              class="icon-btn filled"
+              ?disabled=${isLastStep}
+              @click=${() => this.nextStep()}
+              aria-label="Next step"
+              title="Next step">
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
         </div>
       </div>
     `;
+  }
+
+  // Toggle description visibility (mobile only)
+  _toggleDescription() {
+    this.descriptionExpanded = !this.descriptionExpanded;
   }
 
   // Render multi-step body content
@@ -740,7 +765,10 @@ export class WyPromptModal extends LitElement {
         </div>
       ` : ''}
       
-      <wy-info-panel class="step-instructions">
+      <wy-info-panel 
+        class="step-instructions"
+        variant="compact"
+        heading="${step.name}">
         ${step.instructions}
       </wy-info-panel>
       
@@ -752,24 +780,6 @@ export class WyPromptModal extends LitElement {
       ` : html`
         <div class="preview-area">${compiledPrompt}</div>
       `}
-      
-      <div class="step-navigation">
-        <button 
-          class="secondary-btn"
-          ?disabled=${this.activeStepIndex === 0}
-          @click=${() => this.previousStep()}>
-          <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
-          Previous
-        </button>
-        
-        <button 
-          class="secondary-btn"
-          ?disabled=${this.activeStepIndex === this.steps.length - 1}
-          @click=${() => this.nextStep()}>
-          Next
-          <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
-        </button>
-      </div>
     `;
   }
 
@@ -821,8 +831,8 @@ export class WyPromptModal extends LitElement {
             
             <div class="header-main">
                 <div class="title-group">
-                    <h2>${this.title}</h2>
-                    <p class="description-text">${this.description}</p>
+                    <h2 @click="${this._toggleDescription}">${this.title}</h2>
+                    <p class="description-text ${this.descriptionExpanded ? 'expanded' : ''}">${this.description}</p>
                 </div>
                 
                 ${this.mode === 'locked' ? html`` : ''}

@@ -10,13 +10,15 @@ import { LitElement, html, css } from 'lit';
 export class WyInfoPanel extends LitElement {
     static properties = {
         content: { type: String },
-        variant: { type: String }
+        variant: { type: String },
+        heading: { type: String }
     };
 
     constructor() {
         super();
         this.content = '';
         this.variant = 'default';
+        this.heading = '';
     }
 
     static styles = css`
@@ -51,6 +53,18 @@ export class WyInfoPanel extends LitElement {
             margin-top: var(--spacing-md, 16px);
         }
         
+        .panel.compact {
+            padding: var(--spacing-md, 16px);
+        }
+        
+        .panel-heading {
+            font-family: var(--font-serif, 'Playfair Display', serif);
+            font-size: var(--md-sys-typescale-title-medium-size, 1rem);
+            color: var(--md-sys-color-on-surface);
+            margin: 0 0 var(--spacing-sm, 8px) 0;
+            font-weight: 500;
+        }
+        
         /* Support for slotted content */
         ::slotted(*) {
             color: var(--wy-info-panel-text-color);
@@ -67,8 +81,11 @@ export class WyInfoPanel extends LitElement {
     `;
 
     render() {
+        const panelClass = this.variant === 'compact' ? 'panel compact' : 'panel';
+        
         return html`
-            <div class="panel">
+            <div class="${panelClass}">
+                ${this.heading ? html`<h3 class="panel-heading">${this.heading}</h3>` : ''}
                 ${this.content ? html`<p>${this.content}</p>` : html`<slot></slot>`}
             </div>
         `;
