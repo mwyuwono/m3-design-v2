@@ -30,9 +30,10 @@ export class WyControlsBar extends LitElement {
         this._handleScroll = this._handleScroll.bind(this);
         
         // Delay finding scroll container to ensure DOM is fully ready
-        requestAnimationFrame(() => {
+        // Use setTimeout instead of requestAnimationFrame for better timing
+        setTimeout(() => {
             this._setupScrollListener();
-        });
+        }, 100);
     }
 
     disconnectedCallback() {
@@ -66,19 +67,23 @@ export class WyControlsBar extends LitElement {
     }
 
     _findScrollableContainer() {
-        // First, check if there's a sibling with .prompt-area class (common pattern)
-        const promptArea = this.parentElement?.querySelector('.prompt-area');
-        if (promptArea) {
-            const style = window.getComputedStyle(promptArea);
+        // Strategy 1: Check for common sibling patterns
+        const siblings = [
+            this.parentElement?.querySelector('.prompt-area'),
+            this.parentElement?.querySelector('.main-content'),
+            this.parentElement?.querySelector('[class*="scroll"]')
+        ].filter(Boolean);
+        
+        for (const sibling of siblings) {
+            const style = window.getComputedStyle(sibling);
             const hasScroll = style.overflowY === 'auto' || style.overflowY === 'scroll';
             
-            // Check if it's currently scrollable or could become scrollable
             if (hasScroll) {
-                return promptArea;
+                return sibling;
             }
         }
         
-        // Then traverse up the DOM to find nearest scrollable ancestor
+        // Strategy 2: Traverse up the DOM to find nearest scrollable ancestor
         let element = this.parentElement;
         
         while (element && element !== document.body) {
@@ -92,7 +97,13 @@ export class WyControlsBar extends LitElement {
             element = element.parentElement;
         }
         
-        // Fallback to window if no scrollable container found
+        // Strategy 3: Check document.body
+        const bodyStyle = window.getComputedStyle(document.body);
+        if (bodyStyle.overflowY === 'auto' || bodyStyle.overflowY === 'scroll') {
+            return document.body;
+        }
+        
+        // Fallback to window
         return window;
     }
 

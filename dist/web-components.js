@@ -5932,9 +5932,9 @@ class Za extends g {
     super(), this.viewMode = "grid", this.showDetails = !1, this.activeCategory = "all", this.categories = ["Productivity", "Expertise", "Travel & Shopping"], this.searchValue = "", this.hideViewToggle = !1, this.hideDetailsToggle = !1, this.isScrolled = !1, this._scrollThreshold = 50;
   }
   connectedCallback() {
-    super.connectedCallback(), this._handleScroll = this._handleScroll.bind(this), requestAnimationFrame(() => {
+    super.connectedCallback(), this._handleScroll = this._handleScroll.bind(this), setTimeout(() => {
       this._setupScrollListener();
-    });
+    }, 100);
   }
   disconnectedCallback() {
     super.disconnectedCallback(), this._removeScrollListener();
@@ -5946,20 +5946,25 @@ class Za extends g {
     this._scrollContainer === window ? window.removeEventListener("scroll", this._handleScroll) : this._scrollContainer && this._scrollContainer.removeEventListener("scroll", this._handleScroll);
   }
   _findScrollableContainer() {
-    const e = this.parentElement?.querySelector(".prompt-area");
-    if (e) {
-      const o = window.getComputedStyle(e);
-      if (o.overflowY === "auto" || o.overflowY === "scroll")
-        return e;
+    const e = [
+      this.parentElement?.querySelector(".prompt-area"),
+      this.parentElement?.querySelector(".main-content"),
+      this.parentElement?.querySelector('[class*="scroll"]')
+    ].filter(Boolean);
+    for (const i of e) {
+      const a = window.getComputedStyle(i);
+      if (a.overflowY === "auto" || a.overflowY === "scroll")
+        return i;
     }
     let t = this.parentElement;
     for (; t && t !== document.body; ) {
-      const o = window.getComputedStyle(t);
-      if (o.overflowY === "auto" || o.overflowY === "scroll")
+      const i = window.getComputedStyle(t);
+      if (i.overflowY === "auto" || i.overflowY === "scroll")
         return t;
       t = t.parentElement;
     }
-    return window;
+    const o = window.getComputedStyle(document.body);
+    return o.overflowY === "auto" || o.overflowY === "scroll" ? document.body : window;
   }
   _handleScroll() {
     let e;
