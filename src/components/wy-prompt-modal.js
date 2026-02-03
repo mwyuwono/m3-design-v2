@@ -165,7 +165,7 @@ export class WyPromptModal extends LitElement {
 
     /* HEADER STYLES */
     .header {
-      padding: var(--spacing-xl, 32px) var(--spacing-xl, 32px) var(--spacing-lg, 24px);
+      padding: var(--spacing-xl, 32px) var(--spacing-xl, 32px) 0;
       display: flex;
       flex-direction: column;
       gap: var(--spacing-md, 16px);
@@ -629,7 +629,6 @@ export class WyPromptModal extends LitElement {
       background: var(--wy-color-surface-light);
       z-index: 10;
       margin-bottom: var(--spacing-xl, 32px);
-      padding-top: var(--spacing-lg, 24px);
     }
 
     .stepper-progress {

@@ -39,15 +39,13 @@ export class WyInfoPanel extends LitElement {
         
         .panel {
             background-color: var(--wy-info-panel-bg);
-            border: 1px solid var(--wy-info-panel-border);
             border-radius: var(--md-sys-shape-corner-medium, 16px);
             padding: var(--wy-info-panel-padding);
             color: var(--wy-info-panel-text-color);
             font-family: var(--font-sans, 'DM Sans', sans-serif);
             font-size: var(--wy-info-panel-font-size);
             line-height: 1.6;
-            transition: background-color var(--md-sys-motion-duration-short4, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
-                        border-color var(--md-sys-motion-duration-short4, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+            transition: background-color var(--md-sys-motion-duration-short4, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
         }
         
         .panel p {
@@ -61,7 +59,6 @@ export class WyInfoPanel extends LitElement {
         .panel.compact {
             padding: var(--wy-info-panel-compact-padding);
             background-color: var(--wy-info-panel-compact-bg);
-            border-color: var(--wy-info-panel-compact-border);
         }
         
         .panel-heading {

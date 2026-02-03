@@ -144,7 +144,7 @@ export class WyControlsBar extends LitElement {
       display: block;
       background-color: var(--wy-controls-bar-bg, transparent);
       border-bottom: var(--wy-controls-bar-border, none);
-      padding: var(--wy-controls-bar-padding, 8px 32px);
+      padding: var(--wy-controls-bar-padding, 16px 32px);
       box-sizing: border-box;
     }
 
