@@ -7,7 +7,8 @@ export class WyPromptEditor extends LitElement {
         readonly: { type: Boolean },
         _editedPrompt: { type: Object, state: true },
         _promptMode: { type: String, state: true },
-        _expandedSteps: { type: Array, state: true }
+        _expandedSteps: { type: Array, state: true },
+        _showGitInfo: { type: Boolean, state: true }
     };
 
     constructor() {
@@ -18,6 +19,7 @@ export class WyPromptEditor extends LitElement {
         this._editedPrompt = null;
         this._promptMode = 'single';
         this._expandedSteps = [];
+        this._showGitInfo = false;
     }
 
     updated(changedProperties) {
@@ -70,7 +72,18 @@ export class WyPromptEditor extends LitElement {
             background-color: var(--md-sys-color-background, #FDFBF7);
             z-index: 10;
             padding-bottom: var(--spacing-md, 16px);
+        }
+
+        .actions {
+            position: sticky;
+            top: 0;
+            background-color: var(--md-sys-color-background, #FDFBF7);
+            padding: var(--spacing-md, 16px) 0;
+            margin: 0 calc(-1 * var(--spacing-md, 16px));
+            padding-left: var(--spacing-md, 16px);
+            padding-right: var(--spacing-md, 16px);
             border-bottom: 1px solid var(--md-sys-color-outline-variant, #DDD);
+            z-index: 11;
         }
 
         .breadcrumbs {
@@ -369,6 +382,9 @@ export class WyPromptEditor extends LitElement {
             }
         }
         
+        // Show git info banner after save
+        this._showGitInfo = true;
+        
         this.dispatchEvent(new CustomEvent('save', {
             detail: { prompt: this._editedPrompt },
             bubbles: true,
@@ -545,17 +561,21 @@ export class WyPromptEditor extends LitElement {
                         </nav>
                         <h1>Prompt Editor</h1>
                         <p class="subtitle">Edit prompt details and template</p>
+                    </div>
+                    
+                    ${this._showGitInfo ? html`
                         <div class="info-banner">
-                            <p><strong>Changes are local until committed.</strong> Run <code>git commit</code> and <code>git push</code> to publish. To undo uncommitted changes: <code>git checkout -- prompts.json</code></p>
+                            <p><strong>Changes saved to prompts.json.</strong> Run <code>git add prompts.json && git commit -m "Update prompts" && git push</code> to publish. To undo: <code>git checkout -- prompts.json</code></p>
                         </div>
-                        <div class="actions">
-                            <button class="button button-secondary" @click="${this._handleCancel}">
-                                Discard Changes
-                            </button>
-                            <button class="button button-primary" @click="${this._handleSave}">
-                                Save Changes
-                            </button>
-                        </div>
+                    ` : ''}
+                    
+                    <div class="actions">
+                        <button class="button button-secondary" @click="${this._handleCancel}">
+                            Discard Changes
+                        </button>
+                        <button class="button button-primary" @click="${this._handleSave}">
+                            Save Changes
+                        </button>
                     </div>
 
                     <!-- Section 1: Basic Information -->
@@ -626,89 +646,104 @@ export class WyPromptEditor extends LitElement {
                         ></wy-image-upload>
                     </div>
 
-                    <!-- Section 3: Prompt Type -->
-                    <div class="card">
-                        <h2 class="card-title">Prompt Type</h2>
-                        <div class="mode-toggle">
-                            <label>
-                                <input 
-                                    type="radio" 
-                                    name="mode" 
-                                    value="single" 
-                                    ?checked="${this._promptMode === 'single'}"
-                                    @click="${(e) => this._handleModeChange(e, 'single')}"
-                                >
-                                Single Step
-                            </label>
-                            <label>
-                                <input 
-                                    type="radio" 
-                                    name="mode" 
-                                    value="multi" 
-                                    ?checked="${this._promptMode === 'multi'}"
-                                    @click="${(e) => this._handleModeChange(e, 'multi')}"
-                                >
-                                Multi-Step
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Section 4: Single-Step Content -->
-                    ${this._promptMode === 'single' ? html`
-                        <!-- Variables -->
+                    <!-- Section 3: Content Structure -->
+                    ${this._editedPrompt.variations && this._editedPrompt.variations.length > 0 ? html`
+                        <!-- Variations Mode -->
                         <div class="card">
-                            <h2 class="card-title">Variables</h2>
-                            <wy-variable-editor
-                                .variables="${this._editedPrompt.variables || []}"
-                                @change="${(e) => this._handleFieldChange('variables', e.detail.variables)}"
-                            ></wy-variable-editor>
-                        </div>
-
-                        <!-- Template -->
-                        <div class="card">
-                            <h2 class="card-title">Template</h2>
-                            <wy-code-textarea
-                                label="Prompt Template"
-                                .value="${this._editedPrompt.template || ''}"
-                                .variables="${variableNames}"
-                                placeholder="Enter your prompt template here. Use {{variable-name}} for substitutions."
-                                rows="12"
-                                @input="${(e) => this._handleFieldChange('template', e.detail.value)}"
-                            ></wy-code-textarea>
-                        </div>
-                    ` : ''}
-
-                    <!-- Section 4: Multi-Step Content -->
-                    ${this._promptMode === 'multi' ? html`
-                        <div class="card">
-                            <h2 class="card-title">Steps</h2>
+                            <h2 class="card-title">Variations</h2>
                             <p class="card-description">
-                                Define the sequence of prompts. Users will follow these steps in order.
+                                This prompt has multiple variations. Each variation can be a simple template or multi-step workflow.
                             </p>
-                            
-                            ${(this._editedPrompt.steps || []).map((step, index) => html`
-                                <wy-step-editor
-                                    .step="${step}"
-                                    .index="${index}"
-                                    .total="${this._editedPrompt.steps.length}"
-                                    .expanded="${this._expandedSteps.includes(index)}"
-                                    @step-change="${this._handleStepChange}"
-                                    @step-delete="${this._handleStepDelete}"
-                                    @step-move-up="${this._handleStepMoveUp}"
-                                    @step-move-down="${this._handleStepMoveDown}"
-                                    @step-toggle="${this._handleStepToggle}"
-                                ></wy-step-editor>
-                            `)}
-                            
-                            <button 
-                                class="button button-secondary add-step-button" 
-                                @click="${this._handleAddStep}"
-                            >
-                                <span class="material-symbols-outlined">add</span>
-                                Add Step
-                            </button>
+                            <wy-variation-editor
+                                .variations="${this._editedPrompt.variations}"
+                                @change="${(e) => this._handleFieldChange('variations', e.detail.variations)}"
+                            ></wy-variation-editor>
                         </div>
-                    ` : ''}
+                    ` : html`
+                        <!-- Standard Mode (No Variations) -->
+                        <div class="card">
+                            <h2 class="card-title">Prompt Type</h2>
+                            <div class="mode-toggle">
+                                <label>
+                                    <input 
+                                        type="radio" 
+                                        name="mode" 
+                                        value="single" 
+                                        ?checked="${this._promptMode === 'single'}"
+                                        @click="${(e) => this._handleModeChange(e, 'single')}"
+                                    >
+                                    Single Step
+                                </label>
+                                <label>
+                                    <input 
+                                        type="radio" 
+                                        name="mode" 
+                                        value="multi" 
+                                        ?checked="${this._promptMode === 'multi'}"
+                                        @click="${(e) => this._handleModeChange(e, 'multi')}"
+                                    >
+                                    Multi-Step
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Single-Step Content -->
+                        ${this._promptMode === 'single' ? html`
+                            <!-- Variables -->
+                            <div class="card">
+                                <h2 class="card-title">Variables</h2>
+                                <wy-variable-editor
+                                    .variables="${this._editedPrompt.variables || []}"
+                                    @change="${(e) => this._handleFieldChange('variables', e.detail.variables)}"
+                                ></wy-variable-editor>
+                            </div>
+
+                            <!-- Template -->
+                            <div class="card">
+                                <h2 class="card-title">Template</h2>
+                                <wy-code-textarea
+                                    label="Prompt Template"
+                                    .value="${this._editedPrompt.template || ''}"
+                                    .variables="${variableNames}"
+                                    placeholder="Enter your prompt template here. Use {{variable-name}} for substitutions."
+                                    rows="12"
+                                    @input="${(e) => this._handleFieldChange('template', e.detail.value)}"
+                                ></wy-code-textarea>
+                            </div>
+                        ` : ''}
+
+                        <!-- Multi-Step Content -->
+                        ${this._promptMode === 'multi' ? html`
+                            <div class="card">
+                                <h2 class="card-title">Steps</h2>
+                                <p class="card-description">
+                                    Define the sequence of prompts. Users will follow these steps in order.
+                                </p>
+                                
+                                ${(this._editedPrompt.steps || []).map((step, index) => html`
+                                    <wy-step-editor
+                                        .step="${step}"
+                                        .index="${index}"
+                                        .total="${this._editedPrompt.steps.length}"
+                                        .expanded="${this._expandedSteps.includes(index)}"
+                                        @step-change="${this._handleStepChange}"
+                                        @step-delete="${this._handleStepDelete}"
+                                        @step-move-up="${this._handleStepMoveUp}"
+                                        @step-move-down="${this._handleStepMoveDown}"
+                                        @step-toggle="${this._handleStepToggle}"
+                                    ></wy-step-editor>
+                                `)}
+                                
+                                <button 
+                                    class="button button-secondary add-step-button" 
+                                    @click="${this._handleAddStep}"
+                                >
+                                    <span class="material-symbols-outlined">add</span>
+                                    Add Step
+                                </button>
+                            </div>
+                        ` : ''}
+                    `}
 
                     <!-- Section 5: Visibility -->
                     <div class="card">
