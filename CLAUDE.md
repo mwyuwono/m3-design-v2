@@ -212,7 +212,7 @@ See [skills/visual-qa/SKILL.md](skills/visual-qa/SKILL.md) for the complete work
 
 ## Commit & Deploy Workflow
 
-This design system is consumed by dependent projects via jsDelivr CDN. **After every commit, you must purge the CDN cache.**
+This design system is consumed by dependent projects via jsDelivr CDN. **After every commit, you must purge the CDN cache and update consuming projects.**
 
 **CRITICAL CDN Cache Management:** After pushing changes to m3-design-v2, always wait 2-3 minutes before purging jsDelivr CDN (purges are throttled to max 10/hour per file), and if throttled, temporarily pin consuming projects to the commit hash (e.g., `@abc1234`) with a TODO to revert to `@main` within 24 hours, rather than repeatedly purging which will fail.
 
@@ -230,14 +230,35 @@ git push origin main
 
 # 3. Purge jsDelivr cache (REQUIRED for immediate propagation)
 for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
-  for v in @main "" @latest; do
-    curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
-  done
+ for v in @main "" @latest; do
+ curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
+ done
 done
 
-# 4. Verify all consuming projects (optional but recommended)
+# 4. Update consuming projects with local bundles
+# For projects using local web-components.js (e.g., prompt-library admin)
+cp dist/web-components.js ../prompt-library/web-components.js
+
+# 5. Update cache-busting parameters in consuming projects
+# Check and update these files:
+grep -r "web-components.js?v=" ../prompt-library/admin.html ../prompt-library/components/index.js
+# Update version parameters to force browser reload (e.g., ?v=20260203-latest)
+
+# 6. Verify all consuming projects (optional but recommended)
 ./skills/design-system-sync/verify-projects.sh
 ```
+
+### Cache-Busting Parameter Updates
+
+**CRITICAL: When design system components change, consuming projects need cache-busting parameter updates to force browser reload.**
+
+Projects using local bundles (like prompt-library admin):
+- `admin.html` - Update `?v=` parameter on `./web-components.js` import
+- Component changes won't appear without updating this parameter
+
+Projects using CDN:
+- `components/index.js` or similar - Update `?v=` parameter on CDN imports
+- jsDelivr purge handles CDN cache, but browser cache still needs busting
 
 ### Quick One-Liner
 
