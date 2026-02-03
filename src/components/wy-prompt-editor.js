@@ -71,17 +71,6 @@ export class WyPromptEditor extends LitElement {
             margin-bottom: var(--spacing-md, 16px);
         }
 
-        .actions {
-            position: sticky;
-            top: 0;
-            background-color: var(--md-sys-color-background, #FDFBF7);
-            padding: var(--spacing-md, 16px);
-            margin: 0 calc(-1 * var(--spacing-lg, 24px)) var(--spacing-lg, 24px);
-            border-bottom: 1px solid var(--md-sys-color-outline-variant, #DDD);
-            z-index: 100;
-            backdrop-filter: blur(8px);
-        }
-
         .breadcrumbs {
             font-family: var(--font-body, 'DM Sans', sans-serif);
             font-size: 0.875rem;
@@ -138,6 +127,14 @@ export class WyPromptEditor extends LitElement {
         }
 
         .actions {
+            position: sticky;
+            top: 0;
+            background-color: var(--md-sys-color-background, #FDFBF7);
+            padding: var(--spacing-md, 16px);
+            margin: 0 calc(-1 * var(--spacing-lg, 24px)) var(--spacing-lg, 24px);
+            border-bottom: 1px solid var(--md-sys-color-outline-variant, #DDD);
+            z-index: 100;
+            backdrop-filter: blur(8px);
             display: flex;
             gap: var(--spacing-sm, 8px);
             justify-content: flex-end;
