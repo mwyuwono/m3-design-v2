@@ -6,10 +6,14 @@
 # 1. Builds dist/web-components.js
 # 2. Commits both src/ and dist/ changes
 # 3. Pushes to GitHub
-# 4. Purges jsDelivr CDN cache
+# 4. Captures commit hash for CDN pinning
 # 5. Copies bundle to prompt-library
-# 6. Updates cache-busting parameters
+# 6. Updates CDN imports to use commit hash (reliable) + admin cache-busting
 # 7. Commits prompt-library changes
+#
+# NOTE: We use commit hash pinning instead of @main for CDN imports because
+# jsDelivr @main is unreliable - different edge servers serve different cached versions.
+# See docs/css-changes-not-appearing-postmortem.md Lesson 8.
 
 set -e  # Exit on error
 
@@ -22,6 +26,7 @@ TIMESTAMP=$(date +%Y%m%d-%H%M)
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 echo ""
@@ -67,17 +72,15 @@ git push origin main
 echo -e "${GREEN}✓ Pushed${NC}"
 echo ""
 
-# Step 4: Purge CDN cache
-echo -e "${YELLOW}Step 4/7: Purging jsDelivr CDN cache...${NC}"
-for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
-    for v in @main "" @latest; do
-        result=$(curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}")
-        status=$(echo "$result" | grep -o '"status":"[^"]*"' | head -1)
-        echo "  Purged ${v}/${f}: $status"
-    done
-done
-echo -e "${GREEN}✓ CDN purged${NC}"
+# Step 4: Capture commit hash for reliable CDN pinning
+echo -e "${YELLOW}Step 4/7: Capturing commit hash for CDN pinning...${NC}"
+COMMIT_HASH=$(git rev-parse --short HEAD)
+echo -e "  Commit hash: ${CYAN}${COMMIT_HASH}${NC}"
+echo -e "${GREEN}✓ Hash captured${NC}"
 echo ""
+
+# Note: We skip CDN purging because we use commit hash pinning which is immutable
+# CDN purging is unreliable for @main - see post-mortem Lesson 8
 
 # Step 5: Copy bundle to prompt-library
 echo -e "${YELLOW}Step 5/7: Copying bundle to prompt-library...${NC}"
@@ -85,22 +88,23 @@ cp dist/web-components.js "$PROMPT_LIBRARY/web-components.js"
 echo -e "${GREEN}✓ Bundle copied${NC}"
 echo ""
 
-# Step 6: Update cache-busting parameters
-echo -e "${YELLOW}Step 6/7: Updating cache-busting parameters (${TIMESTAMP})...${NC}"
+# Step 6: Update imports with commit hash
+echo -e "${YELLOW}Step 6/7: Updating imports with commit hash @${COMMIT_HASH}...${NC}"
 
-# Update admin.html
+# Update admin.html (local bundle - use timestamp for cache-busting)
 if [ -f "$PROMPT_LIBRARY/admin.html" ]; then
     sed -i '' "s|web-components.js?v=[^'\"]*|web-components.js?v=${TIMESTAMP}|g" "$PROMPT_LIBRARY/admin.html"
-    echo "  Updated admin.html"
+    echo "  Updated admin.html (cache-bust: ${TIMESTAMP})"
 fi
 
-# Update components/index.js
+# Update components/index.js (CDN - use commit hash for reliability)
 if [ -f "$PROMPT_LIBRARY/components/index.js" ]; then
-    sed -i '' "s|web-components.js?v=[^'\"]*|web-components.js?v=${TIMESTAMP}|g" "$PROMPT_LIBRARY/components/index.js"
-    echo "  Updated components/index.js"
+    # Replace any @xxx/dist/web-components.js pattern with @COMMIT_HASH/dist/web-components.js
+    sed -i '' "s|m3-design-v2@[^/]*/dist/web-components.js[^'\"]*|m3-design-v2@${COMMIT_HASH}/dist/web-components.js|g" "$PROMPT_LIBRARY/components/index.js"
+    echo "  Updated components/index.js (commit: @${COMMIT_HASH})"
 fi
 
-echo -e "${GREEN}✓ Cache-busting updated${NC}"
+echo -e "${GREEN}✓ Imports updated${NC}"
 echo ""
 
 # Step 7: Commit prompt-library changes
@@ -110,7 +114,10 @@ git add web-components.js admin.html components/index.js admin.css 2>/dev/null |
 if git diff --cached --quiet; then
     echo "  No changes to commit in prompt-library"
 else
-    git commit -m "Update design system bundle (${TIMESTAMP})
+    git commit -m "Update design system bundle (@${COMMIT_HASH})
+
+- Local bundle updated for admin
+- CDN import pinned to commit hash for reliability
 
 Co-Authored-By: Claude <noreply@anthropic.com>"
     echo -e "${GREEN}✓ Committed${NC}"
@@ -121,7 +128,8 @@ echo "========================================"
 echo -e "${GREEN}  Deployment Complete!${NC}"
 echo "========================================"
 echo ""
-echo "Cache-busting timestamp: ${TIMESTAMP}"
+echo -e "Commit hash: ${CYAN}@${COMMIT_HASH}${NC}"
+echo -e "Admin cache-bust: ${TIMESTAMP}"
 echo ""
 echo "Next steps:"
 echo "  1. Run: ./scripts/verify-deployment.sh"

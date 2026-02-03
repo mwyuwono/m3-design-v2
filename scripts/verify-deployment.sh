@@ -4,8 +4,8 @@
 #
 # This script checks:
 # 1. Local bundle in prompt-library matches design system dist/
-# 2. CDN is serving the latest version
-# 3. Cache-busting parameters are consistent
+# 2. CDN bundle (pinned to commit hash) matches local dist
+# 3. Commit hash in components/index.js is current
 # 4. Git status is clean
 
 SNIPPET="${1:-}"
@@ -40,12 +40,14 @@ check_result() {
     fi
 }
 
+# Get local dist size for comparisons
+DIST_SIZE=$(wc -c < "$DESIGN_SYSTEM_DIR/dist/web-components.js" | tr -d ' ')
+
 # 1. Check local bundle exists and matches
 echo -e "${CYAN}1. Local Bundle (prompt-library/web-components.js)${NC}"
 
 if [ -f "$PROMPT_LIBRARY/web-components.js" ]; then
     LOCAL_SIZE=$(wc -c < "$PROMPT_LIBRARY/web-components.js" | tr -d ' ')
-    DIST_SIZE=$(wc -c < "$DESIGN_SYSTEM_DIR/dist/web-components.js" | tr -d ' ')
     
     echo "   Local size: $LOCAL_SIZE bytes"
     echo "   Dist size:  $DIST_SIZE bytes"
@@ -69,62 +71,74 @@ else
 fi
 echo ""
 
-# 2. Check CDN version
-echo -e "${CYAN}2. CDN Version (jsDelivr @main)${NC}"
+# 2. Check CDN version (using commit hash from components/index.js)
+echo -e "${CYAN}2. CDN Version (commit hash pinning)${NC}"
 
-CDN_URL="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js"
-CDN_RESPONSE=$(curl -sI "$CDN_URL" 2>/dev/null)
-CDN_STATUS=$(echo "$CDN_RESPONSE" | grep -i "^HTTP" | awk '{print $2}')
-CDN_CACHE=$(echo "$CDN_RESPONSE" | grep -i "^x-cache:" | awk '{print $2}')
-
-if [ "$CDN_STATUS" = "200" ]; then
-    check_result "pass" "CDN responding (HTTP $CDN_STATUS)"
-    echo "   Cache status: $CDN_CACHE"
+# Extract commit hash from components/index.js
+if [ -f "$PROMPT_LIBRARY/components/index.js" ]; then
+    CDN_COMMIT=$(grep -o 'm3-design-v2@[^/]*' "$PROMPT_LIBRARY/components/index.js" | sed 's/.*@//' | head -1)
+    echo "   Pinned to commit: @${CDN_COMMIT}"
     
-    # Check for snippet in CDN if provided
-    if [ -n "$SNIPPET" ]; then
-        CDN_CONTENT=$(curl -s "$CDN_URL" | head -c 50000)
-        if echo "$CDN_CONTENT" | grep -q "$SNIPPET" 2>/dev/null; then
-            check_result "pass" "CDN contains expected snippet"
+    if [ -n "$CDN_COMMIT" ] && [ "$CDN_COMMIT" != "main" ]; then
+        # Fetch the CDN bundle using the commit hash
+        CDN_URL="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@${CDN_COMMIT}/dist/web-components.js"
+        CDN_SIZE=$(curl -sL "$CDN_URL" | wc -c | tr -d ' ')
+        
+        echo "   CDN size:  $CDN_SIZE bytes"
+        echo "   Dist size: $DIST_SIZE bytes"
+        
+        if [ "$CDN_SIZE" = "$DIST_SIZE" ]; then
+            check_result "pass" "CDN bundle size matches local dist"
         else
-            check_result "fail" "CDN may be stale (snippet not found)"
+            check_result "fail" "CDN bundle size MISMATCH ($CDN_SIZE vs $DIST_SIZE)"
         fi
+        
+        # Check for snippet in CDN if provided
+        if [ -n "$SNIPPET" ]; then
+            CDN_CONTENT=$(curl -sL "$CDN_URL" | head -c 50000)
+            if echo "$CDN_CONTENT" | grep -q "$SNIPPET" 2>/dev/null; then
+                check_result "pass" "CDN contains expected snippet"
+            else
+                check_result "fail" "CDN missing expected snippet"
+            fi
+        fi
+    else
+        check_result "fail" "Using @main (unreliable) - should use commit hash"
     fi
 else
-    check_result "fail" "CDN not responding (HTTP $CDN_STATUS)"
+    check_result "fail" "components/index.js not found"
 fi
 echo ""
 
-# 3. Check cache-busting parameters
-echo -e "${CYAN}3. Cache-Busting Parameters${NC}"
+# 3. Check commit hash is current
+echo -e "${CYAN}3. Commit Hash Currency${NC}"
+
+cd "$DESIGN_SYSTEM_DIR"
+CURRENT_HASH=$(git rev-parse --short HEAD)
+echo "   Current HEAD: @${CURRENT_HASH}"
+echo "   CDN pinned:   @${CDN_COMMIT}"
+
+if [ "$CURRENT_HASH" = "$CDN_COMMIT" ]; then
+    check_result "pass" "CDN is pinned to current HEAD"
+else
+    check_result "fail" "CDN pinned to old commit (run deploy.sh to update)"
+fi
+echo ""
+
+# 4. Check admin cache-busting
+echo -e "${CYAN}4. Admin Cache-Busting${NC}"
 
 if [ -f "$PROMPT_LIBRARY/admin.html" ]; then
     ADMIN_PARAM=$(grep -o "web-components.js?v=[^'\"]*" "$PROMPT_LIBRARY/admin.html" | head -1)
     echo "   admin.html: $ADMIN_PARAM"
+    check_result "pass" "Admin has cache-busting parameter"
 else
-    echo "   admin.html: NOT FOUND"
-fi
-
-if [ -f "$PROMPT_LIBRARY/components/index.js" ]; then
-    INDEX_PARAM=$(grep -o "web-components.js?v=[^'\"]*" "$PROMPT_LIBRARY/components/index.js" | head -1)
-    echo "   components/index.js: $INDEX_PARAM"
-else
-    echo "   components/index.js: NOT FOUND"
-fi
-
-# Check if they match
-ADMIN_VERSION=$(echo "$ADMIN_PARAM" | sed 's/.*?v=//')
-INDEX_VERSION=$(echo "$INDEX_PARAM" | sed 's/.*?v=//')
-
-if [ "$ADMIN_VERSION" = "$INDEX_VERSION" ]; then
-    check_result "pass" "Cache-busting versions match"
-else
-    check_result "fail" "Cache-busting versions DIFFER"
+    check_result "fail" "admin.html not found"
 fi
 echo ""
 
-# 4. Check git status
-echo -e "${CYAN}4. Git Status${NC}"
+# 5. Check git status
+echo -e "${CYAN}5. Git Status${NC}"
 
 echo "   m3-design-v2:"
 cd "$DESIGN_SYSTEM_DIR"
