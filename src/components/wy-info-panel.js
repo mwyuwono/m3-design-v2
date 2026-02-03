@@ -55,6 +55,7 @@ export class WyInfoPanel extends LitElement {
         
         .panel.compact {
             padding: var(--spacing-md, 16px);
+            background-color: var(--md-sys-color-secondary-container, #E8DDD7);
         }
         
         .panel-heading {
@@ -85,6 +86,12 @@ export class WyInfoPanel extends LitElement {
         border: none;
         padding: var(--spacing-md, 16px);
         font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
+    }
+    
+    /* Compact variant in prompt modal should have background color */
+    :host-context(wy-prompt-modal) .panel.compact {
+        background-color: var(--md-sys-color-secondary-container, #E8DDD7);
+        border: 1px solid var(--md-sys-color-outline-variant, #DDD);
     }
     
     :host-context(wy-prompt-modal) .panel-heading {
