@@ -249,8 +249,13 @@ export class WyPromptModal extends LitElement {
         gap: 24px;
     }
 
+    /* Header-main inside content (for multi-step prompts) */
+    .content > .header-main {
+        padding: 32px 32px 24px;
+    }
+
     .badge {
-      display: inline-block;
+      display: none; /* Hidden on all screen sizes */
       padding: 4px 12px;
       background: var(--wy-color-badge-bg);
       color: var(--wy-color-text-primary);
@@ -389,7 +394,7 @@ export class WyPromptModal extends LitElement {
     }
 
     .body {
-        padding: 32px;
+        padding: 0 32px 32px 32px;
         flex: 1;
     }
 
@@ -604,7 +609,12 @@ export class WyPromptModal extends LitElement {
 
     /* STEPPER STYLES */
     .stepper-container {
+      position: sticky;
+      top: 0;
+      background: var(--wy-color-surface-light);
+      z-index: 10;
       margin-bottom: var(--spacing-xl, 32px);
+      padding-top: var(--spacing-lg, 24px);
     }
 
     .stepper-progress {
@@ -648,7 +658,7 @@ export class WyPromptModal extends LitElement {
     .tabs-header {
       display: flex;
       gap: 24px;
-      padding: 16px 0;
+      padding: 0;
       border-bottom: 1px solid var(--md-sys-color-outline-variant);
       margin-bottom: var(--spacing-lg, 24px);
     }
@@ -689,11 +699,6 @@ export class WyPromptModal extends LitElement {
       .title-group h2 { font-size: 1.75rem; }
       .tabs-container { padding: 0; } /* wy-tabs handles its own mobile padding */
       .body { padding: 16px; }
-      
-      /* Hide category badge on mobile to save space */
-      .badge {
-        display: none;
-      }
       
       /* Tighter button spacing on mobile */
       .header-actions-left {
@@ -898,17 +903,19 @@ export class WyPromptModal extends LitElement {
                 </div>
             </div>
             
-            <div class="header-main">
-                <div class="title-group">
-                    <h2 @click="${this._toggleDescription}">${this.title}</h2>
-                    <p class="description-text ${this.descriptionExpanded ? 'expanded' : ''}">${this.description}</p>
-                </div>
-                
-                ${this.mode === 'locked' ? html`` : ''}
-            </div>
+            ${!(this.steps && this.steps.length > 0) ? html`
+              <div class="header-main">
+                  <div class="title-group">
+                      <h2 @click="${this._toggleDescription}">${this.title}</h2>
+                      <p class="description-text ${this.descriptionExpanded ? 'expanded' : ''}">${this.description}</p>
+                  </div>
+                  
+                  ${this.mode === 'locked' ? html`` : ''}
+              </div>
+            ` : ''}
         </header>
 
-        ${this.mode === 'locked' && this.variables.length > 0 ? html`
+        ${this.mode === 'locked' && this.variables.length > 0 && !(this.steps && this.steps.length > 0) ? html`
           <div class="tabs-container">
               <wy-tabs active-tab="${this.activeTab}" @tab-change="${e => this.activeTab = e.detail.tab}">
                 <button class="tab-item ${this.activeTab === 'variables' ? 'active' : ''}" role="tab" data-tab="variables">Variables</button>
@@ -924,6 +931,12 @@ export class WyPromptModal extends LitElement {
           ${this.mode === 'locked' ? html`
             ${this.steps && this.steps.length > 0 ? html`
               <!-- Multi-step mode -->
+              <div class="header-main">
+                  <div class="title-group">
+                      <h2 @click="${this._toggleDescription}">${this.title}</h2>
+                      <p class="description-text ${this.descriptionExpanded ? 'expanded' : ''}">${this.description}</p>
+                  </div>
+              </div>
               <div class="body">
                 ${this._renderMultiStepBody()}
               </div>

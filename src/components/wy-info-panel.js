@@ -61,7 +61,7 @@ export class WyInfoPanel extends LitElement {
             font-family: var(--font-serif, 'Playfair Display', serif);
             font-size: var(--md-sys-typescale-title-medium-size, 1rem);
             color: var(--md-sys-color-on-surface);
-            margin: 0 0 var(--spacing-sm, 8px) 0;
+            margin: 0;
             font-weight: 500;
         }
         
@@ -89,7 +89,7 @@ export class WyInfoPanel extends LitElement {
     
     :host-context(wy-prompt-modal) .panel-heading {
         font-size: var(--md-sys-typescale-title-small-size, 1rem);
-        margin-bottom: 0;
+        margin: 0;
     }
     
     :host-context(wy-prompt-modal) .panel p + p {
