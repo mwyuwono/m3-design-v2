@@ -144,7 +144,7 @@ export class WyControlsBar extends LitElement {
       display: block;
       background-color: var(--wy-controls-bar-bg, transparent);
       border-bottom: var(--wy-controls-bar-border, none);
-      padding: var(--wy-controls-bar-padding, 16px 32px);
+      padding: var(--wy-controls-bar-padding, 8px 32px);
       box-sizing: border-box;
     }
 
@@ -203,6 +203,8 @@ export class WyControlsBar extends LitElement {
     :host([data-scrolled]) .controls-container {
       gap: 16px;
       max-width: 100%;
+      background-color: var(--md-sys-color-surface-variant, #E8E4D9);
+      padding: 0 var(--spacing-sm, 8px);
       transition: gap var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
     }
 
