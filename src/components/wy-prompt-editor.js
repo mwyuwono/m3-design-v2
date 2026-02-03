@@ -64,6 +64,9 @@ export class WyPromptEditor extends LitElement {
             display: flex;
             flex-direction: column;
             gap: var(--spacing-lg, 24px);
+            overflow-y: auto;
+            max-height: calc(100vh - 48px);
+            padding-right: var(--spacing-sm, 8px);
         }
 
         .editor-header {
