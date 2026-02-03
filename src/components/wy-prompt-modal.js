@@ -35,6 +35,60 @@ export class WyPromptModal extends LitElement {
     this._values = {};
   }
 
+  willUpdate(changedProperties) {
+    // Ensure steps array exists before render
+    if (changedProperties.has('steps')) {
+      if (!this.steps) {
+        this.steps = [];
+      }
+      
+      // Reset activeStepIndex if out of bounds
+      if (this.activeStepIndex >= this.steps.length) {
+        this.activeStepIndex = 0;
+      }
+    }
+    
+    // Ensure activeTab has a value
+    if (!this.activeTab) {
+      this.activeTab = 'variables';
+    }
+  }
+
+  updated(changedProperties) {
+    // Fix race condition by ensuring activeStepIndex is valid
+    if (changedProperties.has('steps') && this.steps && this.steps.length > 0) {
+      // Clamp activeStepIndex to valid range
+      if (this.activeStepIndex >= this.steps.length) {
+        this.activeStepIndex = 0;
+      }
+    }
+    
+    // Populate _values from current step's variables
+    if ((changedProperties.has('steps') || changedProperties.has('activeStepIndex')) && 
+        this.steps && this.steps.length > 0) {
+      // Use safe index
+      const safeIndex = Math.max(0, Math.min(this.activeStepIndex || 0, this.steps.length - 1));
+      const currentStep = this.steps[safeIndex];
+      
+      if (currentStep && currentStep.variables) {
+        const newValues = {};
+        currentStep.variables.forEach(v => {
+          newValues[v.name] = v.value || '';
+        });
+        this._values = newValues;
+      }
+    }
+    
+    // When variables change for single-step prompts, populate _values
+    if (changedProperties.has('variables') && this.variables && this.variables.length > 0) {
+      const newValues = {};
+      this.variables.forEach(v => {
+        newValues[v.name] = v.value || '';
+      });
+      this._values = newValues;
+    }
+  }
+
   static styles = css`
     /* Required fonts - load in page <head>:
        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,899&display=swap" rel="stylesheet">
@@ -743,8 +797,21 @@ export class WyPromptModal extends LitElement {
 
   // Render multi-step body content
   _renderMultiStepBody() {
-    const step = this.steps[this.activeStepIndex];
-    const compiledPrompt = this._compilePrompt(step.template);
+    // Guard against invalid step index
+    if (!this.steps || this.steps.length === 0) {
+      return html`<div class="empty-message">No steps available</div>`;
+    }
+    
+    // Ensure activeStepIndex is within bounds
+    const safeIndex = Math.max(0, Math.min(this.activeStepIndex || 0, this.steps.length - 1));
+    const step = this.steps[safeIndex];
+    
+    // Guard against undefined step
+    if (!step) {
+      return html`<div class="empty-message">Step not found</div>`;
+    }
+    
+    const compiledPrompt = this._compilePrompt(step.template || '');
     
     return html`
       ${this._renderStepper()}
@@ -754,12 +821,14 @@ export class WyPromptModal extends LitElement {
         <div class="tabs-header">
           <button 
             class="tab-item ${this.activeTab === 'variables' ? 'active' : ''}"
-            @click="${() => this.activeTab = 'variables'}">
+            data-tab="variables"
+            @click="${this._setActiveTab}">
             Variables
           </button>
           <button 
             class="tab-item ${this.activeTab === 'preview' ? 'active' : ''}"
-            @click="${() => this.activeTab = 'preview'}">
+            data-tab="preview"
+            @click="${this._setActiveTab}">
             Preview
           </button>
         </div>
@@ -1012,12 +1081,24 @@ export class WyPromptModal extends LitElement {
   }
 
   _compilePrompt(template) {
+    // Guard against undefined/null template
+    if (!template || typeof template !== 'string') {
+      return '';
+    }
+    
     let compiled = template;
-    Object.keys(this._values).forEach(key => {
+    Object.keys(this._values || {}).forEach(key => {
       const regex = new RegExp(`{{${key}}}`, 'g');
       compiled = compiled.replace(regex, this._values[key] || `[${key}]`);
     });
     return compiled;
+  }
+
+  _setActiveTab(e) {
+    const tab = e.target.dataset.tab || e.target.closest('[data-tab]')?.dataset.tab;
+    if (tab) {
+      this.activeTab = tab;
+    }
   }
 
   _close() {

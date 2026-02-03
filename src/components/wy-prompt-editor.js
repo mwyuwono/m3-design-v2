@@ -5,7 +5,9 @@ export class WyPromptEditor extends LitElement {
         prompt: { type: Object },
         categories: { type: Array },
         readonly: { type: Boolean },
-        _editedPrompt: { type: Object, state: true }
+        _editedPrompt: { type: Object, state: true },
+        _promptMode: { type: String, state: true },
+        _expandedSteps: { type: Array, state: true }
     };
 
     constructor() {
@@ -14,6 +16,8 @@ export class WyPromptEditor extends LitElement {
         this.categories = [];
         this.readonly = false;
         this._editedPrompt = null;
+        this._promptMode = 'single';
+        this._expandedSteps = [];
     }
 
     updated(changedProperties) {
@@ -25,6 +29,14 @@ export class WyPromptEditor extends LitElement {
             if (!this._editedPrompt.slug && this._editedPrompt.title) {
                 this._editedPrompt.slug = this._generateSlug(this._editedPrompt.title);
             }
+
+            // Detect prompt mode (single-step vs multi-step)
+            this._promptMode = (this._editedPrompt.steps && this._editedPrompt.steps.length > 0) 
+                ? 'multi' 
+                : 'single';
+            
+            // Expand first step by default for multi-step prompts
+            this._expandedSteps = this._promptMode === 'multi' ? [0] : [];
         }
     }
 
@@ -258,6 +270,45 @@ export class WyPromptEditor extends LitElement {
             color: var(--md-sys-color-primary, #2C4C3B);
         }
 
+        .mode-toggle {
+            display: flex;
+            gap: var(--spacing-md, 16px);
+            padding: var(--spacing-md, 16px);
+            background-color: var(--md-sys-color-surface-variant, #F5F2EA);
+            border-radius: var(--md-sys-shape-corner-small, 8px);
+        }
+
+        .mode-toggle label {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs, 4px);
+            font-family: var(--font-sans, 'DM Sans', sans-serif);
+            font-size: 0.9375rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .mode-toggle input[type="radio"] {
+            cursor: pointer;
+        }
+
+        .card-description {
+            font-family: var(--font-sans, 'DM Sans', sans-serif);
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            color: var(--md-sys-color-on-surface-variant, #5E6E66);
+            margin: 0 0 var(--spacing-md, 16px) 0;
+        }
+
+        .add-step-button {
+            width: 100%;
+            margin-top: var(--spacing-md, 16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs, 4px);
+        }
+
         @media (max-width: 1200px) {
             .editor-layout {
                 grid-template-columns: 1fr;
@@ -293,13 +344,28 @@ export class WyPromptEditor extends LitElement {
     }
 
     _handleSave() {
-        // Get fresh template value from the textarea component before saving
-        const codeTextarea = this.shadowRoot.querySelector('wy-code-textarea');
-        if (codeTextarea) {
-            const textarea = codeTextarea.shadowRoot?.querySelector('textarea');
-            if (textarea) {
-                // Read current DOM value directly to ensure we get latest edits
-                this._editedPrompt.template = textarea.value;
+        if (this._promptMode === 'multi') {
+            // For multi-step prompts: Get fresh template values from each step editor
+            const stepEditors = this.shadowRoot.querySelectorAll('wy-step-editor');
+            stepEditors.forEach((stepEditor, index) => {
+                const codeTextarea = stepEditor.shadowRoot?.querySelector('wy-code-textarea');
+                if (codeTextarea) {
+                    const textarea = codeTextarea.shadowRoot?.querySelector('textarea');
+                    if (textarea && this._editedPrompt.steps[index]) {
+                        // Read current DOM value directly to ensure we get latest edits
+                        this._editedPrompt.steps[index].template = textarea.value;
+                    }
+                }
+            });
+        } else {
+            // For single-step prompts: Get fresh template value from the textarea component
+            const codeTextarea = this.shadowRoot.querySelector('wy-code-textarea');
+            if (codeTextarea) {
+                const textarea = codeTextarea.shadowRoot?.querySelector('textarea');
+                if (textarea) {
+                    // Read current DOM value directly to ensure we get latest edits
+                    this._editedPrompt.template = textarea.value;
+                }
             }
         }
         
@@ -334,6 +400,130 @@ export class WyPromptEditor extends LitElement {
             bubbles: true,
             composed: true
         }));
+    }
+
+    _handleModeChange(event, newMode) {
+        if (newMode === this._promptMode) return;
+        
+        // Show confirmation modal
+        const confirmMessage = newMode === 'multi'
+            ? 'Convert to multi-step prompt?\n\nThis will move your template and variables into a single step.'
+            : 'Convert to single-step prompt?\n\nThis will use Step 1 as the template and discard other steps.';
+        
+        if (!confirm(confirmMessage)) {
+            // Prevent the radio button from changing
+            event.preventDefault();
+            // Force re-render to reset radio buttons to current mode
+            this.requestUpdate();
+            return;
+        }
+        
+        this._convertPromptMode(newMode);
+    }
+
+    _convertPromptMode(newMode) {
+        if (newMode === 'multi') {
+            // Single → Multi: Create one step from existing template
+            this._editedPrompt.steps = [{
+                id: 'step-1',
+                name: 'Step 1',
+                instructions: '',
+                template: this._editedPrompt.template || '',
+                variables: this._editedPrompt.variables || []
+            }];
+            // Clear top-level template/variables
+            this._editedPrompt.template = '';
+            this._editedPrompt.variables = [];
+            this._expandedSteps = [0];
+        } else {
+            // Multi → Single: Use first step as template
+            const firstStep = this._editedPrompt.steps?.[0];
+            this._editedPrompt.template = firstStep?.template || '';
+            this._editedPrompt.variables = firstStep?.variables || [];
+            delete this._editedPrompt.steps;
+            this._expandedSteps = [];
+        }
+        
+        this._promptMode = newMode;
+        this.requestUpdate();
+    }
+
+    _handleStepChange(e) {
+        const { index, step } = e.detail;
+        this._editedPrompt.steps[index] = step;
+        this.requestUpdate();
+    }
+
+    _handleStepDelete(e) {
+        const { index } = e.detail;
+        if (this._editedPrompt.steps.length === 1) {
+            alert('Cannot delete the last step.\n\nConvert to single-step mode instead.');
+            return;
+        }
+        this._editedPrompt.steps.splice(index, 1);
+        // Update expanded steps indices
+        this._expandedSteps = this._expandedSteps
+            .map(i => i > index ? i - 1 : i)
+            .filter(i => i < this._editedPrompt.steps.length);
+        this.requestUpdate();
+    }
+
+    _handleStepMoveUp(e) {
+        const { index } = e.detail;
+        if (index === 0) return;
+        const steps = this._editedPrompt.steps;
+        [steps[index - 1], steps[index]] = [steps[index], steps[index - 1]];
+        // Update expanded state
+        if (this._expandedSteps.includes(index)) {
+            this._expandedSteps = this._expandedSteps.filter(i => i !== index);
+            this._expandedSteps.push(index - 1);
+        } else if (this._expandedSteps.includes(index - 1)) {
+            this._expandedSteps = this._expandedSteps.filter(i => i !== index - 1);
+            this._expandedSteps.push(index);
+        }
+        this.requestUpdate();
+    }
+
+    _handleStepMoveDown(e) {
+        const { index } = e.detail;
+        if (index === this._editedPrompt.steps.length - 1) return;
+        const steps = this._editedPrompt.steps;
+        [steps[index], steps[index + 1]] = [steps[index + 1], steps[index]];
+        // Update expanded state
+        if (this._expandedSteps.includes(index)) {
+            this._expandedSteps = this._expandedSteps.filter(i => i !== index);
+            this._expandedSteps.push(index + 1);
+        } else if (this._expandedSteps.includes(index + 1)) {
+            this._expandedSteps = this._expandedSteps.filter(i => i !== index + 1);
+            this._expandedSteps.push(index);
+        }
+        this.requestUpdate();
+    }
+
+    _handleStepToggle(e) {
+        const { index } = e.detail;
+        const expandedIndex = this._expandedSteps.indexOf(index);
+        if (expandedIndex > -1) {
+            this._expandedSteps.splice(expandedIndex, 1);
+        } else {
+            this._expandedSteps.push(index);
+        }
+        this.requestUpdate();
+    }
+
+    _handleAddStep() {
+        const newStepNumber = this._editedPrompt.steps.length + 1;
+        const newStep = {
+            id: `step-${newStepNumber}`,
+            name: `Step ${newStepNumber}`,
+            instructions: '',
+            template: '',
+            variables: []
+        };
+        this._editedPrompt.steps.push(newStep);
+        // Expand the new step
+        this._expandedSteps.push(this._editedPrompt.steps.length - 1);
+        this.requestUpdate();
     }
 
     render() {
@@ -436,27 +626,89 @@ export class WyPromptEditor extends LitElement {
                         ></wy-image-upload>
                     </div>
 
-                    <!-- Section 3: Variables -->
+                    <!-- Section 3: Prompt Type -->
                     <div class="card">
-                        <h2 class="card-title">Variables</h2>
-                        <wy-variable-editor
-                            .variables="${this._editedPrompt.variables || []}"
-                            @change="${(e) => this._handleFieldChange('variables', e.detail.variables)}"
-                        ></wy-variable-editor>
+                        <h2 class="card-title">Prompt Type</h2>
+                        <div class="mode-toggle">
+                            <label>
+                                <input 
+                                    type="radio" 
+                                    name="mode" 
+                                    value="single" 
+                                    ?checked="${this._promptMode === 'single'}"
+                                    @click="${(e) => this._handleModeChange(e, 'single')}"
+                                >
+                                Single Step
+                            </label>
+                            <label>
+                                <input 
+                                    type="radio" 
+                                    name="mode" 
+                                    value="multi" 
+                                    ?checked="${this._promptMode === 'multi'}"
+                                    @click="${(e) => this._handleModeChange(e, 'multi')}"
+                                >
+                                Multi-Step
+                            </label>
+                        </div>
                     </div>
 
-                    <!-- Section 4: Template -->
-                    <div class="card">
-                        <h2 class="card-title">Template</h2>
-                        <wy-code-textarea
-                            label="Prompt Template"
-                            .value="${this._editedPrompt.template || ''}"
-                            .variables="${variableNames}"
-                            placeholder="Enter your prompt template here. Use {{variable-name}} for substitutions."
-                            rows="12"
-                            @input="${(e) => this._handleFieldChange('template', e.detail.value)}"
-                        ></wy-code-textarea>
-                    </div>
+                    <!-- Section 4: Single-Step Content -->
+                    ${this._promptMode === 'single' ? html`
+                        <!-- Variables -->
+                        <div class="card">
+                            <h2 class="card-title">Variables</h2>
+                            <wy-variable-editor
+                                .variables="${this._editedPrompt.variables || []}"
+                                @change="${(e) => this._handleFieldChange('variables', e.detail.variables)}"
+                            ></wy-variable-editor>
+                        </div>
+
+                        <!-- Template -->
+                        <div class="card">
+                            <h2 class="card-title">Template</h2>
+                            <wy-code-textarea
+                                label="Prompt Template"
+                                .value="${this._editedPrompt.template || ''}"
+                                .variables="${variableNames}"
+                                placeholder="Enter your prompt template here. Use {{variable-name}} for substitutions."
+                                rows="12"
+                                @input="${(e) => this._handleFieldChange('template', e.detail.value)}"
+                            ></wy-code-textarea>
+                        </div>
+                    ` : ''}
+
+                    <!-- Section 4: Multi-Step Content -->
+                    ${this._promptMode === 'multi' ? html`
+                        <div class="card">
+                            <h2 class="card-title">Steps</h2>
+                            <p class="card-description">
+                                Define the sequence of prompts. Users will follow these steps in order.
+                            </p>
+                            
+                            ${(this._editedPrompt.steps || []).map((step, index) => html`
+                                <wy-step-editor
+                                    .step="${step}"
+                                    .index="${index}"
+                                    .total="${this._editedPrompt.steps.length}"
+                                    .expanded="${this._expandedSteps.includes(index)}"
+                                    @step-change="${this._handleStepChange}"
+                                    @step-delete="${this._handleStepDelete}"
+                                    @step-move-up="${this._handleStepMoveUp}"
+                                    @step-move-down="${this._handleStepMoveDown}"
+                                    @step-toggle="${this._handleStepToggle}"
+                                ></wy-step-editor>
+                            `)}
+                            
+                            <button 
+                                class="button button-secondary add-step-button" 
+                                @click="${this._handleAddStep}"
+                            >
+                                <span class="material-symbols-outlined">add</span>
+                                Add Step
+                            </button>
+                        </div>
+                    ` : ''}
 
                     <!-- Section 5: Visibility -->
                     <div class="card">

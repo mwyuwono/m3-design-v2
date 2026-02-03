@@ -47,6 +47,13 @@ import './components/wy-dropdown.js';
 import './components/wy-info-panel.js';
 import './components/wy-code-example.js';
 
+// Admin Components
+import './components/wy-prompt-editor.js';
+import './components/wy-step-editor.js';
+import './components/wy-variable-editor.js';
+import './components/wy-code-textarea.js';
+import './components/wy-image-upload.js';
+
 // Button System Components (Visual Identity Guide v1.0)
 import './components/wy-button.js';
 import './components/wy-icon-button.js';

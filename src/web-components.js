@@ -54,6 +54,7 @@ import './components/wy-image-upload.js';
 import './components/wy-code-textarea.js';
 import './components/wy-variable-editor.js';
 import './components/wy-prompt-editor.js';
+import './components/wy-step-editor.js';
 import './components/wy-selection-card.js';
 import './components/wy-prompt-card.js';
 import './components/wy-prompt-modal.js';
