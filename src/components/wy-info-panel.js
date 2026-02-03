@@ -65,19 +65,36 @@ export class WyInfoPanel extends LitElement {
             font-weight: 500;
         }
         
-        /* Support for slotted content */
-        ::slotted(*) {
-            color: var(--wy-info-panel-text-color);
-            font-family: var(--font-sans, 'DM Sans', sans-serif);
-        }
-        
-        ::slotted(p) {
-            margin: 0;
-        }
-        
-        ::slotted(p + p) {
-            margin-top: var(--spacing-md, 16px);
-        }
+    /* Support for slotted content */
+    ::slotted(*) {
+        color: var(--wy-info-panel-text-color);
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
+    }
+    
+    ::slotted(p) {
+        margin: 0;
+    }
+    
+    ::slotted(p + p) {
+        margin-top: var(--spacing-md, 16px);
+    }
+    
+    /* Context-specific styling for prompt modal usage */
+    :host-context(wy-prompt-modal) .panel {
+        background-color: transparent;
+        border: none;
+        padding: var(--spacing-md, 16px);
+        font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
+    }
+    
+    :host-context(wy-prompt-modal) .panel-heading {
+        font-size: var(--md-sys-typescale-title-small-size, 1rem);
+        margin-bottom: 0;
+    }
+    
+    :host-context(wy-prompt-modal) .panel p + p {
+        margin-top: var(--spacing-md, 16px);
+    }
     `;
 
     render() {
