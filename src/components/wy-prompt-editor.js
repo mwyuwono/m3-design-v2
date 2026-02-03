@@ -67,23 +67,19 @@ export class WyPromptEditor extends LitElement {
         }
 
         .editor-header {
-            position: sticky;
-            top: 0;
-            background-color: var(--md-sys-color-background, #FDFBF7);
-            z-index: 10;
             padding-bottom: var(--spacing-md, 16px);
+            margin-bottom: var(--spacing-md, 16px);
         }
 
         .actions {
             position: sticky;
             top: 0;
             background-color: var(--md-sys-color-background, #FDFBF7);
-            padding: var(--spacing-md, 16px) 0;
-            margin: 0 calc(-1 * var(--spacing-md, 16px));
-            padding-left: var(--spacing-md, 16px);
-            padding-right: var(--spacing-md, 16px);
+            padding: var(--spacing-md, 16px);
+            margin: 0 calc(-1 * var(--spacing-lg, 24px)) var(--spacing-lg, 24px);
             border-bottom: 1px solid var(--md-sys-color-outline-variant, #DDD);
-            z-index: 11;
+            z-index: 100;
+            backdrop-filter: blur(8px);
         }
 
         .breadcrumbs {
