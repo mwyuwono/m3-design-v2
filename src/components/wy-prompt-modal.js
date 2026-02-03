@@ -165,10 +165,10 @@ export class WyPromptModal extends LitElement {
 
     /* HEADER STYLES */
     .header {
-      padding: 32px 32px 24px;
+      padding: var(--spacing-xl, 32px) var(--spacing-xl, 32px) var(--spacing-lg, 24px);
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: var(--spacing-md, 16px);
       flex-shrink: 0; /* Header stays fixed, doesn't shrink */
     }
 
@@ -251,7 +251,7 @@ export class WyPromptModal extends LitElement {
 
     /* Header-main inside content (for multi-step prompts) */
     .content > .header-main {
-        padding: 32px 32px 24px;
+        padding: var(--spacing-xl, 32px) var(--spacing-xl, 32px) var(--spacing-lg, 24px);
     }
 
     .badge {
@@ -325,11 +325,11 @@ export class WyPromptModal extends LitElement {
 
     /* TABS */
     .tabs-container {
-        padding: 0 32px; /* Align with body padding */
+        padding: 0 var(--spacing-xl, 32px);
         border-bottom: 1px solid var(--md-sys-color-outline-variant);
         display: flex;
         align-items: center;
-        gap: 32px;
+        gap: var(--spacing-xl, 32px);
         flex-shrink: 0; /* Tabs stay fixed, don't shrink */
     }
 
@@ -394,15 +394,15 @@ export class WyPromptModal extends LitElement {
     }
 
     .body {
-        padding: 0 32px 32px 32px;
+        padding: var(--spacing-xl, 32px);
         flex: 1;
     }
 
     .variation-selector-container {
-        padding: 0 32px 16px;
+        padding: 0 var(--spacing-xl, 32px) var(--spacing-md, 16px);
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: var(--spacing-md, 16px);
     }
 
     .variation-selector-container wy-dropdown {
@@ -415,13 +415,13 @@ export class WyPromptModal extends LitElement {
 
     /* Legacy selector styles (kept for backwards compatibility) */
     .variation-selector {
-        margin: 0 32px 16px;
-        padding: 12px;
+        margin: 0 var(--spacing-xl, 32px) var(--spacing-md, 16px);
+        padding: var(--spacing-sm, 12px);
         background: var(--md-sys-color-surface-container-low);
-        border-radius: 8px;
+        border-radius: var(--md-sys-shape-corner-small, 8px);
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: var(--spacing-sm, 12px);
     }
 
     .variation-label {
@@ -447,7 +447,7 @@ export class WyPromptModal extends LitElement {
     .variables-grid {
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: var(--spacing-lg, 24px);
     }
 
     .form-group label {
@@ -694,11 +694,11 @@ export class WyPromptModal extends LitElement {
         max-height: 100%;
         border-radius: 0;
       }
-      .header { padding: 24px 16px 16px; }
-      .header-main { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .header { padding: var(--spacing-lg, 24px) var(--spacing-md, 16px) var(--spacing-md, 16px); }
+      .header-main { flex-direction: column; align-items: flex-start; gap: var(--spacing-md, 16px); }
       .title-group h2 { font-size: 1.75rem; }
       .tabs-container { padding: 0; } /* wy-tabs handles its own mobile padding */
-      .body { padding: 16px; }
+      .body { padding: var(--spacing-md, 16px); }
       
       /* Tighter button spacing on mobile */
       .header-actions-left {
