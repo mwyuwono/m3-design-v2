@@ -9,6 +9,7 @@ export class WyControlsBar extends LitElement {
         searchValue: { type: String, attribute: 'search-value' },
         hideViewToggle: { type: Boolean, attribute: 'hide-view-toggle' },
         hideDetailsToggle: { type: Boolean, attribute: 'hide-details-toggle' },
+        showFeaturedOnly: { type: Boolean, attribute: 'show-featured-only' },
         isScrolled: { type: Boolean, state: true }
     };
 
@@ -21,6 +22,7 @@ export class WyControlsBar extends LitElement {
         this.searchValue = '';
         this.hideViewToggle = false;
         this.hideDetailsToggle = false;
+        this.showFeaturedOnly = false;
         this.isScrolled = false;
         this._scrollThreshold = 50; // px
     }
@@ -524,14 +526,19 @@ export class WyControlsBar extends LitElement {
 
         <div class="category-section">
           <wy-filter-chip
+            label="Featured"
+            ?active="${this.showFeaturedOnly}"
+            @click="${this._toggleFeatured}"
+          ></wy-filter-chip>
+          <wy-filter-chip
             label="All"
-            ?active="${this.activeCategory === 'all'}"
+            ?active="${this.activeCategory === 'all' && !this.showFeaturedOnly}"
             @click="${() => this._setCategory('all')}"
           ></wy-filter-chip>
           ${this.categories.map(cat => html`
             <wy-filter-chip
               label="${cat}"
-              ?active="${this.activeCategory === cat}"
+              ?active="${this.activeCategory === cat && !this.showFeaturedOnly}"
               @click="${() => this._setCategory(cat)}"
             ></wy-filter-chip>
           `)}
@@ -557,6 +564,15 @@ export class WyControlsBar extends LitElement {
 
     _setCategory(cat) {
         this.activeCategory = cat;
+        // When selecting a category, deactivate Featured filter
+        if (this.showFeaturedOnly) {
+            this.showFeaturedOnly = false;
+        }
+        this._notifyChange();
+    }
+
+    _toggleFeatured() {
+        this.showFeaturedOnly = !this.showFeaturedOnly;
         this._notifyChange();
     }
 
@@ -566,7 +582,8 @@ export class WyControlsBar extends LitElement {
                 search: this.searchValue,
                 viewMode: this.viewMode,
                 showDetails: this.showDetails,
-                category: this.activeCategory
+                category: this.activeCategory,
+                showFeaturedOnly: this.showFeaturedOnly
             },
             bubbles: true,
             composed: true

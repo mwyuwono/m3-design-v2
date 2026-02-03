@@ -714,6 +714,12 @@ export class WyPromptEditor extends LitElement {
                     <div class="card">
                         <h2 class="card-title">Visibility</h2>
                         <wy-toggle-field
+                            label="Featured"
+                            description="Featured prompts are highlighted and sorted to the top of the library"
+                            .checked="${this._editedPrompt.featured || false}"
+                            @change="${(e) => this._handleFieldChange('featured', e.detail.checked)}"
+                        ></wy-toggle-field>
+                        <wy-toggle-field
                             label="Archive Prompt"
                             description="Archived prompts are hidden from the public site but remain editable here"
                             .checked="${this._editedPrompt.archived || false}"
