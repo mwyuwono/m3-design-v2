@@ -212,156 +212,42 @@ See [skills/visual-qa/SKILL.md](skills/visual-qa/SKILL.md) for the complete work
 
 ## Commit & Deploy Workflow
 
-This design system is consumed by dependent projects via jsDelivr CDN. **After every commit, you must purge the CDN cache and update consuming projects.**
+This design system is consumed by dependent projects. **Always use the automated deployment script.**
 
-**CRITICAL CDN Cache Management:** After pushing changes to m3-design-v2, always wait 2-3 minutes before purging jsDelivr CDN (purges are throttled to max 10/hour per file), and if throttled, temporarily pin consuming projects to the commit hash (e.g., `@abc1234`) with a TODO to revert to `@main` within 24 hours, rather than repeatedly purging which will fail.
-
-### Automated Deployment (RECOMMENDED)
-
-Use the deploy script for all design system changes - it handles the entire workflow automatically:
+### Automated Deployment (REQUIRED)
 
 ```bash
 ./scripts/deploy.sh "Description of changes"
+./scripts/verify-deployment.sh
+# Then hard refresh browser (Cmd+Shift+R)
 ```
 
-This script automatically:
+The script automatically:
 1. Builds `dist/web-components.js`
 2. Commits both `src/` and `dist/` changes
 3. Pushes to GitHub
-4. Purges jsDelivr CDN cache
+4. Captures commit hash for CDN pinning
 5. Copies bundle to `prompt-library`
-6. Updates cache-busting parameters
+6. Updates `prompt-library/admin.html` (cache-bust) and `components/index.js` (commit hash)
 7. Commits `prompt-library` changes
 
-**After deployment, verify changes propagated:**
-
-```bash
-./scripts/verify-deployment.sh "expected-code-snippet"
-```
-
-Then hard refresh browser (`Cmd+Shift+R`).
-
-### Standard Commit Process (Manual Alternative)
-
-```bash
-# 1. Stage and commit
-git add .
-git commit -m "Description of changes
-
-Co-Authored-By: Claude <noreply@anthropic.com>"
-
-# 2. Push to main
-git push origin main
-
-# 3. Purge jsDelivr cache (REQUIRED for immediate propagation)
-for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
- for v in @main "" @latest; do
- curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
- done
-done
-
-# 4. Update consuming projects with local bundles
-# For projects using local web-components.js (e.g., prompt-library admin)
-cp dist/web-components.js ../prompt-library/web-components.js
-
-# 5. Update cache-busting parameters in consuming projects
-# Check and update these files:
-grep -r "web-components.js?v=" ../prompt-library/admin.html ../prompt-library/components/index.js
-# Update version parameters to force browser reload (e.g., ?v=20260203-latest)
-
-# 6. Verify all consuming projects (optional but recommended)
-./skills/design-system-sync/verify-projects.sh
-```
-
-### Cache-Busting Parameter Updates
-
-**CRITICAL: When design system components change, consuming projects need cache-busting parameter updates to force browser reload.**
-
-Projects using local bundles (like prompt-library admin):
-- `admin.html` - Update `?v=` parameter on `./web-components.js` import
-- Component changes won't appear without updating this parameter
-
-Projects using CDN:
-- `components/index.js` or similar - Update `?v=` parameter on CDN imports
-- jsDelivr purge handles CDN cache, but browser cache still needs busting
-
-### Quick One-Liner
-
-```bash
-git commit -m "Your message" && git push origin main && \
-for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do for v in @main "" @latest; do curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"; done; done
-```
-
-### Purging Multiple Files
-
-```bash
-# Full purge (run after any change)
-for f in src/styles/tokens.css src/styles/main.css dist/web-components.js; do
-  for v in @main "" @latest; do
-    curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2${v}/${f}"
-  done
-done
-```
-
-Or individually:
-```bash
-curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css"
-curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css"
-curl -s "https://purge.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js"
-```
-
-Verify purge succeeded: response should contain `"status":"finished"`.
+**Why commit hash pinning:** jsDelivr's `@main` serves inconsistent stale content across edge servers. Commit hashes are immutable and immediately available. See [prompt-library/docs/css-changes-not-appearing-postmortem.md](../prompt-library/docs/css-changes-not-appearing-postmortem.md) for the full investigation.
 
 ### Dependent Projects
 
-Changes affect these projects (hard refresh with Cmd+Shift+R after purging):
-- **prompts-library** - https://p.weaver-yuwono.com (uses CDN imports)
-- **plots** - `/Users/Matt_Weaver-Yuwono/Library/CloudStorage/OneDrive-McKinsey&Company/Documents/Projects/plots` (uses `npm link` for local development, installed January 2026)
-- **Weaver-Yuwono-Home-Page** - https://weaver-yuwono.com (uses CDN imports, migrated January 2026)
+| Project | Integration | Notes |
+|---------|-------------|-------|
+| prompt-library | CDN (commit hash) + local bundle | Auto-updated by deploy.sh |
+| plots | npm link | Live updates, no action needed |
+| Weaver-Yuwono-Home-Page | CDN | Update commit hash manually if needed |
 
-**prompts-library** imports tokens via CDN:
-```css
-@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css');
-@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css');
-```
+### Troubleshooting
 
-**plots** imports tokens via npm link:
-```css
-@import "./styles/tokens-no-fonts.css"; /* Generated from node_modules/wy-family-office/src/styles/tokens.css */
-```
-
-Web components via CDN (for prompts-library):
-```javascript
-import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';
-```
-
-jsDelivr caches for up to 24 hours - without purging, changes won't propagate immediately.
-
-### Verify All Projects After Changes
-
-After committing and purging CDN cache, verify all consuming projects are properly integrated:
-
-```bash
-./skills/design-system-sync/verify-projects.sh
-```
-
-This script checks:
-- Integration status (CDN, npm link, or not integrated)
-- Local token definitions that should use design system
-- Local component overrides
-- Overall health status
-
-For complete workflow details, see [skills/design-system-sync/SKILL.md](skills/design-system-sync/SKILL.md).
-
-### CDN Staleness Fallback (Consumers)
-
-If `@main` is still stale after a purge, consumers may temporarily pin to a commit hash to unblock production:
-```javascript
-// TODO: revert to @main once CDN serves the updated bundle
-import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@<commit>/dist/web-components.js';
-```
-
-Revert the pin once `@main` serves the expected snippet.
+If changes don't appear after deployment:
+1. Run `./scripts/verify-deployment.sh` - check all tests pass
+2. Hard refresh browser (`Cmd+Shift+R`)
+3. Check browser DevTools → Network → verify correct bundle is loading
+4. See [prompt-library/docs/css-changes-not-appearing-postmortem.md](../prompt-library/docs/css-changes-not-appearing-postmortem.md) for detailed troubleshooting
 
 ## Architecture
 
