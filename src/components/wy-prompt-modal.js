@@ -585,6 +585,21 @@ export class WyPromptModal extends LitElement {
     }
     .editor-area:focus { outline: none; }
 
+    /* WY-INFO-PANEL THEMING (used for step instructions and variation descriptions) */
+    wy-info-panel {
+        --wy-info-panel-bg: transparent;
+        --wy-info-panel-border: transparent;
+        --wy-info-panel-padding: var(--spacing-md, 16px);
+        --wy-info-panel-font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
+    }
+
+    wy-info-panel[variant="compact"],
+    wy-info-panel.step-instructions {
+        --wy-info-panel-compact-bg: var(--md-sys-color-secondary-container, #E8DDD7);
+        --wy-info-panel-compact-border: var(--md-sys-color-outline-variant, #DDD);
+        --wy-info-panel-compact-padding: var(--spacing-md, 16px);
+    }
+
     /* STEP NAVIGATION BUTTONS (for multi-step prompts) */
     .secondary-btn {
         display: flex;

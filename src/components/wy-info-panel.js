@@ -26,20 +26,25 @@ export class WyInfoPanel extends LitElement {
         
         :host {
             display: block;
-            /* Fallback values for component-specific tokens */
+            /* CSS custom properties for theming - can be overridden by parent component */
             --wy-info-panel-bg: var(--md-sys-color-background, #FDFBF7);
             --wy-info-panel-border: var(--md-sys-color-surface-container-highest, #D7D3C8);
             --wy-info-panel-text-color: #52525B;
+            --wy-info-panel-compact-bg: var(--md-sys-color-secondary-container, #E8DDD7);
+            --wy-info-panel-compact-border: var(--md-sys-color-outline-variant, #DDD);
+            --wy-info-panel-padding: var(--spacing-lg, 24px);
+            --wy-info-panel-compact-padding: var(--spacing-md, 16px);
+            --wy-info-panel-font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
         }
         
         .panel {
             background-color: var(--wy-info-panel-bg);
             border: 1px solid var(--wy-info-panel-border);
             border-radius: var(--md-sys-shape-corner-medium, 16px);
-            padding: var(--spacing-lg, 24px);
+            padding: var(--wy-info-panel-padding);
             color: var(--wy-info-panel-text-color);
             font-family: var(--font-sans, 'DM Sans', sans-serif);
-            font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
+            font-size: var(--wy-info-panel-font-size);
             line-height: 1.6;
             transition: background-color var(--md-sys-motion-duration-short4, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
                         border-color var(--md-sys-motion-duration-short4, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
@@ -54,8 +59,9 @@ export class WyInfoPanel extends LitElement {
         }
         
         .panel.compact {
-            padding: var(--spacing-md, 16px);
-            background-color: var(--md-sys-color-secondary-container, #E8DDD7);
+            padding: var(--wy-info-panel-compact-padding);
+            background-color: var(--wy-info-panel-compact-bg);
+            border-color: var(--wy-info-panel-compact-border);
         }
         
         .panel-heading {
@@ -77,29 +83,6 @@ export class WyInfoPanel extends LitElement {
     }
     
     ::slotted(p + p) {
-        margin-top: var(--spacing-md, 16px);
-    }
-    
-    /* Context-specific styling for prompt modal usage */
-    :host-context(wy-prompt-modal) .panel {
-        background-color: transparent;
-        border: none;
-        padding: var(--spacing-md, 16px);
-        font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
-    }
-    
-    /* Compact variant in prompt modal should have background color */
-    :host-context(wy-prompt-modal) .panel.compact {
-        background-color: var(--md-sys-color-secondary-container, #E8DDD7);
-        border: 1px solid var(--md-sys-color-outline-variant, #DDD);
-    }
-    
-    :host-context(wy-prompt-modal) .panel-heading {
-        font-size: var(--md-sys-typescale-title-small-size, 1rem);
-        margin: 0;
-    }
-    
-    :host-context(wy-prompt-modal) .panel p + p {
         margin-top: var(--spacing-md, 16px);
     }
     `;
