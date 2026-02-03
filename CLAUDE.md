@@ -216,7 +216,32 @@ This design system is consumed by dependent projects via jsDelivr CDN. **After e
 
 **CRITICAL CDN Cache Management:** After pushing changes to m3-design-v2, always wait 2-3 minutes before purging jsDelivr CDN (purges are throttled to max 10/hour per file), and if throttled, temporarily pin consuming projects to the commit hash (e.g., `@abc1234`) with a TODO to revert to `@main` within 24 hours, rather than repeatedly purging which will fail.
 
-### Standard Commit Process
+### Automated Deployment (RECOMMENDED)
+
+Use the deploy script for all design system changes - it handles the entire workflow automatically:
+
+```bash
+./scripts/deploy.sh "Description of changes"
+```
+
+This script automatically:
+1. Builds `dist/web-components.js`
+2. Commits both `src/` and `dist/` changes
+3. Pushes to GitHub
+4. Purges jsDelivr CDN cache
+5. Copies bundle to `prompt-library`
+6. Updates cache-busting parameters
+7. Commits `prompt-library` changes
+
+**After deployment, verify changes propagated:**
+
+```bash
+./scripts/verify-deployment.sh "expected-code-snippet"
+```
+
+Then hard refresh browser (`Cmd+Shift+R`).
+
+### Standard Commit Process (Manual Alternative)
 
 ```bash
 # 1. Stage and commit
