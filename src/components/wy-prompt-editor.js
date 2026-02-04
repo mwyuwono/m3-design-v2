@@ -33,12 +33,16 @@ export class WyPromptEditor extends LitElement {
             }
 
             // Detect prompt mode (single-step vs multi-step)
+            // Note: variations mode is detected by checking for variations array, not by _promptMode
             this._promptMode = (this._editedPrompt.steps && this._editedPrompt.steps.length > 0) 
                 ? 'multi' 
                 : 'single';
             
             // Expand first step by default for multi-step prompts
             this._expandedSteps = this._promptMode === 'multi' ? [0] : [];
+            
+            // Reset git info banner when prompt changes (e.g., on cancel/discard)
+            this._showGitInfo = false;
         }
     }
 
