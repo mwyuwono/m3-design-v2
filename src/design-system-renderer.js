@@ -25,7 +25,8 @@ class DesignSystemRenderer {
 
     const component = this.components.find(c => c.name === componentName);
     if (!component) {
-      console.warn(`DesignSystemRenderer: Component ${componentName} not found in components.json`);
+      console.error(`[DesignSystemRenderer] Component ${componentName} not found in components.json`);
+      console.log('[DesignSystemRenderer] Available components:', this.components.map(c => c.name));
       container.innerHTML = `<p style="color: var(--md-sys-color-error); font-size: 0.875rem;">Component ${componentName} not found</p>`;
       return;
     }
@@ -33,15 +34,18 @@ class DesignSystemRenderer {
     // Find the example (fallback to first example if not found)
     let example = component.examples.find(e => e.name === exampleName);
     if (!example && component.examples.length > 0) {
-      console.warn(`DesignSystemRenderer: Example "${exampleName}" not found for ${componentName}, using first example`);
+      console.warn(`[DesignSystemRenderer] Example "${exampleName}" not found for ${componentName}, using first example`);
+      console.log(`[DesignSystemRenderer] Available examples for ${componentName}:`, component.examples.map(e => e.name));
       example = component.examples[0];
     }
 
     if (!example) {
-      console.warn(`DesignSystemRenderer: No examples found for ${componentName}`);
+      console.error(`[DesignSystemRenderer] No examples found for ${componentName}`);
       container.innerHTML = `<p style="color: var(--md-sys-color-error); font-size: 0.875rem;">No examples found for ${componentName}</p>`;
       return;
     }
+    
+    console.log(`[DesignSystemRenderer] Rendering example "${example.name}" for ${componentName}`);
 
     // Wait for component to be registered
     try {
@@ -85,16 +89,19 @@ class DesignSystemRenderer {
 
     // Render the component HTML
     container.innerHTML = componentHTML;
+    console.log(`[DesignSystemRenderer] Rendered HTML for ${componentName}, length: ${componentHTML.length}`);
 
     // Execute initialization scripts after a short delay
     if (scriptContent) {
+      console.log(`[DesignSystemRenderer] Executing script for ${componentName}`);
       setTimeout(() => {
         try {
           // Create a function context for the script
           const scriptFunc = new Function(scriptContent);
           scriptFunc();
+          console.log(`[DesignSystemRenderer] Script executed successfully for ${componentName}`);
         } catch (e) {
-          console.warn(`DesignSystemRenderer: Error executing script for ${componentName} example "${exampleName}":`, e);
+          console.error(`[DesignSystemRenderer] Error executing script for ${componentName} example "${exampleName}":`, e);
         }
       }, 100);
     }
@@ -106,13 +113,17 @@ class DesignSystemRenderer {
    */
   async init() {
     const containers = document.querySelectorAll('[data-component]');
+    console.log(`[DesignSystemRenderer] Found ${containers.length} containers to render`);
     
     for (const container of containers) {
       const componentName = container.getAttribute('data-component');
       const exampleName = container.getAttribute('data-example') || 'Basic';
+      console.log(`[DesignSystemRenderer] Rendering ${componentName} - ${exampleName}`);
       
       await this.renderComponentExample(componentName, exampleName, container);
     }
+    
+    console.log('[DesignSystemRenderer] Initialization complete');
   }
 }
 
