@@ -281,7 +281,7 @@
       "name": "wy-controls-bar",
       "category": "layout-navigation",
       "title": "Controls Bar",
-      "description": "Action toolbar for list/grid views",
+      "description": "Advanced filter and view controls with automatic scroll detection and sticky pill transformation",
       "status": "stable",
       "examples": [
         {
@@ -290,22 +290,55 @@
           "props": {}
         },
         {
-          "name": "With Initial State",
-          "code": "<wy-controls-bar id=\"controls-1\" view-mode=\"grid\" sort-by=\"date\"></wy-controls-bar>",
-          "props": { "view-mode": "grid", "sort-by": "date" }
+          "name": "With Categories",
+          "code": "<wy-controls-bar id=\"controls-categories\"></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-categories');\n    bar.categories = ['Productivity', 'Expertise', 'Travel & Shopping', 'Creativity'];\n    bar.activeCategory = 'Productivity';\n  });\n</script>",
+          "props": {}
+        },
+        {
+          "name": "With Search",
+          "code": "<wy-controls-bar id=\"controls-search\" search-value=\"meeting minutes\"></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-search');\n    bar.categories = ['Productivity', 'Expertise'];\n  });\n</script>",
+          "props": { "search-value": "meeting minutes" }
+        },
+        {
+          "name": "Featured Filter Active",
+          "code": "<wy-controls-bar id=\"controls-featured\" show-featured-only></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-featured');\n    bar.categories = ['Productivity', 'Expertise', 'Travel & Shopping'];\n  });\n</script>",
+          "props": { "show-featured-only": true }
+        },
+        {
+          "name": "Hidden Toggles",
+          "code": "<wy-controls-bar id=\"controls-minimal\" hide-view-toggle hide-details-toggle></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-minimal');\n    bar.categories = ['Productivity', 'Expertise'];\n  });\n</script>",
+          "props": { "hide-view-toggle": true, "hide-details-toggle": true }
+        },
+        {
+          "name": "Scrolled State (Pill)",
+          "code": "<div style=\"position: relative; min-height: 120px; display: flex; align-items: center; justify-content: center;\">\n  <wy-controls-bar id=\"controls-scrolled\" data-scrolled></wy-controls-bar>\n</div>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-scrolled');\n    bar.categories = ['Productivity', 'Expertise'];\n    bar.searchValue = 'analysis';\n  });\n</script>",
+          "props": {}
+        },
+        {
+          "name": "Full Configuration",
+          "code": "<wy-controls-bar id=\"controls-full\" view-mode=\"grid\" show-details active-category=\"Expertise\"></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-full');\n    bar.categories = ['Productivity', 'Expertise', 'Travel & Shopping', 'Creativity', 'Lifestyle'];\n    bar.searchValue = '';\n  });\n</script>",
+          "props": { "view-mode": "grid", "show-details": true, "active-category": "Expertise" }
         }
       ],
       "props": [
-        { "name": "viewMode", "type": "String", "required": false, "description": "'grid' or 'list'" },
-        { "name": "sortBy", "type": "String", "required": false, "description": "Current sort field" }
+        { "name": "viewMode", "type": "String", "required": false, "description": "'grid' or 'list' (default: 'grid', attribute: view-mode)" },
+        { "name": "showDetails", "type": "Boolean", "required": false, "description": "Details toggle state (attribute: show-details)" },
+        { "name": "activeCategory", "type": "String", "required": false, "description": "Selected category (default: 'all', attribute: active-category)" },
+        { "name": "categories", "type": "Array", "required": false, "description": "Category options (default: ['Productivity', 'Expertise', 'Travel & Shopping'])" },
+        { "name": "searchValue", "type": "String", "required": false, "description": "Search input value (attribute: search-value)" },
+        { "name": "hideViewToggle", "type": "Boolean", "required": false, "description": "Hide view mode toggle (attribute: hide-view-toggle)" },
+        { "name": "hideDetailsToggle", "type": "Boolean", "required": false, "description": "Hide details toggle (attribute: hide-details-toggle)" },
+        { "name": "showFeaturedOnly", "type": "Boolean", "required": false, "description": "Featured filter active (attribute: show-featured-only)" }
       ],
-      "slots": [
-        { "name": "actions", "description": "Custom action buttons" }
-      ],
+      "slots": [],
       "events": [
-        { "name": "view-change", "detail": "{ viewMode: String }", "description": "Fired when view mode changes" },
-        { "name": "sort-change", "detail": "{ sortBy: String }", "description": "Fired when sort changes" },
-        { "name": "filter-change", "detail": "{ viewMode, search, category, showDetails }", "description": "Fired when filters change" }
+        { "name": "filter-change", "detail": "{ search: String, viewMode: String, showDetails: Boolean, category: String, showFeaturedOnly: Boolean }", "description": "Fired when any filter changes" }
+      ],
+      "notes": [
+        "Automatically detects scroll position (50px threshold) and transforms to floating pill",
+        "Scrolled state: sticky positioning, backdrop blur, hides toggles, expands search (192px → 280px)",
+        "Scrolled padding: uniform 16px all sides (matches --wy-controls-container-gap-scrolled)",
+        "Mobile: disables sticky pill, wraps controls, search becomes full-width"
       ]
     },
     {
