@@ -492,6 +492,9 @@ export class WyControlsBar extends LitElement {
       .category-section {
         width: 100%;
         order: 1;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
       }
 
       :host([data-scrolled]) .category-section {
