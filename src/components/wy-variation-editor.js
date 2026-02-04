@@ -4,7 +4,8 @@ export class WyVariationEditor extends LitElement {
     static properties = {
         variations: { type: Array },
         allowReorder: { type: Boolean, attribute: 'allow-reorder' },
-        _expandedIndex: { type: Number, state: true }
+        _expandedIndex: { type: Number, state: true },
+        _expandedStepsByVariation: { type: Object, state: true }
     };
 
     constructor() {
@@ -12,6 +13,7 @@ export class WyVariationEditor extends LitElement {
         this.variations = [];
         this.allowReorder = true;
         this._expandedIndex = -1;
+        this._expandedStepsByVariation = {};
     }
 
     static styles = css`
@@ -425,8 +427,23 @@ export class WyVariationEditor extends LitElement {
     }
 
     _handleStepToggle(variationIndex, e) {
-        // Step toggle is handled internally by wy-step-editor
-        // We just need to pass it through
+        const { index: stepIndex } = e.detail;
+        const currentExpanded = this._expandedStepsByVariation[variationIndex] || [];
+        const stepIndexInArray = currentExpanded.indexOf(stepIndex);
+        
+        if (stepIndexInArray > -1) {
+            // Step is currently expanded, collapse it
+            currentExpanded.splice(stepIndexInArray, 1);
+        } else {
+            // Step is currently collapsed, expand it
+            currentExpanded.push(stepIndex);
+        }
+        
+        this._expandedStepsByVariation = {
+            ...this._expandedStepsByVariation,
+            [variationIndex]: [...currentExpanded]
+        };
+        this.requestUpdate();
     }
 
     _handleAddStep(variationIndex) {
@@ -651,19 +668,22 @@ export class WyVariationEditor extends LitElement {
                                         Define the sequence of prompts for this variation
                                     </p>
                                     <div class="steps-section" @click="${(e) => e.stopPropagation()}">
-                                        ${variation.steps.map((step, stepIndex) => html`
+                                        ${variation.steps.map((step, stepIndex) => {
+                                            const expandedSteps = this._expandedStepsByVariation[index] || [];
+                                            const isExpanded = expandedSteps.includes(stepIndex);
+                                            return html`
                                             <wy-step-editor
                                                 .step="${step}"
                                                 .index="${stepIndex}"
                                                 .total="${variation.steps.length}"
-                                                .expanded="${stepIndex === 0}"
+                                                .expanded="${isExpanded}"
                                                 @step-change="${(e) => this._handleStepChange(index, e)}"
                                                 @step-delete="${(e) => this._handleStepDelete(index, e)}"
                                                 @step-move-up="${(e) => this._handleStepMoveUp(index, e)}"
                                                 @step-move-down="${(e) => this._handleStepMoveDown(index, e)}"
                                                 @step-toggle="${(e) => this._handleStepToggle(index, e)}"
                                             ></wy-step-editor>
-                                        `)}
+                                        `;})}
                                         <button 
                                             class="add-step-button" 
                                             @click="${() => this._handleAddStep(index)}"
