@@ -20,7 +20,7 @@ export class WyFilterChip extends LitElement {
       cursor: pointer;
       transition: all 0.15s ease;
       border: 1px solid var(--wy-filter-chip-border, var(--md-sys-color-outline-variant, #e5e7eb));
-      background-color: transparent;
+      background-color: var(--wy-filter-chip-bg, transparent);
       color: var(--wy-filter-chip-text, var(--md-sys-color-on-surface-variant, #64748b));
       user-select: none;
       white-space: nowrap;
