@@ -19,18 +19,34 @@ export class WyFilterChip extends LitElement {
       font-weight: var(--wy-filter-chip-font-weight, 500);
       cursor: pointer;
       transition: all 0.15s ease;
-      border: 1px solid var(--wy-filter-chip-border, var(--md-sys-color-outline-variant, #e5e7eb));
-      background-color: var(--wy-filter-chip-bg, transparent);
-      color: var(--wy-filter-chip-text, var(--md-sys-color-on-surface-variant, #64748b));
+      
+      /* Opaque white background by default */
+      background-color: var(--wy-filter-chip-bg, var(--md-sys-color-surface));
+      border: 1px solid var(--wy-filter-chip-border, transparent);
+      color: var(--wy-filter-chip-text, var(--md-sys-color-on-surface));
+      box-shadow: none;
+      
       user-select: none;
       white-space: nowrap;
       flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
     }
 
-    :host(:hover:not([active])) {
-      color: var(--wy-filter-chip-text-hover, var(--md-sys-color-on-surface, #1f2937));
-      background-color: var(--wy-filter-chip-hover-bg, var(--md-sys-color-surface-variant, #f9fafb));
-      border-color: var(--wy-filter-chip-border-hover, var(--md-sys-color-outline-variant, #e5e7eb));
+    /* Material Design 3 state layer for hover */
+    :host::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--md-sys-color-on-surface);
+      opacity: 0;
+      transition: opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard);
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    :host(:hover:not([active]))::before {
+      opacity: var(--md-sys-state-hover-opacity, 0.08);
     }
 
     :host(:focus-visible) {
@@ -43,7 +59,7 @@ export class WyFilterChip extends LitElement {
       color: var(--wy-filter-chip-active-fg, var(--md-sys-color-on-primary, #FFFFFF));
       border-color: transparent;
       font-weight: var(--wy-filter-chip-font-weight-active, 500);
-      box-shadow: var(--wy-filter-chip-shadow, none);
+      box-shadow: none;
     }
 
     .count {

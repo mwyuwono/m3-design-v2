@@ -235,29 +235,16 @@ export class WyControlsBar extends LitElement {
     .search-input {
       width: 100%;
       height: 32px;
-      background-color: var(--wy-controls-search-bg, var(--md-sys-color-surface-container-high, #f3f4f6));
-      border: 1px solid var(--md-sys-color-outline-variant, transparent);
+      background-color: var(--wy-controls-search-bg, var(--md-sys-color-surface));
+      border: 1px solid transparent;
       border-radius: 9999px;
       padding: 0 12px 0 36px;
       font-family: var(--font-body, 'DM Sans', sans-serif);
       font-size: 0.75rem;
       color: var(--md-sys-color-on-surface, #1f2937);
       box-sizing: border-box;
+      box-shadow: none;
       transition: all 0.2s;
-    }
-
-    :host([data-scrolled]) .search-input {
-      height: 32px;
-      font-size: 0.75rem;
-      background-color: var(--md-sys-color-surface, #fff);
-      border: none;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-      transition: 
-        height var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized),
-        font-size var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized),
-        background-color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard),
-        border var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard),
-        box-shadow var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard);
     }
 
     .search-input::placeholder {
@@ -418,14 +405,6 @@ export class WyControlsBar extends LitElement {
       flex: 0 1 auto;
       max-width: 600px;
       transition: max-width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
-    }
-
-    /* Filter chips opaque styling when scrolled */
-    :host([data-scrolled]) {
-      --wy-filter-chip-bg: var(--md-sys-color-surface);
-      --wy-filter-chip-border: transparent;
-      --wy-filter-chip-active-bg: var(--md-sys-color-primary, #2C4C3B);
-      --wy-filter-chip-active-fg: var(--md-sys-color-on-primary, #FFFFFF);
     }
 
     /* Tablet responsive padding */
