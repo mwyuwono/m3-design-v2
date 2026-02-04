@@ -318,6 +318,53 @@ export class WyPromptEditor extends LitElement {
             gap: var(--spacing-xs, 4px);
         }
 
+        .card-header-with-action {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: var(--spacing-md, 16px);
+            margin-bottom: var(--spacing-md, 16px);
+        }
+
+        .card-header-with-action > div {
+            flex: 1;
+        }
+
+        .button-ghost {
+            background: transparent;
+            border: 1px solid var(--md-sys-color-outline-variant, #DDD);
+            color: var(--md-sys-color-primary, #2C4C3B);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button-ghost::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--md-sys-color-primary, #2C4C3B);
+            opacity: 0;
+            transition: opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+            pointer-events: none;
+        }
+
+        .button-ghost:hover::before {
+            opacity: var(--md-sys-state-hover-opacity, 0.08);
+        }
+
+        .button-ghost:hover {
+            border-color: var(--md-sys-color-primary, #2C4C3B);
+        }
+
+        .button-small {
+            padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
+            font-size: 0.8125rem;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs, 4px);
+            white-space: nowrap;
+        }
+
         @media (max-width: 1200px) {
             .editor-layout {
                 grid-template-columns: 1fr;
@@ -457,6 +504,68 @@ export class WyPromptEditor extends LitElement {
         }
         
         this._promptMode = newMode;
+        this.requestUpdate();
+    }
+
+    /**
+     * Convert standard prompt to variations mode
+     */
+    _convertToVariations() {
+        const variation = {
+            id: 'variation-1',
+            name: 'Default',
+            description: ''
+        };
+
+        if (this._promptMode === 'single') {
+            // Single-step → Single-step variation
+            variation.template = this._editedPrompt.template || '';
+            variation.variables = [...(this._editedPrompt.variables || [])];
+        } else {
+            // Multi-step → Multi-step variation
+            variation.steps = [...(this._editedPrompt.steps || [])];
+            variation.variables = [...(this._editedPrompt.variables || [])];
+        }
+
+        this._editedPrompt.variations = [variation];
+        delete this._editedPrompt.template;
+        delete this._editedPrompt.steps;
+        this._promptMode = 'single'; // Reset mode
+        this.requestUpdate();
+    }
+
+    /**
+     * Convert variations mode back to standard
+     */
+    async _convertFromVariations() {
+        if (!this._editedPrompt.variations || this._editedPrompt.variations.length === 0) {
+            return;
+        }
+
+        // Show confirmation dialog
+        const confirmed = confirm(
+            'Convert to standard mode?\n\n' +
+            'This will use the first variation as the template. ' +
+            'Other variations will be removed. This cannot be undone.'
+        );
+
+        if (!confirmed) return;
+
+        const firstVariation = this._editedPrompt.variations[0];
+        
+        if (firstVariation.steps) {
+            // Multi-step variation → Multi-step
+            this._editedPrompt.steps = [...firstVariation.steps];
+            this._promptMode = 'multi';
+            this._expandedSteps = [0];
+        } else {
+            // Single-step variation → Single-step
+            this._editedPrompt.template = firstVariation.template || '';
+            this._promptMode = 'single';
+        }
+
+        this._editedPrompt.variables = [...(firstVariation.variables || [])];
+        delete this._editedPrompt.variations;
         this.requestUpdate();
     }
 
@@ -646,10 +755,22 @@ export class WyPromptEditor extends LitElement {
                     ${this._editedPrompt.variations && this._editedPrompt.variations.length > 0 ? html`
                         <!-- Variations Mode -->
                         <div class="card">
-                            <h2 class="card-title">Variations</h2>
-                            <p class="card-description">
-                                This prompt has multiple variations. Each variation can be a simple template or multi-step workflow.
-                            </p>
+                            <div class="card-header-with-action">
+                                <div>
+                                    <h2 class="card-title">Variations</h2>
+                                    <p class="card-description">
+                                        This prompt has multiple variations. Each variation can be a simple template or multi-step workflow.
+                                    </p>
+                                </div>
+                                <button 
+                                    class="button button-ghost button-small"
+                                    @click="${this._convertFromVariations}"
+                                    title="Convert back to standard mode"
+                                >
+                                    <span class="material-symbols-outlined">undo</span>
+                                    Convert to Standard
+                                </button>
+                            </div>
                             <wy-variation-editor
                                 .variations="${this._editedPrompt.variations}"
                                 @change="${(e) => this._handleFieldChange('variations', e.detail.variations)}"
@@ -658,7 +779,17 @@ export class WyPromptEditor extends LitElement {
                     ` : html`
                         <!-- Standard Mode (No Variations) -->
                         <div class="card">
-                            <h2 class="card-title">Prompt Type</h2>
+                            <div class="card-header-with-action">
+                                <h2 class="card-title">Prompt Type</h2>
+                                <button 
+                                    class="button button-ghost button-small"
+                                    @click="${this._convertToVariations}"
+                                    title="Create multiple variations of this prompt"
+                                >
+                                    <span class="material-symbols-outlined">library_add</span>
+                                    Convert to Variations
+                                </button>
+                            </div>
                             <div class="mode-toggle">
                                 <label>
                                     <input 
