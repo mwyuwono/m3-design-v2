@@ -428,17 +428,70 @@ If the consuming app is light-theme-only but the design system has dark mode ove
 --wy-filter-chip-active-bg: #E8F5E9;
 ```
 
-### Exposing parts for direct styling
-Components should expose key internal elements via `part` attribute for consumers who need direct style control:
-```javascript
-// In component template
-html`<div class="container" part="container">...</div>`
-```
+### CRITICAL: Avoid ::part() for Structural Layout (Anti-Pattern)
+
+**::part() is for EXCEPTIONAL theming needs ONLY, never for structural layout.**
+
+**FORBIDDEN - Using ::part() for layout:**
 ```css
-/* Consumer can then style directly */
-my-component::part(container) {
-    padding: 24px;
+/* ❌ WRONG - Never override structural layout with ::part() */
+.my-component::part(container) {
+    padding: 24px;           /* ❌ Use CSS custom property */
+    max-width: 1200px;       /* ❌ Use CSS custom property */
+    gap: 16px;               /* ❌ Use CSS custom property */
 }
+
+.my-component[scrolled]::part(container) {
+    padding: 8px;            /* ❌ Should be component default */
+}
+
+@media (max-width: 768px) {
+    .my-component::part(container) {
+        padding: 12px;       /* ❌ Should be component responsive CSS */
+    }
+}
+```
+
+**CORRECT - Make component configurable:**
+```javascript
+// In component: Add CSS custom properties
+:host {
+    --my-component-padding-desktop: var(--spacing-xl, 32px);
+    --my-component-padding-tablet: var(--spacing-lg, 24px);
+    --my-component-padding-mobile: var(--spacing-md, 16px);
+}
+
+.container {
+    padding: 0 var(--my-component-padding-desktop);
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 0 var(--my-component-padding-tablet);
+    }
+}
+```
+
+```css
+/* Consumer configures via custom properties */
+.my-component {
+    --my-component-padding-desktop: 48px;  /* ✅ Configuration, not override */
+    --my-component-padding-tablet: 32px;
+}
+```
+
+**When ::part() IS appropriate (rare):**
+- Exceptional theming that can't be achieved with CSS custom properties
+- One-off visual tweaks for specific contexts (border-radius on a single page)
+- Accessibility overrides when custom properties aren't flexible enough
+
+**Design principle:** If multiple consuming projects need the same `::part()` override, the component MUST be refactored to support that use case via CSS custom properties instead.
+
+### Exposing parts for exceptional needs only
+Expose `part` attributes sparingly, only when truly needed for exceptional styling:
+```javascript
+// Only expose if consumers genuinely need direct access
+html`<div class="container" part="container">...</div>`
 ```
 
 ## CSS Editing
