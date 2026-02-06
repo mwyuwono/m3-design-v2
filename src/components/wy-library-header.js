@@ -134,26 +134,22 @@ export class WyLibraryHeader extends LitElement {
       position: absolute;
       top: -4px;
       right: -4px;
-      min-width: 20px;
-      height: 20px;
-      padding: 0 6px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--md-sys-color-primary);
       color: white;
       border-radius: var(--md-sys-shape-corner-full);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       line-height: 1;
-      border: 2px solid var(--md-sys-color-background);
+      border: none;
       pointer-events: none;
       font-family: var(--font-sans);
       z-index: 10;
-    }
-
-    .leftSectionScrolled .filterBadge {
-      border-color: var(--wy-library-header-scrolled-bg);
     }
 
     /* SEARCH CONTAINER */
@@ -182,6 +178,7 @@ export class WyLibraryHeader extends LitElement {
     }
 
     .searchContainerHidden {
+      display: none;
       opacity: 0;
       max-width: 0;
       min-width: 0;
@@ -436,10 +433,6 @@ export class WyLibraryHeader extends LitElement {
         padding: 0.5rem 1rem;
       }
 
-      .searchContainerHidden {
-        display: none;
-      }
-
       .searchContainer {
         flex: 1;
         min-width: 0;
@@ -473,7 +466,7 @@ export class WyLibraryHeader extends LitElement {
           
           <div class="filterButtonWrapper">
             <wy-icon-button
-              variant="${this.showFilters || this.activeFilterCount > 0 ? 'filled' : 'outlined'}"
+              variant="outlined"
               size="small"
               icon="tune"
               label="${this.showFilters ? 'Hide' : 'Show'} filters${this.activeFilterCount > 0 ? ` (${this.activeFilterCount} active)` : ''}"
