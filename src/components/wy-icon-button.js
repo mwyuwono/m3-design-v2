@@ -96,6 +96,16 @@ export class WyIconButton extends LitElement {
       font-size: 20px;
     }
 
+    /* Tiny: 32px */
+    .button.size-tiny {
+      width: 32px;
+      height: 32px;
+    }
+
+    .button.size-tiny .icon {
+      font-size: 16px;
+    }
+
     /* ===== FILLED VARIANT (Hunter Green) ===== */
     .button.variant-filled {
       background-color: var(--wy-icon-button-filled-bg, var(--md-sys-color-primary, #2C4C3B));
@@ -128,7 +138,7 @@ export class WyIconButton extends LitElement {
     .button.variant-outlined {
       background-color: var(--wy-icon-button-outlined-bg);
       color: var(--wy-icon-button-outlined-fg);
-      border: 1px solid var(--wy-icon-button-outlined-border);
+      border: none;
     }
 
     .button.variant-outlined::before {

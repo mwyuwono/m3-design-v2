@@ -1,10 +1,27 @@
 import { LitElement, html, css } from 'lit';
 
+/**
+ * WyToast - A toast notification component with variant support
+ *
+ * @element wy-toast
+ *
+ * @prop {String} message - The message to display
+ * @prop {Boolean} show - Controls visibility (reflects to attribute)
+ * @prop {Number} duration - Auto-dismiss duration in ms (default: 3000)
+ * @prop {String} variant - Toast variant: 'success' | 'error' | 'warning' | 'info' (default: 'success')
+ *
+ * @fires dismiss - Fired when toast is dismissed (auto or manual)
+ *
+ * @example
+ * <wy-toast message="Successfully saved!" variant="success"></wy-toast>
+ * <wy-toast message="Failed to save" variant="error"></wy-toast>
+ */
 export class WyToast extends LitElement {
     static properties = {
         message: { type: String },
         show: { type: Boolean, reflect: true },
-        duration: { type: Number }
+        duration: { type: Number },
+        variant: { type: String }
     };
 
     constructor() {
@@ -12,7 +29,20 @@ export class WyToast extends LitElement {
         this.message = '';
         this.show = false;
         this.duration = 3000;
+        this.variant = 'success';
         this._timer = null;
+    }
+
+    /**
+     * Get the icon name based on variant
+     */
+    get _icon() {
+        switch (this.variant) {
+            case 'error': return 'error';
+            case 'warning': return 'warning';
+            case 'info': return 'info';
+            default: return 'check_circle';
+        }
     }
 
     static styles = css`
@@ -46,7 +76,6 @@ export class WyToast extends LitElement {
     }
 
     .icon {
-      color: var(--md-sys-color-primary-fixed);
       font-family: 'Material Symbols Outlined';
       font-size: 20px;
       font-weight: normal;
@@ -64,6 +93,23 @@ export class WyToast extends LitElement {
       font-feature-settings: 'liga';
     }
 
+    /* Variant-specific icon colors */
+    .icon.variant-success {
+      color: var(--md-sys-color-primary-fixed, #4CAF50);
+    }
+
+    .icon.variant-error {
+      color: var(--md-sys-color-error, #B3261E);
+    }
+
+    .icon.variant-warning {
+      color: var(--md-sys-color-tertiary, #E4A93C);
+    }
+
+    .icon.variant-info {
+      color: var(--md-sys-color-secondary, #625B71);
+    }
+
     .message {
       font-family: var(--font-body);
       font-size: 0.875rem;
@@ -74,7 +120,7 @@ export class WyToast extends LitElement {
     render() {
         return html`
       <div class="toast-container">
-        <span class="icon">check_circle</span>
+        <span class="icon variant-${this.variant}">${this._icon}</span>
         <span class="message">${this.message}</span>
       </div>
     `;

@@ -33,7 +33,7 @@ export class WyLibraryHeader extends LitElement {
       z-index: 100;
       background-color: transparent;
       min-height: 100px;
-      transition: min-height 0.3s ease-in-out;
+      transition: min-height var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
     }
 
     .container {
@@ -54,11 +54,11 @@ export class WyLibraryHeader extends LitElement {
       gap: var(--spacing-lg);
       background-color: transparent;
       min-height: 100px;
-      will-change: padding, gap;
-      transition: padding 0.3s ease-in-out,
-        gap 0.3s ease-in-out,
-        justify-content 0.3s ease-in-out,
-        min-height 0.3s ease-in-out;
+      will-change: padding, gap, min-height;
+      transition: padding var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+        gap var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+        justify-content var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+        min-height var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
     }
 
     .headerScrolled {
@@ -547,9 +547,9 @@ export class WyLibraryHeader extends LitElement {
 
   _handleSearchInput(e) {
     this.searchQuery = e.target.value;
-    
+
     if (this._searchTimeout) clearTimeout(this._searchTimeout);
-    
+
     this._searchTimeout = setTimeout(() => {
       this.dispatchEvent(new CustomEvent('search-change', {
         detail: { value: this.searchQuery },
@@ -576,7 +576,7 @@ export class WyLibraryHeader extends LitElement {
   _handleSearchClear() {
     this.searchQuery = '';
     if (this._searchTimeout) clearTimeout(this._searchTimeout);
-    
+
     this.dispatchEvent(new CustomEvent('search-change', {
       detail: { value: '' },
       bubbles: true,

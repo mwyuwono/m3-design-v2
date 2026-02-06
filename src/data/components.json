@@ -866,33 +866,81 @@
       "name": "wy-toast",
       "category": "specialized",
       "title": "Toast",
-      "description": "Toast notification system",
+      "description": "Toast notification system with variant support for success, error, warning, and info states",
       "status": "stable",
       "examples": [
         {
-          "name": "Basic",
-          "code": "<wy-toast id=\"toast-1\" message=\"Copied to clipboard!\" show></wy-toast>",
-          "props": { "message": "Copied to clipboard!", "show": true }
+          "name": "Success (Default)",
+          "code": "<wy-toast id=\"toast-success\" message=\"Changes saved successfully!\" variant=\"success\" show></wy-toast>",
+          "props": { "message": "Changes saved successfully!", "variant": "success", "show": true }
+        },
+        {
+          "name": "Error",
+          "code": "<wy-toast id=\"toast-error\" message=\"Failed to save changes\" variant=\"error\" show></wy-toast>",
+          "props": { "message": "Failed to save changes", "variant": "error", "show": true }
+        },
+        {
+          "name": "Warning",
+          "code": "<wy-toast id=\"toast-warning\" message=\"Connection unstable\" variant=\"warning\" show></wy-toast>",
+          "props": { "message": "Connection unstable", "variant": "warning", "show": true }
+        },
+        {
+          "name": "Info",
+          "code": "<wy-toast id=\"toast-info\" message=\"3 new updates available\" variant=\"info\" show></wy-toast>",
+          "props": { "message": "3 new updates available", "variant": "info", "show": true }
         },
         {
           "name": "Custom Duration",
-          "code": "<wy-toast id=\"toast-2\" message=\"Settings saved successfully\" duration=\"5000\" show></wy-toast>",
-          "props": { "message": "Settings saved successfully", "duration": 5000, "show": true }
-        },
-        {
-          "name": "Programmatic",
-          "code": "<wy-toast id=\"toast-3\" message=\"\"></wy-toast>\n<script>\n  const toast = document.getElementById('toast-3');\n  toast.message = 'System state synchronized successfully!';\n  toast.show = true;\n</script>",
-          "props": {}
+          "code": "<wy-toast id=\"toast-duration\" message=\"Settings saved\" duration=\"5000\" show></wy-toast>",
+          "props": { "message": "Settings saved", "duration": 5000, "show": true }
         }
       ],
       "props": [
         { "name": "message", "type": "String", "required": false, "description": "Toast message" },
         { "name": "show", "type": "Boolean", "required": false, "description": "Visibility state" },
-        { "name": "duration", "type": "Number", "required": false, "description": "Display duration in ms (default: 3000)" }
+        { "name": "duration", "type": "Number", "required": false, "description": "Display duration in ms (default: 3000)" },
+        { "name": "variant", "type": "String", "required": false, "description": "Toast variant: 'success' | 'error' | 'warning' | 'info' (default: 'success')" }
       ],
       "slots": [],
       "events": [
         { "name": "dismiss", "description": "Fired when toast auto-dismisses" }
+      ]
+    },
+    {
+      "name": "wy-confirm-dialog",
+      "category": "specialized",
+      "title": "Confirm Dialog",
+      "description": "Confirmation dialog for destructive or important actions with customizable messaging and button labels",
+      "status": "stable",
+      "examples": [
+        {
+          "name": "Default",
+          "code": "<wy-confirm-dialog\n  open\n  heading=\"Confirm Action\"\n  message=\"Are you sure you want to proceed?\"\n></wy-confirm-dialog>",
+          "props": { "open": true, "heading": "Confirm Action", "message": "Are you sure you want to proceed?" }
+        },
+        {
+          "name": "Destructive",
+          "code": "<wy-confirm-dialog\n  open\n  heading=\"Delete Item?\"\n  message=\"This action cannot be undone. All associated data will be permanently removed.\"\n  confirm-label=\"Delete\"\n  cancel-label=\"Keep\"\n  variant=\"destructive\"\n></wy-confirm-dialog>",
+          "props": { "open": true, "heading": "Delete Item?", "message": "This action cannot be undone.", "confirm-label": "Delete", "cancel-label": "Keep", "variant": "destructive" }
+        },
+        {
+          "name": "Custom Labels",
+          "code": "<wy-confirm-dialog\n  open\n  heading=\"Discard Changes?\"\n  message=\"You have unsaved changes. Are you sure you want to leave?\"\n  confirm-label=\"Discard\"\n  cancel-label=\"Stay\"\n></wy-confirm-dialog>",
+          "props": { "open": true, "heading": "Discard Changes?", "message": "You have unsaved changes.", "confirm-label": "Discard", "cancel-label": "Stay" }
+        }
+      ],
+      "props": [
+        { "name": "open", "type": "Boolean", "required": false, "description": "Controls dialog visibility (reflects to attribute)" },
+        { "name": "heading", "type": "String", "required": false, "description": "Dialog title (default: 'Confirm')" },
+        { "name": "message", "type": "String", "required": false, "description": "Dialog body text" },
+        { "name": "confirm-label", "type": "String", "required": false, "description": "Confirm button text (default: 'Confirm')" },
+        { "name": "cancel-label", "type": "String", "required": false, "description": "Cancel button text (default: 'Cancel')" },
+        { "name": "variant", "type": "String", "required": false, "description": "Dialog variant: 'default' | 'destructive' (default: 'default')" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "confirm", "description": "Fired when user clicks confirm button" },
+        { "name": "cancel", "description": "Fired when user clicks cancel or dismisses dialog" }
       ]
     },
     {

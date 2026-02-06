@@ -156,7 +156,7 @@ export class WyButton extends LitElement {
     .button.variant-secondary {
       background-color: var(--wy-button-secondary-bg);
       color: var(--wy-button-secondary-fg);
-      font-family: var(--font-serif);
+      /* font-family: var(--font-serif); Removed in favor of sans-serif */
     }
 
     .button.variant-secondary::before {
@@ -180,7 +180,7 @@ export class WyButton extends LitElement {
       background-color: var(--wy-button-outlined-bg);
       color: var(--wy-button-outlined-fg);
       border: 1px solid var(--wy-button-outlined-border);
-      font-family: var(--font-serif);
+      /* font-family: var(--font-serif); Removed in favor of sans-serif */
     }
 
     .button.variant-outlined::before {
@@ -282,8 +282,8 @@ export class WyButton extends LitElement {
       `size-${this.size}`
     ].join(' ');
 
-    const iconElement = this.icon 
-      ? html`<span class="icon">${this.icon}</span>` 
+    const iconElement = this.icon
+      ? html`<span class="icon">${this.icon}</span>`
       : null;
 
     return html`
