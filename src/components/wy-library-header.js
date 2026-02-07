@@ -114,7 +114,7 @@ export class WyLibraryHeader extends LitElement {
     }
 
     .leftSectionScrolled {
-      padding: 0.7rem 1.5rem;
+      padding: 0.5rem 0.5rem 0.5rem 1.5rem;
       background-color: var(--wy-library-header-scrolled-bg);
       backdrop-filter: blur(var(--wy-library-header-scrolled-blur));
       -webkit-backdrop-filter: blur(var(--wy-library-header-scrolled-blur));
@@ -122,6 +122,10 @@ export class WyLibraryHeader extends LitElement {
       margin-right: auto;
       max-width: 700px;
       flex: 0 1 auto;
+    }
+
+    .leftSectionScrolled h1 {
+      font-size: 1.5rem;
     }
 
     /* FILTER BUTTON WRAPPER */
