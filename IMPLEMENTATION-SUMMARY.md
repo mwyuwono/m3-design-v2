@@ -249,9 +249,9 @@ Threshold: 2.0 (imperceptible difference)
 The component is immediately available via jsDelivr CDN (cache purged):
 
 ```html
-<!-- Import design system -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css">
+<!-- Import design system (update ?v= after design system changes) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css?v=YYYYMMDD-HHMM">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css?v=YYYYMMDD-HHMM">
 
 <!-- Import Web Components -->
 <script type="module" src="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js"></script>

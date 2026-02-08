@@ -258,8 +258,8 @@ import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-componen
 ```
 
 ```html
-<!-- CSS tokens with cache-busting -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css?v=20260130">
+<!-- CSS tokens with cache-busting (update timestamp after design system changes) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css?v=20260203-2044">
 ```
 
 ### Emergency Commit Hash Pinning

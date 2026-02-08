@@ -22,16 +22,16 @@
 
 **For `index.html`:**
 ```html
-<!-- Replace local design system imports with m3-design-v2 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css">
+<!-- Replace local design system imports with m3-design-v2 (update ?v= after design system changes) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css?v=YYYYMMDD-HHMM">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css?v=YYYYMMDD-HHMM">
 ```
 
 **For `projects/index.html`:**
 ```html
-<!-- Replace local design system imports with m3-design-v2 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css">
+<!-- Replace local design system imports with m3-design-v2 (update ?v= after design system changes) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css?v=YYYYMMDD-HHMM">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css?v=YYYYMMDD-HHMM">
 ```
 
 ### 2. Remove Local Token Definitions

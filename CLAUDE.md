@@ -26,6 +26,15 @@ Example of preferred communication:
 
 **Exception:** When user explicitly requests documentation ("write a summary", "document this"), provide comprehensive documentation as requested.
 
+### Documentation Hygiene
+
+**Clean up temporary documentation at the end of exercises.**
+
+- Delete plans, tests, and other temporary `.md` files when work is complete
+- When marking a plan "done" or completing a test, remove the documentation created along the way
+- Don't create detailed summaries upon completion unless they provide information not already in the code or elsewhere
+- Resist the urge to document what the code already shows clearly
+
 ## Zero-Trust Verification Protocol
 
 **Never announce success without verification.**
@@ -210,6 +219,42 @@ python3 skills/visual-qa/scripts/inspect_element.py --url http://localhost:8000 
 
 See [skills/visual-qa/SKILL.md](skills/visual-qa/SKILL.md) for the complete workflow.
 
+## CRITICAL: Audit Component Tokens Before Making Changes
+
+**ALWAYS check `src/styles/tokens.css` for component-specific tokens before editing components.**
+
+Token precedence chain (highest to lowest):
+1. Consuming project `tokens.css` (prompt-library, plots, etc.)
+2. **Design system `src/styles/tokens.css`** (THIS FILE - sets defaults for all consumers)
+3. Component defaults in `src/components/*.js`
+
+**Before editing a component, audit tokens.css:**
+
+```bash
+# Check if component has global tokens that might override your changes
+grep -n "wy-{component-name}" src/styles/tokens.css
+
+# Example: Before editing wy-filter-chip.js
+grep -n "wy-filter-chip" src/styles/tokens.css
+```
+
+**If component tokens exist in tokens.css:**
+- ✅ Update tokens.css FIRST (sets correct defaults for all consumers)
+- ✅ Then update component.js if needed (for structure/behavior)
+- ❌ Never make component changes that conflict with tokens.css defaults
+
+**Common mistake pattern:**
+1. Edit component to use `var(--md-sys-color-surface)` (white)
+2. But tokens.css sets `--wy-component-bg: var(--md-sys-color-surface-container-high)` (beige)
+3. Result: Component shows beige, not white (tokens.css wins)
+
+**Solution:**
+1. Update tokens.css to set `--wy-component-bg: var(--md-sys-color-surface)`
+2. Deploy - now ALL consuming projects get white by default
+3. Consuming projects can still override if needed
+
+**Why this matters:** tokens.css sets defaults for ALL consuming projects. Getting these right prevents cascading override issues.
+
 ## Commit & Deploy Workflow
 
 This design system is consumed by dependent projects. **Always use the automated deployment script.**
@@ -232,6 +277,31 @@ The script automatically:
 7. Commits `prompt-library` changes
 
 **Why commit hash pinning:** jsDelivr's `@main` serves inconsistent stale content across edge servers. Commit hashes are immutable and immediately available. See [prompt-library/docs/css-changes-not-appearing-postmortem.md](../prompt-library/docs/css-changes-not-appearing-postmortem.md) for the full investigation.
+
+### CRITICAL: Consuming Projects Need Cache-Busting Updates
+
+**After deployment, ALWAYS check if consuming projects need cache-busting parameter updates.**
+
+The `deploy.sh` script auto-updates:
+- ✅ Web component commit hash (`@abc1234`) in `components/index.js`
+- ✅ Admin HTML cache-busting (`?v=timestamp`) in `admin.html`
+
+**But it does NOT auto-update:**
+- ❌ CSS token cache-busting parameters in `tokens.css`
+
+**Manual check required after token/style changes:**
+
+1. Check `prompt-library/tokens.css` lines 14, 17:
+   ```css
+   @import url('...tokens.css?v=YYYYMMDD-HHMM');
+   @import url('...main.css?v=YYYYMMDD-HHMM');
+   ```
+
+2. If timestamp is old, update to current time
+
+3. Commit the change to prompt-library
+
+**Why:** CSS tokens use `@main` which is CDN-cached. Without cache-busting updates, consuming projects will load stale tokens even after successful deployment and CDN purge.
 
 ### Dependent Projects
 
@@ -500,6 +570,41 @@ When editing CSS, reference the relevant file:
 - Design tokens: [tokens.css](src/styles/tokens.css)
 - Global styles: [main.css](src/styles/main.css)
 - Component styles: Located within each `src/components/wy-*.js` file in `static styles`
+
+### Token Precedence & Override Prevention
+
+**Understanding the cascade (highest to lowest priority):**
+1. Consuming project `tokens.css` (prompt-library, plots, etc.)
+2. **Design system `src/styles/tokens.css`** (this file)
+3. Component defaults in `src/components/*.js`
+
+**Before editing component defaults, check if tokens.css already defines them:**
+
+```bash
+# Example: Before editing wy-filter-chip.js defaults
+grep -A3 "wy-filter-chip" src/styles/tokens.css
+
+# If component tokens exist, update tokens.css FIRST
+# This ensures all consuming projects get correct defaults
+```
+
+**Common mistake:**
+```javascript
+// ❌ Component sets: background-color: var(--wy-chip-bg, #FFFFFF)
+// But tokens.css has: --wy-chip-bg: #EBE5DE
+// Result: All projects get beige, not white
+```
+
+**Correct approach:**
+```css
+/* ✅ Fix tokens.css first */
+--wy-chip-bg: var(--md-sys-color-surface-container-lowest); /* White */
+
+/* Then component fallback works correctly */
+background-color: var(--wy-chip-bg, var(--md-sys-color-surface));
+```
+
+**Why this matters:** Consuming projects import tokens.css globally. If tokens define wrong defaults, ALL projects inherit the bug, and component-level fixes won't help.
 
 ### CSS Quality Standards
 

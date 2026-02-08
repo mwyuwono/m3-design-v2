@@ -407,13 +407,15 @@ npm link wy-family-office
 
 ### CDN (Production)
 
-**CSS:** `@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css');`
+**CSS:** `@import url('https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css?v=YYYYMMDD-HHMM');`
+
+**Note:** Update `?v=` timestamp after design system changes to force browser cache refresh.
 
 **JS:** `import 'https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js';`
 
 **Consuming projects:** prompts-library, Weaver-Yuwono-Home-Page (CDN), plots (`npm link`).
 
-**After token updates:** npm link projects re-link; CDN projects purge cache.
+**After token updates:** npm link projects re-link; CDN projects update cache-busting parameters and purge cache.
 
 ---
 

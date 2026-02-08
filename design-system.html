@@ -906,7 +906,56 @@
         <h4 class="label-overline" style="margin-bottom: 24px;">Application Shell & Controls</h4>
         <div class="component-preview" style="padding: 0; background: var(--md-sys-color-surface-container-lowest);">
             <div data-component="wy-app-bar" data-example="With Custom Logo"></div>
-            <div data-component="wy-controls-bar" data-example="Basic" id="demo-controls-container"></div>
+            <div data-component="wy-controls-bar" data-example="Full Configuration" id="demo-controls-container"></div>
+        </div>
+        
+        <div style="margin-top: 48px;">
+            <h4 class="label-overline" style="margin-bottom: 16px;">Controls Bar States</h4>
+            <p style="font-size: 0.875rem; color: var(--md-sys-color-on-surface-variant); margin-bottom: 32px; max-width: 60ch;">
+                The controls bar automatically transforms into a floating pill when the page scrolls past 50px. View and details toggles hide, search expands, and padding becomes uniform (16px all sides).
+            </p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px;">
+                <div>
+                    <h5 style="font-family: var(--font-sans); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--md-sys-color-on-surface-variant); margin-bottom: 16px;">Default State</h5>
+                    <div style="background: var(--md-sys-color-surface-container-lowest); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-medium); padding: 24px;">
+                        <div data-component="wy-controls-bar" data-example="With Categories"></div>
+                    </div>
+                    <ul style="font-size: 0.75rem; color: var(--md-sys-color-on-surface-variant); margin-top: 16px; padding-left: 20px; line-height: 1.6;">
+                        <li>Search: 192px width</li>
+                        <li>View toggle: visible</li>
+                        <li>Details toggle: visible</li>
+                        <li>Container gap: 12px</li>
+                        <li>Horizontal padding: 32px</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 style="font-family: var(--font-sans); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--md-sys-color-on-surface-variant); margin-bottom: 16px;">Scrolled State (Pill)</h5>
+                    <div style="background: var(--md-sys-color-surface-container-low); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-medium); padding: 48px 24px; position: relative; min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                        <div data-component="wy-controls-bar" data-example="Scrolled State (Pill)"></div>
+                    </div>
+                    <ul style="font-size: 0.75rem; color: var(--md-sys-color-on-surface-variant); margin-top: 16px; padding-left: 20px; line-height: 1.6;">
+                        <li>Search: 280px width (expanded)</li>
+                        <li>View toggle: hidden</li>
+                        <li>Details toggle: hidden</li>
+                        <li>Container gap: 16px</li>
+                        <li>Padding: 16px all sides (uniform)</li>
+                        <li>Backdrop blur: 12px</li>
+                        <li>Fixed positioning with 900px max-width</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: var(--md-sys-color-primary-container); border: 2px solid var(--md-sys-color-primary); border-radius: var(--md-sys-shape-corner-medium); padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start;">
+                <span class="material-symbols-outlined" style="font-size: 24px; color: var(--md-sys-color-primary); flex-shrink: 0;">info</span>
+                <div style="flex: 1;">
+                    <h6 style="font-family: var(--font-sans); font-size: 0.875rem; font-weight: 600; color: var(--md-sys-color-primary); margin: 0 0 8px 0;">Automatic Scroll Detection</h6>
+                    <p style="font-size: 0.875rem; color: var(--md-sys-color-on-surface); margin: 0; line-height: 1.6;">
+                        The component monitors scroll position on the nearest scrollable ancestor (.prompt-area, .main-content, or window). When scroll exceeds 50px, it automatically applies the <code style="background: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">data-scrolled</code> attribute, triggering the pill transformation via CSS.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <div style="margin-top: 60px;">

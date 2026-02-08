@@ -407,9 +407,9 @@ We prioritized design system consistency over exact mockup replication where app
 **Projects:** prompts-library, Weaver-Yuwono-Home-Page
 
 ```html
-<!-- 1. Import design system styles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css">
+<!-- 1. Import design system styles (update ?v= after design system changes) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/tokens.css?v=YYYYMMDD-HHMM">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/src/styles/main.css?v=YYYYMMDD-HHMM">
 
 <!-- 2. Import Web Components bundle -->
 <script type="module" src="https://cdn.jsdelivr.net/gh/mwyuwono/m3-design-v2@main/dist/web-components.js"></script>
