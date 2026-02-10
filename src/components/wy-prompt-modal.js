@@ -399,7 +399,7 @@ export class WyPromptModal extends LitElement {
     }
 
     .variation-selector-container {
-        padding: 0 var(--spacing-xl, 32px) var(--spacing-md, 16px);
+        padding: var(--spacing-xl, 32px) var(--spacing-xl, 32px) var(--spacing-md, 16px);
         display: flex;
         flex-direction: column;
         gap: var(--spacing-md, 16px);
@@ -628,7 +628,7 @@ export class WyPromptModal extends LitElement {
       top: 0;
       background: var(--wy-color-surface-light);
       z-index: 10;
-      margin-bottom: var(--spacing-xl, 32px);
+      margin-bottom: var(--spacing-md, 16px);
     }
 
     .stepper-progress {
@@ -672,7 +672,10 @@ export class WyPromptModal extends LitElement {
     .tabs-header {
       display: flex;
       gap: 24px;
-      padding: 0;
+      padding-top: var(--spacing-xl, 32px);
+      padding-bottom: 0;
+      padding-left: 0;
+      padding-right: 0;
       border-bottom: 1px solid var(--md-sys-color-outline-variant);
       margin-bottom: var(--spacing-lg, 24px);
     }

@@ -383,19 +383,13 @@ export class WyLinksModal extends LitElement {
       font-size: 0.875rem; /* text-sm = 14px */
       font-weight: 500; /* font-medium */
       cursor: pointer;
-      border: 1px solid var(--wy-links-modal-chip-border);
+      border: none;
       background-color: var(--md-sys-color-surface-container-lowest);
       color: var(--wy-links-modal-chip-text-color); /* stone-700 from reference */
       text-decoration: none;
-      transition: border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
-                  transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+      transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       position: relative;
       overflow: hidden;
-    }
-
-    /* Chip hover - matches mockup hover:border-primary */
-    .link-chip:hover {
-      border-color: var(--md-sys-color-primary); /* hover:border-primary */
     }
 
     /* Chip hover state layer */
@@ -428,12 +422,7 @@ export class WyLinksModal extends LitElement {
     @media (prefers-color-scheme: dark) {
       .link-chip {
         background-color: var(--md-sys-color-surface-container);
-        border-color: var(--md-sys-color-outline-variant); /* dark:border-stone-700 */
         color: var(--md-sys-color-on-surface-variant); /* dark:text-stone-300 */
-      }
-
-      .link-chip:hover {
-        border-color: var(--md-sys-color-outline); /* dark:hover:border-stone-400 */
       }
     }
   `;
