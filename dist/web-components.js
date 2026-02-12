@@ -6029,7 +6029,7 @@ class Za extends g {
       z-index: 100;
       width: auto;
       max-width: 900px;
-      background-color: color-mix(in srgb, var(--md-sys-color-surface) 60%, transparent);
+      background-color: var(--wy-controls-bar-bg, color-mix(in srgb, var(--md-sys-color-surface) 60%, transparent));
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-radius: 9999px;
@@ -10862,7 +10862,7 @@ class fs extends g {
     }
 
     .variation-selector-container {
-        padding: 0 var(--spacing-xl, 32px) var(--spacing-md, 16px);
+        padding: var(--spacing-xl, 32px) var(--spacing-xl, 32px) var(--spacing-md, 16px);
         display: flex;
         flex-direction: column;
         gap: var(--spacing-md, 16px);
@@ -11091,7 +11091,7 @@ class fs extends g {
       top: 0;
       background: var(--wy-color-surface-light);
       z-index: 10;
-      margin-bottom: var(--spacing-xl, 32px);
+      margin-bottom: var(--spacing-md, 16px);
     }
 
     .stepper-progress {
@@ -11135,7 +11135,10 @@ class fs extends g {
     .tabs-header {
       display: flex;
       gap: 24px;
-      padding: 0;
+      padding-top: var(--spacing-xl, 32px);
+      padding-bottom: 0;
+      padding-left: 0;
+      padding-right: 0;
       border-bottom: 1px solid var(--md-sys-color-outline-variant);
       margin-bottom: var(--spacing-lg, 24px);
     }
@@ -12028,19 +12031,13 @@ class Ge extends g {
       font-size: 0.875rem; /* text-sm = 14px */
       font-weight: 500; /* font-medium */
       cursor: pointer;
-      border: 1px solid var(--wy-links-modal-chip-border);
+      border: none;
       background-color: var(--md-sys-color-surface-container-lowest);
       color: var(--wy-links-modal-chip-text-color); /* stone-700 from reference */
       text-decoration: none;
-      transition: border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
-                  transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+      transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       position: relative;
       overflow: hidden;
-    }
-
-    /* Chip hover - matches mockup hover:border-primary */
-    .link-chip:hover {
-      border-color: var(--md-sys-color-primary); /* hover:border-primary */
     }
 
     /* Chip hover state layer */
@@ -12073,12 +12070,7 @@ class Ge extends g {
     @media (prefers-color-scheme: dark) {
       .link-chip {
         background-color: var(--md-sys-color-surface-container);
-        border-color: var(--md-sys-color-outline-variant); /* dark:border-stone-700 */
         color: var(--md-sys-color-on-surface-variant); /* dark:text-stone-300 */
-      }
-
-      .link-chip:hover {
-        border-color: var(--md-sys-color-outline); /* dark:hover:border-stone-400 */
       }
     }
   `;

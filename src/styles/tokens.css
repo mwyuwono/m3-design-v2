@@ -238,7 +238,7 @@
   --md-sys-state-disabled-container-opacity: 0.12;
 
   /* --- COMPONENT TOKENS --- */
-  --wy-controls-bar-bg: var(--md-sys-color-primary);
+  --wy-controls-bar-bg: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
   --wy-controls-bar-fg: var(--md-sys-color-on-primary);
   --wy-controls-search-bg: var(--md-sys-color-surface-container-lowest); /* White background */
   --wy-controls-toggle-bg: var(--md-sys-color-surface-container-high);
