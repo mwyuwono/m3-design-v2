@@ -30,7 +30,7 @@ export class WyFormField extends LitElement {
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--md-sys-color-text-heading);
+      color: var(--md-sys-color-on-surface-variant);
     }
 
     .required-mark {
@@ -61,7 +61,7 @@ export class WyFormField extends LitElement {
       padding: 12px 16px;
       border-radius: 12px;
       border: 1px solid var(--md-sys-color-outline-variant);
-      background-color: transparent;
+      background-color: var(--md-sys-color-surface-container-lowest);
       font-family: var(--font-body);
       font-size: 1rem;
       color: var(--md-sys-color-on-surface);

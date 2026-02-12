@@ -394,10 +394,12 @@
     --wy-button-primary-hover-bg: #3A5F4A;      /* Lighter hover in dark mode */
     --wy-button-primary-shadow-hover: 0 10px 25px -5px rgba(45, 78, 60, 0.4);
     --wy-button-secondary-bg: var(--md-sys-color-surface-container);
+    --wy-button-secondary-fg: var(--md-sys-color-on-surface);
     --wy-button-secondary-hover-bg: var(--md-sys-color-surface-container-high);
+    --wy-button-outlined-fg: var(--md-sys-color-on-surface);
     --wy-button-outlined-border: rgba(255, 255, 255, 0.2);
     --wy-button-outlined-hover-bg: rgba(255, 255, 255, 0.05);
-    --wy-button-text-fg: var(--md-sys-color-on-background);
+    --wy-button-text-fg: var(--md-sys-color-on-surface);
     --wy-button-text-fg-muted: rgba(245, 242, 234, 0.6);
     --wy-button-text-hover-bg: rgba(255, 255, 255, 0.05);
     --wy-icon-button-filled-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -483,17 +485,19 @@ html.dark :root {
   --wy-button-primary-hover-bg: #3A5F4A;
   --wy-button-primary-shadow-hover: 0 10px 25px -5px rgba(45, 78, 60, 0.4);
   --wy-button-secondary-bg: var(--md-sys-color-surface-container);
+  --wy-button-secondary-fg: var(--md-sys-color-on-surface);
   --wy-button-secondary-hover-bg: var(--md-sys-color-surface-container-high);
+  --wy-button-outlined-fg: var(--md-sys-color-on-surface);
   --wy-button-outlined-border: rgba(255, 255, 255, 0.2);
   --wy-button-outlined-hover-bg: rgba(255, 255, 255, 0.05);
-  --wy-button-text-fg: var(--md-sys-color-on-background);
+  --wy-button-text-fg: var(--md-sys-color-on-surface);
   --wy-button-text-fg-muted: rgba(245, 242, 234, 0.6);
   --wy-button-text-hover-bg: rgba(255, 255, 255, 0.05);
   --wy-icon-button-filled-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   --wy-icon-button-outlined-bg: var(--md-sys-color-surface-container);
   --wy-icon-button-outlined-border: rgba(255, 255, 255, 0.2);
   --wy-utility-tag-bg: rgba(255, 255, 255, 0.05);
-  --wy-utility-tag-fg: var(--md-sys-color-on-background);
+  --wy-utility-tag-fg: var(--md-sys-color-on-surface);
   --wy-utility-tag-border: rgba(255, 255, 255, 0.1);
   --wy-utility-tag-add-border: rgba(255, 255, 255, 0.2);
   --wy-utility-tag-add-fg: rgba(255, 255, 255, 0.4);
