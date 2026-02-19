@@ -37,15 +37,23 @@ export class WyOptionToggle extends LitElement {
         }
 
         .label {
-            margin: 0 0 var(--spacing-xs, 4px) 0;
-            color: var(--md-sys-color-on-surface, #121714);
-            font: var(--md-sys-typescale-body-medium, 500 1rem/1.4 var(--font-body, 'DM Sans', sans-serif));
+            margin: 0 0 var(--spacing-sm, 8px) 0;
+            color: color-mix(in srgb, var(--md-sys-color-on-surface, #121714) 86%, transparent);
+            font-family: var(--font-body, 'DM Sans', sans-serif);
+            font-size: var(--md-sys-typescale-label-large-size, 0.875rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
         }
 
         .description {
             margin: 0 0 var(--spacing-sm, 8px) 0;
-            color: var(--md-sys-color-on-surface-variant, #5E6E66);
-            font: var(--md-sys-typescale-body-small, 400 0.875rem/1.4 var(--font-body, 'DM Sans', sans-serif));
+            color: color-mix(in srgb, var(--md-sys-color-on-surface-variant, #5E6E66) 92%, transparent);
+            font-family: var(--font-body, 'DM Sans', sans-serif);
+            font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
+            font-weight: 400;
+            line-height: 1.55;
         }
 
         .group {
@@ -54,7 +62,7 @@ export class WyOptionToggle extends LitElement {
             gap: var(--spacing-xxs, 2px);
             padding: var(--spacing-xxs, 2px);
             border-radius: var(--md-sys-shape-corner-full, 9999px);
-            background: var(--md-sys-color-surface-container, #ECEEE8);
+            background: var(--md-sys-color-surface-container-high, #EBE5DE);
         }
 
         .option {
@@ -62,10 +70,16 @@ export class WyOptionToggle extends LitElement {
             overflow: hidden;
             border: 0;
             border-radius: var(--md-sys-shape-corner-full, 9999px);
+            min-height: 34px;
             padding: var(--spacing-xs, 4px) var(--spacing-md, 16px);
             background: transparent;
-            color: var(--md-sys-color-on-surface-variant, #5E6E66);
-            font: var(--md-sys-typescale-label-large, 500 0.875rem/1.25 var(--font-body, 'DM Sans', sans-serif));
+            color: color-mix(in srgb, var(--md-sys-color-on-surface-variant, #5E6E66) 84%, transparent);
+            font-family: var(--font-body, 'DM Sans', sans-serif);
+            font-size: var(--md-sys-typescale-label-large-size, 0.875rem);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             cursor: pointer;
             transition:
                 background-color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
@@ -107,8 +121,8 @@ export class WyOptionToggle extends LitElement {
         .switch-row {
             display: flex;
             align-items: center;
-            gap: var(--spacing-sm, 8px);
-            min-height: 32px;
+            gap: var(--spacing-md, 16px);
+            min-height: 34px;
         }
 
         .switch-button {
@@ -116,17 +130,17 @@ export class WyOptionToggle extends LitElement {
             overflow: hidden;
             border: 0;
             padding: 0;
-            width: 52px;
-            height: 32px;
+            width: 64px;
+            height: 34px;
             border-radius: var(--md-sys-shape-corner-full, 9999px);
-            background: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 22%, transparent);
+            background: var(--md-sys-color-surface-container-highest, #D7D3C8);
             cursor: pointer;
             transition: background-color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
         }
 
         :host([size='compact']) .switch-button {
             width: 40px;
-            height: 24px;
+            height: 22px;
         }
 
         .switch-button.checked {
@@ -159,46 +173,62 @@ export class WyOptionToggle extends LitElement {
             width: 26px;
             height: 26px;
             border-radius: var(--md-sys-shape-corner-full, 9999px);
-            background: var(--md-sys-color-surface, #FDFBF7);
+            background: var(--md-sys-color-primary, #2C4C3B);
             transition: transform var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
         }
 
         :host([size='compact']) .switch-thumb {
             top: 2px;
             left: 2px;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
         }
 
         .switch-button.checked .switch-thumb {
-            transform: translateX(20px);
+            transform: translateX(32px);
+            background: var(--md-sys-color-surface-container-lowest, #FFFFFF);
         }
 
         :host([size='compact']) .switch-button.checked .switch-thumb {
-            transform: translateX(16px);
+            transform: translateX(18px);
         }
 
         .switch-state {
-            font: var(--md-sys-typescale-label-large, 500 0.875rem/1.25 var(--font-body, 'DM Sans', sans-serif));
-            color: var(--md-sys-color-on-surface-variant, #5E6E66);
-            letter-spacing: 0.02em;
+            font-family: var(--font-body, 'DM Sans', sans-serif);
+            font-size: 0.625rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: color-mix(in srgb, var(--md-sys-color-on-surface-variant, #5E6E66) 70%, transparent);
+            letter-spacing: 0.14em;
             text-transform: uppercase;
         }
 
+        .switch-button.checked + .switch-state {
+            color: var(--md-sys-color-primary, #2C4C3B);
+        }
+
         :host([size='compact']) .switch-state {
-            font-size: 0.75rem;
+            font-size: 0.5625rem;
+            letter-spacing: 0.12em;
         }
 
         .selected-value-text {
-            margin: var(--spacing-sm, 8px) 0 0 0;
-            color: var(--md-sys-color-on-surface, #121714);
-            font: var(--md-sys-typescale-body-medium, 500 1rem/1.45 var(--font-body, 'DM Sans', sans-serif));
+            margin: var(--spacing-md, 16px) 0 0 0;
+            color: color-mix(in srgb, var(--md-sys-color-on-surface, #121714) 86%, transparent);
+            font-family: var(--font-body, 'DM Sans', sans-serif);
+            font-size: var(--md-sys-typescale-body-medium-size, 1rem);
+            font-weight: 400;
+            line-height: 1.7;
         }
 
         :host([size='compact']) .selected-value-text {
             margin-top: var(--spacing-xs, 4px);
             font-size: 0.8125rem;
             line-height: 1.35;
+        }
+
+        :host([disabled]) {
+            opacity: 0.42;
         }
 
         :host([disabled]) .switch-button {
