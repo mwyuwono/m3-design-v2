@@ -37,23 +37,24 @@ export class WyOptionToggle extends LitElement {
         }
 
         .label {
-            margin: 0 0 var(--spacing-sm, 8px) 0;
-            color: color-mix(in srgb, var(--md-sys-color-on-surface, #121714) 86%, transparent);
+            margin: 0 0 var(--spacing-md, 16px) 0;
+            color: var(--md-sys-color-primary, #2C4C3B);
             font-family: var(--font-body, 'DM Sans', sans-serif);
-            font-size: var(--md-sys-typescale-label-large-size, 0.875rem);
+            font-size: 0.875rem;
             font-weight: 700;
             line-height: 1.2;
-            letter-spacing: 0.14em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
         }
 
         .description {
             margin: 0 0 var(--spacing-sm, 8px) 0;
-            color: color-mix(in srgb, var(--md-sys-color-on-surface-variant, #5E6E66) 92%, transparent);
+            max-width: 36rem;
+            color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 70%, transparent);
             font-family: var(--font-body, 'DM Sans', sans-serif);
             font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
             font-weight: 400;
-            line-height: 1.55;
+            line-height: 1.8;
         }
 
         .group {
@@ -125,6 +126,22 @@ export class WyOptionToggle extends LitElement {
             min-height: 34px;
         }
 
+        .switch-indicator {
+            font-family: var(--font-body, 'DM Sans', sans-serif);
+            font-size: 0.625rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 40%, transparent);
+            transition: color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+            user-select: none;
+        }
+
+        .switch-indicator.active {
+            color: var(--md-sys-color-primary, #2C4C3B);
+        }
+
         .switch-button {
             position: relative;
             overflow: hidden;
@@ -133,7 +150,7 @@ export class WyOptionToggle extends LitElement {
             width: 64px;
             height: 34px;
             border-radius: var(--md-sys-shape-corner-full, 9999px);
-            background: var(--md-sys-color-surface-container-highest, #D7D3C8);
+            background: var(--wy-option-toggle-off-bg, #E8E4D8);
             cursor: pointer;
             transition: background-color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
         }
@@ -170,8 +187,8 @@ export class WyOptionToggle extends LitElement {
             position: absolute;
             top: 3px;
             left: 3px;
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             border-radius: var(--md-sys-shape-corner-full, 9999px);
             background: var(--md-sys-color-primary, #2C4C3B);
             transition: transform var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
@@ -185,29 +202,15 @@ export class WyOptionToggle extends LitElement {
         }
 
         .switch-button.checked .switch-thumb {
-            transform: translateX(32px);
-            background: var(--md-sys-color-surface-container-lowest, #FFFFFF);
+            transform: translateX(30px);
+            background: var(--md-sys-color-surface, #F5F2EA);
         }
 
         :host([size='compact']) .switch-button.checked .switch-thumb {
             transform: translateX(18px);
         }
 
-        .switch-state {
-            font-family: var(--font-body, 'DM Sans', sans-serif);
-            font-size: 0.625rem;
-            font-weight: 700;
-            line-height: 1.1;
-            color: color-mix(in srgb, var(--md-sys-color-on-surface-variant, #5E6E66) 70%, transparent);
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-        }
-
-        .switch-button.checked + .switch-state {
-            color: var(--md-sys-color-primary, #2C4C3B);
-        }
-
-        :host([size='compact']) .switch-state {
+        :host([size='compact']) .switch-indicator {
             font-size: 0.5625rem;
             letter-spacing: 0.12em;
         }
@@ -228,11 +231,13 @@ export class WyOptionToggle extends LitElement {
         }
 
         :host([disabled]) {
-            opacity: 0.42;
+            opacity: 0.4;
+            filter: grayscale(1);
         }
 
         :host([disabled]) .switch-button {
             cursor: not-allowed;
+            background: var(--wy-option-toggle-disabled-bg, #D1CDC0);
         }
     `;
 
@@ -359,6 +364,7 @@ export class WyOptionToggle extends LitElement {
             ${this.description ? html`<p class="description">${this.description}</p>` : ''}
             ${this.variant === 'switch' ? html`
                 <div class="switch-row">
+                    <span class="switch-indicator ${!this.checked ? 'active' : ''}">${this._getDisplayLabel(0)}</span>
                     <button
                         type="button"
                         class="switch-button ${this.checked ? 'checked' : ''}"
@@ -371,7 +377,7 @@ export class WyOptionToggle extends LitElement {
                     >
                         <span class="switch-thumb"></span>
                     </button>
-                    <span class="switch-state">${this._getDisplayLabel(selectedIndex)}</span>
+                    <span class="switch-indicator ${this.checked ? 'active' : ''}">${this._getDisplayLabel(1)}</span>
                 </div>
             ` : html`
                 <div class="group" role="group" aria-label="${ariaLabel}">
