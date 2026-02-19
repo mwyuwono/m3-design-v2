@@ -9,6 +9,8 @@
   --md-sys-color-primary-container: #E8F5E9;
   /* Pale wash */
   --md-sys-color-on-primary-container: #002114;
+  /* 10% tint of Hunter Green (for soft surfaces, e.g. filter-chip variant) */
+  --md-sys-color-primary-tint-10: color-mix(in srgb, var(--md-sys-color-primary) 10%, white);
 
   /* Secondary / Surface Tones */
   --md-sys-color-secondary: #8C7E70;
@@ -328,6 +330,7 @@
     /* Hunter Green container */
     --md-sys-color-on-primary-container: #FFFFFF;
     /* White text/icon on Hunter Green container */
+    --md-sys-color-primary-tint-10: color-mix(in srgb, var(--md-sys-color-primary) 10%, var(--md-sys-color-surface));
 
     /* Background: Deep Dark (#161C19) */
     --md-sys-color-background: #161C19;
@@ -420,6 +423,7 @@ html.dark :root {
   --md-sys-color-on-primary: #FFFFFF;
   --md-sys-color-primary-container: #2D4E3C;
   --md-sys-color-on-primary-container: #FFFFFF;
+  --md-sys-color-primary-tint-10: color-mix(in srgb, var(--md-sys-color-primary) 10%, var(--md-sys-color-surface));
 
   /* Background: Deep Dark (#161C19) */
   --md-sys-color-background: #161C19;

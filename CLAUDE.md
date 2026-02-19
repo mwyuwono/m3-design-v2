@@ -259,6 +259,10 @@ grep -n "wy-filter-chip" src/styles/tokens.css
 
 This design system is consumed by dependent projects. **Always use the automated deployment script.**
 
+### Bundle entry check
+
+When changing `src/web-components.js` or how consumers load the design system: verify every `wy-*` custom element used by any consumer that loads only `dist/web-components.js` is imported in `src/web-components.js`. Missing import → unregistered element → broken or missing UI. Quick check: grep each consumer for `<wy-` tag names and cross-check the bundle entry imports.
+
 ### Automated Deployment (REQUIRED)
 
 ```bash

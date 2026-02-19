@@ -4,7 +4,8 @@ export class WyFilterChip extends LitElement {
     static properties = {
         label: { type: String },
         active: { type: Boolean, reflect: true },
-        count: { type: Number }
+        count: { type: Number },
+        variant: { type: String, reflect: true }
     };
 
     static styles = css`
@@ -20,7 +21,7 @@ export class WyFilterChip extends LitElement {
       cursor: pointer;
       transition: all 0.15s ease;
       
-      /* Opaque white background by default */
+      /* Opaque background by default; overridden by variant */
       background-color: var(--wy-filter-chip-bg, var(--md-sys-color-surface));
       border: 1px solid var(--wy-filter-chip-border, transparent);
       color: var(--wy-filter-chip-text, var(--md-sys-color-on-surface));
@@ -60,6 +61,13 @@ export class WyFilterChip extends LitElement {
       border-color: transparent;
       font-weight: var(--wy-filter-chip-font-weight-active, 500);
       box-shadow: none;
+    }
+
+    /* Soft variant: no border, Surface Variant background */
+    :host([variant="soft"]) {
+      background-color: var(--wy-filter-chip-soft-bg, var(--md-sys-color-surface-variant));
+      border: none;
+      border-width: 0;
     }
 
     .count {

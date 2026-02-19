@@ -80,12 +80,23 @@
           "name": "Group",
           "code": "<div style=\"display: flex; gap: 12px; flex-wrap: wrap;\">\n  <wy-filter-chip label=\"Ready\" active count=\"12\"></wy-filter-chip>\n  <wy-filter-chip label=\"Backlog\" count=\"5\"></wy-filter-chip>\n  <wy-filter-chip label=\"In Review\"></wy-filter-chip>\n</div>",
           "props": {}
+        },
+        {
+          "name": "Soft variant",
+          "code": "<wy-filter-chip label=\"Ready\" variant=\"soft\"></wy-filter-chip>",
+          "props": { "label": "Ready", "variant": "soft" }
+        },
+        {
+          "name": "Group (soft)",
+          "code": "<div style=\"display: flex; gap: 12px; flex-wrap: wrap;\">\n  <wy-filter-chip label=\"Ready\" variant=\"soft\" active></wy-filter-chip>\n  <wy-filter-chip label=\"Backlog\" variant=\"soft\"></wy-filter-chip>\n  <wy-filter-chip label=\"In Review\" variant=\"soft\"></wy-filter-chip>\n</div>",
+          "props": {}
         }
       ],
       "props": [
         { "name": "label", "type": "String", "required": true, "description": "Chip label text" },
         { "name": "active", "type": "Boolean", "required": false, "description": "Active/selected state" },
-        { "name": "count", "type": "Number", "required": false, "description": "Badge count displayed in parentheses" }
+        { "name": "count", "type": "Number", "required": false, "description": "Badge count displayed in parentheses" },
+        { "name": "variant", "type": "String", "required": false, "description": "'default' | 'soft' (soft: no border, Surface Variant bg)" }
       ],
       "slots": []
     },
@@ -291,7 +302,12 @@
         },
         {
           "name": "With Categories",
-          "code": "<wy-controls-bar id=\"controls-categories\"></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-categories');\n    bar.categories = ['Productivity', 'Expertise', 'Travel & Shopping', 'Creativity'];\n    bar.activeCategory = 'Productivity';\n  });\n</script>",
+          "code": "<wy-controls-bar id=\"controls-categories\" chip-variant=\"soft\"></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-categories');\n    bar.categories = ['Productivity', 'Expertise', 'Travel & Shopping', 'Creativity'];\n    bar.activeCategory = 'Productivity';\n  });\n</script>",
+          "props": {}
+        },
+        {
+          "name": "With soft chips",
+          "code": "<wy-controls-bar id=\"controls-soft-chips\" chip-variant=\"soft\"></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-soft-chips');\n    bar.categories = ['Productivity', 'Expertise', 'Travel & Shopping'];\n    bar.activeCategory = 'all';\n  });\n</script>",
           "props": {}
         },
         {
@@ -316,7 +332,7 @@
         },
         {
           "name": "Full Configuration",
-          "code": "<wy-controls-bar id=\"controls-full\" view-mode=\"grid\" show-details active-category=\"Expertise\"></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-full');\n    bar.categories = ['Productivity', 'Expertise', 'Travel & Shopping', 'Creativity', 'Lifestyle'];\n    bar.searchValue = '';\n  });\n</script>",
+          "code": "<wy-controls-bar id=\"controls-full\" view-mode=\"grid\" show-details active-category=\"Expertise\" chip-variant=\"soft\"></wy-controls-bar>\n<script>\n  customElements.whenDefined('wy-controls-bar').then(() => {\n    const bar = document.getElementById('controls-full');\n    bar.categories = ['Productivity', 'Expertise', 'Travel & Shopping', 'Creativity', 'Lifestyle'];\n    bar.searchValue = '';\n  });\n</script>",
           "props": { "view-mode": "grid", "show-details": true, "active-category": "Expertise" }
         }
       ],
@@ -328,7 +344,8 @@
         { "name": "searchValue", "type": "String", "required": false, "description": "Search input value (attribute: search-value)" },
         { "name": "hideViewToggle", "type": "Boolean", "required": false, "description": "Hide view mode toggle (attribute: hide-view-toggle)" },
         { "name": "hideDetailsToggle", "type": "Boolean", "required": false, "description": "Hide details toggle (attribute: hide-details-toggle)" },
-        { "name": "showFeaturedOnly", "type": "Boolean", "required": false, "description": "Featured filter active (attribute: show-featured-only)" }
+        { "name": "showFeaturedOnly", "type": "Boolean", "required": false, "description": "Featured filter active (attribute: show-featured-only)" },
+        { "name": "chipVariant", "type": "String", "required": false, "description": "Filter chip variant: 'default' | 'soft' (attribute: chip-variant)" }
       ],
       "slots": [],
       "events": [

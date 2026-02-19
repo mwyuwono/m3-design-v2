@@ -10,6 +10,7 @@ export class WyControlsBar extends LitElement {
         hideViewToggle: { type: Boolean, attribute: 'hide-view-toggle' },
         hideDetailsToggle: { type: Boolean, attribute: 'hide-details-toggle' },
         showFeaturedOnly: { type: Boolean, attribute: 'show-featured-only' },
+        chipVariant: { type: String, attribute: 'chip-variant' },
         isScrolled: { type: Boolean, state: true }
     };
 
@@ -23,6 +24,7 @@ export class WyControlsBar extends LitElement {
         this.hideViewToggle = false;
         this.hideDetailsToggle = false;
         this.showFeaturedOnly = false;
+        this.chipVariant = '';
         this.isScrolled = false;
         this._scrollThreshold = 50; // px
     }
@@ -541,17 +543,20 @@ export class WyControlsBar extends LitElement {
 
         <div class="category-section">
           <wy-filter-chip
+            variant="${this.chipVariant || 'default'}"
             label="Featured"
             ?active="${this.showFeaturedOnly}"
             @click="${this._toggleFeatured}"
           ></wy-filter-chip>
           <wy-filter-chip
+            variant="${this.chipVariant || 'default'}"
             label="All"
             ?active="${this.activeCategory === 'all' && !this.showFeaturedOnly}"
             @click="${() => this._setCategory('all')}"
           ></wy-filter-chip>
           ${this.categories.map(cat => html`
             <wy-filter-chip
+              variant="${this.chipVariant || 'default'}"
               label="${cat}"
               ?active="${this.activeCategory === cat && !this.showFeaturedOnly}"
               @click="${() => this._setCategory(cat)}"

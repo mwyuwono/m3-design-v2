@@ -64,6 +64,9 @@ import './components/wy-links-modal.js';
 import './components/wy-logo.js';
 import './components/wy-app-bar.js';
 import './components/wy-library-header.js';
+import './components/wy-button.js';
+import './components/wy-icon-button.js';
+import './components/wy-utility-tag.js';
 
 // Profile/Project components (optional - used by family office site)
 import './components/wy-profile-card.js';
