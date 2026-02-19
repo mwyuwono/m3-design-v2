@@ -488,76 +488,8 @@ export class WyPromptModal extends LitElement {
         margin-top: 4px;
     }
 
-    /* TOGGLE SWITCH */
-    .toggle-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-    }
-
-    .toggle-label {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        cursor: pointer;
-        user-select: none;
-    }
-
-    .toggle-track {
-        position: relative;
-        width: 52px;
-        height: 32px;
-        background: var(--md-sys-color-surface-container-highest);
-        border: 2px solid var(--md-sys-color-outline);
-        border-radius: 16px;
-        transition: all 0.2s ease;
-    }
-
-    .toggle-track::after {
-        content: '';
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        width: 20px;
-        height: 20px;
-        background: var(--md-sys-color-outline);
-        border-radius: 50%;
-        transition: all 0.2s ease;
-    }
-
-    .toggle-input {
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .toggle-input:checked + .toggle-track {
-        background: var(--md-sys-color-primary);
-        border-color: var(--md-sys-color-primary);
-    }
-
-    .toggle-input:checked + .toggle-track::after {
-        left: 24px;
-        background: var(--md-sys-color-on-primary);
-    }
-
-    .toggle-input:focus-visible + .toggle-track {
-        outline: 3px solid var(--wy-color-focus-ring);
-        outline-offset: 2px;
-    }
-
-    .toggle-status {
-        font-family: var(--font-sans, 'DM Sans', sans-serif);
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: var(--md-sys-color-on-surface-variant);
-        min-width: 60px;
-    }
-
-    .toggle-status.active {
-        color: var(--md-sys-color-text-heading);
+    .form-group wy-option-toggle {
+      --md-sys-typescale-body-medium: 500 1rem/1.45 var(--font-sans, 'DM Sans', sans-serif);
     }
 
     .preview-area {
@@ -1005,26 +937,25 @@ export class WyPromptModal extends LitElement {
     const inputType = v.inputType || v.type || 'text';
 
     if (inputType === 'toggle') {
-      const isChecked = this._values[v.name] === v.options?.[1] ||
-                        this._values[v.name] === 'true' ||
-                        this._values[v.name] === true;
-      const statusText = isChecked ? 'Enabled' : 'Disabled';
+      const options = Array.isArray(v.options) && v.options.length >= 2
+        ? [v.options[0], v.options[1]]
+        : ['', 'true'];
+      const currentValue = this._values[v.name];
+      const toggleValue = currentValue !== undefined && currentValue !== null
+        ? currentValue
+        : options[0];
 
       return html`
         <div class="form-group">
-          <label>${v.label}</label>
-          <div class="toggle-wrapper">
-            <label class="toggle-label">
-              <input
-                type="checkbox"
-                class="toggle-input"
-                .checked="${isChecked}"
-                @change="${(e) => this._handleToggle(v, e.target.checked)}"
-              >
-              <span class="toggle-track"></span>
-            </label>
-            <span class="toggle-status ${isChecked ? 'active' : ''}">${statusText}</span>
-          </div>
+          <wy-option-toggle
+            .label="${v.label || ''}"
+            .options="${options}"
+            .labels="${['Off', 'On']}"
+            .value="${toggleValue}"
+            variant="switch"
+            show-selected-value-text
+            @change="${(e) => this._handleInput(v.name, e.detail.value)}"
+          ></wy-option-toggle>
         </div>
       `;
     }
@@ -1056,11 +987,6 @@ export class WyPromptModal extends LitElement {
         >
       </div>
     `;
-  }
-
-  _handleToggle(variable, checked) {
-    const value = checked ? (variable.options?.[1] || 'true') : (variable.options?.[0] || '');
-    this._handleInput(variable.name, value);
   }
 
   _handleInput(name, value) {

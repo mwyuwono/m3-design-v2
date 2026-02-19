@@ -339,41 +339,14 @@ export class WyControlsBar extends LitElement {
     }
 
     /* Details Toggle */
-    .details-toggle {
+    .details-toggle-control {
       display: flex;
       align-items: center;
       gap: 8px;
-      cursor: pointer;
-      user-select: none;
     }
 
-    .toggle-switch {
-      position: relative;
-      width: 32px;
-      height: 16px;
-      background-color: var(--wy-controls-switch-off, #e5e7eb);
-      border-radius: 9999px;
-      transition: background-color 0.2s;
-    }
-
-    .toggle-switch.on {
-      background-color: var(--md-sys-color-primary, #2C4C3B);
-    }
-
-    .toggle-switch::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 12px;
-      height: 12px;
-      background-color: #fff;
-      border-radius: 50%;
-      transition: transform 0.2s;
-    }
-
-    .toggle-switch.on::after {
-      transform: translateX(16px);
+    .details-toggle-control wy-option-toggle {
+      width: auto;
     }
 
     .toggle-label {
@@ -529,10 +502,18 @@ export class WyControlsBar extends LitElement {
             ` : ''}
 
             ${!this.hideDetailsToggle ? html`
-              <label class="details-toggle" @click="${this._toggleDetails}">
-                <div class="toggle-switch ${this.showDetails ? 'on' : ''}"></div>
+              <div class="details-toggle-control">
+                <wy-option-toggle
+                  variant="switch"
+                  size="compact"
+                  aria-label="Descriptions"
+                  .options="${['false', 'true']}"
+                  .labels="${['Off', 'On']}"
+                  .value="${this.showDetails ? 'true' : 'false'}"
+                  @change="${this._setDetailsFromToggle}"
+                ></wy-option-toggle>
                 <span class="toggle-label">Descriptions</span>
-              </label>
+              </div>
             ` : ''}
           </div>
 
@@ -577,8 +558,8 @@ export class WyControlsBar extends LitElement {
         this._notifyChange();
     }
 
-    _toggleDetails() {
-        this.showDetails = !this.showDetails;
+    _setDetailsFromToggle(event) {
+        this.showDetails = event.detail.checked;
         this._notifyChange();
     }
 
