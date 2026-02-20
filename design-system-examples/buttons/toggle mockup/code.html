@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weaver-Yuwono Design System | Toggle Switch</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2d4e3c", // Hunter Green
+                        "background-light": "#F5F2EA", // Warm Clay Foundation
+                        "background-dark": "#161c19",
+                        "clay-darker": "#E8E4D8",
+                        "clay-muted": "#D1CDC0",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "dm": ["DM Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .label-large {
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+        }
+        .body-editorial {
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-primary transition-colors duration-300">
+<div class="min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="border-b border-primary/10 px-6 py-6 lg:px-12 flex items-center justify-between bg-background-light/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-background-light">
+<span class="material-symbols-outlined text-[20px]">architecture</span>
+</div>
+<h1 class="label-large text-sm tracking-[0.2em] uppercase">Weaver-Yuwono</h1>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="label-large text-[10px] uppercase hover:opacity-60 transition-opacity" href="#">Philosophy</a>
+<a class="label-large text-[10px] uppercase border-b border-primary pb-1" href="#">Components</a>
+<a class="label-large text-[10px] uppercase hover:opacity-60 transition-opacity" href="#">Foundation</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm">search</span>
+</button>
+</div>
+</header>
+<main class="flex-grow max-w-5xl mx-auto w-full px-6 py-16 lg:py-24">
+<!-- Hero Header -->
+<section class="mb-20 border-l border-primary/20 pl-8">
+<span class="label-large text-xs uppercase opacity-60 mb-4 block">Design System / Interactive</span>
+<h2 class="text-5xl lg:text-7xl font-light tracking-tighter mb-6 italic">Toggle Switch</h2>
+<p class="body-editorial text-lg max-w-2xl text-primary/80">
+                    Disciplined Contrast Philosophy: An editorial approach to functional inputs. No shadows, no depth—only the architectural interaction of Hunter Green and Warm Clay.
+                </p>
+</section>
+<!-- Component Section -->
+<div class="space-y-12">
+<!-- STATE: ON -->
+<div class="group">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-8 py-10 border-t border-primary/10">
+<div class="flex-1 max-w-xl">
+<h3 class="label-large text-sm uppercase mb-4 tracking-[0.2em]">Notifications</h3>
+<p class="body-editorial text-primary/70">
+                                Enable real-time updates for portfolio shifts and architectural milestones. This setting ensures transparent communication across the family office infrastructure with generous line height for readability.
+                            </p>
+</div>
+<div class="flex items-center gap-6 self-start md:self-center mt-4 md:mt-0">
+<span class="label-large text-[10px] uppercase opacity-40">Off</span>
+<div class="relative inline-flex items-center cursor-pointer group/toggle">
+<div class="w-[64px] h-[34px] bg-primary rounded-full transition-colors duration-300"></div>
+<div class="absolute right-[3px] top-[3px] w-[28px] h-[28px] bg-background-light rounded-full transition-all duration-300"></div>
+</div>
+<span class="label-large text-[10px] uppercase text-primary">On</span>
+</div>
+</div>
+</div>
+<!-- STATE: OFF -->
+<div class="group">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-8 py-10 border-t border-primary/10">
+<div class="flex-1 max-w-xl">
+<h3 class="label-large text-sm uppercase mb-4 tracking-[0.2em]">Privacy Shield</h3>
+<p class="body-editorial text-primary/70">
+                                Maintain absolute transparency by allowing localized data encryption within the firm's private cloud. This architectural safeguard prioritizes the "Disciplined Contrast" between public record and private intent.
+                            </p>
+</div>
+<div class="flex items-center gap-6 self-start md:self-center mt-4 md:mt-0">
+<span class="label-large text-[10px] uppercase text-primary">Off</span>
+<div class="relative inline-flex items-center cursor-pointer group/toggle">
+<div class="w-[64px] h-[34px] bg-clay-darker rounded-full transition-colors duration-300"></div>
+<div class="absolute left-[3px] top-[3px] w-[28px] h-[28px] bg-primary rounded-full transition-all duration-300"></div>
+</div>
+<span class="label-large text-[10px] uppercase opacity-40">On</span>
+</div>
+</div>
+</div>
+<!-- STATE: DISABLED -->
+<div class="group opacity-40 grayscale">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-8 py-10 border-t border-primary/10 border-b border-primary/10">
+<div class="flex-1 max-w-xl">
+<h3 class="label-large text-sm uppercase mb-4 tracking-[0.2em]">Alpha Protocol</h3>
+<p class="body-editorial text-primary/70">
+                                Currently restricted. Access to the Alpha Protocol requires executive-level clearance and verified biometrics. This component remains in an architectural 'locked' state.
+                            </p>
+</div>
+<div class="flex items-center gap-6 self-start md:self-center mt-4 md:mt-0">
+<span class="label-large text-[10px] uppercase">Off</span>
+<div class="relative inline-flex items-center cursor-not-allowed">
+<div class="w-[64px] h-[34px] bg-clay-muted rounded-full"></div>
+<div class="absolute left-[3px] top-[3px] w-[28px] h-[28px] bg-primary/40 rounded-full"></div>
+</div>
+<span class="label-large text-[10px] uppercase">On</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Design Specifications Grid -->
+<section class="mt-32 grid grid-cols-1 md:grid-cols-3 gap-12">
+<div>
+<h4 class="label-large text-[11px] uppercase border-b border-primary/20 pb-4 mb-6 tracking-widest">Tonal Logic</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-background-light border border-primary/10"></div>
+<span class="text-xs font-mono">#F5F2EA (Warm Clay)</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-primary"></div>
+<span class="text-xs font-mono">#2C4C3B (Hunter Green)</span>
+</div>
+</div>
+</div>
+<div>
+<h4 class="label-large text-[11px] uppercase border-b border-primary/20 pb-4 mb-6 tracking-widest">Typography</h4>
+<p class="text-xs leading-relaxed opacity-70">
+                        Primary Labels: DM Sans Bold (Caps)<br/>
+                        Tracking: 15% (0.15em)<br/>
+                        Body: DM Sans Regular<br/>
+                        Leading: 1.8 (Generous)
+                    </p>
+</div>
+<div>
+<h4 class="label-large text-[11px] uppercase border-b border-primary/20 pb-4 mb-6 tracking-widest">Architectural Note</h4>
+<p class="text-xs leading-relaxed opacity-70 italic">
+                        "The contrast must be felt, not seen through artificial shadows. The movement from Clay to Green represents the transition from stillness to activity."
+                    </p>
+</div>
+</section>
+</main>
+<footer class="mt-24 py-12 px-6 border-t border-primary/5 bg-clay-darker/30">
+<div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/40">copyright</span>
+<span class="label-large text-[9px] uppercase tracking-widest opacity-60">2024 Weaver-Yuwono Family Office</span>
+</div>
+<div class="flex gap-8">
+<a class="label-large text-[9px] uppercase tracking-widest opacity-60 hover:opacity-100" href="#">Accessibility</a>
+<a class="label-large text-[9px] uppercase tracking-widest opacity-60 hover:opacity-100" href="#">Legal</a>
+<a class="label-large text-[9px] uppercase tracking-widest opacity-60 hover:opacity-100" href="#">Archives</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>
