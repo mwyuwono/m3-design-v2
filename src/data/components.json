@@ -449,6 +449,52 @@
       "slots": []
     },
     {
+      "name": "wy-artwork-card",
+      "category": "cards-content",
+      "title": "Artwork Card",
+      "description": "Event-driven artwork card with image preview, selection, favorite, and metadata overlay",
+      "status": "beta",
+      "examples": [
+        {
+          "name": "Default",
+          "code": "<wy-artwork-card title=\"Brutalist Concrete Study\" work-id=\"work_001\" variant-count=\"3\" modified-label=\"Modified 2/14/26\" image-src=\"/src/assets/artwork/ethereal_geometry_i.png\" image-alt=\"Brutalist concrete study\"></wy-artwork-card>",
+          "props": { "title": "Brutalist Concrete Study", "work-id": "work_001", "variant-count": 3, "modified-label": "Modified 2/14/26", "image-src": "/src/assets/artwork/ethereal_geometry_i.png", "image-alt": "Brutalist concrete study" }
+        },
+        {
+          "name": "Selected + Favorite",
+          "code": "<wy-artwork-card title=\"Stairwell Light Study\" work-id=\"work_002\" variant-count=\"2\" selected favorite status=\"ready\" image-src=\"/src/assets/artwork/heritage_landscape.png\" image-alt=\"Stairwell light study\"></wy-artwork-card>",
+          "props": { "title": "Stairwell Light Study", "work-id": "work_002", "variant-count": 2, "selected": true, "favorite": true, "status": "ready", "image-src": "/src/assets/artwork/heritage_landscape.png", "image-alt": "Stairwell light study" }
+        },
+        {
+          "name": "No Image",
+          "code": "<wy-artwork-card title=\"Archive Placeholder\" work-id=\"work_003\" variant-count=\"0\" no-image></wy-artwork-card>",
+          "props": { "title": "Archive Placeholder", "work-id": "work_003", "variant-count": 0, "no-image": true }
+        }
+      ],
+      "props": [
+        { "name": "title", "type": "String", "required": false, "description": "Display title" },
+        { "name": "workId", "type": "String", "required": false, "description": "Work identifier (attribute: work-id)" },
+        { "name": "variantCount", "type": "Number", "required": false, "description": "Variant count (attribute: variant-count)" },
+        { "name": "modifiedLabel", "type": "String", "required": false, "description": "Preformatted metadata label (attribute: modified-label)" },
+        { "name": "status", "type": "String", "required": false, "description": "Single status badge label" },
+        { "name": "selected", "type": "Boolean", "required": false, "description": "Selected state" },
+        { "name": "favorite", "type": "Boolean", "required": false, "description": "Favorite state" },
+        { "name": "loading", "type": "Boolean", "required": false, "description": "Show loading placeholder state" },
+        { "name": "noImage", "type": "Boolean", "required": false, "description": "Force no-image fallback (attribute: no-image)" },
+        { "name": "imageSrc", "type": "String", "required": false, "description": "Image URL (attribute: image-src)" },
+        { "name": "imageAlt", "type": "String", "required": false, "description": "Image alt text (attribute: image-alt)" },
+        { "name": "imageAspectRatio", "type": "String", "required": false, "description": "Aspect ratio string (attribute: image-aspect-ratio)" },
+        { "name": "imageObjectPosition", "type": "String", "required": false, "description": "CSS object-position (attribute: image-object-position)" },
+        { "name": "interactive", "type": "Boolean", "required": false, "description": "Enable open/select/favorite interactions (default: true)" }
+      ],
+      "slots": [],
+      "events": [
+        { "name": "wy-artwork-card-open", "detail": "{ workId: String }", "description": "Fired when the main card region is activated" },
+        { "name": "wy-artwork-card-toggle-favorite", "detail": "{ workId: String, nextFavorite: Boolean }", "description": "Fired when favorite is toggled" },
+        { "name": "wy-artwork-card-toggle-select", "detail": "{ workId: String, nextSelected: Boolean, shiftKey: Boolean, metaKey: Boolean, ctrlKey: Boolean }", "description": "Fired when selection checkbox is toggled" }
+      ]
+    },
+    {
       "name": "wy-work-card",
       "category": "cards-content",
       "title": "Work Card",

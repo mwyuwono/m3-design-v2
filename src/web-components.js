@@ -76,6 +76,7 @@ import './components/wy-project-list.js';
 import './components/wy-metric-card.js';
 import './components/wy-allocation-card.js';
 import './components/wy-insight-card.js';
+import './components/wy-artwork-card.js';
 import './components/wy-work-card.js';
 import './components/wy-works-grid.js';
 import './components/wy-plot-card.js';

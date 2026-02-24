@@ -30,6 +30,7 @@ import './components/wy-option-toggle.js';
 import './components/wy-selection-card.js';
 import './components/wy-modal.js';
 import './components/wy-library-header.js';
+import './components/wy-artwork-card.js';
 import './components/wy-work-card.js';
 import './components/wy-works-grid.js';
 import './components/wy-plot-card.js';
