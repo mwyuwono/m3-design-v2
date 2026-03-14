@@ -259,8 +259,8 @@ export class WyPromptModal extends LitElement {
     }
 
     .labeled-btn.primary {
-        background: var(--md-sys-color-primary);
-        color: var(--md-sys-color-on-primary);
+        background: var(--md-sys-color-primary, #2C4C3B);
+        color: var(--md-sys-color-on-primary, #ffffff);
     }
 
     .labeled-btn.primary:hover {
