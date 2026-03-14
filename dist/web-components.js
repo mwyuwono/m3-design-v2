@@ -11122,6 +11122,37 @@ class gs extends f {
         line-height: 1;
     }
 
+    /* Labeled Button - Icon with text label */
+    .labeled-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 40px;
+        padding: 0 16px 0 12px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        font-family: var(--font-sans);
+        font-size: 14px;
+        font-weight: 500;
+        transition: background-color 0.2s, transform 0.15s;
+    }
+
+    .labeled-btn.primary {
+        background: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+    }
+
+    .labeled-btn.primary:hover {
+        opacity: 0.9;
+        transform: scale(1.02);
+    }
+
+    .labeled-btn .material-symbols-outlined {
+        font-size: 18px;
+        line-height: 1;
+    }
+
     .header-main {
         display: flex;
         justify-content: space-between;
@@ -11671,8 +11702,12 @@ class gs extends f {
             <div class="header-top">
                 ${this.mode === "locked" ? l`
                     <div class="header-actions-left">
-                        <button class="icon-btn primary" @click="${this._handleCopy}" aria-label="Copy to clipboard" title="Copy">
+                        <button class="labeled-btn primary" @click="${this._handleCopy}" aria-label="Copy to clipboard" title="Copy">
                             <span class="material-symbols-outlined">content_copy</span>
+                            <span>Copy Prompt</span>
+                        </button>
+                        <button class="icon-btn filled" @click="${this._handleCopyLink}" aria-label="Copy link" title="Share">
+                            <span class="material-symbols-outlined">link</span>
                         </button>
                         <button class="icon-btn filled" @click="${() => this.mode = "edit"}" aria-label="Edit prompt" title="Edit">
                             <span class="material-symbols-outlined">edit</span>
@@ -11907,6 +11942,12 @@ class gs extends f {
       );
     this.dispatchEvent(new CustomEvent("download", {
       detail: { text: e, title: this.title },
+      bubbles: !0,
+      composed: !0
+    }));
+  }
+  _handleCopyLink() {
+    this.dispatchEvent(new CustomEvent("copy-link", {
       bubbles: !0,
       composed: !0
     }));

@@ -242,6 +242,37 @@ export class WyPromptModal extends LitElement {
         line-height: 1;
     }
 
+    /* Labeled Button - Icon with text label */
+    .labeled-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 40px;
+        padding: 0 16px 0 12px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        font-family: var(--font-sans);
+        font-size: 14px;
+        font-weight: 500;
+        transition: background-color 0.2s, transform 0.15s;
+    }
+
+    .labeled-btn.primary {
+        background: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+    }
+
+    .labeled-btn.primary:hover {
+        opacity: 0.9;
+        transform: scale(1.02);
+    }
+
+    .labeled-btn .material-symbols-outlined {
+        font-size: 18px;
+        line-height: 1;
+    }
+
     .header-main {
         display: flex;
         justify-content: space-between;
@@ -822,8 +853,12 @@ export class WyPromptModal extends LitElement {
             <div class="header-top">
                 ${this.mode === 'locked' ? html`
                     <div class="header-actions-left">
-                        <button class="icon-btn primary" @click="${this._handleCopy}" aria-label="Copy to clipboard" title="Copy">
+                        <button class="labeled-btn primary" @click="${this._handleCopy}" aria-label="Copy to clipboard" title="Copy">
                             <span class="material-symbols-outlined">content_copy</span>
+                            <span>Copy Prompt</span>
+                        </button>
+                        <button class="icon-btn filled" @click="${this._handleCopyLink}" aria-label="Copy link" title="Share">
+                            <span class="material-symbols-outlined">link</span>
                         </button>
                         <button class="icon-btn filled" @click="${() => this.mode = 'edit'}" aria-label="Edit prompt" title="Edit">
                             <span class="material-symbols-outlined">edit</span>
@@ -1102,7 +1137,7 @@ export class WyPromptModal extends LitElement {
 
   _handleDownload() {
     let textToDownload;
-    
+
     if (this.steps && this.steps.length > 0) {
       // Multi-step mode: download current step only
       const step = this.steps[this.activeStepIndex];
@@ -1110,14 +1145,21 @@ export class WyPromptModal extends LitElement {
     } else {
       // Standard mode: existing behavior
       textToDownload = this._compilePrompt(
-        this.variations.length > 0 
-          ? this.variations[this.activeVariationIndex].template 
+        this.variations.length > 0
+          ? this.variations[this.activeVariationIndex].template
           : this.template
       );
     }
-    
+
     this.dispatchEvent(new CustomEvent('download', {
       detail: { text: textToDownload, title: this.title },
+      bubbles: true,
+      composed: true
+    }));
+  }
+
+  _handleCopyLink() {
+    this.dispatchEvent(new CustomEvent('copy-link', {
       bubbles: true,
       composed: true
     }));
