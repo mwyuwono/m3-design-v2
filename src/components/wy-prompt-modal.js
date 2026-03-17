@@ -442,6 +442,9 @@ export class WyPromptModal extends LitElement {
 
     .variation-description-panel {
         margin-top: 0;
+        --wy-info-panel-bg: var(--md-sys-color-border-variant, #EBE5DA);
+        --wy-info-panel-padding: var(--spacing-md, 16px);
+        --wy-info-panel-font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
     }
 
     /* Legacy selector styles (kept for backwards compatibility) */
@@ -548,10 +551,8 @@ export class WyPromptModal extends LitElement {
     }
     .editor-area:focus { outline: none; }
 
-    /* WY-INFO-PANEL THEMING (used for step instructions and variation descriptions) */
+    /* WY-INFO-PANEL THEMING */
     wy-info-panel {
-        --wy-info-panel-bg: transparent;
-        --wy-info-panel-border: transparent;
         --wy-info-panel-padding: var(--spacing-md, 16px);
         --wy-info-panel-font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
     }
@@ -975,6 +976,9 @@ export class WyPromptModal extends LitElement {
       const options = Array.isArray(v.options) && v.options.length >= 2
         ? [v.options[0], v.options[1]]
         : ['', 'true'];
+      const labels = Array.isArray(v.labels) && v.labels.length >= 2
+        ? [v.labels[0], v.labels[1]]
+        : null;
       const valueDescriptions = Array.isArray(v.optionDescriptions) && v.optionDescriptions.length >= 2
         ? [v.optionDescriptions[0], v.optionDescriptions[1]]
         : null;
@@ -989,6 +993,7 @@ export class WyPromptModal extends LitElement {
           <wy-option-toggle
             .label="${v.label || ''}"
             .options="${options}"
+            .labels="${labels}"
             .valueDescriptions="${valueDescriptions}"
             .value="${toggleValue}"
             size="${size}"

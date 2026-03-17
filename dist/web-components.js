@@ -11327,6 +11327,9 @@ class gs extends f {
 
     .variation-description-panel {
         margin-top: 0;
+        --wy-info-panel-bg: var(--md-sys-color-border-variant, #EBE5DA);
+        --wy-info-panel-padding: var(--spacing-md, 16px);
+        --wy-info-panel-font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
     }
 
     /* Legacy selector styles (kept for backwards compatibility) */
@@ -11433,10 +11436,8 @@ class gs extends f {
     }
     .editor-area:focus { outline: none; }
 
-    /* WY-INFO-PANEL THEMING (used for step instructions and variation descriptions) */
+    /* WY-INFO-PANEL THEMING */
     wy-info-panel {
-        --wy-info-panel-bg: transparent;
-        --wy-info-panel-border: transparent;
         --wy-info-panel-padding: var(--spacing-md, 16px);
         --wy-info-panel-font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
     }
@@ -11823,18 +11824,19 @@ class gs extends f {
   _renderVariable(e) {
     const t = e.inputType || e.type || "text";
     if (t === "toggle") {
-      const o = Array.isArray(e.options) && e.options.length >= 2 ? [e.options[0], e.options[1]] : ["", "true"], i = Array.isArray(e.optionDescriptions) && e.optionDescriptions.length >= 2 ? [e.optionDescriptions[0], e.optionDescriptions[1]] : null, a = e.size || "default", s = this._values[e.name], c = s ?? o[0];
+      const o = Array.isArray(e.options) && e.options.length >= 2 ? [e.options[0], e.options[1]] : ["", "true"], i = Array.isArray(e.labels) && e.labels.length >= 2 ? [e.labels[0], e.labels[1]] : null, a = Array.isArray(e.optionDescriptions) && e.optionDescriptions.length >= 2 ? [e.optionDescriptions[0], e.optionDescriptions[1]] : null, s = e.size || "default", c = this._values[e.name], p = c ?? o[0];
       return l`
         <div class="form-group">
           <wy-option-toggle
             .label="${e.label || ""}"
             .options="${o}"
-            .valueDescriptions="${i}"
-            .value="${c}"
-            size="${a}"
+            .labels="${i}"
+            .valueDescriptions="${a}"
+            .value="${p}"
+            size="${s}"
             variant="switch"
             show-selected-value-text
-            @change="${(p) => this._handleInput(e.name, p.detail.value)}"
+            @change="${(g) => this._handleInput(e.name, g.detail.value)}"
           ></wy-option-toggle>
         </div>
       `;
