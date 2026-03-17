@@ -985,7 +985,6 @@ export class WyPromptModal extends LitElement {
           <wy-option-toggle
             .label="${v.label || ''}"
             .options="${options}"
-            .labels="${['Off', 'On']}"
             .value="${toggleValue}"
             variant="switch"
             show-selected-value-text
