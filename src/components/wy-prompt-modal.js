@@ -278,6 +278,7 @@ export class WyPromptModal extends LitElement {
         justify-content: space-between;
         align-items: flex-end;
         gap: 24px;
+        margin-bottom: var(--spacing-lg, 24px);
     }
 
     /* Header-main inside content (for multi-step prompts) */
@@ -330,7 +331,6 @@ export class WyPromptModal extends LitElement {
       line-height: 1.6;
       color: var(--md-sys-color-text-muted);
       margin: 0;
-      max-width: 500px;
     }
 
     .customize-btn {
@@ -978,6 +978,7 @@ export class WyPromptModal extends LitElement {
       const valueDescriptions = Array.isArray(v.optionDescriptions) && v.optionDescriptions.length >= 2
         ? [v.optionDescriptions[0], v.optionDescriptions[1]]
         : null;
+      const size = v.size || 'default';
       const currentValue = this._values[v.name];
       const toggleValue = currentValue !== undefined && currentValue !== null
         ? currentValue
@@ -990,6 +991,7 @@ export class WyPromptModal extends LitElement {
             .options="${options}"
             .valueDescriptions="${valueDescriptions}"
             .value="${toggleValue}"
+            size="${size}"
             variant="switch"
             show-selected-value-text
             @change="${(e) => this._handleInput(v.name, e.detail.value)}"

@@ -218,7 +218,7 @@ export class WyOptionToggle extends LitElement {
         }
 
         .selected-value-text {
-            margin: var(--spacing-md, 16px) 0 0 0;
+            margin: var(--spacing-sm, 8px) 0 0 0;
             color: color-mix(in srgb, var(--md-sys-color-on-surface, #121714) 86%, transparent);
             font-family: var(--font-body, 'DM Sans', sans-serif);
             font-size: var(--md-sys-typescale-body-medium-size, 1rem);
