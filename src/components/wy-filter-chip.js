@@ -13,17 +13,22 @@ export class WyFilterChip extends LitElement {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: var(--wy-filter-chip-padding, 4px 12px);
+      padding: var(--wy-filter-chip-padding, 5px 13px);
+      min-height: var(--wy-filter-chip-min-height, 28px);
+      box-sizing: border-box;
       border-radius: 9999px;
       font-family: var(--wy-filter-chip-font-family, var(--font-sans, 'DM Sans', sans-serif));
       font-size: var(--wy-filter-chip-font-size, 11px);
       font-weight: var(--wy-filter-chip-font-weight, 500);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition:
+        background-color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard),
+        color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard),
+        transform var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard);
       
       /* Opaque background by default; overridden by variant */
       background-color: var(--wy-filter-chip-bg, var(--md-sys-color-surface));
-      border: 1px solid var(--wy-filter-chip-border, transparent);
+      border: 0;
       color: var(--wy-filter-chip-text, var(--md-sys-color-on-surface));
       box-shadow: none;
       
@@ -34,20 +39,8 @@ export class WyFilterChip extends LitElement {
       overflow: hidden;
     }
 
-    /* Material Design 3 state layer for hover */
-    :host::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: var(--md-sys-color-on-surface);
-      opacity: 0;
-      transition: opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard);
-      pointer-events: none;
-      border-radius: inherit;
-    }
-
-    :host(:hover:not([active]))::before {
-      opacity: var(--md-sys-state-hover-opacity, 0.08);
+    :host(:hover:not([active])) {
+      background-color: var(--wy-filter-chip-hover-bg, color-mix(in srgb, var(--wy-button-primary-bg, var(--md-sys-color-primary)) 15%, transparent));
     }
 
     :host(:focus-visible) {

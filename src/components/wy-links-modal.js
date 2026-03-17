@@ -397,14 +397,14 @@ export class WyLinksModal extends LitElement {
       content: '';
       position: absolute;
       inset: 0;
-      background-color: var(--md-sys-color-primary);
+      background-color: color-mix(in srgb, var(--wy-button-primary-bg, var(--md-sys-color-primary)) 15%, transparent);
       opacity: 0;
       transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
       pointer-events: none;
     }
 
     .link-chip:hover::before {
-      opacity: var(--md-sys-state-hover-opacity);
+      opacity: 1;
     }
 
     /* Chip pressed state */

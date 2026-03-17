@@ -259,7 +259,6 @@
   --wy-filter-chip-text-hover: var(--md-sys-color-on-surface);
   --wy-filter-chip-border: transparent; /* No border */
   --wy-filter-chip-border-hover: transparent;
-  --wy-filter-chip-hover-bg: var(--md-sys-color-surface-variant);
   --wy-filter-chip-focus: var(--md-sys-color-primary);
   --wy-filter-chip-active-bg: var(--md-sys-color-primary); /* Hunter green */
   --wy-filter-chip-active-fg: var(--md-sys-color-on-primary); /* White text */
@@ -270,7 +269,9 @@
   --wy-filter-chip-font-weight: 500;
   --wy-filter-chip-font-weight-active: 600;
   --wy-filter-chip-font-style: normal;
-  --wy-filter-chip-padding: 4px 12px; /* Match search height for consistency */
+  --wy-filter-chip-padding: 5px 13px; /* Compensate for removed border while preserving chip footprint */
+  --wy-filter-chip-min-height: 28px;
+  --wy-filter-chip-hover-bg: color-mix(in srgb, var(--wy-button-primary-bg) 15%, transparent);
 
   /* --- BUTTON SYSTEM TOKENS --- */
   /* Visual Identity Guide v1.0 - Button System */
