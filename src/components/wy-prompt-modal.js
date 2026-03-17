@@ -80,7 +80,7 @@ export class WyPromptModal extends LitElement {
     }
     
     // When variables change for single-step prompts, populate _values
-    if (changedProperties.has('variables') && this.variables && this.variables.length > 0) {
+    if (changedProperties.has('variables') && this.variables) {
       const newValues = {};
       this.variables.forEach(v => {
         newValues[v.name] = v.value || '';
