@@ -4,6 +4,7 @@ export class WyOptionToggle extends LitElement {
     static properties = {
         options: { type: Array },
         labels: { type: Array },
+        valueDescriptions: { type: Array },
         value: { type: String },
         checked: { type: Boolean, reflect: true },
         label: { type: String },
@@ -19,6 +20,7 @@ export class WyOptionToggle extends LitElement {
         super();
         this.options = null;
         this.labels = null;
+        this.valueDescriptions = null;
         this.value = '';
         this.checked = false;
         this.label = '';
@@ -285,6 +287,14 @@ export class WyOptionToggle extends LitElement {
         return this.options[this._getSelectedIndex()] ?? '';
     }
 
+    _getSelectedDescription() {
+        const index = this._getSelectedIndex();
+        if (Array.isArray(this.valueDescriptions) && this.valueDescriptions.length === 2 && this.valueDescriptions[index]) {
+            return this.valueDescriptions[index];
+        }
+        return this._getSelectedValue();
+    }
+
     _getA11yLabel() {
         return this.ariaLabel || this.label || 'Option toggle';
     }
@@ -398,7 +408,7 @@ export class WyOptionToggle extends LitElement {
                 </div>
             `}
             ${showSelectedValueText ? html`
-                <p class="selected-value-text">${this._getSelectedValue()}</p>
+                <p class="selected-value-text">${this._getSelectedDescription()}</p>
             ` : ''}
         `;
     }

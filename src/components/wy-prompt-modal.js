@@ -975,6 +975,9 @@ export class WyPromptModal extends LitElement {
       const options = Array.isArray(v.options) && v.options.length >= 2
         ? [v.options[0], v.options[1]]
         : ['', 'true'];
+      const valueDescriptions = Array.isArray(v.optionDescriptions) && v.optionDescriptions.length >= 2
+        ? [v.optionDescriptions[0], v.optionDescriptions[1]]
+        : null;
       const currentValue = this._values[v.name];
       const toggleValue = currentValue !== undefined && currentValue !== null
         ? currentValue
@@ -985,6 +988,7 @@ export class WyPromptModal extends LitElement {
           <wy-option-toggle
             .label="${v.label || ''}"
             .options="${options}"
+            .valueDescriptions="${valueDescriptions}"
             .value="${toggleValue}"
             variant="switch"
             show-selected-value-text
