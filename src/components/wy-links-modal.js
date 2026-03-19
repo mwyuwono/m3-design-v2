@@ -107,25 +107,7 @@ export class WyLinksModal extends LitElement {
     :host {
       display: block;
       position: relative;
-      
-      /* Spacing scale variables - provide fallbacks if root variables aren't available */
-      /* CSS will use root values if they cascade, otherwise use these fallbacks */
-      --spacing-sm: 0.5rem;   /* 8px fallback */
-      --spacing-lg: 1.5rem;   /* 24px fallback */
-      --spacing-xl: 2rem;     /* 32px fallback */
-      --spacing-2xl: 3rem;   /* 48px fallback */
-      
-      /* Component-specific color tokens matching Tailwind stone palette from reference design */
-      /* These exact colors are required for visual fidelity - not using generic semantic tokens */
-      --wy-links-modal-title-color: #1C1917;        /* stone-900: rgb(28, 25, 23) */
-      --wy-links-modal-header-color: #292524;       /* stone-800: rgb(41, 37, 36) */
-      --wy-links-modal-chip-text-color: #44403C;    /* stone-700: rgb(68, 64, 60) */
-      --wy-links-modal-close-color: #A8A29E;        /* stone-400: rgb(168, 162, 158) */
-      --wy-links-modal-chip-border: #D9D4C7;        /* accent-taupe: rgb(217, 212, 199) */
     }
-    
-    /* Override with root values if they cascade (they should, but :host shadows them) */
-    /* So we need to explicitly reference root in the styles that use these variables */
 
     /* Material Symbols */
     .material-symbols-outlined {
@@ -211,8 +193,8 @@ export class WyLinksModal extends LitElement {
 
     /* Content wrapper with padding - matches mockup p-8 */
     .modal-content {
-      padding: var(--spacing-xl);
-      padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0px));
+      padding: var(--spacing-xl, 2rem);
+      padding-bottom: calc(var(--spacing-xl, 2rem) + env(safe-area-inset-bottom, 0px));
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -235,7 +217,7 @@ export class WyLinksModal extends LitElement {
       }
 
       .modal-content {
-        padding: var(--spacing-lg);
+        padding: var(--spacing-lg, 1.5rem);
         /* Extra padding for mobile browser controls (toolbar, home indicator) */
         padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
         height: 100%;
@@ -243,8 +225,8 @@ export class WyLinksModal extends LitElement {
       }
 
       .close-button {
-        top: var(--spacing-lg);
-        right: var(--spacing-lg);
+        top: var(--spacing-lg, 1.5rem);
+        right: var(--spacing-lg, 1.5rem);
       }
 
       .modal-title {
@@ -252,7 +234,7 @@ export class WyLinksModal extends LitElement {
       }
 
       .title-wrapper {
-        margin-bottom: var(--spacing-xl);
+        margin-bottom: var(--spacing-xl, 2rem);
       }
 
       .sections-container {
@@ -263,8 +245,8 @@ export class WyLinksModal extends LitElement {
     /* Close button - matches mockup exactly */
     .close-button {
       position: absolute;
-      top: var(--spacing-xl);
-      right: var(--spacing-xl);
+      top: var(--spacing-xl, 2rem);
+      right: var(--spacing-xl, 2rem);
       background: none;
       border: none;
       padding: 8px;
@@ -272,7 +254,7 @@ export class WyLinksModal extends LitElement {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: var(--wy-links-modal-close-color); /* stone-400 from reference */
+      color: var(--wy-links-modal-close-color, #A8A29E); /* stone-400 from reference */
       transition: color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       overflow: hidden;
       z-index: 10;
@@ -316,7 +298,7 @@ export class WyLinksModal extends LitElement {
 
     /* Title wrapper with mb-12 */
     .title-wrapper {
-      margin-bottom: var(--spacing-2xl);
+      margin-bottom: var(--spacing-2xl, 3rem);
       flex-shrink: 0; /* Title stays fixed, doesn't shrink */
     }
 
@@ -326,7 +308,7 @@ export class WyLinksModal extends LitElement {
       font-size: 2.25rem; /* text-4xl = 36px */
       font-weight: 500; /* font-medium */
       line-height: 1.2;
-      color: var(--wy-links-modal-title-color); /* stone-900 from reference */
+      color: var(--wy-links-modal-title-color, #1C1917); /* stone-900 from reference */
       margin: 0;
     }
 
@@ -355,7 +337,7 @@ export class WyLinksModal extends LitElement {
       font-size: 1.25rem; /* text-xl = 20px */
       font-weight: 500; /* font-medium */
       line-height: 1.2;
-      color: var(--wy-links-modal-header-color); /* stone-800 from reference */
+      color: var(--wy-links-modal-header-color, #292524); /* stone-800 from reference */
       margin: 0 0 1.25rem 0; /* 20px = 1.25rem */
     }
 
@@ -369,7 +351,7 @@ export class WyLinksModal extends LitElement {
     .chips-container {
       display: flex;
       flex-wrap: wrap;
-      gap: calc(var(--spacing-sm) * 1.5); /* 12px = 1.5 * 8px */
+      gap: calc(var(--spacing-sm, 0.5rem) * 1.5); /* 12px = 1.5 * 8px */
     }
 
     /* Link chip button - matches mockup exactly */
@@ -377,7 +359,7 @@ export class WyLinksModal extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: calc(var(--spacing-sm) * 1.25) var(--spacing-lg); /* 10px 24px = 1.25 * 8px, 24px */
+      padding: calc(var(--spacing-sm, 0.5rem) * 1.25) var(--spacing-lg, 1.5rem); /* 10px 24px = 1.25 * 8px, 24px */
       border-radius: var(--md-sys-shape-corner-full);
       font-family: var(--font-sans); /* DM Sans */
       font-size: 0.875rem; /* text-sm = 14px */
@@ -385,7 +367,7 @@ export class WyLinksModal extends LitElement {
       cursor: pointer;
       border: none;
       background-color: var(--md-sys-color-surface-container-lowest);
-      color: var(--wy-links-modal-chip-text-color); /* stone-700 from reference */
+      color: var(--wy-links-modal-chip-text-color, #44403C); /* stone-700 from reference */
       text-decoration: none;
       transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       position: relative;

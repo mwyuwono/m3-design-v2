@@ -122,10 +122,6 @@ export class WyPromptModal extends LitElement {
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.25s ease;
-      --wy-color-surface-light: #F5F2EA;
-      --wy-color-text-primary: #2C4C3B;
-      --wy-color-badge-bg: #E8E4D9;
-      --wy-color-focus-ring: rgba(44, 76, 59, 0.12);
     }
 
     :host([open]) {
@@ -147,8 +143,8 @@ export class WyPromptModal extends LitElement {
       width: 90%;
       max-width: 800px;
       max-height: 90vh;
-      background: var(--wy-color-surface-light);
-      border-radius: 16px; /* 16px radius as per ref */
+      background: var(--wy-prompt-modal-surface, var(--md-sys-color-surface));
+      border-radius: var(--md-sys-shape-corner-medium, 16px);
       box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
       transform: translate(-50%, -50%) scale(0.95);
       transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
@@ -289,8 +285,8 @@ export class WyPromptModal extends LitElement {
     .badge {
       display: none; /* Hidden on all screen sizes */
       padding: 4px 12px;
-      background: var(--wy-color-badge-bg);
-      color: var(--wy-color-text-primary);
+      background: var(--wy-prompt-modal-badge-bg, color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent));
+      color: var(--md-sys-color-text-heading);
       border-radius: 999px;
       font-family: var(--font-sans, 'DM Sans', sans-serif);
       font-size: 0.75rem;
@@ -304,12 +300,6 @@ export class WyPromptModal extends LitElement {
     }
 
     @media (prefers-color-scheme: dark) {
-        :host {
-          --wy-color-surface-light: var(--md-sys-color-surface);
-          --wy-color-text-primary: var(--md-sys-color-text-heading, #8DE0B0); /* High-contrast mint for dark mode */
-          --wy-color-badge-bg: rgba(255, 255, 255, 0.12);
-          --wy-color-focus-ring: rgba(141, 224, 176, 0.2);
-        }
         .badge {
           color: var(--md-sys-color-on-surface);
         }
@@ -320,7 +310,7 @@ export class WyPromptModal extends LitElement {
       font-size: 2.5rem; /* Larger Title */
       font-weight: 500;
       margin: 0 0 12px 0;
-      color: var(--wy-color-text-primary);
+      color: var(--md-sys-color-text-heading);
       line-height: 1.1;
     }
 
@@ -387,7 +377,7 @@ export class WyPromptModal extends LitElement {
     }
 
     .clear-btn:focus-visible {
-        outline: 3px solid var(--wy-color-focus-ring);
+        outline: 3px solid var(--wy-prompt-modal-focus-ring, color-mix(in srgb, var(--md-sys-color-primary) 18%, transparent));
         outline-offset: 2px;
     }
 
@@ -407,13 +397,13 @@ export class WyPromptModal extends LitElement {
     }
 
     .tab-item:hover {
-        color: var(--wy-color-text-primary);
+        color: var(--md-sys-color-text-heading);
     }
 
     .tab-item.active {
-        color: var(--wy-color-text-primary);
+        color: var(--md-sys-color-text-heading);
         font-weight: 700;
-        border-bottom-color: var(--wy-color-text-primary);
+        border-bottom-color: var(--md-sys-color-text-heading);
     }
     
     /* CONTENT */
@@ -491,7 +481,7 @@ export class WyPromptModal extends LitElement {
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.1em;
-        color: var(--wy-color-text-primary);
+        color: var(--md-sys-color-text-heading);
         margin-bottom: 8px;
     }
 
@@ -511,7 +501,7 @@ export class WyPromptModal extends LitElement {
     .form-group input:focus, .form-group textarea:focus {
         outline: none;
         border-color: var(--md-sys-color-primary);
-        box-shadow: 0 0 0 2px var(--wy-color-focus-ring);
+        box-shadow: 0 0 0 2px var(--wy-prompt-modal-focus-ring, color-mix(in srgb, var(--md-sys-color-primary) 18%, transparent));
     }
 
     .helper-text {
@@ -590,7 +580,7 @@ export class WyPromptModal extends LitElement {
     .stepper-container {
       position: sticky;
       top: 0;
-      background: var(--wy-color-surface-light);
+      background: var(--wy-prompt-modal-surface, var(--md-sys-color-surface));
       z-index: 10;
       margin-bottom: var(--spacing-md, 16px);
     }

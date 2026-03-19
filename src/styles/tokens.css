@@ -88,6 +88,12 @@
   /* Status color for backup sync indicator - Tailwind status-green from reference design */
   /* This is a semantic success color that doesn't exist in M3 palette */
   --wy-status-success-color: #438E64;           /* rgb(67, 142, 100) - Tailwind custom status-green */
+
+  /* Toast semantic colors */
+  --wy-toast-success-color: var(--md-sys-color-primary);
+  --wy-toast-error-color: #B3261E;
+  --wy-toast-warning-color: var(--md-sys-color-secondary);
+  --wy-toast-info-color: var(--md-sys-color-secondary);
   
   /* Glass morphism effect for scrolled header state */
   /* Semi-transparent background with backdrop blur for sticky header */
@@ -243,6 +249,7 @@
   --wy-controls-bar-bg: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
   --wy-controls-bar-fg: var(--md-sys-color-on-primary);
   --wy-controls-search-bg: var(--md-sys-color-surface-container-lowest); /* White background */
+  --wy-controls-search-bg-focus: var(--wy-controls-search-bg);
   --wy-controls-toggle-bg: var(--md-sys-color-surface-container-high);
   --wy-controls-chip-text: color-mix(in srgb, var(--wy-controls-bar-fg) 60%, transparent);
   --wy-controls-chip-text-hover: var(--wy-controls-bar-fg);
@@ -393,6 +400,12 @@
     /* Library Header Component Colors (dark mode) */
     --wy-status-success-color: #66BB8A;         /* Lighter green for better contrast in dark mode */
     --wy-library-header-scrolled-bg: rgba(18, 18, 18, 0.3);  /* Dark with 30% opacity for glass morphism */
+
+    /* Toast semantic colors (dark mode) */
+    --wy-toast-success-color: #66BB8A;
+    --wy-toast-error-color: #FFB4AB;
+    --wy-toast-warning-color: #E4C086;
+    --wy-toast-info-color: #D7D3C8;
     
     /* Button System Tokens (dark mode) */
     --wy-button-primary-hover-bg: #3A5F4A;      /* Lighter hover in dark mode */

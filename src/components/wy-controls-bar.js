@@ -255,7 +255,7 @@ export class WyControlsBar extends LitElement {
 
     .search-input:focus {
       outline: none;
-      background-color: var(--md-sys-color-surface, #fff);
+      background-color: var(--wy-controls-search-bg-focus, var(--wy-controls-search-bg, var(--md-sys-color-surface, #fff)));
       border-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 20%, transparent);
       box-shadow: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 20%, transparent);
     }

@@ -95,19 +95,19 @@ export class WyToast extends LitElement {
 
     /* Variant-specific icon colors */
     .icon.variant-success {
-      color: var(--md-sys-color-primary-fixed, #4CAF50);
+      color: var(--wy-toast-success-color, var(--md-sys-color-primary));
     }
 
     .icon.variant-error {
-      color: var(--md-sys-color-error, #B3261E);
+      color: var(--wy-toast-error-color, #B3261E);
     }
 
     .icon.variant-warning {
-      color: var(--md-sys-color-tertiary, #E4A93C);
+      color: var(--wy-toast-warning-color, var(--md-sys-color-secondary));
     }
 
     .icon.variant-info {
-      color: var(--md-sys-color-secondary, #625B71);
+      color: var(--wy-toast-info-color, var(--md-sys-color-secondary));
     }
 
     .message {
