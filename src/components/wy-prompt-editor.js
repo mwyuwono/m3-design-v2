@@ -394,30 +394,65 @@ export class WyPromptEditor extends LitElement {
         this.requestUpdate();
     }
 
-    _handleSave() {
-        if (this._promptMode === 'multi') {
-            // For multi-step prompts: Get fresh template values from each step editor
-            const stepEditors = this.shadowRoot.querySelectorAll('wy-step-editor');
-            stepEditors.forEach((stepEditor, index) => {
-                const codeTextarea = stepEditor.shadowRoot?.querySelector('wy-code-textarea');
-                if (codeTextarea) {
-                    const textarea = codeTextarea.shadowRoot?.querySelector('textarea');
-                    if (textarea && this._editedPrompt.steps[index]) {
-                        // Read current DOM value directly to ensure we get latest edits
-                        this._editedPrompt.steps[index].template = textarea.value;
-                    }
-                }
-            });
-        } else {
-            // For single-step prompts: Get fresh template value from the textarea component
-            const codeTextarea = this.shadowRoot.querySelector('wy-code-textarea');
-            if (codeTextarea) {
-                const textarea = codeTextarea.shadowRoot?.querySelector('textarea');
-                if (textarea) {
-                    // Read current DOM value directly to ensure we get latest edits
-                    this._editedPrompt.template = textarea.value;
-                }
+    _getTextareaValue(codeTextarea) {
+        const textarea = codeTextarea?.shadowRoot?.querySelector('textarea');
+        return textarea ? textarea.value : null;
+    }
+
+    _syncStandardTemplateForSave() {
+        const codeTextarea = this.shadowRoot.querySelector('wy-code-textarea');
+        const value = this._getTextareaValue(codeTextarea);
+        if (value !== null) {
+            this._editedPrompt.template = value;
+        }
+    }
+
+    _syncStepTemplatesForSave(stepEditors, steps) {
+        if (!stepEditors || !steps) return;
+
+        stepEditors.forEach((stepEditor, index) => {
+            const codeTextarea = stepEditor.shadowRoot?.querySelector('wy-code-textarea');
+            const value = this._getTextareaValue(codeTextarea);
+            if (value !== null && steps[index]) {
+                steps[index].template = value;
             }
+        });
+    }
+
+    _syncVariationTemplatesForSave() {
+        const variationEditor = this.shadowRoot.querySelector('wy-variation-editor');
+        const variations = this._editedPrompt?.variations;
+        if (!variationEditor || !variations) return;
+
+        const variationCards = variationEditor.shadowRoot?.querySelectorAll('.variation-card') || [];
+        variationCards.forEach((card, index) => {
+            const variation = variations[index];
+            if (!variation) return;
+
+            if (variation.steps && variation.steps.length > 0) {
+                const stepEditors = card.querySelectorAll('wy-step-editor');
+                this._syncStepTemplatesForSave(stepEditors, variation.steps);
+                return;
+            }
+
+            const codeTextarea = card.querySelector('wy-code-textarea');
+            const value = this._getTextareaValue(codeTextarea);
+            if (value !== null) {
+                variation.template = value;
+            }
+        });
+    }
+
+    _handleSave() {
+        if (this._editedPrompt?.variations?.length > 0) {
+            this._syncVariationTemplatesForSave();
+        } else if (this._promptMode === 'multi') {
+            this._syncStepTemplatesForSave(
+                this.shadowRoot.querySelectorAll('wy-step-editor'),
+                this._editedPrompt.steps
+            );
+        } else {
+            this._syncStandardTemplateForSave();
         }
         
         // Show git info banner after save
@@ -820,7 +855,7 @@ export class WyPromptEditor extends LitElement {
                                     .variables="${variableNames}"
                                     placeholder="Enter your prompt template here. Use {{variable-name}} for substitutions."
                                     rows="12"
-                                    @input="${(e) => this._handleFieldChange('template', e.detail.value)}"
+                                    @value-input="${(e) => this._handleFieldChange('template', e.detail.value)}"
                                 ></wy-code-textarea>
                             </div>
                         ` : ''}

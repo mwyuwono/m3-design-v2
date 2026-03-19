@@ -420,10 +420,13 @@ export class WyPromptModal extends LitElement {
     }
 
     .variation-selector-container {
-        padding: var(--spacing-xl, 32px) var(--spacing-xl, 32px) var(--spacing-md, 16px);
+        margin: 0 var(--spacing-xl, 32px);
+        padding: var(--spacing-xl, 32px);
         display: flex;
         flex-direction: column;
         gap: var(--spacing-md, 16px);
+        background-color: var(--md-sys-color-surface-container-high);
+        border-radius: var(--md-sys-shape-corner-medium, 12px);
     }
 
     .variation-selector-container wy-dropdown {
@@ -432,9 +435,23 @@ export class WyPromptModal extends LitElement {
 
     .variation-description-panel {
         margin-top: 0;
-        --wy-info-panel-bg: var(--md-sys-color-border-variant, #EBE5DA);
-        --wy-info-panel-padding: var(--spacing-md, 16px);
+        --wy-info-panel-bg: transparent;
+        --wy-info-panel-padding: 0;
         --wy-info-panel-font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
+    }
+
+    .variation-description-heading {
+        margin: 0 0 var(--spacing-xxs, 4px);
+        font-family: var(--font-sans, 'DM Sans', sans-serif);
+        font-size: var(--md-sys-typescale-label-medium-size, 0.75rem);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .variation-description-copy {
+        margin: 0;
     }
 
     /* Legacy selector styles (kept for backwards compatibility) */
@@ -834,6 +851,7 @@ export class WyPromptModal extends LitElement {
       : this.template;
 
     const compiledPrompt = this._compilePrompt(currentTemplate);
+    const activeVariation = this.variations[this.activeVariationIndex];
 
     return html`
       <div class="scrim" @click="${this._close}"></div>
@@ -921,14 +939,15 @@ export class WyPromptModal extends LitElement {
                 <div class="variation-selector-container">
                   <wy-dropdown
                     label="STYLE"
-                    .value="${this.variations[this.activeVariationIndex]?.id || ''}"
+                    .value="${activeVariation?.id || ''}"
                     .options="${this.variations.map(v => ({ value: v.id, label: v.name }))}"
                     variant="subtle"
                     @change="${this._handleVariationDropdownChange}"
                   ></wy-dropdown>
-                  ${this.variations[this.activeVariationIndex]?.description ? html`
+                  ${activeVariation?.description ? html`
                     <wy-info-panel class="variation-description-panel">
-                      ${this.variations[this.activeVariationIndex].description}
+                      <p class="variation-description-heading">Variant: ${activeVariation.name}</p>
+                      <p class="variation-description-copy">${activeVariation.description}</p>
                     </wy-info-panel>
                   ` : ''}
                 </div>

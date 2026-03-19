@@ -652,7 +652,7 @@ export class WyVariationEditor extends LitElement {
                                         .variables="${variableNames}"
                                         placeholder="Enter your prompt template here..."
                                         rows="12"
-                                        @input="${(e) => this._handleTemplateChange(index, e)}"
+                                        @value-input="${(e) => this._handleTemplateChange(index, e)}"
                                         @click="${(e) => e.stopPropagation()}"
                                     ></wy-code-textarea>
                                 </div>

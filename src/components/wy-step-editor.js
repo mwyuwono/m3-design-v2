@@ -382,7 +382,7 @@ export class WyStepEditor extends LitElement {
                                     .variables="${variableNames}"
                                     placeholder="Enter your prompt template here..."
                                     rows="12"
-                                    @input="${this._handleTemplateChange}"
+                                    @value-input="${this._handleTemplateChange}"
                                 ></wy-code-textarea>
                             </div>
                         </div>

@@ -108,7 +108,7 @@ export class WyCodeTextarea extends LitElement {
         this.value = e.target.value;
         
         // Notify parent of the change
-        this.dispatchEvent(new CustomEvent('input', {
+        this.dispatchEvent(new CustomEvent('value-input', {
             detail: { value: this.value },
             bubbles: true,
             composed: true
@@ -117,7 +117,7 @@ export class WyCodeTextarea extends LitElement {
 
     _handleChange(e) {
         this.value = e.target.value; // Update on blur
-        this.dispatchEvent(new CustomEvent('change', {
+        this.dispatchEvent(new CustomEvent('value-change', {
             detail: { value: this.value },
             bubbles: true,
             composed: true
@@ -147,7 +147,7 @@ export class WyCodeTextarea extends LitElement {
         this.value = textBefore + insertion + textAfter;
         
         // Dispatch input event
-        this.dispatchEvent(new CustomEvent('input', {
+        this.dispatchEvent(new CustomEvent('value-input', {
             detail: { value: this.value },
             bubbles: true,
             composed: true
