@@ -353,6 +353,7 @@
       ],
       "notes": [
         "Automatically detects scroll position (50px threshold) and transforms to floating pill",
+        "Container shape can be themed with --wy-controls-container-bg, --wy-controls-container-radius, --wy-controls-container-margin-inline, and responsive --wy-controls-container-padding-* variables",
         "Scrolled state: sticky positioning, backdrop blur, hides toggles, expands search (192px → 280px)",
         "Scrolled padding: uniform 16px all sides (matches --wy-controls-container-gap-scrolled)",
         "Mobile: disables sticky pill, wraps controls, search becomes full-width"

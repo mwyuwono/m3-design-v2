@@ -157,6 +157,12 @@ export class WyControlsBar extends LitElement {
       --wy-controls-container-max-width: 1600px;
       --wy-controls-container-gap: 12px;
       --wy-controls-container-gap-scrolled: 16px;
+      --wy-controls-container-padding-desktop: 0 var(--wy-controls-padding-desktop, 32px);
+      --wy-controls-container-padding-tablet: 0 var(--wy-controls-padding-tablet, 24px);
+      --wy-controls-container-padding-mobile: 0 var(--wy-controls-padding-mobile, 16px);
+      --wy-controls-container-margin-inline: auto;
+      --wy-controls-container-bg: transparent;
+      --wy-controls-container-radius: 0;
     }
 
     /* Sticky Pill State - when scrolled */
@@ -208,8 +214,10 @@ export class WyControlsBar extends LitElement {
       align-items: center;
       gap: var(--wy-controls-container-gap, 12px);
       max-width: var(--wy-controls-container-max-width, 1600px);
-      margin: 0 auto;
-      padding: 0 var(--wy-controls-padding-desktop, 32px);
+      margin: 0 var(--wy-controls-container-margin-inline, auto);
+      padding: var(--wy-controls-container-padding-desktop, 0 var(--wy-controls-padding-desktop, 32px));
+      background-color: var(--wy-controls-container-bg, transparent);
+      border-radius: var(--wy-controls-container-radius, 0);
     }
 
     :host([data-scrolled]) .controls-container {
@@ -384,7 +392,7 @@ export class WyControlsBar extends LitElement {
     /* Tablet responsive padding */
     @media (min-width: 768px) and (max-width: 1023px) {
       .controls-container {
-        padding: 0 var(--wy-controls-padding-tablet, 24px);
+        padding: var(--wy-controls-container-padding-tablet, 0 var(--wy-controls-padding-tablet, 24px));
       }
     }
 
@@ -408,7 +416,7 @@ export class WyControlsBar extends LitElement {
       .controls-container {
         flex-wrap: wrap;
         gap: 8px;
-        padding: 0 var(--wy-controls-padding-mobile, 16px);
+        padding: var(--wy-controls-container-padding-mobile, 0 var(--wy-controls-padding-mobile, 16px));
       }
 
       .search-section {
