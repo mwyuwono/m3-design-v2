@@ -234,10 +234,31 @@ export class WyControlsBar extends LitElement {
             this.style.setProperty('background', 'var(--wy-controls-container-bg, transparent)');
             this.style.setProperty('backdrop-filter', 'none');
             this.style.setProperty('-webkit-backdrop-filter', 'none');
+            this.style.setProperty('position', 'fixed');
+            this.style.setProperty('top', '16px');
+            this.style.setProperty('left', '50%');
+            this.style.setProperty('z-index', '100');
+            this.style.setProperty('width', 'auto');
+            this.style.setProperty('max-width', 'min(900px, calc(100% - 32px))');
+            this.style.setProperty('margin-inline', '0');
+            this.style.setProperty(
+                'transform',
+                this.scrollState === 'returning'
+                    ? 'translateX(-50%) translateY(-8px) scale(0.98)'
+                    : 'translateX(-50%)'
+            );
         } else {
             this.style.removeProperty('background');
             this.style.removeProperty('backdrop-filter');
             this.style.removeProperty('-webkit-backdrop-filter');
+            this.style.removeProperty('position');
+            this.style.removeProperty('top');
+            this.style.removeProperty('left');
+            this.style.removeProperty('z-index');
+            this.style.removeProperty('width');
+            this.style.removeProperty('max-width');
+            this.style.removeProperty('margin-inline');
+            this.style.removeProperty('transform');
         }
     }
 
