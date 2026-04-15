@@ -1,6 +1,6 @@
 # Weaver-Yuwono M3 Design System
 
-**Single Source of Truth** | Version 1.0 | Last Updated: January 2026
+**Single Source of Truth** | Version 1.0 | Last Updated: April 15, 2026 at 12:34 PM EDT
 
 > **📝 Document Maintenance:** When making changes to this document, update the version number and "Last Updated" timestamp above and at the end of the document. Timestamp format: `Month Day, YYYY at HH:MM AM/PM EST` (e.g., "January 27, 2026 at 3:45 PM EST").
 
@@ -25,6 +25,10 @@ A production-ready, modular design system built on Material Design 3, featuring 
 ```css
 .controls-bar {
   --wy-filter-chip-active-bg: #E8F5E9; /* Explicit hex for light-theme-only apps */
+  --wy-controls-container-bg: #ACAAA0; /* App-specific controls container color */
+  --wy-controls-container-padding-desktop: 8px 8px;
+  --wy-controls-container-margin-inline: 8px;
+  --wy-controls-container-radius: 100px;
 }
 ```
 
@@ -656,5 +660,5 @@ Private - Weaver-Yuwono Family Office
 ---
 
 **Version**: 1.0.0  
-**Last Updated**: January 27, 2026 at 11:15 PM EST  
+**Last Updated**: April 15, 2026 at 12:34 PM EDT
 **Status**: Production Ready
