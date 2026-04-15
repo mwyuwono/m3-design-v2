@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 export class WyPromptModal extends LitElement {
   static properties = {
@@ -321,6 +322,16 @@ export class WyPromptModal extends LitElement {
       line-height: 1.6;
       color: var(--md-sys-color-text-muted);
       margin: 0;
+    }
+
+    .description-text ol,
+    .description-text ul {
+      margin: 2px 0 0;
+      padding-left: 1.4em;
+    }
+
+    .description-text li + li {
+      margin-top: 2px;
     }
 
     .customize-btn {
@@ -788,6 +799,35 @@ export class WyPromptModal extends LitElement {
     this.descriptionExpanded = !this.descriptionExpanded;
   }
 
+  // Render description as lightweight markdown (ordered/unordered lists, bold)
+  _renderDescriptionMarkdown(text) {
+    if (!text) return '';
+    const escapeHTML = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const processInline = (str) => escapeHTML(str).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    if (!/^(\d+\.|-|\*) /m.test(text)) return escapeHTML(text);
+    const lines = text.split('\n');
+    const parts = [];
+    let listItems = null;
+    let listType = null;
+    const flushList = () => {
+      if (listItems) {
+        parts.push(`<${listType}>${listItems.join('')}</${listType}>`);
+        listItems = null; listType = null;
+      }
+    };
+    lines.forEach(line => {
+      const trimmed = line.trim();
+      const ol = trimmed.match(/^(\d+)\.\s+(.+)/);
+      if (ol) { if (listType === 'ul') flushList(); if (!listItems) { listItems = []; listType = 'ol'; } listItems.push(`<li>${processInline(ol[2])}</li>`); return; }
+      const ul = trimmed.match(/^[-*]\s+(.+)/);
+      if (ul) { if (listType === 'ol') flushList(); if (!listItems) { listItems = []; listType = 'ul'; } listItems.push(`<li>${processInline(ul[1])}</li>`); return; }
+      flushList();
+      if (trimmed) parts.push(processInline(trimmed));
+    });
+    flushList();
+    return parts.join('');
+  }
+
   // Render multi-step body content
   _renderMultiStepBody() {
     // Guard against invalid step index
@@ -900,7 +940,7 @@ export class WyPromptModal extends LitElement {
               <div class="header-main">
                   <div class="title-group">
                       <h2 @click="${this._toggleDescription}">${this.title}</h2>
-                      <p class="description-text ${this.descriptionExpanded ? 'expanded' : ''}">${this.description}</p>
+                      <div class="description-text ${this.descriptionExpanded ? 'expanded' : ''}">${unsafeHTML(this._renderDescriptionMarkdown(this.description))}</div>
                   </div>
                   
                   ${this.mode === 'locked' ? html`` : ''}
@@ -927,7 +967,7 @@ export class WyPromptModal extends LitElement {
               <div class="header-main">
                   <div class="title-group">
                       <h2 @click="${this._toggleDescription}">${this.title}</h2>
-                      <p class="description-text ${this.descriptionExpanded ? 'expanded' : ''}">${this.description}</p>
+                      <div class="description-text ${this.descriptionExpanded ? 'expanded' : ''}">${unsafeHTML(this._renderDescriptionMarkdown(this.description))}</div>
                   </div>
               </div>
               <div class="body">
