@@ -32,6 +32,8 @@ export class WyControlsBar extends LitElement {
     connectedCallback() {
         super.connectedCallback();
         this._handleScroll = this._handleScroll.bind(this);
+        this._handleViewportChange = this._handleViewportChange.bind(this);
+        window.addEventListener('resize', this._handleViewportChange, { passive: true });
         
         // Delay finding scroll container to ensure DOM is fully ready
         // Use setTimeout instead of requestAnimationFrame for better timing
@@ -42,7 +44,12 @@ export class WyControlsBar extends LitElement {
 
     disconnectedCallback() {
         super.disconnectedCallback();
+        window.removeEventListener('resize', this._handleViewportChange);
         this._removeScrollListener();
+    }
+
+    _handleViewportChange() {
+        this._syncScrolledHostSurface();
     }
 
     _setupScrollListener() {
@@ -133,7 +140,21 @@ export class WyControlsBar extends LitElement {
         this.isScrolled = scrollY > this._scrollThreshold;
         
         if (wasScrolled !== this.isScrolled) {
+            this._syncScrolledHostSurface();
             this.requestUpdate();
+        }
+    }
+
+    _syncScrolledHostSurface() {
+        const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+        if (this.isScrolled && !isMobile) {
+            this.style.setProperty('background-color', 'var(--wy-controls-container-bg, var(--wy-controls-bar-bg, color-mix(in srgb, var(--md-sys-color-surface) 60%, transparent)))');
+            this.style.setProperty('backdrop-filter', 'none');
+            this.style.setProperty('-webkit-backdrop-filter', 'none');
+        } else {
+            this.style.removeProperty('background-color');
+            this.style.removeProperty('backdrop-filter');
+            this.style.removeProperty('-webkit-backdrop-filter');
         }
     }
 
@@ -472,6 +493,7 @@ export class WyControlsBar extends LitElement {
         } else {
             this.removeAttribute('data-scrolled');
         }
+        this._syncScrolledHostSurface();
 
         return html`
       <div class="controls-container" part="controls-container">
