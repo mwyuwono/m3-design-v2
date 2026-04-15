@@ -148,7 +148,7 @@ export class WyControlsBar extends LitElement {
     _syncScrolledHostSurface() {
         const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
         if (this.isScrolled && !isMobile) {
-            this.style.setProperty('background', 'var(--wy-controls-container-bg, var(--wy-controls-bar-bg, color-mix(in srgb, var(--md-sys-color-surface) 60%, transparent)))');
+            this.style.setProperty('background', 'var(--wy-controls-container-bg, transparent)');
             this.style.setProperty('backdrop-filter', 'none');
             this.style.setProperty('-webkit-backdrop-filter', 'none');
         } else {
