@@ -11,7 +11,8 @@ export class WyControlsBar extends LitElement {
         hideDetailsToggle: { type: Boolean, attribute: 'hide-details-toggle' },
         showFeaturedOnly: { type: Boolean, attribute: 'show-featured-only' },
         chipVariant: { type: String, attribute: 'chip-variant' },
-        isScrolled: { type: Boolean, state: true }
+        isScrolled: { type: Boolean, state: true },
+        scrollState: { type: String, state: true }
     };
 
     constructor() {
@@ -26,7 +27,13 @@ export class WyControlsBar extends LitElement {
         this.showFeaturedOnly = false;
         this.chipVariant = '';
         this.isScrolled = false;
-        this._scrollThreshold = 50; // px
+        this.scrollState = 'normal';
+        this._scrollEnterThreshold = 64; // px
+        this._scrollExitThreshold = 12; // px
+        this._minScrollableDistance = 96; // px
+        this._returnDuration = 300; // ms
+        this._scrollFrame = 0;
+        this._returnTimer = 0;
     }
 
     connectedCallback() {
@@ -45,10 +52,16 @@ export class WyControlsBar extends LitElement {
     disconnectedCallback() {
         super.disconnectedCallback();
         window.removeEventListener('resize', this._handleViewportChange);
+        if (this._scrollFrame) {
+            cancelAnimationFrame(this._scrollFrame);
+            this._scrollFrame = 0;
+        }
+        clearTimeout(this._returnTimer);
         this._removeScrollListener();
     }
 
     _handleViewportChange() {
+        this._handleScroll();
         this._syncScrolledHostSurface();
     }
 
@@ -127,22 +140,92 @@ export class WyControlsBar extends LitElement {
         return window;
     }
 
-    _handleScroll() {
-        let scrollY;
-        
+    _getScrollMetrics() {
+        let rawScrollY = 0;
+        let maxScroll = 0;
+
         if (this._scrollContainer === window) {
-            scrollY = window.scrollY || document.documentElement.scrollTop;
+            const documentElement = document.documentElement;
+            const body = document.body;
+            rawScrollY = window.scrollY || documentElement.scrollTop || body.scrollTop || 0;
+            maxScroll = Math.max(
+                0,
+                Math.max(documentElement.scrollHeight, body.scrollHeight) - window.innerHeight
+            );
         } else {
-            scrollY = this._scrollContainer ? this._scrollContainer.scrollTop : 0;
+            rawScrollY = this._scrollContainer ? this._scrollContainer.scrollTop : 0;
+            maxScroll = this._scrollContainer
+                ? Math.max(0, this._scrollContainer.scrollHeight - this._scrollContainer.clientHeight)
+                : 0;
         }
-        
-        const wasScrolled = this.isScrolled;
-        this.isScrolled = scrollY > this._scrollThreshold;
-        
-        if (wasScrolled !== this.isScrolled) {
-            this._syncScrolledHostSurface();
-            this.requestUpdate();
+
+        return {
+            scrollY: Math.min(Math.max(rawScrollY, 0), maxScroll),
+            maxScroll
+        };
+    }
+
+    _handleScroll() {
+        if (this._scrollFrame) {
+            return;
         }
+
+        this._scrollFrame = requestAnimationFrame(() => {
+            this._scrollFrame = 0;
+            this._updateScrollState();
+        });
+    }
+
+    _updateScrollState() {
+        const { scrollY, maxScroll } = this._getScrollMetrics();
+        const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+        const canFloat = !isMobile && maxScroll >= this._minScrollableDistance;
+
+        if (!canFloat) {
+            this._setScrollState('normal');
+            return;
+        }
+
+        if (this.scrollState === 'normal' || this.scrollState === 'returning') {
+            if (scrollY >= this._scrollEnterThreshold) {
+                this._setScrollState('floating');
+            }
+            return;
+        }
+
+        if (this.scrollState === 'floating' && scrollY <= this._scrollExitThreshold) {
+            this._setScrollState('returning');
+        }
+    }
+
+    _setScrollState(nextState) {
+        if (this.scrollState === nextState) {
+            return;
+        }
+
+        clearTimeout(this._returnTimer);
+        this.scrollState = nextState;
+        this.isScrolled = nextState !== 'normal';
+        this._syncStateAttributes();
+        this.requestUpdate();
+
+        if (nextState === 'returning') {
+            this._returnTimer = setTimeout(() => {
+                if (this.scrollState === 'returning') {
+                    this._setScrollState('normal');
+                }
+            }, this._returnDuration);
+        }
+    }
+
+    _syncStateAttributes() {
+        if (this.isScrolled) {
+            this.setAttribute('data-scrolled', '');
+        } else {
+            this.removeAttribute('data-scrolled');
+        }
+        this.setAttribute('data-scroll-state', this.scrollState);
+        this._syncScrolledHostSurface();
     }
 
     _syncScrolledHostSurface() {
@@ -168,6 +251,9 @@ export class WyControlsBar extends LitElement {
       background-color: var(--wy-controls-bar-bg, transparent);
       border-bottom: var(--wy-controls-bar-border, none);
       padding: var(--wy-controls-bar-padding, 8px 32px);
+      width: var(--wy-controls-bar-normal-width, 100%);
+      max-width: var(--wy-controls-bar-normal-max-width, none);
+      margin-inline: var(--wy-controls-bar-normal-margin-inline, 0);
       box-sizing: border-box;
       
       /* Configurable layout properties */
@@ -203,9 +289,20 @@ export class WyControlsBar extends LitElement {
       padding: 8px 24px;
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
       transition: 
+        top var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        transform var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        max-width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
         padding var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
         background-color var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
+        box-shadow var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
         opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+    }
+
+    :host([data-scroll-state="returning"]) {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-8px) scale(0.98);
+      box-shadow: 0 4px 18px 0 rgba(31, 38, 135, 0);
     }
 
     .material-symbols-outlined {
@@ -487,13 +584,7 @@ export class WyControlsBar extends LitElement {
   `;
 
     render() {
-        // Set attribute on host for CSS targeting
-        if (this.isScrolled) {
-            this.setAttribute('data-scrolled', '');
-        } else {
-            this.removeAttribute('data-scrolled');
-        }
-        this._syncScrolledHostSurface();
+        this._syncStateAttributes();
 
         return html`
       <div class="controls-container" part="controls-container">
