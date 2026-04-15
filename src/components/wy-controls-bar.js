@@ -235,17 +235,18 @@ export class WyControlsBar extends LitElement {
             this.style.setProperty('backdrop-filter', 'none');
             this.style.setProperty('-webkit-backdrop-filter', 'none');
             this.style.setProperty('position', 'fixed');
-            this.style.setProperty('top', '16px');
-            this.style.setProperty('left', '50%');
-            this.style.setProperty('z-index', '100');
-            this.style.setProperty('width', 'auto');
-            this.style.setProperty('max-width', 'min(900px, calc(100% - 32px))');
+            this.style.setProperty('top', 'var(--wy-controls-floating-top, 16px)');
+            this.style.setProperty('right', 'var(--wy-controls-floating-right, auto)');
+            this.style.setProperty('left', 'var(--wy-controls-floating-left, 50%)');
+            this.style.setProperty('z-index', 'var(--wy-controls-floating-z-index, 100)');
+            this.style.setProperty('width', 'var(--wy-controls-floating-width, auto)');
+            this.style.setProperty('max-width', 'var(--wy-controls-floating-max-width, min(900px, calc(100% - 32px)))');
             this.style.setProperty('margin-inline', '0');
             this.style.setProperty(
                 'transform',
                 this.scrollState === 'returning'
-                    ? 'translateX(-50%) translateY(-8px) scale(0.98)'
-                    : 'translateX(-50%)'
+                    ? 'var(--wy-controls-floating-return-transform, translateX(-50%) translateY(-8px) scale(0.98))'
+                    : 'var(--wy-controls-floating-transform, translateX(-50%))'
             );
         } else {
             this.style.removeProperty('background');
@@ -253,6 +254,7 @@ export class WyControlsBar extends LitElement {
             this.style.removeProperty('-webkit-backdrop-filter');
             this.style.removeProperty('position');
             this.style.removeProperty('top');
+            this.style.removeProperty('right');
             this.style.removeProperty('left');
             this.style.removeProperty('z-index');
             this.style.removeProperty('width');
@@ -291,23 +293,36 @@ export class WyControlsBar extends LitElement {
       --wy-controls-container-margin-inline: auto;
       --wy-controls-container-bg: transparent;
       --wy-controls-container-radius: 0;
+      --wy-controls-floating-top: 16px;
+      --wy-controls-floating-right: auto;
+      --wy-controls-floating-left: 50%;
+      --wy-controls-floating-z-index: 100;
+      --wy-controls-floating-width: auto;
+      --wy-controls-floating-max-width: min(900px, calc(100% - 32px));
+      --wy-controls-floating-transform: translateX(-50%);
+      --wy-controls-floating-return-transform: translateX(-50%) translateY(-8px) scale(0.98);
+      --wy-controls-bar-padding-scrolled: 8px 24px;
+      --wy-controls-search-width: 192px;
+      --wy-controls-search-width-scrolled: 280px;
+      --wy-controls-category-max-width-scrolled: 600px;
     }
 
     /* Sticky Pill State - when scrolled */
     :host([data-scrolled]) {
       position: fixed;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      width: auto;
-      max-width: 900px;
+      top: var(--wy-controls-floating-top, 16px);
+      right: var(--wy-controls-floating-right, auto);
+      left: var(--wy-controls-floating-left, 50%);
+      transform: var(--wy-controls-floating-transform, translateX(-50%));
+      z-index: var(--wy-controls-floating-z-index, 100);
+      width: var(--wy-controls-floating-width, auto);
+      max-width: var(--wy-controls-floating-max-width, min(900px, calc(100% - 32px)));
       background-color: var(--wy-controls-container-bg, var(--wy-controls-bar-bg, color-mix(in srgb, var(--md-sys-color-surface) 60%, transparent)));
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
       border-radius: 9999px;
       overflow: visible; /* Ensure pill shape isn't clipped */
-      padding: 8px 24px;
+      padding: var(--wy-controls-bar-padding-scrolled, 8px 24px);
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
       transition: 
         top var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1)),
@@ -322,7 +337,7 @@ export class WyControlsBar extends LitElement {
 
     :host([data-scroll-state="returning"]) {
       opacity: 0;
-      transform: translateX(-50%) translateY(-8px) scale(0.98);
+      transform: var(--wy-controls-floating-return-transform, translateX(-50%) translateY(-8px) scale(0.98));
       box-shadow: 0 4px 18px 0 rgba(31, 38, 135, 0);
     }
 
@@ -371,12 +386,12 @@ export class WyControlsBar extends LitElement {
     /* Search Section */
     .search-section {
       flex: 0 0 auto;
-      width: 192px;
+      width: var(--wy-controls-search-width, 192px);
       position: relative;
     }
 
     :host([data-scrolled]) .search-section {
-      width: 280px;
+      width: var(--wy-controls-search-width-scrolled, 280px);
       transition: width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
     }
 
@@ -524,7 +539,7 @@ export class WyControlsBar extends LitElement {
 
     :host([data-scrolled]) .category-section {
       flex: 0 1 auto;
-      max-width: 600px;
+      max-width: var(--wy-controls-category-max-width-scrolled, 600px);
       transition: max-width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
     }
 
