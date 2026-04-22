@@ -6222,7 +6222,7 @@ class Ja extends g {
     .divider {
       width: 1px;
       height: 24px;
-      background-color: var(--md-sys-color-outline-variant, #e5e7eb);
+      background-color: var(--rule, var(--md-sys-color-outline-variant, #e5e7eb));
       flex-shrink: 0;
     }
 
@@ -6230,7 +6230,7 @@ class Ja extends g {
     .toggle-section {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: var(--s-4, 16px);
       flex-shrink: 0;
     }
 
@@ -6324,15 +6324,69 @@ class Ja extends g {
       transition: max-width var(--md-sys-motion-duration-medium2, 300ms) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
     }
 
-    /* Tablet responsive padding */
-    @media (min-width: 768px) and (max-width: 1023px) {
+    /* ---------- Tablet (901–1023px): compact single row ---------- */
+    @media (min-width: 901px) and (max-width: 1023px) {
+      :host {
+        padding: var(--wy-controls-bar-padding, var(--s-2, 8px) var(--s-5, 24px));
+      }
+
       .controls-container {
-        padding: var(--wy-controls-container-padding-tablet, 0 var(--wy-controls-padding-tablet, 24px));
+        padding: var(--wy-controls-container-padding-tablet, 0 var(--wy-controls-padding-tablet, var(--s-5, 24px)));
+        gap: var(--s-2, 8px);
+      }
+
+      .search-section {
+        width: 160px;
+      }
+
+      .toggle-section {
+        gap: var(--s-3, 12px);
+      }
+
+      .toggle-label {
+        display: none;
       }
     }
 
+    /* ---------- Narrow tablet (769–900px): categories wrap to row 2 ---------- */
+    @media (min-width: 769px) and (max-width: 900px) {
+      :host {
+        padding: var(--wy-controls-bar-padding, var(--s-2, 8px) var(--s-5, 24px));
+      }
+
+      .controls-container {
+        flex-wrap: wrap;
+        gap: var(--s-2, 8px) var(--s-1, 4px);
+        padding: var(--wy-controls-container-padding-tablet, 0 var(--wy-controls-padding-tablet, var(--s-5, 24px)));
+      }
+
+      .search-section {
+        flex: 1 1 auto;
+        width: auto;
+        min-width: 120px;
+        max-width: 240px;
+      }
+
+      .divider {
+        display: none;
+      }
+
+      .toggle-label {
+        display: none;
+      }
+
+      .toggle-section {
+        gap: var(--s-2, 8px);
+      }
+
+      .category-section {
+        flex: 0 0 100%;
+        order: 1;
+      }
+    }
+
+    /* ---------- Mobile (≤768px): stacked, no sticky pill ---------- */
     @media (max-width: 768px) {
-      /* Disable sticky pill behavior on mobile */
       :host([data-scrolled]) {
         position: relative;
         top: auto;
@@ -6341,7 +6395,7 @@ class Ja extends g {
         width: 100%;
         max-width: 100%;
         border-radius: 0;
-        padding: var(--wy-controls-bar-padding, 8px 32px);
+        padding: var(--wy-controls-bar-padding, var(--s-2, 8px) var(--s-6, 32px));
         background-color: var(--wy-controls-bar-bg, transparent);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
@@ -6350,17 +6404,15 @@ class Ja extends g {
 
       .controls-container {
         flex-wrap: wrap;
-        gap: 8px;
-        padding: var(--wy-controls-container-padding-mobile, 0 var(--wy-controls-padding-mobile, 16px));
+        gap: var(--s-2, 8px);
+        padding: var(--wy-controls-container-padding-mobile, 0 var(--wy-controls-padding-mobile, var(--s-4, 16px)));
       }
 
-      .search-section {
+      .search-section,
+      :host([data-scrolled]) .search-section {
+        flex: 0 0 100%;
         width: 100%;
         order: -1;
-      }
-
-      :host([data-scrolled]) .search-section {
-        width: 100%;
       }
 
       :host([data-scrolled]) .search-input {
@@ -6369,33 +6421,28 @@ class Ja extends g {
         background-color: var(--wy-controls-search-bg, var(--md-sys-color-surface-container-high, #f3f4f6));
       }
 
-      .divider {
-        display: none;
-      }
-
+      .divider,
       :host([data-scrolled]) .divider {
         display: none;
       }
 
       .toggle-section {
-        gap: 12px;
+        gap: var(--s-3, 12px);
       }
 
       :host([data-scrolled]) .toggle-section {
         display: flex;
       }
 
-      .category-section {
+      .category-section,
+      :host([data-scrolled]) .category-section {
+        flex: 0 0 100%;
         width: 100%;
+        max-width: 100%;
         order: 1;
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
-      }
-
-      :host([data-scrolled]) .category-section {
-        width: 100%;
-        max-width: 100%;
       }
     }
   `;
