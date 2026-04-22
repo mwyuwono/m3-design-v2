@@ -107,7 +107,7 @@ export class WyArtworkCard extends LitElement {
       }
 
       :host([interactive]):hover article {
-        transform: translateY(-2px);
+        
       }
 
       :host([selected]) article {
@@ -219,7 +219,7 @@ export class WyArtworkCard extends LitElement {
         align-items: flex-start;
         z-index: 3;
         opacity: 0;
-        transform: translateY(-4px);
+        
         transition: opacity 160ms ease, transform 160ms ease;
         pointer-events: none;
       }
@@ -311,7 +311,7 @@ export class WyArtworkCard extends LitElement {
       .select-visual {
         width: 24px;
         height: 24px;
-        border-radius: 6px;
+        border-radius: 0;
         border-width: 2px;
       }
 
@@ -375,7 +375,7 @@ export class WyArtworkCard extends LitElement {
         opacity: 0;
         transition: opacity 180ms ease, transform 180ms ease;
         pointer-events: none;
-        border-radius: 8px;
+        border-radius: 0;
         backdrop-filter: blur(40px) saturate(1.15);
         -webkit-backdrop-filter: blur(40px) saturate(1.15);
       }
@@ -391,7 +391,7 @@ export class WyArtworkCard extends LitElement {
         --wy-artwork-card-meta-muted: var(--md-sys-color-on-surface-variant);
         --wy-artwork-card-meta-chip-bg: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 22%, transparent);
         --wy-artwork-card-meta-scrim: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 20%, transparent);
-        border-radius: 8px;
+        border-radius: 0;
         background: transparent;
         color: var(--wy-artwork-card-meta-fg);
         box-shadow: 0 8px 18px color-mix(in srgb, var(--md-sys-color-shadow) 12%, transparent);

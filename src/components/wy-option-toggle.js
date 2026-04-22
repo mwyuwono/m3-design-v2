@@ -40,7 +40,7 @@ export class WyOptionToggle extends LitElement {
 
         .label {
             margin: 0 0 var(--spacing-md, 16px) 0;
-            color: var(--md-sys-color-primary, #2C4C3B);
+            color: var(--md-sys-color-primary, #282828);
             font-family: var(--font-body, 'DM Sans', sans-serif);
             font-size: 0.875rem;
             font-weight: 700;
@@ -52,7 +52,7 @@ export class WyOptionToggle extends LitElement {
         .description {
             margin: 0 0 var(--spacing-sm, 8px) 0;
             max-width: 36rem;
-            color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 70%, transparent);
+            color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 70%, transparent);
             font-family: var(--font-body, 'DM Sans', sans-serif);
             font-size: var(--md-sys-typescale-body-small-size, 0.875rem);
             font-weight: 400;
@@ -104,12 +104,12 @@ export class WyOptionToggle extends LitElement {
         }
 
         .option.selected {
-            background: var(--md-sys-color-primary, #2C4C3B);
+            background: var(--md-sys-color-primary, #282828);
             color: var(--md-sys-color-on-primary, #FFFFFF);
         }
 
         .option:focus-visible {
-            outline: 2px solid var(--md-sys-color-primary, #2C4C3B);
+            outline: 2px solid var(--md-sys-color-primary, #282828);
             outline-offset: 1px;
         }
 
@@ -135,13 +135,13 @@ export class WyOptionToggle extends LitElement {
             line-height: 1.1;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 40%, transparent);
+            color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 40%, transparent);
             transition: color var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
             user-select: none;
         }
 
         .switch-indicator.active {
-            color: var(--md-sys-color-primary, #2C4C3B);
+            color: var(--md-sys-color-primary, #282828);
         }
 
         .switch-button {
@@ -163,7 +163,7 @@ export class WyOptionToggle extends LitElement {
         }
 
         .switch-button.checked {
-            background: var(--md-sys-color-primary, #2C4C3B);
+            background: var(--md-sys-color-primary, #282828);
         }
 
         .switch-button::after {
@@ -181,7 +181,7 @@ export class WyOptionToggle extends LitElement {
         }
 
         .switch-button:focus-visible {
-            outline: 2px solid var(--md-sys-color-primary, #2C4C3B);
+            outline: 2px solid var(--md-sys-color-primary, #282828);
             outline-offset: 2px;
         }
 
@@ -192,7 +192,7 @@ export class WyOptionToggle extends LitElement {
             width: 28px;
             height: 28px;
             border-radius: var(--md-sys-shape-corner-full, 9999px);
-            background: var(--md-sys-color-primary, #2C4C3B);
+            background: var(--md-sys-color-primary, #282828);
             transition: transform var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
         }
 

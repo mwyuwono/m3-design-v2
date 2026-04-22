@@ -37,7 +37,7 @@ export class WyCategorySelect extends LitElement {
       width: 100%;
       box-sizing: border-box;
       padding: 12px 16px;
-      border-radius: 12px;
+      border-radius: 0;
       border: 1px solid var(--md-sys-color-outline-variant);
       background-color: transparent;
       font-family: var(--font-body);
@@ -49,7 +49,7 @@ export class WyCategorySelect extends LitElement {
     input:focus {
       outline: none;
       border-color: var(--md-sys-color-primary);
-      box-shadow: 0 0 0 3px rgba(45, 78, 60, 0.1);
+      box-shadow: 0 0 0 1px var(--ink);
     }
 
     .dropdown {
@@ -60,8 +60,8 @@ export class WyCategorySelect extends LitElement {
       margin-top: 4px;
       background-color: var(--md-sys-color-surface);
       border: 1px solid var(--md-sys-color-outline-variant);
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border-radius: 0;
+      
       z-index: 100;
       overflow: hidden;
       max-height: 240px;
@@ -84,7 +84,7 @@ export class WyCategorySelect extends LitElement {
     .item.selected {
       color: var(--md-sys-color-primary);
       font-weight: 600;
-      background-color: rgba(45, 78, 60, 0.05);
+      background-color: color-mix(in srgb, var(--ink) 5%, transparent);
     }
 
     .no-results {

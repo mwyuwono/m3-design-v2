@@ -37,7 +37,7 @@ export class WyInsightCard extends LitElement {
     .overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(45, 78, 60, 0.9) 0%, transparent 100%);
+      background: linear-gradient(to top, rgba(40, 40, 40, 0.85) 0%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;

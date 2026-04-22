@@ -73,7 +73,7 @@ export class WyConfirmDialog extends LitElement {
       left: 50%;
       transform: translate(-50%, -50%) scale(0.9);
       background-color: var(--md-sys-color-surface, #FFFBFE);
-      border-radius: 28px;
+      border-radius: 0;
       border: 1px solid var(--md-sys-color-outline-variant, #CAC4D0);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
       z-index: 2001;
@@ -192,7 +192,7 @@ export class WyConfirmDialog extends LitElement {
 
     /* Destructive variant - error colored confirm button */
     :host([variant="destructive"]) .btn-confirm {
-      background-color: var(--md-sys-color-error, #B3261E);
+      background-color: var(--md-sys-color-error, #FF0101);
       color: var(--md-sys-color-on-error, #FFFFFF);
     }
 

@@ -68,11 +68,11 @@ export class WyToast extends LitElement {
       background-color: var(--md-sys-color-inverse-surface);
       color: var(--md-sys-color-inverse-on-surface);
       padding: 12px 24px;
-      border-radius: 12px;
+      border-radius: 0;
       display: flex;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--shadow-modal);
     }
 
     .icon {
@@ -99,7 +99,7 @@ export class WyToast extends LitElement {
     }
 
     .icon.variant-error {
-      color: var(--wy-toast-error-color, #B3261E);
+      color: var(--wy-toast-error-color, #FF0101);
     }
 
     .icon.variant-warning {

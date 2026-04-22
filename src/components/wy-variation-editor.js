@@ -44,7 +44,7 @@ export class WyVariationEditor extends LitElement {
         }
 
         .variation-card.expanded {
-            border-color: var(--md-sys-color-primary, #2C4C3B);
+            border-color: var(--md-sys-color-primary, #282828);
         }
 
         .variation-header {
@@ -62,7 +62,7 @@ export class WyVariationEditor extends LitElement {
             content: '';
             position: absolute;
             inset: 0;
-            background-color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: var(--md-sys-color-primary, #282828);
             opacity: 0;
             transition: opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
             pointer-events: none;
@@ -187,15 +187,15 @@ export class WyVariationEditor extends LitElement {
             content: '';
             position: absolute;
             inset: 0;
-            background-color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: var(--md-sys-color-primary, #282828);
             opacity: 0;
             transition: opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
             pointer-events: none;
         }
 
         .add-step-button:hover {
-            border-color: var(--md-sys-color-primary, #2C4C3B);
-            color: var(--md-sys-color-primary, #2C4C3B);
+            border-color: var(--md-sys-color-primary, #282828);
+            color: var(--md-sys-color-primary, #282828);
         }
 
         .add-step-button:hover::before {
@@ -243,7 +243,7 @@ export class WyVariationEditor extends LitElement {
         }
 
         .control-button:focus-visible {
-            outline: 3px solid var(--md-sys-color-primary, #2C4C3B);
+            outline: 3px solid var(--md-sys-color-primary, #282828);
             outline-offset: 2px;
         }
 
@@ -291,15 +291,15 @@ export class WyVariationEditor extends LitElement {
             content: '';
             position: absolute;
             inset: 0;
-            background-color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: var(--md-sys-color-primary, #282828);
             opacity: 0;
             transition: opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
             pointer-events: none;
         }
 
         .add-variation-button:hover {
-            border-color: var(--md-sys-color-primary, #2C4C3B);
-            color: var(--md-sys-color-primary, #2C4C3B);
+            border-color: var(--md-sys-color-primary, #282828);
+            color: var(--md-sys-color-primary, #282828);
         }
 
         .add-variation-button:hover::before {

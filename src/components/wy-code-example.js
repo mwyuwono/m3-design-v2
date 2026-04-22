@@ -41,7 +41,7 @@ export class WyCodeExample extends LitElement {
     pre {
       margin: 0;
       padding: 12px;
-      border-radius: 8px;
+      border-radius: 0;
       overflow-x: auto;
       overflow-y: auto;
       font-family: 'Monaco', 'Courier New', monospace;

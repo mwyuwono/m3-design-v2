@@ -146,7 +146,7 @@ export class WyPromptModal extends LitElement {
       max-height: 90vh;
       background: var(--wy-prompt-modal-surface, var(--md-sys-color-surface));
       border-radius: var(--md-sys-shape-corner-medium, 16px);
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--shadow-modal);
       transform: translate(-50%, -50%) scale(0.95);
       transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
       display: flex;
@@ -246,7 +246,7 @@ export class WyPromptModal extends LitElement {
         gap: 6px;
         height: 40px;
         padding: 0 16px 0 12px;
-        border-radius: 20px;
+        border-radius: 0;
         border: none;
         cursor: pointer;
         font-family: var(--font-sans);
@@ -256,7 +256,7 @@ export class WyPromptModal extends LitElement {
     }
 
     .labeled-btn.primary {
-        background: var(--md-sys-color-primary, #2C4C3B);
+        background: var(--md-sys-color-primary, #282828);
         color: var(--md-sys-color-on-primary, #ffffff);
     }
 
@@ -298,12 +298,6 @@ export class WyPromptModal extends LitElement {
       left: 50%;
       transform: translateX(-50%);
       pointer-events: none; /* Prevent badge from blocking clicks */
-    }
-
-    @media (prefers-color-scheme: dark) {
-        .badge {
-          color: var(--md-sys-color-on-surface);
-        }
     }
 
     .title-group h2 {
@@ -378,7 +372,7 @@ export class WyPromptModal extends LitElement {
         font-weight: 500;
         cursor: pointer;
         padding: 8px 16px;
-        border-radius: 8px;
+        border-radius: 0;
         transition: background 0.2s;
         white-space: nowrap;
     }
@@ -518,7 +512,7 @@ export class WyPromptModal extends LitElement {
         box-sizing: border-box;
         padding: 16px; /* Increased padding for breathing room */
         border: 1px solid var(--md-sys-color-outline-variant);
-        border-radius: 8px;
+        border-radius: 0;
         font-family: var(--font-sans, 'DM Sans', sans-serif);
         font-size: 1rem;
         color: var(--md-sys-color-on-surface);
@@ -546,7 +540,7 @@ export class WyPromptModal extends LitElement {
 
     .preview-area {
       background: var(--md-sys-color-surface-container-highest);
-      border-radius: 8px;
+      border-radius: 0;
       padding: 24px;
       font-family: var(--font-sans, 'DM Sans', sans-serif);
       font-size: 1rem;
@@ -616,7 +610,7 @@ export class WyPromptModal extends LitElement {
     .stepper-progress {
       height: 4px;
       background: var(--md-sys-color-surface-container-highest);
-      border-radius: 9999px;
+      border-radius: var(--radius-0);
       overflow: hidden;
       margin-bottom: var(--spacing-md, 16px);
     }

@@ -108,9 +108,9 @@ export class WyIconButton extends LitElement {
 
     /* ===== FILLED VARIANT (Hunter Green) ===== */
     .button.variant-filled {
-      background-color: var(--wy-icon-button-filled-bg, var(--md-sys-color-primary, #2C4C3B));
+      background-color: var(--wy-icon-button-filled-bg, var(--md-sys-color-primary, #282828));
       color: var(--wy-icon-button-filled-fg, var(--md-sys-color-on-primary, #FFFFFF));
-      box-shadow: var(--wy-icon-button-filled-shadow, 0 4px 12px rgba(44, 76, 59, 0.2));
+      box-shadow: var(--wy-icon-button-filled-shadow, 0 4px 12px rgba(40, 40, 40, 0.12));
     }
 
     .button.variant-filled::before {
@@ -119,7 +119,7 @@ export class WyIconButton extends LitElement {
 
     .button.variant-filled:hover:not(:disabled) {
       transform: scale(1.05);
-      box-shadow: 0 6px 16px rgba(44, 76, 59, 0.3);
+      box-shadow: none;
     }
 
     .button.variant-filled:hover:not(:disabled)::before {

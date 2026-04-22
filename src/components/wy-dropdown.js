@@ -141,7 +141,7 @@ export class WyDropdown extends LitElement {
         }
         
         .selector:focus-visible {
-            outline: 3px solid var(--md-sys-color-primary, #2C4C3B);
+            outline: 3px solid var(--md-sys-color-primary, #282828);
             outline-offset: 2px;
         }
         
@@ -224,13 +224,13 @@ export class WyDropdown extends LitElement {
         }
         
         .item.selected {
-            color: var(--md-sys-color-primary, #2C4C3B);
+            color: var(--md-sys-color-primary, #282828);
             font-weight: 600;
             background-color: var(--md-sys-color-primary-container, #E8F5E9);
         }
         
         .item.selected::before {
-            background-color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: var(--md-sys-color-primary, #282828);
         }
         
         .no-results {
@@ -254,7 +254,7 @@ export class WyDropdown extends LitElement {
         
         .dropdown::-webkit-scrollbar-thumb {
             background: var(--md-sys-color-outline-variant, #D7D3C8);
-            border-radius: 4px;
+            border-radius: var(--radius-1);
         }
         
         .dropdown::-webkit-scrollbar-thumb:hover {

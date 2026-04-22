@@ -39,7 +39,7 @@ export class WyWorksGrid extends LitElement {
       text-align: center;
       background-color: var(--md-sys-color-surface-container-low);
       border: 2px dashed var(--md-sys-color-outline-variant);
-      border-radius: 24px;
+      border-radius: 0;
       color: var(--md-sys-color-on-surface-variant);
     }
 

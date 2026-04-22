@@ -44,12 +44,12 @@ export class WyFilterChip extends LitElement {
     }
 
     :host(:focus-visible) {
-      outline: 2px solid var(--wy-filter-chip-focus, var(--md-sys-color-primary, #2C4C3B));
+      outline: 2px solid var(--wy-filter-chip-focus, var(--md-sys-color-primary, #282828));
       outline-offset: 2px;
     }
 
     :host([active]) {
-      background-color: var(--wy-filter-chip-active-bg, var(--md-sys-color-primary, #2C4C3B));
+      background-color: var(--wy-filter-chip-active-bg, var(--md-sys-color-primary, #282828));
       color: var(--wy-filter-chip-active-fg, var(--md-sys-color-on-primary, #FFFFFF));
       border-color: transparent;
       font-weight: var(--wy-filter-chip-font-weight-active, 500);

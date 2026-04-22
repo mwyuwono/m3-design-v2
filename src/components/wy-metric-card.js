@@ -25,7 +25,7 @@ export class WyMetricCard extends LitElement {
     }
 
     .card:hover {
-      transform: translateY(-4px);
+      
     }
 
     .icon-container {

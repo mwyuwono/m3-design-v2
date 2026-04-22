@@ -29,7 +29,7 @@ export class WyWorkCard extends LitElement {
     }
 
     .card {
-      border-radius: 20px;
+      border-radius: 0;
       overflow: hidden;
       background-color: var(--md-sys-color-surface);
       border: 1px solid var(--md-sys-color-outline-variant);
@@ -39,8 +39,8 @@ export class WyWorkCard extends LitElement {
 
     .card:hover {
       border-color: var(--md-sys-color-primary);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(45, 78, 60, 0.08);
+      
+      
     }
 
     :host([selected]) .card {
@@ -106,7 +106,7 @@ export class WyWorkCard extends LitElement {
       align-items: center;
       justify-content: center;
       color: var(--md-sys-color-text-heading);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      
       backdrop-filter: blur(4px);
     }
 
@@ -115,7 +115,7 @@ export class WyWorkCard extends LitElement {
       top: 12px;
       left: 12px;
       padding: 4px 12px;
-      border-radius: 9999px;
+      border-radius: var(--radius-pill);
       font-family: var(--font-body);
       font-size: 0.625rem;
       font-weight: 700;
@@ -123,7 +123,7 @@ export class WyWorkCard extends LitElement {
       letter-spacing: 0.05em;
       background-color: var(--md-sys-color-primary);
       color: var(--md-sys-color-on-primary);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      
     }
 
     .favorite-toggle {

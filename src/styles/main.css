@@ -2,319 +2,223 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--md-sys-color-background);
-    color: var(--md-sys-color-on-background);
-    font-family: var(--font-body);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--ff-sans);
     -webkit-font-smoothing: antialiased;
-    line-height: 1.6;
+    line-height: var(--lh-normal);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--font-serif);
-    font-weight: 400;
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--ff-serif);
+    font-weight: 500;
     margin-top: 0;
-    color: var(--md-sys-color-primary);
+    color: var(--ink);
+    letter-spacing: var(--tr-display);
+    line-height: var(--lh-snug);
 }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-    background: var(--md-sys-color-outline-variant);
-    border-radius: 4px;
+    background: var(--paper-edge);
+    border-radius: var(--radius-0);
 }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-soft); }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--md-sys-color-secondary);
-}
-
-/* Tracking & Text Utilities */
+/* Text Utilities */
 .label-overline {
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui-xs);
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--md-sys-color-primary);
-    opacity: 0.6;
+    letter-spacing: var(--tr-eyebrow);
+    color: var(--ink-mute);
 }
 
-.text-muted {
-    color: var(--md-sys-color-text-muted);
-}
+.text-muted { color: var(--ink-mute); }
 
 .italic-serif {
-    font-family: var(--font-serif);
+    font-family: var(--ff-serif);
     font-style: italic;
 }
 
 /* Material Web Component Global Adjustments */
 :root {
-    --md-elevated-card-container-color: var(--md-sys-color-surface);
+    --md-elevated-card-container-color: var(--paper-deep);
     --md-sys-elevation-level: 0;
 
-    --md-filled-button-label-text-font: var(--font-display);
-    --md-filled-button-label-text-weight: 600;
+    --md-filled-button-label-text-font: var(--ff-sans);
+    --md-filled-button-label-text-weight: 500;
     --md-filled-button-label-text-tracking: 0.05em;
 
-    /* BUTTONS: Capsule Shape & Editorial Tracking */
-    --md-filled-button-container-shape: 9999px;
-    --md-outlined-button-container-shape: 9999px;
-    --md-text-button-container-shape: 9999px;
+    /* Flat shape */
+    --md-filled-button-container-shape: var(--radius-0);
+    --md-outlined-button-container-shape: var(--radius-0);
+    --md-text-button-container-shape: var(--radius-0);
 
     --md-filled-button-label-text-transform: uppercase;
     --md-outlined-button-label-text-transform: uppercase;
     --md-text-button-label-text-transform: uppercase;
 
-    /* COLORS */
-    --md-filled-button-container-color: var(--md-sys-color-primary);
-    --md-outlined-button-outline-color: var(--md-sys-color-primary);
-    --md-outlined-button-label-text-color: var(--md-sys-color-primary);
-    --md-text-button-label-text-color: var(--md-sys-color-primary);
+    --md-filled-button-container-color: var(--ink);
+    --md-outlined-button-outline-color: var(--paper-edge);
+    --md-outlined-button-label-text-color: var(--ink);
+    --md-text-button-label-text-color: var(--ink);
 
-    /* ICON BUTTONS */
-    --md-icon-button-icon-color: var(--md-sys-color-primary);
-    --md-icon-button-state-layer-color: var(--md-sys-color-primary);
-
-    /* Prompt Library Category Tokens (Soft Modernism) */
-    --wy-color-productivity: #546E7A;
-    /* Muted Slate */
-    --wy-color-productivity-container: #ECEFF1;
-    --wy-color-on-productivity-container: #263238;
-
-    --wy-color-expertise: #6D5D6E;
-    /* Muted Mauve (matches secondary warmth) */
-    --wy-color-expertise-container: #F3F1F3;
-    --wy-color-on-expertise-container: #2E252E;
-
-    --wy-color-travel: #556B2F;
-    /* Muted Olive (distinct from primary) */
-    --wy-color-travel-container: #F1F5EB;
-    --wy-color-on-travel-container: #283317;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        /* Dark Mode: Pastel/Lighter base colors for visibility on dark bg */
-        --wy-color-productivity: #B0BEC5;
-        /* Light Blue Grey */
-        --wy-color-productivity-container: #37474F;
-        /* Dark Slate */
-        --wy-color-on-productivity-container: #ECEFF1;
-
-        --wy-color-expertise: #E1BEE7;
-        /* Light Mauve */
-        --wy-color-expertise-container: #4A3B4A;
-        /* Dark Mauve */
-        --wy-color-on-expertise-container: #F3E5F5;
-
-        --wy-color-travel: #DCEDC8;
-        /* Pale Green */
-        --wy-color-travel-container: #334D2B;
-        /* Dark Olive */
-        --wy-color-on-travel-container: #F1F8E9;
-    }
+    --md-icon-button-icon-color: var(--ink);
+    --md-icon-button-state-layer-color: var(--ink);
 }
 
 md-icon-button[selected] {
-    --md-icon-button-selected-icon-color: var(--md-sys-color-primary);
+    --md-icon-button-selected-icon-color: var(--ink);
 }
 
-/* Button Utilities - M3 Design System */
+/* ========================================
+   BUTTON UTILITIES
+   ======================================== */
+
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-sm, 0.5rem);
+    gap: var(--s-2);
 
-    /* M3 spacing */
     padding: 0.625rem 1.5rem;
     min-height: 2.5rem;
 
-    /* M3 Expressive: full rounded corners */
-    border-radius: var(--md-sys-shape-corner-full, 9999px);
-
+    border-radius: var(--radius-0);
     border: none;
     background-color: transparent;
 
-    /* M3 Label Large typography */
-    font-family: var(--md-sys-typescale-label-large-font, var(--font-sans));
-    font-size: var(--md-sys-typescale-label-large-size, 0.875rem);
-    font-weight: var(--md-sys-typescale-label-large-weight, 500);
-    line-height: var(--md-sys-typescale-label-large-line-height, 1.25rem);
-    letter-spacing: var(--md-sys-typescale-label-large-tracking, 0.1px);
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui);
+    font-weight: 500;
+    letter-spacing: var(--tr-eyebrow);
     text-transform: uppercase;
 
     cursor: pointer;
-
-    /* M3 motion */
-    transition: all var(--md-sys-motion-duration-short4, 0.2s) var(--md-sys-motion-easing-standard, ease);
+    transition: all var(--dur-1) var(--ease);
 
     white-space: nowrap;
     position: relative;
     overflow: hidden;
 }
 
-/* M3 State layer for all buttons */
 .btn::before {
     content: '';
     position: absolute;
     inset: 0;
     opacity: 0;
-    transition: opacity var(--md-sys-motion-duration-short2, 0.15s) var(--md-sys-motion-easing-standard, ease);
+    transition: opacity var(--dur-1) var(--ease);
     pointer-events: none;
 }
 
 .btn-primary {
-    background-color: var(--md-sys-color-primary);
-    color: var(--md-sys-color-on-primary);
+    background-color: var(--ink);
+    color: var(--paper);
 }
 
 .btn-primary:hover {
-    background-color: color-mix(in srgb, var(--md-sys-color-primary) 85%, black);
-    box-shadow: var(--shadow-medium, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+    background-color: var(--ink-deep);
 }
 
 .btn-primary:active {
-    background-color: var(--md-sys-color-primary);
-    box-shadow: var(--shadow-subtle, 0 1px 2px rgba(0, 0, 0, 0.05));
+    background-color: var(--ink);
 }
 
 .btn-primary:focus-visible {
-    outline: 3px solid var(--md-sys-color-secondary, #C4A484);
+    outline: 2px solid var(--ink);
     outline-offset: 2px;
 }
 
 .btn-secondary {
-    background-color: var(--md-sys-color-surface-container-lowest, #FDFBF7);
-    color: var(--md-sys-color-on-surface);
-    border: 1px solid var(--md-sys-color-outline-variant);
+    background-color: var(--paper-deep);
+    color: var(--ink);
+    border: 1px solid var(--paper-edge);
 }
 
 .btn-secondary:hover {
-    border-color: var(--md-sys-color-secondary);
-    background-color: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 80%, transparent);
+    background-color: var(--paper-edge);
 }
 
 .btn-secondary:active {
-    background-color: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 60%, transparent);
+    background-color: var(--paper-edge);
 }
 
 .btn-secondary:focus-visible {
-    outline: 3px solid var(--md-sys-color-secondary);
+    outline: 2px solid var(--ink);
     outline-offset: 2px;
 }
 
-/* Outlined button variant */
 .btn-outlined {
     background-color: transparent;
-    border: 1px solid var(--md-sys-color-outline-variant);
-    color: var(--md-sys-color-secondary);
+    border: 1px solid var(--paper-edge);
+    color: var(--ink);
 }
 
-.btn-outlined::before {
-    background-color: var(--md-sys-color-secondary);
-}
-
-.btn-outlined:hover::before {
-    opacity: var(--md-sys-state-hover-opacity, 0.08);
-}
-
-.btn-outlined:focus-visible::before {
-    opacity: var(--md-sys-state-focus-opacity, 0.12);
-}
-
-.btn-outlined:active::before {
-    opacity: var(--md-sys-state-pressed-opacity, 0.12);
-}
+.btn-outlined::before { background-color: var(--ink); }
+.btn-outlined:hover::before { opacity: 0.06; }
+.btn-outlined:focus-visible::before { opacity: 0.1; }
+.btn-outlined:active::before { opacity: 0.1; }
 
 .btn-outlined:focus-visible {
-    outline: 3px solid var(--md-sys-color-secondary);
+    outline: 2px solid var(--ink);
     outline-offset: 2px;
 }
 
-/* Text button variant */
 .btn-text {
     background-color: transparent;
-    color: var(--md-sys-color-secondary);
+    color: var(--ink);
     padding: 0.625rem 0.75rem;
 }
 
-.btn-text::before {
-    background-color: var(--md-sys-color-secondary);
-}
-
-.btn-text:hover::before {
-    opacity: var(--md-sys-state-hover-opacity, 0.08);
-}
-
-.btn-text:focus-visible::before {
-    opacity: var(--md-sys-state-focus-opacity, 0.12);
-}
-
-.btn-text:active::before {
-    opacity: var(--md-sys-state-pressed-opacity, 0.12);
-}
+.btn-text::before { background-color: var(--ink); }
+.btn-text:hover::before { opacity: 0.06; }
+.btn-text:focus-visible::before { opacity: 0.1; }
+.btn-text:active::before { opacity: 0.1; }
 
 .btn-text:focus-visible {
-    outline: 3px solid var(--md-sys-color-secondary);
+    outline: 2px solid var(--ink);
     outline-offset: 2px;
 }
 
 .btn-sm {
     padding: 0.5rem 1.25rem;
     min-height: 2rem;
-    font-size: var(--md-sys-typescale-label-medium-size, 0.75rem);
-    letter-spacing: var(--md-sys-typescale-label-medium-tracking, 0.5px);
+    font-size: var(--fs-ui-xs);
 }
 
-.btn-sm .material-symbols-outlined {
-    font-size: 18px;
-}
+.btn-sm .material-symbols-outlined { font-size: 18px; }
 
-/* Text Link Button - for secondary actions like "Download .txt" */
 .btn-link {
     background: none;
     border: none;
     padding: 0.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui);
     font-weight: 500;
-    color: var(--md-sys-color-text-muted);
+    color: var(--ink-mute);
     text-decoration: underline;
     text-decoration-style: dotted;
-    text-decoration-color: var(--md-sys-color-outline-variant);
+    text-decoration-color: var(--paper-edge);
     text-underline-offset: 4px;
     text-transform: none;
     letter-spacing: normal;
     cursor: pointer;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    transition: color var(--dur-1) var(--ease), text-decoration-color var(--dur-1) var(--ease);
 }
 
 .btn-link:hover {
-    color: var(--md-sys-color-primary);
-    text-decoration-color: var(--md-sys-color-primary);
+    color: var(--ink);
+    text-decoration-color: var(--ink);
 }
 
 /* ========================================
    MODAL COMPONENT SYSTEM
-   Based on Visual Identity Guide v1.0
    ======================================== */
 
-/* Modal Container */
 .wy-modal {
     position: fixed;
     inset: 0;
@@ -325,7 +229,7 @@ md-icon-button[selected] {
     padding: 1rem;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity var(--dur-2) var(--ease), visibility var(--dur-2) var(--ease);
 }
 
 .wy-modal.show {
@@ -333,33 +237,30 @@ md-icon-button[selected] {
     visibility: visible;
 }
 
-/* Modal Overlay - Blur background */
 .wy-modal-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background-color: rgba(40, 40, 40, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     cursor: pointer;
 }
 
-/* Modal Content Panel */
 .wy-modal-content {
     position: relative;
-    background: var(--md-sys-color-surface);
-    border-radius: 16px;
+    background: var(--paper);
+    border-radius: var(--radius-0);
     max-width: 56rem;
     width: 100%;
     max-height: 95vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--md-sys-color-outline-variant);
-    transform: scale(0.95) translateY(20px);
+    box-shadow: var(--shadow-modal);
+    border: 1px solid var(--paper-edge);
+    transform: scale(0.97) translateY(16px);
     opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-        opacity 0.3s ease;
+    transition: transform var(--dur-2) var(--ease), opacity var(--dur-2) var(--ease);
 }
 
 .wy-modal.show .wy-modal-content {
@@ -367,7 +268,6 @@ md-icon-button[selected] {
     opacity: 1;
 }
 
-/* Modal Header */
 .wy-modal-header {
     padding: 2rem 2rem 1.5rem;
     display: flex;
@@ -395,107 +295,83 @@ md-icon-button[selected] {
     margin-left: 1rem;
 }
 
-/* Modal Title - Serif, Primary color */
 .wy-modal-title {
-    font-family: var(--font-serif);
+    font-family: var(--ff-serif);
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     font-weight: 500;
-    line-height: 1.2;
-    color: var(--md-sys-color-primary);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--tr-display);
+    color: var(--ink);
     margin: 0;
 }
 
-/* Modal Description */
 .wy-modal-description {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 300;
-    line-height: 1.6;
-    color: var(--md-sys-color-text-muted);
+    font-family: var(--ff-sans);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: var(--lh-normal);
+    color: var(--ink-mute);
     margin: 0;
     max-width: 36rem;
 }
 
-/* Modal Close Button */
 .wy-modal-close {
     background: none;
     border: none;
-    color: var(--md-sys-color-text-muted);
+    color: var(--ink-soft);
     cursor: pointer;
     padding: 0.5rem;
-    border-radius: 50%;
+    border-radius: var(--radius-0);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition: color var(--dur-1) var(--ease);
 }
 
-.wy-modal-close:hover {
-    color: var(--md-sys-color-primary);
-    background-color: var(--md-sys-color-surface-container-high);
-}
+.wy-modal-close:hover { color: var(--ink); }
 
-/* Category Badge */
 .wy-badge {
     display: inline-block;
-    background-color: var(--md-sys-color-surface-container-high);
-    color: var(--md-sys-color-primary);
-    font-family: var(--font-sans);
-    font-size: 0.6875rem;
-    font-weight: 700;
+    background-color: var(--paper-edge);
+    color: var(--ink);
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui-xs);
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    padding: 0.375rem 0.75rem;
-    border-radius: 4px;
+    letter-spacing: var(--tr-eyebrow);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-0);
 }
 
-@media (prefers-color-scheme: dark) {
-    .wy-badge {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: var(--md-sys-color-on-surface);
-    }
-}
-
-/* Modal Tabs */
 .wy-modal-tabs {
     display: flex;
     gap: 2rem;
     padding: 0 2rem;
-    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    border-bottom: 1px solid var(--paper-edge);
 }
 
 .wy-modal-tab {
     background: none;
     border: none;
     padding: 0.75rem 0;
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui);
     font-weight: 500;
-    letter-spacing: 0.025em;
-    color: var(--md-sys-color-text-muted);
+    letter-spacing: 0;
+    color: var(--ink-mute);
     cursor: pointer;
-    border-bottom: 2px solid transparent;
+    border-bottom: 1px solid transparent;
     margin-bottom: -1px;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: color var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease);
 }
 
-.wy-modal-tab:hover {
-    color: var(--md-sys-color-primary);
-}
+.wy-modal-tab:hover { color: var(--ink); }
 
 .wy-modal-tab.active {
-    color: var(--md-sys-color-primary);
-    border-bottom-color: var(--md-sys-color-primary);
+    color: var(--ink);
+    border-bottom-color: var(--ink);
 }
 
-@media (prefers-color-scheme: dark) {
-    .wy-modal-tab.active {
-        color: var(--md-sys-color-on-surface);
-        border-bottom-color: var(--md-sys-color-on-surface);
-    }
-}
-
-/* Modal Body */
 .wy-modal-body {
     padding: 2rem;
     flex: 1;
@@ -505,54 +381,44 @@ md-icon-button[selected] {
     gap: 2rem;
 }
 
-/* Form Field Group */
 .wy-field {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
 }
 
-/* Form Labels - Uppercase, tracked */
 .wy-label {
-    font-family: var(--font-sans);
-    font-size: 0.6875rem;
-    font-weight: 700;
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui-xs);
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--md-sys-color-primary);
+    letter-spacing: var(--tr-eyebrow);
+    color: var(--ink-mute);
 }
 
-@media (prefers-color-scheme: dark) {
-    .wy-label {
-        color: var(--md-sys-color-on-surface-variant);
-    }
-}
-
-/* Form Inputs - White background on clay surface */
 .wy-input,
 .wy-textarea {
     width: 100%;
-    background-color: var(--md-sys-color-surface-container-lowest);
-    border: 1px solid var(--md-sys-color-outline-variant);
-    border-radius: 8px;
+    background-color: var(--white);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-0);
     padding: 0.75rem 1rem;
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    color: var(--md-sys-color-on-surface);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: var(--ff-sans);
+    font-size: var(--fs-body);
+    color: var(--ink);
+    transition: border-color var(--dur-1) var(--ease);
 }
 
 .wy-input::placeholder,
 .wy-textarea::placeholder {
-    color: var(--md-sys-color-text-muted);
-    opacity: 0.6;
+    color: var(--ink-soft);
 }
 
 .wy-input:focus,
 .wy-textarea:focus {
     outline: none;
-    border-color: var(--md-sys-color-primary);
-    box-shadow: 0 0 0 1px var(--md-sys-color-primary);
+    border-color: var(--ink);
+    box-shadow: 0 0 0 1px var(--ink);
 }
 
 .wy-textarea {
@@ -560,105 +426,92 @@ md-icon-button[selected] {
     min-height: 8rem;
 }
 
-/* Textarea hint text */
 .wy-textarea-hint {
     position: absolute;
     bottom: 0.75rem;
     right: 0.75rem;
-    font-size: 0.75rem;
-    color: var(--md-sys-color-text-muted);
-    opacity: 0.5;
+    font-size: var(--fs-ui-xs);
+    color: var(--ink-soft);
     pointer-events: none;
 }
 
-/* Modal Footer / Actions */
 .wy-modal-footer {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 1.5rem;
     padding: 1rem 2rem 2rem;
-    background-color: var(--md-sys-color-surface);
+    background-color: var(--paper);
+    border-top: 1px solid var(--paper-edge);
 }
 
-/* Text Link Button (Download .txt style) */
 .wy-link-button {
     background: none;
     border: none;
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui);
     font-weight: 500;
-    color: var(--md-sys-color-text-muted);
+    color: var(--ink-mute);
     cursor: pointer;
     text-decoration: underline;
     text-decoration-style: dotted;
-    text-decoration-color: var(--md-sys-color-outline-variant);
+    text-decoration-color: var(--paper-edge);
     text-underline-offset: 4px;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    transition: color var(--dur-1) var(--ease), text-decoration-color var(--dur-1) var(--ease);
 }
 
 .wy-link-button:hover {
-    color: var(--md-sys-color-primary);
-    text-decoration-color: var(--md-sys-color-primary);
+    color: var(--ink);
+    text-decoration-color: var(--ink);
 }
 
-/* Icon Button (for modal actions) */
 .wy-icon-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    background-color: var(--md-sys-color-primary);
-    color: var(--md-sys-color-on-primary);
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
-    font-weight: 600;
+    gap: var(--s-2);
+    background-color: var(--ink);
+    color: var(--paper);
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui);
+    font-weight: 500;
     text-transform: none;
-    letter-spacing: 0.025em;
+    letter-spacing: 0;
     padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 9999px;
+    border-radius: var(--radius-0);
     cursor: pointer;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transition: background-color var(--dur-1) var(--ease);
 }
 
-.wy-icon-btn:hover {
-    background-color: #1a3025;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.wy-icon-btn:active {
-    transform: scale(0.98);
-}
+.wy-icon-btn:hover { background-color: var(--ink-deep); }
+.wy-icon-btn:active { opacity: 0.9; }
 
 /* ========================================
-   TOAST / SNACKBAR COMPONENT
+   TOAST / SNACKBAR
    ======================================== */
 
 .wy-toast {
     position: fixed;
-    top: var(--space-xl, 1.5rem);
-    right: var(--space-xl, 1.5rem);
+    top: var(--s-6);
+    right: var(--s-6);
 
-    background-color: var(--md-sys-color-on-surface);
-    color: var(--md-sys-color-surface);
+    background-color: var(--ink);
+    color: var(--paper);
 
     padding: 0.875rem 1rem;
-    border-radius: var(--md-sys-shape-corner-small, 8px);
-    box-shadow: var(--shadow-large, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+    border-radius: var(--radius-0);
 
     opacity: 0;
-    transform: translateY(-20px);
-
-    transition: all var(--md-sys-motion-duration-medium2, 0.3s) var(--md-sys-motion-easing-emphasized, cubic-bezier(0.2, 0, 0, 1));
+    transform: translateY(-12px);
+    transition: all var(--dur-2) var(--ease);
 
     pointer-events: none;
 
-    font-family: var(--md-sys-typescale-body-medium-font, var(--font-body));
-    font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
-    font-weight: var(--md-sys-typescale-body-medium-weight, 400);
-    line-height: var(--md-sys-typescale-body-medium-line-height, 1.25rem);
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui);
+    font-weight: 400;
+    line-height: var(--lh-normal);
 
     z-index: 4000;
     min-width: 180px;
@@ -674,15 +527,13 @@ md-icon-button[selected] {
    TABS COMPONENT
    ======================================== */
 
-.wy-tabs {
-    margin-bottom: 1.25rem;
-}
+.wy-tabs { margin-bottom: var(--s-5); }
 
 .wy-tabs-header {
     display: flex;
     gap: 2rem;
     align-items: flex-end;
-    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    border-bottom: 1px solid var(--paper-edge);
     position: relative;
     padding: 0 2rem;
 }
@@ -690,69 +541,46 @@ md-icon-button[selected] {
 .wy-tab {
     padding: 0.75rem 0;
     min-height: 2.5rem;
-
     background: none;
     border: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: 1px solid transparent;
     margin-bottom: -1px;
-
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui);
     font-weight: 500;
-    letter-spacing: 0.025em;
-
-    color: var(--md-sys-color-text-muted);
+    letter-spacing: 0;
+    color: var(--ink-mute);
     cursor: pointer;
-
-    transition: all var(--md-sys-motion-duration-short4, 0.2s) var(--md-sys-motion-easing-standard, ease);
-
-    text-transform: none;
+    transition: all var(--dur-1) var(--ease);
     position: relative;
     overflow: hidden;
 }
 
-.wy-tab:hover {
-    color: var(--md-sys-color-primary);
-}
+.wy-tab:hover { color: var(--ink); }
 
 .wy-tab.active {
-    color: var(--md-sys-color-primary);
-    border-bottom-color: var(--md-sys-color-primary);
+    color: var(--ink);
+    border-bottom-color: var(--ink);
 }
 
-@media (prefers-color-scheme: dark) {
-    .wy-tab.active {
-        color: var(--md-sys-color-on-surface);
-        border-bottom-color: var(--md-sys-color-on-surface);
-    }
-}
-
-.wy-tabs-content {
-    position: relative;
-}
-
-.wy-tab-pane {
-    display: none;
-}
-
-.wy-tab-pane.active {
-    display: block;
-}
+.wy-tabs-content { position: relative; }
+.wy-tab-pane { display: none; }
+.wy-tab-pane.active { display: block; }
 
 /* ========================================
-   TOGGLE SWITCH COMPONENT
+   TOGGLE SWITCH
    ======================================== */
 
 .wy-toggle-wrapper {
     display: flex;
     align-items: center;
-    gap: var(--space-md, 1rem);
+    gap: var(--s-4);
 }
 
 .wy-toggle-label {
     display: flex;
     align-items: center;
-    gap: var(--space-md, 1rem);
+    gap: var(--s-4);
     cursor: pointer;
     user-select: none;
 }
@@ -768,10 +596,10 @@ md-icon-button[selected] {
     position: relative;
     width: 48px;
     height: 28px;
-    background-color: var(--md-sys-color-outline-variant);
-    border: 2px solid var(--md-sys-color-outline-variant);
-    border-radius: var(--md-sys-shape-corner-full, 9999px);
-    transition: all var(--md-sys-motion-duration-medium2, 0.3s) var(--md-sys-motion-easing-legacy, ease);
+    background-color: var(--paper-edge);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-pill);
+    transition: all var(--dur-2) var(--ease);
     flex-shrink: 0;
 }
 
@@ -780,23 +608,21 @@ md-icon-button[selected] {
     position: absolute;
     width: 20px;
     height: 20px;
-    left: 2px;
+    left: 3px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: var(--md-sys-color-surface);
-    border-radius: var(--md-sys-shape-corner-full, 9999px);
-    transition: all 0.4s var(--md-sys-motion-easing-spring, cubic-bezier(0.34, 1.56, 0.64, 1));
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    background-color: var(--white);
+    border-radius: var(--radius-pill);
+    transition: all var(--dur-2) var(--ease);
 }
 
 .wy-toggle-input:checked + .wy-toggle-slider {
-    background-color: var(--md-sys-color-primary);
-    border-color: var(--md-sys-color-primary);
+    background-color: var(--ink);
+    border-color: var(--ink);
 }
 
 .wy-toggle-input:checked + .wy-toggle-slider::before {
-    left: calc(100% - 22px);
-    transform: translateY(-50%) scale(1.05);
+    left: calc(100% - 23px);
 }
 
 .wy-toggle-input:active + .wy-toggle-slider::before {
@@ -804,43 +630,44 @@ md-icon-button[selected] {
 }
 
 .wy-toggle-input:focus-visible + .wy-toggle-slider {
-    outline: 3px solid var(--md-sys-color-secondary);
+    outline: 2px solid var(--ink);
     outline-offset: 2px;
 }
 
 .wy-toggle-text {
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-family: var(--ff-sans);
+    font-size: var(--fs-ui);
     font-weight: 500;
-    color: var(--md-sys-color-on-surface);
+    color: var(--ink);
 }
 
 /* ========================================
-   EMPTY STATE COMPONENT
+   EMPTY STATE
    ======================================== */
 
 .wy-empty-state {
     text-align: center;
-    padding: var(--space-3xl, 3rem);
-    color: var(--md-sys-color-text-muted);
-    font-family: var(--font-body);
-    font-size: 1.125rem;
+    padding: var(--s-8);
+    color: var(--ink-mute);
+    font-family: var(--ff-sans);
+    font-size: var(--fs-body-l);
     font-weight: 400;
-    line-height: 1.6;
+    line-height: var(--lh-normal);
 }
 
 .wy-empty-state-icon {
     font-size: 3rem;
-    margin-bottom: var(--space-md, 1rem);
-    opacity: 0.5;
+    margin-bottom: var(--s-4);
+    opacity: 0.4;
 }
 
 .wy-empty-state-title {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
+    font-family: var(--ff-serif);
+    font-size: var(--fs-display-s);
     font-weight: 500;
-    color: var(--md-sys-color-primary);
-    margin-bottom: var(--space-sm, 0.5rem);
+    color: var(--ink);
+    margin-bottom: var(--s-2);
+    letter-spacing: var(--tr-display);
 }
 
 .wy-empty-state-description {
@@ -848,29 +675,15 @@ md-icon-button[selected] {
     margin: 0 auto;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 640px) {
-    .wy-modal-header {
-        padding: 1.5rem 1.5rem 1rem;
-    }
-
-    .wy-modal-tabs {
-        padding: 0 1.5rem;
-        gap: 1.5rem;
-    }
-
-    .wy-modal-body {
-        padding: 1.5rem;
-    }
-
+    .wy-modal-header { padding: 1.5rem 1.5rem 1rem; }
+    .wy-modal-tabs { padding: 0 1.5rem; gap: 1.5rem; }
+    .wy-modal-body { padding: 1.5rem; }
     .wy-modal-footer {
         padding: 1rem 1.5rem 1.5rem;
         flex-direction: column;
         gap: 1rem;
     }
-
-    .wy-modal-footer .wy-icon-btn {
-        width: 100%;
-        justify-content: center;
-    }
+    .wy-modal-footer .wy-icon-btn { width: 100%; justify-content: center; }
 }

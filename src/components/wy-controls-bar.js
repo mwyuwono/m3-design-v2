@@ -418,8 +418,8 @@ export class WyControlsBar extends LitElement {
     .search-input:focus {
       outline: none;
       background-color: var(--wy-controls-search-bg-focus, var(--wy-controls-search-bg, var(--md-sys-color-surface, #fff)));
-      border-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 20%, transparent);
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 20%, transparent);
+      border-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 20%, transparent);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary, #282828) 20%, transparent);
     }
 
     .search-icon {
@@ -434,7 +434,7 @@ export class WyControlsBar extends LitElement {
     }
 
     .search-input:focus + .search-icon {
-      color: var(--md-sys-color-primary, #2C4C3B);
+      color: var(--md-sys-color-primary, #282828);
     }
 
     /* Divider */
@@ -461,7 +461,7 @@ export class WyControlsBar extends LitElement {
     .view-toggle {
       background-color: var(--wy-controls-toggle-bg, var(--md-sys-color-surface-container-high, #f3f4f6));
       border: 1px solid var(--md-sys-color-outline-variant, transparent);
-      border-radius: 8px;
+      border-radius: 0;
       display: flex;
       padding: 2px;
     }
@@ -472,7 +472,7 @@ export class WyControlsBar extends LitElement {
       height: 28px;
       width: 28px;
       padding: 0;
-      border-radius: 6px;
+      border-radius: 0;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -489,7 +489,7 @@ export class WyControlsBar extends LitElement {
 
     .view-btn.active {
       background-color: var(--md-sys-color-surface, #fff);
-      color: var(--md-sys-color-primary, #2C4C3B);
+      color: var(--md-sys-color-primary, #282828);
       opacity: 1;
       box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 0 0 1px var(--md-sys-color-outline-variant, #e5e7eb);
     }

@@ -35,7 +35,7 @@ export class WyTagInput extends LitElement {
       gap: 8px;
       padding: 8px 12px;
       border: 1px solid var(--md-sys-color-outline-variant);
-      border-radius: 12px;
+      border-radius: 0;
       background-color: transparent;
       transition: border-color 0.2s, box-shadow 0.2s;
       min-height: 48px;
@@ -45,7 +45,7 @@ export class WyTagInput extends LitElement {
 
     .container:focus-within {
       border-color: var(--md-sys-color-primary);
-      box-shadow: 0 0 0 3px rgba(45, 78, 60, 0.1);
+      box-shadow: 0 0 0 1px var(--ink);
     }
 
     .container.disabled {
@@ -73,8 +73,8 @@ export class WyTagInput extends LitElement {
       margin-top: 4px;
       background-color: var(--md-sys-color-surface);
       border: 1px solid var(--md-sys-color-outline-variant);
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border-radius: 0;
+      
       z-index: 100;
       overflow: hidden;
       max-height: 240px;

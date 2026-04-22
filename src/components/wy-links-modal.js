@@ -168,7 +168,7 @@ export class WyLinksModal extends LitElement {
       max-height: 90vh; /* Constrain height to enable scrolling */
       background: var(--md-sys-color-surface);
       border-radius: var(--md-sys-shape-corner-medium);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+      box-shadow: var(--shadow-modal); /* shadow-2xl */
       overflow: hidden;
       border: 1px solid color-mix(in srgb, var(--md-sys-color-on-surface) 5%, transparent); /* border-black/5 */
       transform: scale(0.95) translateY(20px);
@@ -182,13 +182,6 @@ export class WyLinksModal extends LitElement {
     :host([open]) .modal-container {
       transform: scale(1) translateY(0);
       opacity: 1;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .modal-container {
-        background: var(--md-sys-color-background); /* background-dark */
-        border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 10%, transparent); /* border-white/10 */
-      }
     }
 
     /* Content wrapper with padding - matches mockup p-8 */
@@ -279,12 +272,6 @@ export class WyLinksModal extends LitElement {
       color: var(--md-sys-color-text-heading); /* hover:text-primary */
     }
 
-    @media (prefers-color-scheme: dark) {
-      .close-button:hover {
-        color: var(--md-sys-color-on-surface); /* dark:hover:text-stone-100 */
-      }
-    }
-
     .close-button:focus-visible {
       outline: 3px solid var(--md-sys-color-primary);
       outline-offset: 2px;
@@ -312,12 +299,6 @@ export class WyLinksModal extends LitElement {
       margin: 0;
     }
 
-    @media (prefers-color-scheme: dark) {
-      .modal-title {
-        color: var(--md-sys-color-on-surface); /* dark:text-stone-100 */
-      }
-    }
-
     /* Sections container - matches space-y-10 */
     .sections-container {
       display: flex;
@@ -339,12 +320,6 @@ export class WyLinksModal extends LitElement {
       line-height: 1.2;
       color: var(--wy-links-modal-header-color, #292524); /* stone-800 from reference */
       margin: 0 0 1.25rem 0; /* 20px = 1.25rem */
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .section-header {
-        color: var(--md-sys-color-on-surface-variant); /* dark:text-stone-200 */
-      }
     }
 
     /* Chips container - matches flex flex-wrap gap-3 */
@@ -400,13 +375,6 @@ export class WyLinksModal extends LitElement {
       outline-offset: 2px;
     }
 
-    /* Dark mode adjustments */
-    @media (prefers-color-scheme: dark) {
-      .link-chip {
-        background-color: var(--md-sys-color-surface-container);
-        color: var(--md-sys-color-on-surface-variant); /* dark:text-stone-300 */
-      }
-    }
   `;
 
   render() {

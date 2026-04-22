@@ -288,16 +288,16 @@ export class WyLibraryHeader extends LitElement {
 
     .searchInput:focus,
     .searchInput:focus-visible {
-      outline: 3px solid var(--md-sys-color-primary, #2C4C3B);
+      outline: 3px solid var(--md-sys-color-primary, #282828);
       outline-offset: 2px;
-      border-color: var(--md-sys-color-primary, #2C4C3B);
-      box-shadow: 0 0 0 3px rgba(44, 76, 59, 0.12);
+      border-color: var(--md-sys-color-primary, #282828);
+      box-shadow: 0 0 0 1px var(--ink);
     }
 
     .searchInputWrapper:has(.searchInput.focused) .searchIcon,
     .searchInputWrapper:has(.searchInput:focus) .searchIcon,
     .searchInputWrapper:has(.searchInput:focus-visible) .searchIcon {
-      color: var(--md-sys-color-primary, #2C4C3B);
+      color: var(--md-sys-color-primary, #282828);
     }
 
     .searchClear {

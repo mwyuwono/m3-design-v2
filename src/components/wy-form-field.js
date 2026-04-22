@@ -34,7 +34,7 @@ export class WyFormField extends LitElement {
     }
 
     .required-mark {
-      color: #B3261E;
+      color: var(--err);
       margin-left: 2px;
     }
 
@@ -49,7 +49,7 @@ export class WyFormField extends LitElement {
     .error {
       font-family: var(--font-body);
       font-size: 0.75rem;
-      color: #B3261E;
+      color: var(--err);
       margin-top: 4px;
     }
 
@@ -59,7 +59,7 @@ export class WyFormField extends LitElement {
       width: 100%;
       box-sizing: border-box;
       padding: 12px 16px;
-      border-radius: 12px;
+      border-radius: 0;
       border: 1px solid var(--md-sys-color-outline-variant);
       background-color: var(--md-sys-color-surface-container-lowest);
       font-family: var(--font-body);
@@ -73,11 +73,11 @@ export class WyFormField extends LitElement {
     ::slotted(select:focus) {
       outline: none;
       border-color: var(--md-sys-color-primary);
-      box-shadow: 0 0 0 3px rgba(45, 78, 60, 0.1);
+      box-shadow: 0 0 0 1px var(--ink);
     }
 
     ::slotted([aria-invalid="true"]) {
-      border-color: #B3261E;
+      border-color: var(--err);
     }
   `;
 

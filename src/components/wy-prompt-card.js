@@ -22,7 +22,7 @@ export class WyPromptCard extends LitElement {
     :host {
       display: block;
       background-color: var(--md-sys-color-surface-container-low);
-      border-radius: 12px;
+      border-radius: 0;
       padding: 16px;
       border: 1px solid var(--md-sys-color-outline-variant);
       cursor: pointer;
@@ -33,8 +33,8 @@ export class WyPromptCard extends LitElement {
 
     :host(:hover) {
       background-color: var(--md-sys-color-surface-container-high);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      
+      
       border-color: var(--md-sys-color-primary);
     }
 

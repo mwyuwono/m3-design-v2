@@ -65,7 +65,7 @@ export class WyButton extends LitElement {
       text-decoration: none;
       font-family: var(--font-sans);
       font-weight: var(--wy-button-font-weight, 500);
-      border-radius: var(--md-sys-shape-corner-full);
+      border-radius: var(--radius-0);
       transition: 
         transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
         box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
@@ -137,7 +137,7 @@ export class WyButton extends LitElement {
     .button.variant-primary:hover:not(:disabled) {
       background-color: var(--wy-button-primary-hover-bg);
       box-shadow: var(--wy-button-primary-shadow-hover);
-      transform: translateY(-2px);
+      
     }
 
     .button.variant-primary:hover:not(:disabled)::before {

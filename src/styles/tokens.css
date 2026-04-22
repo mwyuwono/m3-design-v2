@@ -1,522 +1,376 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* ==========================================================================
+   WY DESIGN SYSTEM — TOKEN FOUNDATIONS
+   "The Nineteenth" aesthetic. Serif-heavy, cream paper, 1px rules.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   FONTS
+   Playfair Display (Google Fonts, OFL) is the primary serif.
+   FONT NOTE: Replace with BradfordLL @font-face blocks once license confirmed
+   for web/CDN distribution. Inter replaces DM Sans as the UI sans.
+   -------------------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600&display=swap");
 
 :root {
-  /* --- COLOR SYSTEM: Visual Identity v1.0 (Refined) --- */
+  /* ---------- COLOR — RAW TOKENS ---------- */
+  --paper:         #FFFAF5;
+  --paper-deep:    #F4EFEB;
+  --paper-edge:    #E8E2DA;
 
-  /* Primary: Hunter Green (Refined) */
-  --md-sys-color-primary: #2C4C3B;
-  --md-sys-color-on-primary: #FFFFFF;
-  --md-sys-color-primary-container: #E8F5E9;
-  /* Pale wash */
-  --md-sys-color-on-primary-container: #002114;
-  /* 10% tint of Hunter Green (for soft surfaces, e.g. filter-chip variant) */
-  --md-sys-color-primary-tint-10: color-mix(in srgb, var(--md-sys-color-primary) 10%, white);
+  --ink:           #282828;
+  --ink-deep:      #303030;
+  --ink-mute:      #868685;
+  --ink-soft:      #B8B3AC;
 
-  /* Secondary / Surface Tones */
-  --md-sys-color-secondary: #8C7E70;
-  /* Muted Gold/Bronze kept as accent */
-  --md-sys-color-on-secondary: #FFFFFF;
+  --white:         #FFFFFF;
 
-  /* Backgrounds & Surfaces (Light) */
-  --md-sys-color-background: #FDFBF7;
-  /* Alabaster */
-  --md-sys-color-on-background: #121714;
-  /* Deep Green-Black */
+  --ok:            #28C101;
+  --err:           #FF0101;
 
-  /* Surfaces & Containers */
-  --md-sys-color-surface: #F5F2EA;
-  /* Warm Clay */
-  --md-sys-color-on-surface: #121714;
-  --md-sys-color-surface-variant: #EBE5DE;
-  --md-sys-color-on-surface-variant: #49454E;
+  /* ---------- SEMANTIC SURFACE ROLES ---------- */
+  --bg:            var(--paper);
+  --bg-alt:        var(--paper-deep);
+  --fg:            var(--ink);
+  --fg-muted:      var(--ink-mute);
+  --fg-soft:       var(--ink-soft);
+  --rule:          var(--ink);
+  --rule-soft:     var(--paper-edge);
 
-  /* Missing M3 Containers (Derived from Palette) */
-  --md-sys-color-surface-container-lowest: #FFFFFF;
-  --md-sys-color-surface-container-low: #FDFBF7;
-  /* Alabaster */
-  --md-sys-color-surface-container: #F5F2EA;
-  /* Warm Clay */
-  --md-sys-color-surface-container-high: #EBE5DE;
-  --md-sys-color-surface-container-highest: #D7D3C8;
+  /* ---------- TYPE — FAMILIES ---------- */
+  /* FONT NOTE: prefix with "BradfordLL", once licensed: */
+  /* --ff-serif: "BradfordLL", "Playfair Display", "Baskerville", "Libre Caslon Text", Georgia, serif; */
+  --ff-serif:      "Playfair Display", "Baskerville", "Libre Caslon Text", Georgia, serif;
+  --ff-sans:       "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --ff-mono:       ui-monospace, "SF Mono", Menlo, monospace;
 
-  --md-sys-color-secondary-container: #EBE5DE;
-  /* Matching Surface Variant */
-  --md-sys-color-on-secondary-container: #2d312f;
-  /* Darker text */
+  /* ---------- TYPE — SCALE (fluid) ---------- */
+  --fs-display-xl: clamp(3.5rem, 6vw, 6.25rem);
+  --fs-display-l:  clamp(2.75rem, 4.5vw, 4.5rem);
+  --fs-display-m:  clamp(2rem, 3vw, 3rem);
+  --fs-display-s:  clamp(1.5rem, 2vw, 2rem);
+  --fs-body-l:     1.25rem;
+  --fs-body:       1rem;
+  --fs-body-s:     0.875rem;
+  --fs-ui:         0.875rem;
+  --fs-ui-xs:      0.75rem;
 
-  /* Inverse Tokens (for Toasts/Snackbars) */
-  --md-sys-color-inverse-surface: #121714;
-  /* Dark for light mode */
-  --md-sys-color-inverse-on-surface: #F5F2EA;
-  /* Light text on inverse */
+  /* ---------- TYPE — LEADING ---------- */
+  --lh-tight:      1.02;
+  --lh-snug:       1.2;
+  --lh-normal:     1.55;
+  --lh-loose:      1.75;
 
-  /* Outlines & Borders */
-  --md-sys-color-outline: #2d4e3c;
-  --md-sys-color-outline-variant: #D7D3C8;
-  --md-sys-color-border-variant: #EBE5DA;
+  /* ---------- TYPE — TRACKING ---------- */
+  --tr-display:   -0.015em;
+  --tr-body:       0;
+  --tr-eyebrow:    0.18em;
 
-  /* Semantic Text */
-  --md-sys-color-text-main: #121714;
-  --md-sys-color-text-muted: #667f71;
-  --md-sys-color-text-heading: #2C4C3B;  /* Primary Hunter Green for light mode headings */
-  
-  /* Links Modal Specific Colors (exact match to Tailwind stone palette from reference design) */
-  /* These are component-specific colors that don't align with M3 semantic tokens */
-  --wy-links-modal-title-color: #1C1917;        /* stone-900: rgb(28, 25, 23) */
-  --wy-links-modal-header-color: #292524;       /* stone-800: rgb(41, 37, 36) */
-  --wy-links-modal-chip-text-color: #44403C;    /* stone-700: rgb(68, 64, 60) */
-  --wy-links-modal-close-color: #A8A29E;        /* stone-400: rgb(168, 162, 158) */
-  --wy-links-modal-chip-border: #D9D4C7;        /* accent-taupe: rgb(217, 212, 199) */
-  
-  /* Dropdown Component Colors (exact match to Tailwind zinc palette from reference design) */
-  /* Reference uses zinc palette which has delta E > 2.0 from M3 semantic tokens, requiring component-specific tokens for perfect visual fidelity */
-  --wy-dropdown-label-color: #71717A;           /* zinc-500: rgb(113, 113, 122) - Δ 19.95 from --md-sys-color-text-muted */
-  --wy-dropdown-text-color: #52525B;            /* zinc-600: rgb(82, 82, 91) - Δ 20.47 from --md-sys-color-on-surface-variant */
-  --wy-dropdown-icon-color: #52525B;            /* zinc-600: rgb(82, 82, 91) - matches text for consistency */
-  --wy-dropdown-bg: var(--md-sys-color-surface); /* #F5F2EA - exact match */
-  --wy-dropdown-border: #E5E7EB;                /* zinc-200: rgb(229, 231, 235) - default transparent, visible on hover */
-  --wy-dropdown-border-hover: var(--md-sys-color-outline-variant); /* Use design system token for hover */
-  --wy-dropdown-menu-bg: var(--md-sys-color-surface-container-high); /* Dropdown menu background - changed to high for better contrast */
-  --wy-dropdown-item-hover-bg: var(--md-sys-color-surface-container-high); /* Menu item hover */
-  
-  /* Info Panel Component Colors */
-  --wy-info-panel-bg: var(--md-sys-color-background); /* #FDFBF7 - exact match */
-  --wy-info-panel-border: var(--md-sys-color-surface-container-highest); /* #D7D3C8 - exact match */
-  --wy-info-panel-text-color: #52525B;          /* zinc-600: rgb(82, 82, 91) - Δ 20.47 from --md-sys-color-on-surface-variant */
+  /* ---------- SPACING — 4px base ---------- */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
 
-  /* Library Header Component Colors */
-  /* Status color for backup sync indicator - Tailwind status-green from reference design */
-  /* This is a semantic success color that doesn't exist in M3 palette */
-  --wy-status-success-color: #438E64;           /* rgb(67, 142, 100) - Tailwind custom status-green */
+  /* ---------- LAYOUT ---------- */
+  --outer-gutter: 20px;
+  --inner-gutter: 20px;
+  --max-w:        1280px;
+  --max-w-wide:   1440px;
 
-  /* Toast semantic colors */
-  --wy-toast-success-color: var(--md-sys-color-primary);
-  --wy-toast-error-color: #B3261E;
-  --wy-toast-warning-color: var(--md-sys-color-secondary);
-  --wy-toast-info-color: var(--md-sys-color-secondary);
-  
-  /* Glass morphism effect for scrolled header state */
-  /* Semi-transparent background with backdrop blur for sticky header */
-  --wy-library-header-scrolled-bg: rgba(248, 247, 244, 0.8);  /* Alabaster with 80% opacity */
-  --wy-library-header-scrolled-blur: 14px;
+  /* ---------- LINES & EDGES ---------- */
+  --hair:         1px;
+  --radius-0:     0;
+  --radius-1:     2px;
+  --radius-pill:  999px;
 
-  /* --- TYPOGRAPHY FAMILIES --- */
-  --font-display: 'Playfair Display', serif;
-  /* Display Serif */
-  --font-serif: 'Playfair Display', serif;
-  /* Editorial Headings (Serif) */
-  --font-sans: 'DM Sans', sans-serif;
-  /* Sans UI/Body */
-  --font-body: var(--font-sans);
-  /* Standardizing Body to Sans */
+  /* ---------- SHADOWS ---------- */
+  --shadow-modal: 0 12px 40px rgba(40, 40, 40, 0.08);
 
-  /* M3 Typography Token Overrides */
-  --md-sys-typescale-display-large-font: var(--font-serif);
-  --md-sys-typescale-display-medium-font: var(--font-serif);
-  --md-sys-typescale-display-small-font: var(--font-serif);
+  /* ---------- MOTION ---------- */
+  --ease:         cubic-bezier(0.2, 0.6, 0.2, 1);
+  --ease-in-out:  cubic-bezier(0.6, 0, 0.4, 1);
+  --dur-1:        150ms;
+  --dur-2:        350ms;
+  --dur-3:        500ms;
+  --dur-4:        800ms;
 
-  --md-sys-typescale-headline-large-font: var(--font-serif);
-  --md-sys-typescale-headline-medium-font: var(--font-serif);
-  --md-sys-typescale-headline-small-font: var(--font-serif);
+  /* ==========================================================================
+     LEGACY ALIASES
+     Map old --md-sys-* and --font-* names to new tokens so existing components
+     continue to resolve correctly. Remove each alias as components are updated.
+     ========================================================================== */
 
-  --md-sys-typescale-title-large-font: var(--font-serif);
-  --md-sys-typescale-title-medium-font: var(--font-body);
-  --md-sys-typescale-title-small-font: var(--font-body);
+  /* --- Color aliases --- */
+  --md-sys-color-background:               var(--paper);
+  --md-sys-color-on-background:            var(--ink);
+  --md-sys-color-surface:                  var(--paper-deep);
+  --md-sys-color-on-surface:               var(--ink);
+  --md-sys-color-surface-variant:          var(--paper-edge);
+  --md-sys-color-on-surface-variant:       var(--ink-mute);
+  --md-sys-color-surface-container-lowest: var(--white);
+  --md-sys-color-surface-container-low:    var(--paper);
+  --md-sys-color-surface-container:        var(--paper-deep);
+  --md-sys-color-surface-container-high:   var(--paper-edge);
+  --md-sys-color-surface-container-highest:var(--paper-edge);
+  --md-sys-color-primary:                  var(--ink);
+  --md-sys-color-on-primary:               var(--paper);
+  --md-sys-color-primary-container:        var(--paper-deep);
+  --md-sys-color-on-primary-container:     var(--ink);
+  --md-sys-color-primary-tint-10:          color-mix(in srgb, var(--ink) 10%, transparent);
+  --md-sys-color-secondary:                var(--ink-mute);
+  --md-sys-color-on-secondary:             var(--paper);
+  --md-sys-color-secondary-container:      var(--paper-edge);
+  --md-sys-color-on-secondary-container:   var(--ink);
+  --md-sys-color-inverse-surface:          var(--ink);
+  --md-sys-color-inverse-on-surface:       var(--paper);
+  --md-sys-color-outline:                  var(--paper-edge);
+  --md-sys-color-outline-variant:          var(--paper-edge);
+  --md-sys-color-border-variant:           var(--paper-edge);
+  --md-sys-color-text-main:                var(--ink);
+  --md-sys-color-text-muted:               var(--ink-mute);
+  --md-sys-color-text-heading:             var(--ink);
+  --md-sys-color-error:                    var(--err);
+  --md-sys-color-shadow:                   var(--ink);
 
-  --md-sys-typescale-body-large-font: var(--font-body);
-  --md-sys-typescale-body-medium-font: var(--font-body);
-  --md-sys-typescale-body-small-font: var(--font-body);
+  /* --- Font family aliases --- */
+  --font-display:  var(--ff-serif);
+  --font-serif:    var(--ff-serif);
+  --font-sans:     var(--ff-sans);
+  --font-body:     var(--ff-sans);
 
-  --md-sys-typescale-label-large-font: var(--font-sans);
-  --md-sys-typescale-label-medium-font: var(--font-sans);
-  --md-sys-typescale-label-small-font: var(--font-sans);
+  /* --- Typography scale aliases (kept verbatim, families updated via --font-* above) --- */
+  --md-sys-typescale-display-large-font:     var(--ff-serif);
+  --md-sys-typescale-display-medium-font:    var(--ff-serif);
+  --md-sys-typescale-display-small-font:     var(--ff-serif);
+  --md-sys-typescale-headline-large-font:    var(--ff-serif);
+  --md-sys-typescale-headline-medium-font:   var(--ff-serif);
+  --md-sys-typescale-headline-small-font:    var(--ff-serif);
+  --md-sys-typescale-title-large-font:       var(--ff-serif);
+  --md-sys-typescale-title-medium-font:      var(--ff-sans);
+  --md-sys-typescale-title-small-font:       var(--ff-sans);
+  --md-sys-typescale-body-large-font:        var(--ff-sans);
+  --md-sys-typescale-body-medium-font:       var(--ff-sans);
+  --md-sys-typescale-body-small-font:        var(--ff-sans);
+  --md-sys-typescale-label-large-font:       var(--ff-sans);
+  --md-sys-typescale-label-medium-font:      var(--ff-sans);
+  --md-sys-typescale-label-small-font:       var(--ff-sans);
 
-  /* --- TYPOGRAPHY SCALE TOKENS --- */
-  /* Display Tier */
-  --md-sys-typescale-display-large-size: 4.5rem; /* 72px */
+  /* --- Typography size/weight aliases (values unchanged) --- */
+  --md-sys-typescale-display-large-size:       4.5rem;
   --md-sys-typescale-display-large-line-height: 1.1;
   --md-sys-typescale-display-large-letter-spacing: -0.02em;
-  --md-sys-typescale-display-large-weight: 600;
-
-  --md-sys-typescale-display-medium-size: 3.5rem; /* 56px */
+  --md-sys-typescale-display-large-weight:     600;
+  --md-sys-typescale-display-medium-size:      3.5rem;
   --md-sys-typescale-display-medium-line-height: 1.1;
-  --md-sys-typescale-display-medium-weight: 600;
-
-  --md-sys-typescale-display-small-size: 2.5rem; /* 40px */
+  --md-sys-typescale-display-medium-weight:    600;
+  --md-sys-typescale-display-small-size:       2.5rem;
   --md-sys-typescale-display-small-line-height: 1.2;
-  --md-sys-typescale-display-small-weight: 600;
-
-  /* Headline Tier */
-  --md-sys-typescale-headline-large-size: 2rem; /* 32px */
-  --md-sys-typescale-headline-large-weight: 600;
-
-  --md-sys-typescale-headline-medium-size: 1.75rem; /* 28px */
-  --md-sys-typescale-headline-medium-weight: 600;
-
-  --md-sys-typescale-headline-small-size: 1.5rem; /* 24px */
-  --md-sys-typescale-headline-small-weight: 600;
-
-  /* Title Tier */
-  --md-sys-typescale-title-large-size: 1.25rem; /* 20px */
-  --md-sys-typescale-title-large-weight: 600;
-
-  --md-sys-typescale-title-medium-size: 1.125rem; /* 18px */
-  --md-sys-typescale-title-medium-weight: 500;
+  --md-sys-typescale-display-small-weight:     600;
+  --md-sys-typescale-headline-large-size:      2rem;
+  --md-sys-typescale-headline-large-weight:    600;
+  --md-sys-typescale-headline-medium-size:     1.75rem;
+  --md-sys-typescale-headline-medium-weight:   600;
+  --md-sys-typescale-headline-small-size:      1.5rem;
+  --md-sys-typescale-headline-small-weight:    600;
+  --md-sys-typescale-title-large-size:         1.25rem;
+  --md-sys-typescale-title-large-weight:       600;
+  --md-sys-typescale-title-medium-size:        1.125rem;
+  --md-sys-typescale-title-medium-weight:      500;
   --md-sys-typescale-title-medium-letter-spacing: 0.015em;
-
-  --md-sys-typescale-title-small-size: 1rem; /* 16px */
-  --md-sys-typescale-title-small-weight: 500;
+  --md-sys-typescale-title-small-size:         1rem;
+  --md-sys-typescale-title-small-weight:       500;
   --md-sys-typescale-title-small-letter-spacing: 0.01em;
-
-  /* Body Tier */
-  --md-sys-typescale-body-large-size: 1.125rem; /* 18px */
-  --md-sys-typescale-body-large-line-height: 1.6;
-  --md-sys-typescale-body-large-weight: 400;
-
-  --md-sys-typescale-body-medium-size: 1rem; /* 16px */
-  --md-sys-typescale-body-medium-line-height: 1.6;
-  --md-sys-typescale-body-medium-weight: 400;
-
-  --md-sys-typescale-body-small-size: 0.875rem; /* 14px */
-  --md-sys-typescale-body-small-line-height: 1.6;
-  --md-sys-typescale-body-small-weight: 400;
-
-  /* Label Tier */
-  --md-sys-typescale-label-large-size: 0.875rem; /* 14px */
-  --md-sys-typescale-label-large-weight: 500;
+  --md-sys-typescale-body-large-size:          1.125rem;
+  --md-sys-typescale-body-large-line-height:   1.6;
+  --md-sys-typescale-body-large-weight:        400;
+  --md-sys-typescale-body-medium-size:         1rem;
+  --md-sys-typescale-body-medium-line-height:  1.6;
+  --md-sys-typescale-body-medium-weight:       400;
+  --md-sys-typescale-body-small-size:          0.875rem;
+  --md-sys-typescale-body-small-line-height:   1.6;
+  --md-sys-typescale-body-small-weight:        400;
+  --md-sys-typescale-label-large-size:         0.875rem;
+  --md-sys-typescale-label-large-weight:       500;
   --md-sys-typescale-label-large-letter-spacing: 0.15em;
   --md-sys-typescale-label-large-text-transform: uppercase;
+  --md-sys-typescale-label-medium-size:        0.75rem;
+  --md-sys-typescale-label-medium-weight:      400;
 
-  --md-sys-typescale-label-medium-size: 0.75rem; /* 12px */
-  --md-sys-typescale-label-medium-weight: 400;
+  /* --- Spacing aliases (legacy --spacing-* names) --- */
+  --spacing-layout: var(--s-10);
+  --spacing-gap:    var(--s-8);
+  --spacing-xxs:    var(--s-1);
+  --spacing-xs:     var(--s-1);
+  --spacing-sm:     var(--s-2);
+  --spacing-md:     var(--s-4);
+  --spacing-lg:     var(--s-5);
+  --spacing-xl:     var(--s-6);
+  --spacing-2xl:    var(--s-7);
+  --spacing-3xl:    var(--s-8);
 
-  /* --- SPACING & SHAPE --- */
-  
-  /* Layout Spacing (for page-level margins and section gaps) */
-  --spacing-layout: 120px;
-  --spacing-gap: 64px;
+  /* --- Shape aliases --- */
+  --md-sys-shape-corner-full:        var(--radius-pill);
+  --md-sys-shape-corner-large:       var(--radius-1);
+  --md-sys-shape-corner-medium:      var(--radius-1);
+  --md-sys-shape-corner-small:       var(--radius-0);
+  --md-sys-shape-corner-xs:          var(--radius-0);
 
-  /* Component Spacing Scale (8px baseline grid) */
-  --spacing-xxs: 0.125rem;  /* 2px */
-  --spacing-xs: 0.25rem;    /* 4px */
-  --spacing-sm: 0.5rem;     /* 8px */
-  --spacing-md: 1rem;       /* 16px */
-  --spacing-lg: 1.5rem;     /* 24px */
-  --spacing-xl: 2rem;       /* 32px */
-  --spacing-2xl: 3rem;      /* 48px */
-  --spacing-3xl: 4rem;      /* 64px - same as --spacing-gap */
+  /* --- Motion aliases --- */
+  --md-sys-motion-easing-standard:              var(--ease);
+  --md-sys-motion-easing-emphasized:            var(--ease);
+  --md-sys-motion-easing-emphasized-decelerate: var(--ease);
+  --md-sys-motion-easing-emphasized-accelerate: var(--ease-in-out);
+  --md-sys-motion-easing-legacy:                var(--ease);
+  --md-sys-motion-easing-spring:                var(--ease);
+  --md-sys-motion-duration-short1:  var(--dur-1);
+  --md-sys-motion-duration-short2:  var(--dur-1);
+  --md-sys-motion-duration-short3:  var(--dur-1);
+  --md-sys-motion-duration-short4:  var(--dur-1);
+  --md-sys-motion-duration-medium1: var(--dur-2);
+  --md-sys-motion-duration-medium2: var(--dur-2);
+  --md-sys-motion-duration-medium3: var(--dur-2);
+  --md-sys-motion-duration-medium4: var(--dur-2);
+  --md-sys-motion-duration-long1:   var(--dur-3);
+  --md-sys-motion-duration-long2:   var(--dur-3);
+  --md-sys-motion-duration-long3:   var(--dur-3);
+  --md-sys-motion-duration-long4:   var(--dur-3);
 
-  /* Shape (Border Radius) */
-  --md-sys-shape-corner-full: 9999px;
-  --md-sys-shape-corner-large: 32px;
-  --md-sys-shape-corner-medium: 16px;
-  --md-sys-shape-corner-small: 8px;
-  --md-sys-shape-corner-xs: 4px;
-
-  /* --- MOTION TOKENS --- */
-  /* Easing Curves */
-  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
-  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
-  --md-sys-motion-easing-legacy: cubic-bezier(0.4, 0, 0.2, 1);
-  --md-sys-motion-easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  /* Duration Scale */
-  --md-sys-motion-duration-short1: 50ms;
-  --md-sys-motion-duration-short2: 100ms;
-  --md-sys-motion-duration-short3: 150ms;
-  --md-sys-motion-duration-short4: 200ms;
-  --md-sys-motion-duration-medium1: 250ms;
-  --md-sys-motion-duration-medium2: 300ms;
-  --md-sys-motion-duration-medium3: 350ms;
-  --md-sys-motion-duration-medium4: 400ms;
-  --md-sys-motion-duration-long1: 450ms;
-  --md-sys-motion-duration-long2: 500ms;
-  --md-sys-motion-duration-long3: 550ms;
-  --md-sys-motion-duration-long4: 600ms;
-
-  /* --- STATE TOKENS --- */
-  /* Opacity values for Material Design 3 state layers */
-  --md-sys-state-hover-opacity: 0.08;
-  --md-sys-state-focus-opacity: 0.12;
-  --md-sys-state-pressed-opacity: 0.12;
-  --md-sys-state-dragged-opacity: 0.16;
-  --md-sys-state-disabled-opacity: 0.38;
+  /* --- State aliases (opacity values unchanged) --- */
+  --md-sys-state-hover-opacity:              0.08;
+  --md-sys-state-focus-opacity:              0.12;
+  --md-sys-state-pressed-opacity:            0.12;
+  --md-sys-state-dragged-opacity:            0.16;
+  --md-sys-state-disabled-opacity:           0.38;
   --md-sys-state-disabled-container-opacity: 0.12;
 
-  /* --- COMPONENT TOKENS --- */
-  --wy-controls-bar-bg: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
-  --wy-controls-bar-fg: var(--md-sys-color-on-primary);
-  --wy-controls-search-bg: var(--md-sys-color-surface-container-lowest); /* White background */
-  --wy-controls-search-bg-focus: var(--wy-controls-search-bg);
-  --wy-controls-toggle-bg: var(--md-sys-color-surface-container-high);
-  --wy-controls-chip-text: color-mix(in srgb, var(--wy-controls-bar-fg) 60%, transparent);
-  --wy-controls-chip-text-hover: var(--wy-controls-bar-fg);
-  --wy-controls-chip-border: color-mix(in srgb, var(--wy-controls-bar-fg) 20%, transparent);
-  --wy-controls-chip-border-hover: color-mix(in srgb, var(--wy-controls-bar-fg) 40%, transparent);
-  --wy-controls-chip-hover-bg: color-mix(in srgb, var(--wy-controls-bar-fg) 5%, transparent);
-  --wy-controls-chip-focus: color-mix(in srgb, var(--wy-controls-bar-fg) 50%, transparent);
-  --wy-controls-chip-active-bg: var(--md-sys-color-primary); /* Hunter green */
-  --wy-controls-chip-active-fg: var(--md-sys-color-on-primary); /* White text */
-  --wy-controls-chip-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  /* ==========================================================================
+     COMPONENT TOKENS
+     Updated to use new palette. --wy-* names kept for component compatibility.
+     ========================================================================== */
 
-  --wy-filter-chip-bg: var(--md-sys-color-surface-container-lowest); /* White background */
-  --wy-filter-chip-text: var(--md-sys-color-on-surface);
-  --wy-filter-chip-text-hover: var(--md-sys-color-on-surface);
-  --wy-filter-chip-border: transparent; /* No border */
-  --wy-filter-chip-border-hover: transparent;
-  --wy-filter-chip-focus: var(--md-sys-color-primary);
-  --wy-filter-chip-active-bg: var(--md-sys-color-primary); /* Hunter green */
-  --wy-filter-chip-active-fg: var(--md-sys-color-on-primary); /* White text */
-  --wy-filter-chip-font-weight: 500;
-  --wy-filter-chip-shadow: none;
-  --wy-filter-chip-font-family: var(--font-sans);
-  --wy-filter-chip-font-size: var(--md-sys-typescale-label-medium-size, 0.75rem);
-  --wy-filter-chip-font-weight: 500;
+  /* Controls bar */
+  --wy-controls-bar-bg:            color-mix(in srgb, var(--ink) 6%, var(--paper));
+  --wy-controls-bar-fg:            var(--paper);
+  --wy-controls-search-bg:         var(--white);
+  --wy-controls-search-bg-focus:   var(--white);
+  --wy-controls-toggle-bg:         var(--paper-edge);
+  --wy-controls-chip-text:         color-mix(in srgb, var(--paper) 60%, transparent);
+  --wy-controls-chip-text-hover:   var(--paper);
+  --wy-controls-chip-border:       color-mix(in srgb, var(--paper) 20%, transparent);
+  --wy-controls-chip-border-hover: color-mix(in srgb, var(--paper) 40%, transparent);
+  --wy-controls-chip-hover-bg:     color-mix(in srgb, var(--paper) 5%, transparent);
+  --wy-controls-chip-focus:        color-mix(in srgb, var(--paper) 50%, transparent);
+  --wy-controls-chip-active-bg:    var(--paper);
+  --wy-controls-chip-active-fg:    var(--ink);
+  --wy-controls-chip-shadow:       none;
+
+  /* Filter chip */
+  --wy-filter-chip-bg:             var(--white);
+  --wy-filter-chip-text:           var(--ink);
+  --wy-filter-chip-text-hover:     var(--ink);
+  --wy-filter-chip-border:         transparent;
+  --wy-filter-chip-border-hover:   transparent;
+  --wy-filter-chip-focus:          var(--ink);
+  --wy-filter-chip-active-bg:      var(--ink);
+  --wy-filter-chip-active-fg:      var(--paper);
+  --wy-filter-chip-font-weight:    500;
+  --wy-filter-chip-shadow:         none;
+  --wy-filter-chip-font-family:    var(--ff-sans);
+  --wy-filter-chip-font-size:      var(--fs-ui-xs);
   --wy-filter-chip-font-weight-active: 600;
-  --wy-filter-chip-font-style: normal;
-  --wy-filter-chip-padding: 5px 13px; /* Compensate for removed border while preserving chip footprint */
-  --wy-filter-chip-min-height: 28px;
-  --wy-filter-chip-hover-bg: color-mix(in srgb, var(--wy-button-primary-bg) 15%, transparent);
+  --wy-filter-chip-font-style:     normal;
+  --wy-filter-chip-padding:        5px 13px;
+  --wy-filter-chip-min-height:     28px;
+  --wy-filter-chip-hover-bg:       color-mix(in srgb, var(--ink) 8%, transparent);
 
-  /* --- BUTTON SYSTEM TOKENS --- */
-  /* Visual Identity Guide v1.0 - Button System */
-  
-  /* Primary Button (Filled Hunter Green) */
-  --wy-button-primary-bg: var(--md-sys-color-primary);
-  --wy-button-primary-fg: var(--md-sys-color-on-primary);
-  --wy-button-primary-hover-bg: #1e3428;
-  --wy-button-primary-shadow-hover: 0 10px 25px -5px rgba(44, 76, 59, 0.25);
-  
-  /* Secondary Button (Tonal - Warm Clay) */
-  --wy-button-secondary-bg: var(--md-sys-color-surface);
-  --wy-button-secondary-fg: var(--md-sys-color-primary);
-  --wy-button-secondary-hover-bg: color-mix(in srgb, var(--md-sys-color-surface) 95%, black);
-  
-  /* Outlined Button (Editorial) */
-  --wy-button-outlined-bg: transparent;
-  --wy-button-outlined-fg: var(--md-sys-color-primary);
-  --wy-button-outlined-border: var(--md-sys-color-surface-container-highest);
-  --wy-button-outlined-hover-bg: color-mix(in srgb, var(--md-sys-color-surface) 30%, transparent);
-  
-  /* Text Button (Utility) */
-  --wy-button-text-fg: var(--md-sys-color-primary);
-  --wy-button-text-fg-muted: color-mix(in srgb, var(--md-sys-color-primary) 60%, transparent);
-  --wy-button-text-hover-bg: color-mix(in srgb, var(--md-sys-color-primary) 5%, transparent);
-  
-  /* Icon Button */
-  --wy-icon-button-filled-bg: var(--md-sys-color-primary);
-  --wy-icon-button-filled-fg: var(--md-sys-color-on-primary);
-  --wy-icon-button-filled-shadow: 0 4px 12px rgba(44, 76, 59, 0.2);
-  --wy-icon-button-outlined-bg: var(--md-sys-color-background);
-  --wy-icon-button-outlined-fg: var(--md-sys-color-primary);
-  --wy-icon-button-outlined-border: color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
-  
-  /* Utility Tag */
-  --wy-utility-tag-bg: color-mix(in srgb, var(--md-sys-color-primary) 5%, transparent);
-  --wy-utility-tag-fg: var(--md-sys-color-primary);
-  --wy-utility-tag-border: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
-  --wy-utility-tag-add-border: color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent);
-  --wy-utility-tag-add-fg: color-mix(in srgb, var(--md-sys-color-primary) 40%, transparent);
-  
-  /* Button Typography */
+  /* Button system */
+  --wy-button-primary-bg:          var(--ink);
+  --wy-button-primary-fg:          var(--paper);
+  --wy-button-primary-hover-bg:    var(--ink-deep);
+  --wy-button-primary-shadow-hover: 0 10px 25px -5px rgba(40, 40, 40, 0.2);
+  --wy-button-secondary-bg:        var(--paper-deep);
+  --wy-button-secondary-fg:        var(--ink);
+  --wy-button-secondary-hover-bg:  var(--paper-edge);
+  --wy-button-outlined-bg:         transparent;
+  --wy-button-outlined-fg:         var(--ink);
+  --wy-button-outlined-border:     var(--paper-edge);
+  --wy-button-outlined-hover-bg:   color-mix(in srgb, var(--paper-deep) 30%, transparent);
+  --wy-button-text-fg:             var(--ink);
+  --wy-button-text-fg-muted:       var(--ink-mute);
+  --wy-button-text-hover-bg:       color-mix(in srgb, var(--ink) 5%, transparent);
   --wy-button-tracking-architectural: 0.1em;
-  --wy-button-font-weight: 500;
+  --wy-button-font-weight:         500;
+
+  /* Icon button */
+  --wy-icon-button-filled-bg:       var(--ink);
+  --wy-icon-button-filled-fg:       var(--paper);
+  --wy-icon-button-filled-shadow:   none;
+  --wy-icon-button-outlined-bg:     var(--paper);
+  --wy-icon-button-outlined-fg:     var(--ink);
+  --wy-icon-button-outlined-border: var(--paper-edge);
+
+  /* Utility tag */
+  --wy-utility-tag-bg:         color-mix(in srgb, var(--ink) 5%, transparent);
+  --wy-utility-tag-fg:         var(--ink);
+  --wy-utility-tag-border:     var(--paper-edge);
+  --wy-utility-tag-add-border: color-mix(in srgb, var(--ink) 20%, transparent);
+  --wy-utility-tag-add-fg:     var(--ink-mute);
+
+  /* Links modal */
+  --wy-links-modal-title-color:    var(--ink);
+  --wy-links-modal-header-color:   var(--ink);
+  --wy-links-modal-chip-text-color: var(--ink-mute);
+  --wy-links-modal-close-color:    var(--ink-soft);
+  --wy-links-modal-chip-border:    var(--paper-edge);
+
+  /* Dropdown */
+  --wy-dropdown-label-color:       var(--ink-mute);
+  --wy-dropdown-text-color:        var(--ink);
+  --wy-dropdown-icon-color:        var(--ink-mute);
+  --wy-dropdown-bg:                var(--paper-deep);
+  --wy-dropdown-border:            var(--paper-edge);
+  --wy-dropdown-border-hover:      var(--paper-edge);
+  --wy-dropdown-menu-bg:           var(--paper-edge);
+  --wy-dropdown-item-hover-bg:     var(--paper-edge);
+
+  /* Info panel */
+  --wy-info-panel-bg:          var(--paper);
+  --wy-info-panel-border:      var(--paper-edge);
+  --wy-info-panel-text-color:  var(--ink-mute);
+
+  /* Library header */
+  --wy-status-success-color:            var(--ok);
+  --wy-library-header-scrolled-bg:      rgba(255, 250, 245, 0.85);
+  --wy-library-header-scrolled-blur:    14px;
+
+  /* Toast */
+  --wy-toast-success-color: var(--ok);
+  --wy-toast-error-color:   var(--err);
+  --wy-toast-warning-color: var(--ink-mute);
+  --wy-toast-info-color:    var(--ink-mute);
+
+  /* Category tokens (simplified — no longer color-coded) */
+  --wy-color-productivity:           var(--ink-mute);
+  --wy-color-productivity-container: var(--paper-deep);
+  --wy-color-on-productivity-container: var(--ink);
+  --wy-color-expertise:              var(--ink-mute);
+  --wy-color-expertise-container:    var(--paper-deep);
+  --wy-color-on-expertise-container: var(--ink);
+  --wy-color-travel:                 var(--ink-mute);
+  --wy-color-travel-container:       var(--paper-deep);
+  --wy-color-on-travel-container:    var(--ink);
 }
 
-/* --- DARK MODE OVERRIDES --- */
-/* Based on Visual Identity Guide v1.0 dark mode specification */
-/* Supports both system preference (prefers-color-scheme) and manual toggle (html.dark class) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Primary: Hunter Green remains the accent color in dark mode */
-    --md-sys-color-primary: #2D4E3C;
-    --md-sys-color-on-primary: #FFFFFF;
-    /* White text on Hunter Green */
-    --md-sys-color-primary-container: #2D4E3C;
-    /* Hunter Green container */
-    --md-sys-color-on-primary-container: #FFFFFF;
-    /* White text/icon on Hunter Green container */
-    --md-sys-color-primary-tint-10: color-mix(in srgb, var(--md-sys-color-primary) 10%, var(--md-sys-color-surface));
-
-    /* Background: Deep Dark (#161C19) */
-    --md-sys-color-background: #161C19;
-    --md-sys-color-on-background: #F5F2EA;
-    /* Warm Clay text */
-
-    /* Surface: Slightly lighter dark (#1E2622) */
-    --md-sys-color-surface: #1E2622;
-    --md-sys-color-on-surface: #F5F2EA;
-
-    --md-sys-color-surface-variant: #2C3631;
-    --md-sys-color-on-surface-variant: #F5F2EA;
-
-    /* Surface containers: graduated dark tones */
-    --md-sys-color-surface-container-lowest: #121714;
-    --md-sys-color-surface-container-low: #161C19;
-    --md-sys-color-surface-container: #1E2622;
-    --md-sys-color-surface-container-high: #2C3631;
-    --md-sys-color-surface-container-highest: #3E4944;
-
-    --md-sys-color-secondary-container: #2C3631;
-    --md-sys-color-on-secondary-container: #F5F2EA;
-
-    /* Inverse: Light surface for dark mode overlays */
-    --md-sys-color-inverse-surface: #F5F2EA;
-    --md-sys-color-inverse-on-surface: #1E2622;
-
-    /* Outlines: Hunter Green for borders, subtle variant for dividers */
-    --md-sys-color-outline: #2D4E3C;
-    --md-sys-color-outline-variant: rgba(255, 255, 255, 0.1);
-    --md-sys-color-border-variant: rgba(255, 255, 255, 0.1);
-
-    /* Text: Warm Clay (#F5F2EA) for main, muted for secondary */
-    --md-sys-color-text-main: #F5F2EA;
-    --md-sys-color-text-muted: rgba(245, 242, 234, 0.7);
-
-    /* High-contrast heading color for dark backgrounds (meets WCAG 4.5:1) */
-    /* Sage/Mint tint of brand green for dark mode headings */
-    --md-sys-color-text-heading: var(--md-sys-color-on-background);
-    
-    /* Links Modal Specific Colors (dark mode) */
-    --wy-links-modal-text-muted: rgba(245, 242, 234, 0.7); /* Muted text in dark mode */
-    --wy-links-modal-chip-border: rgba(255, 255, 255, 0.1); /* Subtle border in dark mode */
-    
-    /* Dropdown Component Colors (dark mode) */
-    --wy-dropdown-label-color: #A1A1AA;         /* zinc-400: lighter gray for dark mode labels */
-    --wy-dropdown-text-color: #E4E4E7;          /* zinc-200: high contrast text for dark mode */
-    --wy-dropdown-icon-color: #A1A1AA;          /* zinc-400: matches label color */
-    --wy-dropdown-bg: #18181B;                  /* zinc-900: dark background for dropdown */
-    --wy-dropdown-border: #3F3F46;              /* zinc-700: darker border for dark mode */
-    --wy-dropdown-menu-bg: #27272A;             /* zinc-800: slightly lighter for menu */
-    --wy-dropdown-item-hover-bg: #3F3F46;       /* zinc-700: hover state for menu items */
-    
-    /* Info Panel Component Colors (dark mode) */
-    --wy-info-panel-bg: rgba(24, 24, 27, 0.5);  /* zinc-900 with transparency */
-    --wy-info-panel-border: #27272A;            /* zinc-800: subtle border in dark mode */
-    --wy-info-panel-text-color: #A1A1AA;        /* zinc-400: muted text for dark mode */
-    
-    /* Library Header Component Colors (dark mode) */
-    --wy-status-success-color: #66BB8A;         /* Lighter green for better contrast in dark mode */
-    --wy-library-header-scrolled-bg: rgba(18, 18, 18, 0.3);  /* Dark with 30% opacity for glass morphism */
-
-    /* Toast semantic colors (dark mode) */
-    --wy-toast-success-color: #66BB8A;
-    --wy-toast-error-color: #FFB4AB;
-    --wy-toast-warning-color: #E4C086;
-    --wy-toast-info-color: #D7D3C8;
-    
-    /* Button System Tokens (dark mode) */
-    --wy-button-primary-hover-bg: #3A5F4A;      /* Lighter hover in dark mode */
-    --wy-button-primary-shadow-hover: 0 10px 25px -5px rgba(45, 78, 60, 0.4);
-    --wy-button-secondary-bg: var(--md-sys-color-surface-container);
-    --wy-button-secondary-fg: var(--md-sys-color-on-surface);
-    --wy-button-secondary-hover-bg: var(--md-sys-color-surface-container-high);
-    --wy-button-outlined-fg: var(--md-sys-color-on-surface);
-    --wy-button-outlined-border: rgba(255, 255, 255, 0.2);
-    --wy-button-outlined-hover-bg: rgba(255, 255, 255, 0.05);
-    --wy-button-text-fg: var(--md-sys-color-on-surface);
-    --wy-button-text-fg-muted: rgba(245, 242, 234, 0.6);
-    --wy-button-text-hover-bg: rgba(255, 255, 255, 0.05);
-    --wy-icon-button-filled-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    --wy-icon-button-outlined-bg: var(--md-sys-color-surface-container);
-    --wy-icon-button-outlined-border: rgba(255, 255, 255, 0.2);
-    --wy-utility-tag-bg: rgba(255, 255, 255, 0.05);
-    --wy-utility-tag-fg: var(--md-sys-color-on-background);
-    --wy-utility-tag-border: rgba(255, 255, 255, 0.1);
-    --wy-utility-tag-add-border: rgba(255, 255, 255, 0.2);
-    --wy-utility-tag-add-fg: rgba(255, 255, 255, 0.4);
-  }
+/* Responsive layout gutters */
+@media (min-width: 900px) {
+  :root { --outer-gutter: 32px; }
 }
-
-/* Dark mode via manual toggle (html.dark class) - mirrors system preference dark mode */
-html.dark :root {
-  /* Primary: Hunter Green remains the accent color in dark mode */
-  --md-sys-color-primary: #2D4E3C;
-  --md-sys-color-on-primary: #FFFFFF;
-  --md-sys-color-primary-container: #2D4E3C;
-  --md-sys-color-on-primary-container: #FFFFFF;
-  --md-sys-color-primary-tint-10: color-mix(in srgb, var(--md-sys-color-primary) 10%, var(--md-sys-color-surface));
-
-  /* Background: Deep Dark (#161C19) */
-  --md-sys-color-background: #161C19;
-  --md-sys-color-on-background: #F5F2EA;
-
-  /* Surface: Slightly lighter dark (#1E2622) */
-  --md-sys-color-surface: #1E2622;
-  --md-sys-color-on-surface: #F5F2EA;
-
-  --md-sys-color-surface-variant: #2C3631;
-  --md-sys-color-on-surface-variant: #F5F2EA;
-
-  /* Surface containers: graduated dark tones */
-  --md-sys-color-surface-container-lowest: #121714;
-  --md-sys-color-surface-container-low: #161C19;
-  --md-sys-color-surface-container: #1E2622;
-  --md-sys-color-surface-container-high: #2C3631;
-  --md-sys-color-surface-container-highest: #3E4944;
-
-  --md-sys-color-secondary-container: #2C3631;
-  --md-sys-color-on-secondary-container: #F5F2EA;
-
-  /* Inverse: Light surface for dark mode overlays */
-  --md-sys-color-inverse-surface: #F5F2EA;
-  --md-sys-color-inverse-on-surface: #1E2622;
-
-  /* Outlines: Hunter Green for borders, subtle variant for dividers */
-  --md-sys-color-outline: #2D4E3C;
-  --md-sys-color-outline-variant: rgba(255, 255, 255, 0.1);
-  --md-sys-color-border-variant: rgba(255, 255, 255, 0.1);
-
-  /* Text: Warm Clay (#F5F2EA) for main, muted for secondary */
-  --md-sys-color-text-main: #F5F2EA;
-  --md-sys-color-text-muted: rgba(245, 242, 234, 0.7);
-
-  /* High-contrast heading color for dark backgrounds (meets WCAG 4.5:1) */
-  /* Sage/Mint tint of brand green for dark mode headings */
-  --md-sys-color-text-heading: var(--md-sys-color-on-background);
-
-  /* Links Modal Specific Colors (dark mode) */
-  --wy-links-modal-text-muted: rgba(245, 242, 234, 0.7);
-  --wy-links-modal-chip-border: rgba(255, 255, 255, 0.1);
-  
-  /* Dropdown Component Colors (dark mode) */
-  --wy-dropdown-label-color: #A1A1AA;
-  --wy-dropdown-text-color: #E4E4E7;
-  --wy-dropdown-icon-color: #A1A1AA;
-  --wy-dropdown-bg: #18181B;
-  --wy-dropdown-border: #3F3F46;
-  --wy-dropdown-menu-bg: #27272A;
-  --wy-dropdown-item-hover-bg: #3F3F46;
-  
-  /* Info Panel Component Colors (dark mode) */
-  --wy-info-panel-bg: rgba(24, 24, 27, 0.5);
-  --wy-info-panel-border: #27272A;
-  --wy-info-panel-text-color: #A1A1AA;
-  
-  /* Library Header Component Colors (dark mode) */
-  --wy-status-success-color: #66BB8A;
-  --wy-library-header-scrolled-bg: rgba(18, 18, 18, 0.3);
-  
-  /* Button System Tokens (dark mode) */
-  --wy-button-primary-hover-bg: #3A5F4A;
-  --wy-button-primary-shadow-hover: 0 10px 25px -5px rgba(45, 78, 60, 0.4);
-  --wy-button-secondary-bg: var(--md-sys-color-surface-container);
-  --wy-button-secondary-fg: var(--md-sys-color-on-surface);
-  --wy-button-secondary-hover-bg: var(--md-sys-color-surface-container-high);
-  --wy-button-outlined-fg: var(--md-sys-color-on-surface);
-  --wy-button-outlined-border: rgba(255, 255, 255, 0.2);
-  --wy-button-outlined-hover-bg: rgba(255, 255, 255, 0.05);
-  --wy-button-text-fg: var(--md-sys-color-on-surface);
-  --wy-button-text-fg-muted: rgba(245, 242, 234, 0.6);
-  --wy-button-text-hover-bg: rgba(255, 255, 255, 0.05);
-  --wy-icon-button-filled-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --wy-icon-button-outlined-bg: var(--md-sys-color-surface-container);
-  --wy-icon-button-outlined-border: rgba(255, 255, 255, 0.2);
-  --wy-utility-tag-bg: rgba(255, 255, 255, 0.05);
-  --wy-utility-tag-fg: var(--md-sys-color-on-surface);
-  --wy-utility-tag-border: rgba(255, 255, 255, 0.1);
-  --wy-utility-tag-add-border: rgba(255, 255, 255, 0.2);
-  --wy-utility-tag-add-fg: rgba(255, 255, 255, 0.4);
+@media (min-width: 1367px) {
+  :root { --outer-gutter: 40px; --inner-gutter: 40px; }
 }

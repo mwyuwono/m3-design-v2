@@ -85,7 +85,7 @@ export class WyPromptEditor extends LitElement {
         }
 
         .breadcrumbs a {
-            color: var(--md-sys-color-primary, #2C4C3B);
+            color: var(--md-sys-color-primary, #282828);
             text-decoration: none;
         }
 
@@ -110,8 +110,8 @@ export class WyPromptEditor extends LitElement {
 
         .info-banner {
             padding: var(--spacing-md, 16px);
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 5%, transparent);
-            border-left: 4px solid var(--md-sys-color-primary, #2C4C3B);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 5%, transparent);
+            border-left: 4px solid var(--md-sys-color-primary, #282828);
             border-radius: var(--md-sys-shape-corner-xs, 4px);
             margin-bottom: var(--spacing-md, 16px);
         }
@@ -128,7 +128,7 @@ export class WyPromptEditor extends LitElement {
             font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
             font-size: 0.8125rem;
             padding: 2px 6px;
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 10%, transparent);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 10%, transparent);
             border-radius: var(--md-sys-shape-corner-xs, 4px);
         }
 
@@ -160,12 +160,12 @@ export class WyPromptEditor extends LitElement {
         }
 
         .button-primary {
-            background-color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: var(--md-sys-color-primary, #282828);
             color: var(--md-sys-color-on-primary, #FFFFFF);
         }
 
         .button-primary:hover {
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 90%, black);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 90%, black);
         }
 
         .card {
@@ -207,9 +207,9 @@ export class WyPromptEditor extends LitElement {
         .preview-status {
             font-family: var(--font-body, 'DM Sans', sans-serif);
             font-size: 0.75rem;
-            color: var(--md-sys-color-primary, #2C4C3B);
+            color: var(--md-sys-color-primary, #282828);
             padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 10%, transparent);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 10%, transparent);
             border-radius: var(--md-sys-shape-corner-full, 9999px);
         }
 
@@ -236,8 +236,8 @@ export class WyPromptEditor extends LitElement {
             text-transform: uppercase;
             letter-spacing: 0.05em;
             padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 10%, transparent);
-            color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 10%, transparent);
+            color: var(--md-sys-color-primary, #282828);
             border-radius: var(--md-sys-shape-corner-xs, 4px);
             margin-bottom: var(--spacing-sm, 8px);
         }
@@ -261,7 +261,7 @@ export class WyPromptEditor extends LitElement {
         .preview-icon {
             width: 48px;
             height: 48px;
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 10%, transparent);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 10%, transparent);
             border-radius: var(--md-sys-shape-corner-full, 9999px);
             display: flex;
             align-items: center;
@@ -271,7 +271,7 @@ export class WyPromptEditor extends LitElement {
 
         .preview-icon .material-symbols-outlined {
             font-size: 24px;
-            color: var(--md-sys-color-primary, #2C4C3B);
+            color: var(--md-sys-color-primary, #282828);
         }
 
         .mode-toggle {
@@ -328,7 +328,7 @@ export class WyPromptEditor extends LitElement {
         .button-ghost {
             background: transparent;
             border: 1px solid var(--md-sys-color-outline-variant, #DDD);
-            color: var(--md-sys-color-primary, #2C4C3B);
+            color: var(--md-sys-color-primary, #282828);
             position: relative;
             overflow: hidden;
         }
@@ -337,7 +337,7 @@ export class WyPromptEditor extends LitElement {
             content: '';
             position: absolute;
             inset: 0;
-            background-color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: var(--md-sys-color-primary, #282828);
             opacity: 0;
             transition: opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
             pointer-events: none;
@@ -348,7 +348,7 @@ export class WyPromptEditor extends LitElement {
         }
 
         .button-ghost:hover {
-            border-color: var(--md-sys-color-primary, #2C4C3B);
+            border-color: var(--md-sys-color-primary, #282828);
         }
 
         .button-small {

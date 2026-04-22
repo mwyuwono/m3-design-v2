@@ -19,7 +19,7 @@ export class WySelectionCard extends LitElement {
 
     .card {
       padding: 16px 20px;
-      border-radius: 16px;
+      border-radius: 0;
       border: 1px solid var(--md-sys-color-outline-variant);
       background-color: var(--md-sys-color-surface);
       display: flex;
@@ -34,7 +34,7 @@ export class WySelectionCard extends LitElement {
 
     :host([checked]) .card {
       border-color: var(--md-sys-color-primary);
-      background-color: rgba(45, 78, 60, 0.04);
+      background-color: color-mix(in srgb, var(--ink) 4%, transparent);
       box-shadow: 0 0 0 1px var(--md-sys-color-primary);
     }
 
@@ -47,7 +47,7 @@ export class WySelectionCard extends LitElement {
       flex-shrink: 0;
       width: 40px;
       height: 40px;
-      border-radius: 12px;
+      border-radius: 0;
       background-color: var(--md-sys-color-surface-variant);
       display: flex;
       align-items: center;
@@ -101,7 +101,7 @@ export class WySelectionCard extends LitElement {
     /* Accessibility focus */
     .card:focus-within {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(45, 78, 60, 0.2);
+      box-shadow: 0 0 0 1px var(--ink);
     }
   `;
 

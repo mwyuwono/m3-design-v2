@@ -36,7 +36,7 @@ export class WyExportModal extends LitElement {
 
     .preview-pane {
       background-color: var(--md-sys-color-surface-container-low);
-      border-radius: 12px;
+      border-radius: 0;
       display: flex;
       align-items: center;
       justify-content: center;

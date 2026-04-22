@@ -26,7 +26,7 @@ export class WyPlotCard extends LitElement {
     .card {
       background-color: var(--md-sys-color-surface);
       border: 1px solid var(--md-sys-color-outline-variant);
-      border-radius: 16px;
+      border-radius: 0;
       padding: 16px 20px;
       display: flex;
       flex-direction: column;

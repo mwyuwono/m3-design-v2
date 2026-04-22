@@ -39,7 +39,7 @@ export class WyStepEditor extends LitElement {
         }
 
         .step-card.expanded {
-            border-color: var(--md-sys-color-primary, #2C4C3B);
+            border-color: var(--md-sys-color-primary, #282828);
         }
 
         .step-header {
@@ -57,7 +57,7 @@ export class WyStepEditor extends LitElement {
             content: '';
             position: absolute;
             inset: 0;
-            background-color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: var(--md-sys-color-primary, #282828);
             opacity: 0;
             transition: opacity var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
             pointer-events: none;
@@ -75,7 +75,7 @@ export class WyStepEditor extends LitElement {
             text-transform: uppercase;
             letter-spacing: 0.05em;
             padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
-            background-color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: var(--md-sys-color-primary, #282828);
             color: var(--md-sys-color-on-primary, #FFFFFF);
             border-radius: var(--md-sys-shape-corner-full, 9999px);
         }
@@ -124,7 +124,7 @@ export class WyStepEditor extends LitElement {
             display: flex;
             gap: var(--spacing-xs, 4px);
             padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 5%, transparent);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 5%, transparent);
             border-top: 1px solid var(--md-sys-color-outline-variant, #DDD);
         }
 
@@ -161,7 +161,7 @@ export class WyStepEditor extends LitElement {
         }
 
         .control-button:focus-visible {
-            outline: 3px solid var(--md-sys-color-primary, #2C4C3B);
+            outline: 3px solid var(--md-sys-color-primary, #282828);
             outline-offset: 2px;
         }
 
@@ -220,7 +220,7 @@ export class WyStepEditor extends LitElement {
         input:focus,
         textarea:focus {
             outline: none;
-            border-color: var(--md-sys-color-primary, #2C4C3B);
+            border-color: var(--md-sys-color-primary, #282828);
         }
 
         textarea {

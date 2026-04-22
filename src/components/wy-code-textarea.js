@@ -54,8 +54,8 @@ export class WyCodeTextarea extends LitElement {
 
         textarea:focus {
             outline: none;
-            border-color: var(--md-sys-color-primary, #2C4C3B);
-            box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 10%, transparent);
+            border-color: var(--md-sys-color-primary, #282828);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary, #282828) 10%, transparent);
         }
 
         textarea::placeholder {
@@ -75,19 +75,19 @@ export class WyCodeTextarea extends LitElement {
             align-items: center;
             gap: var(--spacing-xxs, 2px);
             padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 10%, transparent);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 10%, transparent);
             border-radius: var(--md-sys-shape-corner-full, 9999px);
             font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
             font-size: 0.75rem;
-            color: var(--md-sys-color-primary, #2C4C3B);
+            color: var(--md-sys-color-primary, #282828);
             cursor: pointer;
-            border: 1px solid color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 30%, transparent);
+            border: 1px solid color-mix(in srgb, var(--md-sys-color-primary, #282828) 30%, transparent);
             transition: all var(--md-sys-motion-duration-short2, 200ms) var(--md-sys-motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
         }
 
         .variable-chip:hover {
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 20%, transparent);
-            border-color: var(--md-sys-color-primary, #2C4C3B);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 20%, transparent);
+            border-color: var(--md-sys-color-primary, #282828);
         }
 
         .char-count {
@@ -99,7 +99,7 @@ export class WyCodeTextarea extends LitElement {
         }
 
         .char-count.over-limit {
-            color: var(--md-sys-color-error, #B3261E);
+            color: var(--md-sys-color-error, #FF0101);
         }
     `;
 

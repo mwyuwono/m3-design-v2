@@ -37,7 +37,7 @@ export class WyImageUpload extends LitElement {
 
         .upload-zone {
             position: relative;
-            border: 2px dashed color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 20%, transparent);
+            border: 2px dashed color-mix(in srgb, var(--md-sys-color-primary, #282828) 20%, transparent);
             border-radius: var(--md-sys-shape-corner-medium, 16px);
             padding: var(--spacing-2xl, 48px) var(--spacing-xl, 32px);
             text-align: center;
@@ -48,13 +48,13 @@ export class WyImageUpload extends LitElement {
 
         .upload-zone:hover {
             background-color: var(--md-sys-color-surface, #FDFBF7);
-            border-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 40%, transparent);
+            border-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 40%, transparent);
         }
 
         .upload-zone.dragging {
-            border-color: var(--md-sys-color-primary, #2C4C3B);
+            border-color: var(--md-sys-color-primary, #282828);
             border-style: solid;
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 5%, transparent);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 5%, transparent);
         }
 
         .upload-zone.has-image {
@@ -68,7 +68,7 @@ export class WyImageUpload extends LitElement {
             width: 48px;
             height: 48px;
             margin: 0 auto var(--spacing-md, 16px);
-            background-color: color-mix(in srgb, var(--md-sys-color-primary, #2C4C3B) 5%, transparent);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary, #282828) 5%, transparent);
             border-radius: var(--md-sys-shape-corner-full, 9999px);
             display: flex;
             align-items: center;
@@ -78,7 +78,7 @@ export class WyImageUpload extends LitElement {
         .material-symbols-outlined {
             font-family: 'Material Symbols Outlined';
             font-size: 24px;
-            color: var(--md-sys-color-primary, #2C4C3B);
+            color: var(--md-sys-color-primary, #282828);
         }
 
         .upload-text {
@@ -116,7 +116,7 @@ export class WyImageUpload extends LitElement {
             right: var(--spacing-sm, 8px);
             width: 32px;
             height: 32px;
-            background-color: var(--md-sys-color-error, #B3261E);
+            background-color: var(--md-sys-color-error, #FF0101);
             border: none;
             border-radius: var(--md-sys-shape-corner-full, 9999px);
             cursor: pointer;
@@ -133,7 +133,7 @@ export class WyImageUpload extends LitElement {
         }
 
         .remove-button:hover {
-            background-color: color-mix(in srgb, var(--md-sys-color-error, #B3261E) 90%, black);
+            background-color: color-mix(in srgb, var(--md-sys-color-error, #FF0101) 90%, black);
         }
 
         .remove-button .material-symbols-outlined {

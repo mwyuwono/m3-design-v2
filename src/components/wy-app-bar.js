@@ -74,7 +74,7 @@ export class WyAppBar extends LitElement {
       color: var(--md-sys-color-text-heading);
       text-decoration: none;
       padding: 8px 16px;
-      border-radius: 20px;
+      border-radius: 0;
       transition: background-color 0.2s;
     }
 
