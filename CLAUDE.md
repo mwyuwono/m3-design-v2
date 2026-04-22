@@ -91,7 +91,9 @@ Preferred verification-based communication:
 
 ## Project Overview
 
-M3 Design System v2 - A production-ready Web Component library built on Material Design 3 with Lit 3.x. The aesthetic is "Soft Modernism": organic M3 shapes (capsule buttons, rounded cards) paired with sharp editorial typography (Playfair Display) and a warm heritage color palette.
+M3 Design System v2 - A production-ready Web Component library built on Lit 3.x. The aesthetic is **"The Nineteenth"**: editorial minimalism with a warm cream/ink palette, flat shapes (zero border-radius on containers), Playfair Display serif headings, Inter sans-serif body, and simplified motion. Dark mode is not supported — light only.
+
+The design system was migrated from Material Design 3 ("Soft Modernism") to "The Nineteenth" in April 2026. All `--md-sys-*` token names are kept as legacy aliases pointing to the new `--paper`/`--ink` token system for backward compatibility.
 
 
 ## Default Change Locus (Important)
@@ -353,67 +355,72 @@ JSON files in `src/data/` drive page content. `main.js` reads JSON and dynamical
 ## Design System Rules
 
 ### Typography
-- **Headings**: Playfair Display (high-contrast Didone serif)
-- **Body/UI**: DM Sans (geometric sans-serif)
-- **Labels**: ALL CAPS with wide letter-spacing (0.05em-0.1em)
+- **Headings/Display**: Playfair Display (serif) — token: `--ff-serif`
+- **Body/UI**: Inter (sans-serif) — token: `--ff-sans`
+- **Monospace**: SF Mono / Menlo — token: `--ff-mono`
+- **Labels**: ALL CAPS with `letter-spacing: var(--tr-eyebrow)` (0.18em)
+- Legacy aliases `--font-serif`, `--font-sans`, `--font-body` resolve to the above
 
 ### Colors (Always use tokens, never hardcode)
+
+**Canonical new tokens (prefer these):**
 ```css
---md-sys-color-primary: #2C4C3B;        /* Hunter Green */
---md-sys-color-background: #FDFBF7;     /* Alabaster */
---md-sys-color-surface: #F5F2EA;        /* Warm Clay */
---md-sys-color-on-surface: #121714;     /* Never pure black */
+--paper:      #FFFAF5;   /* primary background */
+--paper-deep: #F4EFEB;   /* card surfaces, section bands */
+--paper-edge: #E8E2DA;   /* hairline rules, borders */
+--ink:        #282828;   /* body text, headings, primary actions */
+--ink-mute:   #868685;   /* secondary copy, metadata */
+--ink-soft:   #B8B3AC;   /* captions, disabled */
+--white:      #FFFFFF;   /* form inputs only */
+--ok:         #28C101;   /* success — use sparingly */
+--err:        #FF0101;   /* error — use sparingly */
 ```
+
+**Semantic aliases (also valid):**
+```css
+--bg:       var(--paper)
+--bg-alt:   var(--paper-deep)
+--fg:       var(--ink)
+--fg-muted: var(--ink-mute)
+--rule:     var(--ink)        /* authoritative 1px line */
+--rule-soft:var(--paper-edge) /* secondary dividers */
+```
+
+**Legacy `--md-sys-*` names are aliased** and still resolve correctly, but prefer the new names for any new code.
 
 ### Spacing & Shape
 
-**Layout Spacing:**
-- `--spacing-layout`: 120px (desktop page margins)
-- `--spacing-gap`: 64px (section gaps)
+**Spacing — 4px base grid:**
+- `--s-1`: 4px | `--s-2`: 8px | `--s-3`: 12px | `--s-4`: 16px
+- `--s-5`: 24px | `--s-6`: 32px | `--s-7`: 48px | `--s-8`: 64px
+- `--s-9`: 96px | `--s-10`: 128px
+- Legacy `--spacing-sm/md/lg/xl` aliases also resolve correctly
 
-**Component Spacing Scale (8px baseline grid):**
-- `--spacing-xxs`: 2px (0.125rem)
-- `--spacing-xs`: 4px (0.25rem)
-- `--spacing-sm`: 8px (0.5rem)
-- `--spacing-md`: 16px (1rem)
-- `--spacing-lg`: 24px (1.5rem)
-- `--spacing-xl`: 32px (2rem)
-- `--spacing-2xl`: 48px (3rem)
-- `--spacing-3xl`: 64px (4rem)
+**Shape (Border Radius) — flat by default:**
+- `--radius-0`: 0 (default — nothing is rounded)
+- `--radius-1`: 2px (rare — small badges only)
+- `--radius-pill`: 999px (chips and catalogue tags only)
+- Legacy `--md-sys-shape-corner-*` aliases resolve: full→pill, large/medium→radius-1, small/xs→radius-0
 
-**Shape (Border Radius):**
-- `--md-sys-shape-corner-xs`: 4px
-- `--md-sys-shape-corner-small`: 8px
-- `--md-sys-shape-corner-medium`: 16px (cards)
-- `--md-sys-shape-corner-large`: 32px (large cards)
-- `--md-sys-shape-corner-full`: 9999px (capsule buttons)
+**No hover lift transforms.** Cards and buttons do not `translateY` on hover.
+**No elevation shadows** on cards. Only `--shadow-modal` (0 12px 40px rgba(40,40,40,0.08)) on modals.
 
 ### Motion Tokens
+- `--ease`: cubic-bezier(0.2, 0.6, 0.2, 1)
+- `--ease-in-out`: cubic-bezier(0.6, 0, 0.4, 1)
+- `--dur-1`: 150ms (hover) | `--dur-2`: 350ms (reveal) | `--dur-3`: 500ms | `--dur-4`: 800ms
+- Legacy `--md-sys-motion-*` aliases resolve to the above
 
-**Easing Curves:**
-- `--md-sys-motion-easing-standard`: cubic-bezier(0.2, 0, 0, 1)
-- `--md-sys-motion-easing-emphasized`: cubic-bezier(0.2, 0, 0, 1)
-- `--md-sys-motion-easing-emphasized-decelerate`: cubic-bezier(0.05, 0.7, 0.1, 1)
-- `--md-sys-motion-easing-emphasized-accelerate`: cubic-bezier(0.3, 0, 0.8, 0.15)
-- `--md-sys-motion-easing-legacy`: cubic-bezier(0.4, 0, 0.2, 1)
-- `--md-sys-motion-easing-spring`: cubic-bezier(0.34, 1.56, 0.64, 1)
-
-**Duration Scale:**
-- Short: `--md-sys-motion-duration-short1` (50ms) through `short4` (200ms)
-- Medium: `--md-sys-motion-duration-medium1` (250ms) through `medium4` (400ms)
-- Long: `--md-sys-motion-duration-long1` (450ms) through `long4` (600ms)
-
-### State Tokens
-
-**Opacity values for Material Design 3 state layers:**
+### State Tokens (unchanged)
 - `--md-sys-state-hover-opacity`: 0.08
 - `--md-sys-state-focus-opacity`: 0.12
 - `--md-sys-state-pressed-opacity`: 0.12
-- `--md-sys-state-dragged-opacity`: 0.16
 - `--md-sys-state-disabled-opacity`: 0.38
-- `--md-sys-state-disabled-container-opacity`: 0.12
 
-**Usage:** Always use state tokens with pseudo-element overlays for interactive states. Never change background colors directly on hover.
+**Usage:** Use pseudo-element overlays with state opacity for hover/focus. Never change background directly on hover.
+
+### Dark Mode
+**Dark mode is removed.** Do not add `@media (prefers-color-scheme: dark)` or `html.dark` blocks. The system is light-only.
 
 ## Shadow DOM Font Loading
 
@@ -461,7 +468,7 @@ static styles = css`
 
 The following components already include necessary font imports:
 - `wy-modal` - Playfair Display
-- `wy-prompt-modal` - Playfair Display + DM Sans
+- `wy-prompt-modal` - Playfair Display + Inter
 - `wy-export-modal` - Playfair Display
 - `wy-controls-bar` - Material Symbols
 
@@ -492,15 +499,8 @@ Set variables on the parent component's host element - they cascade to immediate
 }
 ```
 
-### When using `prefers-color-scheme` tokens
-If the consuming app is light-theme-only but the design system has dark mode overrides, use explicit hex values instead of `var()` references to avoid dark mode interference:
-```css
-/* Bad - may resolve to dark mode value if user prefers dark */
---wy-filter-chip-active-bg: var(--md-sys-color-primary-container);
-
-/* Good - explicit value for light-theme-only apps */
---wy-filter-chip-active-bg: #E8F5E9;
-```
+### Dark mode and token resolution
+The design system is light-only — no dark mode tokens exist. CSS variable references will always resolve to the light palette. Do not add dark mode media queries.
 
 ### CRITICAL: Avoid ::part() for Structural Layout (Anti-Pattern)
 
